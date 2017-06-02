@@ -1,2 +1,2 @@
 # OrangeDotNET
-.NET Core module for GTA Orange
+.NET module for GTA Orange
