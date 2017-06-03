@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace OrangeDotNET_Mono
 {
-    public class Main
+    public class Program
     {
+        static API API;
+        static void Main(string[] args)
+        {
+            API.Set(API);
+            API.Print("OrangeDotNET sucessfully loaded!");
+        }
     }
 }
