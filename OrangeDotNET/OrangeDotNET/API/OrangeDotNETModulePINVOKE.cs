@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 
-class OrangeDotNETPINVOKE {
+class OrangeDotNETModulePINVOKE {
 
   protected class SWIGExceptionHelper {
 
@@ -32,8 +32,8 @@ class OrangeDotNETPINVOKE {
     static ExceptionArgumentDelegate argumentNullDelegate = new ExceptionArgumentDelegate(SetPendingArgumentNullException);
     static ExceptionArgumentDelegate argumentOutOfRangeDelegate = new ExceptionArgumentDelegate(SetPendingArgumentOutOfRangeException);
 
-    [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="SWIGRegisterExceptionCallbacks_OrangeDotNET")]
-    public static extern void SWIGRegisterExceptionCallbacks_OrangeDotNET(
+    [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="SWIGRegisterExceptionCallbacks_OrangeDotNETModule")]
+    public static extern void SWIGRegisterExceptionCallbacks_OrangeDotNETModule(
                                 ExceptionDelegate applicationDelegate,
                                 ExceptionDelegate arithmeticDelegate,
                                 ExceptionDelegate divideByZeroDelegate, 
@@ -46,8 +46,8 @@ class OrangeDotNETPINVOKE {
                                 ExceptionDelegate overflowDelegate, 
                                 ExceptionDelegate systemExceptionDelegate);
 
-    [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="SWIGRegisterExceptionArgumentCallbacks_OrangeDotNET")]
-    public static extern void SWIGRegisterExceptionCallbacksArgument_OrangeDotNET(
+    [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="SWIGRegisterExceptionArgumentCallbacks_OrangeDotNETModule")]
+    public static extern void SWIGRegisterExceptionCallbacksArgument_OrangeDotNETModule(
                                 ExceptionArgumentDelegate argumentDelegate,
                                 ExceptionArgumentDelegate argumentNullDelegate,
                                 ExceptionArgumentDelegate argumentOutOfRangeDelegate);
@@ -101,7 +101,7 @@ class OrangeDotNETPINVOKE {
     }
 
     static SWIGExceptionHelper() {
-      SWIGRegisterExceptionCallbacks_OrangeDotNET(
+      SWIGRegisterExceptionCallbacks_OrangeDotNETModule(
                                 applicationDelegate,
                                 arithmeticDelegate,
                                 divideByZeroDelegate,
@@ -114,7 +114,7 @@ class OrangeDotNETPINVOKE {
                                 overflowDelegate,
                                 systemDelegate);
 
-      SWIGRegisterExceptionCallbacksArgument_OrangeDotNET(
+      SWIGRegisterExceptionCallbacksArgument_OrangeDotNETModule(
                                 argumentDelegate,
                                 argumentNullDelegate,
                                 argumentOutOfRangeDelegate);
@@ -142,7 +142,7 @@ class OrangeDotNETPINVOKE {
       if (pendingException != null)
         throw new global::System.ApplicationException("FATAL: An earlier pending exception from unmanaged code was missed and thus not thrown (" + pendingException.ToString() + ")", e);
       pendingException = e;
-      lock(typeof(OrangeDotNETPINVOKE)) {
+      lock(typeof(OrangeDotNETModulePINVOKE)) {
         numExceptionsPending++;
       }
     }
@@ -153,7 +153,7 @@ class OrangeDotNETPINVOKE {
         if (pendingException != null) {
           e = pendingException;
           pendingException = null;
-          lock(typeof(OrangeDotNETPINVOKE)) {
+          lock(typeof(OrangeDotNETModulePINVOKE)) {
             numExceptionsPending--;
           }
         }
@@ -168,508 +168,508 @@ class OrangeDotNETPINVOKE {
     public delegate string SWIGStringDelegate(string message);
     static SWIGStringDelegate stringDelegate = new SWIGStringDelegate(CreateString);
 
-    [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="SWIGRegisterStringCallback_OrangeDotNET")]
-    public static extern void SWIGRegisterStringCallback_OrangeDotNET(SWIGStringDelegate stringDelegate);
+    [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="SWIGRegisterStringCallback_OrangeDotNETModule")]
+    public static extern void SWIGRegisterStringCallback_OrangeDotNETModule(SWIGStringDelegate stringDelegate);
 
     static string CreateString(string cString) {
       return cString;
     }
 
     static SWIGStringHelper() {
-      SWIGRegisterStringCallback_OrangeDotNET(stringDelegate);
+      SWIGRegisterStringCallback_OrangeDotNETModule(stringDelegate);
     }
   }
 
   static protected SWIGStringHelper swigStringHelper = new SWIGStringHelper();
 
 
-  static OrangeDotNETPINVOKE() {
+  static OrangeDotNETModulePINVOKE() {
   }
 
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_M_STRING_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_M_STRING_get")]
   public static extern int M_STRING_get();
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_M_INT_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_M_INT_get")]
   public static extern int M_INT_get();
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_M_BOOL_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_M_BOOL_get")]
   public static extern int M_BOOL_get();
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_M_DOUBLE_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_M_DOUBLE_get")]
   public static extern int M_DOUBLE_get();
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_M_ULONG_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_M_ULONG_get")]
   public static extern int M_ULONG_get();
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_M_ARRAY_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_M_ARRAY_get")]
   public static extern int M_ARRAY_get();
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MArray_ikeys_set")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MArray_ikeys_set")]
   public static extern void MArray_ikeys_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MArray_ikeys_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MArray_ikeys_get")]
   public static extern global::System.IntPtr MArray_ikeys_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MArray_skeys_set")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MArray_skeys_set")]
   public static extern void MArray_skeys_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MArray_skeys_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MArray_skeys_get")]
   public static extern global::System.IntPtr MArray_skeys_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_new_MArray")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_new_MArray")]
   public static extern global::System.IntPtr new_MArray();
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_delete_MArray")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_delete_MArray")]
   public static extern void delete_MArray(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_CreateMArray")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_CreateMArray")]
   public static extern global::System.IntPtr MValue_CreateMArray();
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_new_MValue__SWIG_0")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_new_MValue__SWIG_0")]
   public static extern global::System.IntPtr new_MValue__SWIG_0();
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_new_MValue__SWIG_1")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_new_MValue__SWIG_1")]
   public static extern global::System.IntPtr new_MValue__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_new_MValue__SWIG_2")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_new_MValue__SWIG_2")]
   public static extern global::System.IntPtr new_MValue__SWIG_2(string jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_new_MValue__SWIG_3")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_new_MValue__SWIG_3")]
   public static extern global::System.IntPtr new_MValue__SWIG_3(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_new_MValue__SWIG_4")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_new_MValue__SWIG_4")]
   public static extern global::System.IntPtr new_MValue__SWIG_4(bool jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_new_MValue__SWIG_5")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_new_MValue__SWIG_5")]
   public static extern global::System.IntPtr new_MValue__SWIG_5(double jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_new_MValue__SWIG_6")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_new_MValue__SWIG_6")]
   public static extern global::System.IntPtr new_MValue__SWIG_6(uint jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_delete_MValue")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_delete_MValue")]
   public static extern void delete_MValue(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_getString")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_getString")]
   public static extern string MValue_getString(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_getInt")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_getInt")]
   public static extern int MValue_getInt(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_getBool")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_getBool")]
   public static extern bool MValue_getBool(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_getDouble")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_getDouble")]
   public static extern double MValue_getDouble(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_getULong")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_getULong")]
   public static extern uint MValue_getULong(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_getArray")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_getArray")]
   public static extern global::System.IntPtr MValue_getArray(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_isString")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_isString")]
   public static extern bool MValue_isString(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_isInt")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_isInt")]
   public static extern bool MValue_isInt(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_isBool")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_isBool")]
   public static extern bool MValue_isBool(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_isDouble")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_isDouble")]
   public static extern bool MValue_isDouble(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_isULong")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_isULong")]
   public static extern bool MValue_isULong(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_isArray")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_isArray")]
   public static extern bool MValue_isArray(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_push")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_push")]
   public static extern void MValue_push(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_get")]
   public static extern global::System.IntPtr MValue_get(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_type_set")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_type_set")]
   public static extern void MValue_type_set(global::System.Runtime.InteropServices.HandleRef jarg1, char jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_type_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_type_get")]
   public static extern char MValue_type_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue__val_set")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue__val_set")]
   public static extern void MValue__val_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue__val_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue__val_get")]
   public static extern global::System.IntPtr MValue__val_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_counter_set")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_counter_set")]
   public static extern void MValue_counter_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_MValue_counter_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_MValue_counter_get")]
   public static extern global::System.IntPtr MValue_counter_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_LoadClientScript")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_LoadClientScript")]
   public static extern void APIBase_LoadClientScript(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, string jarg3, uint jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_ClientEvent")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_ClientEvent")]
   public static extern void APIBase_ClientEvent(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, int jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_KickPlayer")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_KickPlayer")]
   public static extern void APIBase_KickPlayer(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetPlayerPosition")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetPlayerPosition")]
   public static extern bool APIBase_SetPlayerPosition(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, float jarg3, float jarg4, float jarg5);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetPlayerPosition")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetPlayerPosition")]
   public static extern global::System.IntPtr APIBase_GetPlayerPosition(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_IsPlayerInRange")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_IsPlayerInRange")]
   public static extern bool APIBase_IsPlayerInRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, float jarg3, float jarg4, float jarg5, float jarg6);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetPlayerHeading")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetPlayerHeading")]
   public static extern bool APIBase_SetPlayerHeading(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, float jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetPlayerHeading")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetPlayerHeading")]
   public static extern float APIBase_GetPlayerHeading(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_RemovePlayerWeapons")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_RemovePlayerWeapons")]
   public static extern bool APIBase_RemovePlayerWeapons(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GivePlayerWeapon")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GivePlayerWeapon")]
   public static extern bool APIBase_GivePlayerWeapon(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, int jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GivePlayerAmmo")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GivePlayerAmmo")]
   public static extern bool APIBase_GivePlayerAmmo(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, int jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GivePlayerMoney")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GivePlayerMoney")]
   public static extern bool APIBase_GivePlayerMoney(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetPlayerMoney")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetPlayerMoney")]
   public static extern bool APIBase_SetPlayerMoney(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_ResetPlayerMoney")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_ResetPlayerMoney")]
   public static extern bool APIBase_ResetPlayerMoney(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetPlayerMoney")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetPlayerMoney")]
   public static extern uint APIBase_GetPlayerMoney(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetPlayerModel")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetPlayerModel")]
   public static extern bool APIBase_SetPlayerModel(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetPlayerModel")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetPlayerModel")]
   public static extern int APIBase_GetPlayerModel(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetPlayerName")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetPlayerName")]
   public static extern bool APIBase_SetPlayerName(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, string jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetPlayerName")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetPlayerName")]
   public static extern global::System.IntPtr APIBase_GetPlayerName(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetPlayerHealth")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetPlayerHealth")]
   public static extern bool APIBase_SetPlayerHealth(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, float jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetPlayerHealth")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetPlayerHealth")]
   public static extern float APIBase_GetPlayerHealth(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetPlayerArmour")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetPlayerArmour")]
   public static extern bool APIBase_SetPlayerArmour(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, float jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetPlayerArmour")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetPlayerArmour")]
   public static extern float APIBase_GetPlayerArmour(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetPlayerColor")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetPlayerColor")]
   public static extern bool APIBase_SetPlayerColor(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, uint jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetPlayerColor")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetPlayerColor")]
   public static extern uint APIBase_GetPlayerColor(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_BroadcastClientMessage")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_BroadcastClientMessage")]
   public static extern void APIBase_BroadcastClientMessage(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2, uint jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SendClientMessage")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SendClientMessage")]
   public static extern bool APIBase_SendClientMessage(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, string jarg3, uint jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetPlayerIntoVehicle")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetPlayerIntoVehicle")]
   public static extern bool APIBase_SetPlayerIntoVehicle(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, uint jarg3, char jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_DisablePlayerHud")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_DisablePlayerHud")]
   public static extern void APIBase_DisablePlayerHud(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, bool jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetPlayerGUID")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetPlayerGUID")]
   public static extern uint APIBase_GetPlayerGUID(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_Print")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_Print")]
   public static extern void APIBase_Print(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_Hash")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_Hash")]
   public static extern int APIBase_Hash(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_CreateVehicle")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_CreateVehicle")]
   public static extern uint APIBase_CreateVehicle(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, float jarg3, float jarg4, float jarg5, float jarg6);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_DeleteVehicle")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_DeleteVehicle")]
   public static extern bool APIBase_DeleteVehicle(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetVehiclePosition")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetVehiclePosition")]
   public static extern bool APIBase_SetVehiclePosition(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, float jarg3, float jarg4, float jarg5);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetVehiclePosition")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetVehiclePosition")]
   public static extern global::System.IntPtr APIBase_GetVehiclePosition(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetVehicleRotation")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetVehicleRotation")]
   public static extern bool APIBase_SetVehicleRotation(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, float jarg3, float jarg4, float jarg5);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetVehicleRotation")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetVehicleRotation")]
   public static extern global::System.IntPtr APIBase_GetVehicleRotation(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetVehicleColours")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetVehicleColours")]
   public static extern bool APIBase_SetVehicleColours(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, int jarg3, int jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetVehicleColours")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetVehicleColours")]
   public static extern bool APIBase_GetVehicleColours(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetVehicleTyresBulletproof")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetVehicleTyresBulletproof")]
   public static extern bool APIBase_SetVehicleTyresBulletproof(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, bool jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetVehicleTyresBulletproof")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetVehicleTyresBulletproof")]
   public static extern bool APIBase_GetVehicleTyresBulletproof(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetVehicleCustomPrimaryColor")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetVehicleCustomPrimaryColor")]
   public static extern bool APIBase_SetVehicleCustomPrimaryColor(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, int jarg3, int jarg4, int jarg5);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetVehicleCustomPrimaryColor")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetVehicleCustomPrimaryColor")]
   public static extern bool APIBase_GetVehicleCustomPrimaryColor(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, global::System.Runtime.InteropServices.HandleRef jarg5);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetVehicleCustomSecondaryColor")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetVehicleCustomSecondaryColor")]
   public static extern bool APIBase_SetVehicleCustomSecondaryColor(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, int jarg3, int jarg4, int jarg5);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetVehicleCustomSecondaryColor")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetVehicleCustomSecondaryColor")]
   public static extern bool APIBase_GetVehicleCustomSecondaryColor(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, global::System.Runtime.InteropServices.HandleRef jarg5);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetVehicleEngineStatus")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetVehicleEngineStatus")]
   public static extern bool APIBase_SetVehicleEngineStatus(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, bool jarg3, bool jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetVehicleEngineStatus")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetVehicleEngineStatus")]
   public static extern bool APIBase_GetVehicleEngineStatus(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetVehicleBodyHealth")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetVehicleBodyHealth")]
   public static extern bool APIBase_SetVehicleBodyHealth(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, float jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetVehicleEngineHealth")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetVehicleEngineHealth")]
   public static extern bool APIBase_SetVehicleEngineHealth(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, float jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetVehicleTankHealth")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetVehicleTankHealth")]
   public static extern bool APIBase_SetVehicleTankHealth(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, float jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetVehicleHealth")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetVehicleHealth")]
   public static extern bool APIBase_GetVehicleHealth(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, global::System.Runtime.InteropServices.HandleRef jarg5);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetVehicleNumberPlate")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetVehicleNumberPlate")]
   public static extern bool APIBase_SetVehicleNumberPlate(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, string jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetVehicleNumberPlate")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetVehicleNumberPlate")]
   public static extern global::System.IntPtr APIBase_GetVehicleNumberPlate(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetVehicleNumberPlateStyle")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetVehicleNumberPlateStyle")]
   public static extern bool APIBase_SetVehicleNumberPlateStyle(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetVehicleNumberPlateStyle")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetVehicleNumberPlateStyle")]
   public static extern int APIBase_GetVehicleNumberPlateStyle(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetVehicleSirenState")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetVehicleSirenState")]
   public static extern bool APIBase_SetVehicleSirenState(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, bool jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetVehicleSirenState")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetVehicleSirenState")]
   public static extern bool APIBase_GetVehicleSirenState(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetVehicleWheelColor")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetVehicleWheelColor")]
   public static extern bool APIBase_SetVehicleWheelColor(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetVehicleWheelColor")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetVehicleWheelColor")]
   public static extern int APIBase_GetVehicleWheelColor(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetVehicleWheelType")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetVehicleWheelType")]
   public static extern bool APIBase_SetVehicleWheelType(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetVehicleWheelType")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetVehicleWheelType")]
   public static extern int APIBase_GetVehicleWheelType(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetVehicleDriver")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetVehicleDriver")]
   public static extern uint APIBase_GetVehicleDriver(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_GetVehiclePassengers")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_GetVehiclePassengers")]
   public static extern global::System.IntPtr APIBase_GetVehiclePassengers(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_CreateObject")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_CreateObject")]
   public static extern uint APIBase_CreateObject(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, float jarg3, float jarg4, float jarg5, float jarg6, float jarg7, float jarg8);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_DeleteObject")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_DeleteObject")]
   public static extern bool APIBase_DeleteObject(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_CreatePickup")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_CreatePickup")]
   public static extern bool APIBase_CreatePickup(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, float jarg3, float jarg4, float jarg5, float jarg6);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_CreateBlipForAll")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_CreateBlipForAll")]
   public static extern uint APIBase_CreateBlipForAll(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, float jarg3, float jarg4, float jarg5, float jarg6, int jarg7, int jarg8);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_CreateBlipForPlayer")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_CreateBlipForPlayer")]
   public static extern uint APIBase_CreateBlipForPlayer(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, float jarg4, float jarg5, float jarg6, float jarg7, int jarg8, int jarg9);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_DeleteBlip")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_DeleteBlip")]
   public static extern void APIBase_DeleteBlip(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetBlipColor")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetBlipColor")]
   public static extern void APIBase_SetBlipColor(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetBlipScale")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetBlipScale")]
   public static extern void APIBase_SetBlipScale(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, float jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetBlipRoute")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetBlipRoute")]
   public static extern void APIBase_SetBlipRoute(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, bool jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetBlipSprite")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetBlipSprite")]
   public static extern void APIBase_SetBlipSprite(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetBlipName")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetBlipName")]
   public static extern void APIBase_SetBlipName(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetBlipAsShortRange")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetBlipAsShortRange")]
   public static extern void APIBase_SetBlipAsShortRange(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, bool jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_AttachBlipToPlayer")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_AttachBlipToPlayer")]
   public static extern void APIBase_AttachBlipToPlayer(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, int jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_AttachBlipToVehicle")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_AttachBlipToVehicle")]
   public static extern void APIBase_AttachBlipToVehicle(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, uint jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_CreateMarkerForAll")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_CreateMarkerForAll")]
   public static extern uint APIBase_CreateMarkerForAll(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2, float jarg3, float jarg4, float jarg5, float jarg6);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_CreateMarkerForPlayer")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_CreateMarkerForPlayer")]
   public static extern uint APIBase_CreateMarkerForPlayer(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, float jarg3, float jarg4, float jarg5, float jarg6, float jarg7);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_DeleteMarker")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_DeleteMarker")]
   public static extern void APIBase_DeleteMarker(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SendNotification")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SendNotification")]
   public static extern bool APIBase_SendNotification(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, string jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_SetInfoMsg")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_SetInfoMsg")]
   public static extern bool APIBase_SetInfoMsg(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, string jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_UnsetInfoMsg")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_UnsetInfoMsg")]
   public static extern bool APIBase_UnsetInfoMsg(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_Create3DText")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_Create3DText")]
   public static extern uint APIBase_Create3DText(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2, float jarg3, float jarg4, float jarg5, int jarg6, int jarg7, float jarg8);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_Create3DTextForPlayer")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_Create3DTextForPlayer")]
   public static extern uint APIBase_Create3DTextForPlayer(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, string jarg3, float jarg4, float jarg5, float jarg6, int jarg7, int jarg8);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_Attach3DTextToVehicle")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_Attach3DTextToVehicle")]
   public static extern bool APIBase_Attach3DTextToVehicle(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, uint jarg3, float jarg4, float jarg5, float jarg6);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_Attach3DTextToPlayer")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_Attach3DTextToPlayer")]
   public static extern bool APIBase_Attach3DTextToPlayer(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, uint jarg3, float jarg4, float jarg5, float jarg6);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_Set3DTextContent")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_Set3DTextContent")]
   public static extern bool APIBase_Set3DTextContent(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2, string jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_APIBase_Delete3DText")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_APIBase_Delete3DText")]
   public static extern bool APIBase_Delete3DText(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_delete_APIBase")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_delete_APIBase")]
   public static extern void delete_APIBase(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_API_instance_set")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_API_instance_set")]
   public static extern void API_instance_set(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_API_instance_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_API_instance_get")]
   public static extern global::System.IntPtr API_instance_get();
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_API_Set")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_API_Set")]
   public static extern void API_Set(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_API_Get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_API_Get")]
   public static extern global::System.IntPtr API_Get();
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_delete_API")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_delete_API")]
   public static extern void delete_API(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_vmul_sse")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_vmul_sse")]
   public static extern void vmul_sse(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_vdiv_sse")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_vdiv_sse")]
   public static extern void vdiv_sse(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_vadd_sse")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_vadd_sse")]
   public static extern void vadd_sse(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_vsub_sse")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_vsub_sse")]
   public static extern void vsub_sse(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_vmodmul_sse")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_vmodmul_sse")]
   public static extern void vmodmul_sse(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_vclamp_sse")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_vclamp_sse")]
   public static extern void vclamp_sse(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_CVector3_fX_set")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_CVector3_fX_set")]
   public static extern void CVector3_fX_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_CVector3_fX_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_CVector3_fX_get")]
   public static extern float CVector3_fX_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_CVector3_fY_set")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_CVector3_fY_set")]
   public static extern void CVector3_fY_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_CVector3_fY_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_CVector3_fY_get")]
   public static extern float CVector3_fY_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_CVector3_fZ_set")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_CVector3_fZ_set")]
   public static extern void CVector3_fZ_set(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_CVector3_fZ_get")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_CVector3_fZ_get")]
   public static extern float CVector3_fZ_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_new_CVector3__SWIG_0")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_new_CVector3__SWIG_0")]
   public static extern global::System.IntPtr new_CVector3__SWIG_0();
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_new_CVector3__SWIG_1")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_new_CVector3__SWIG_1")]
   public static extern global::System.IntPtr new_CVector3__SWIG_1(float jarg1, float jarg2, float jarg3);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_CVector3_IsEmpty")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_CVector3_IsEmpty")]
   public static extern bool CVector3_IsEmpty(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_CVector3_Length")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_CVector3_Length")]
   public static extern float CVector3_Length(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_CVector3_Normalize")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_CVector3_Normalize")]
   public static extern void CVector3_Normalize(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_CVector3_ToString")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_CVector3_ToString")]
   public static extern global::System.IntPtr CVector3_ToString(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_CVector3_Add")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_CVector3_Add")]
   public static extern global::System.IntPtr CVector3_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_CVector3_Subtract")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_CVector3_Subtract")]
   public static extern global::System.IntPtr CVector3_Subtract(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_CVector3_Modulate")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_CVector3_Modulate")]
   public static extern global::System.IntPtr CVector3_Modulate(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_CVector3_Multiply")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_CVector3_Multiply")]
   public static extern global::System.IntPtr CVector3_Multiply(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_CVector3_Divide")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_CVector3_Divide")]
   public static extern global::System.IntPtr CVector3_Divide(global::System.Runtime.InteropServices.HandleRef jarg1, float jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_delete_CVector3")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_delete_CVector3")]
   public static extern void delete_CVector3(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("OrangeDotNET", EntryPoint="CSharp_API_SWIGUpcast")]
+  [global::System.Runtime.InteropServices.DllImport("OrangeDotNETModule", EntryPoint="CSharp_API_SWIGUpcast")]
   public static extern global::System.IntPtr API_SWIGUpcast(global::System.IntPtr jarg1);
 }

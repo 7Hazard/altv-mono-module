@@ -14,6 +14,7 @@ char *_strdup(const char *str) {
 #endif
 
 API * API::instance = nullptr;
+void* dotnetasm;
 
 extern "C"
 {
@@ -26,6 +27,7 @@ extern "C"
 	EXPORT void OnModuleInit()
 	{
 		API::Get().Print("OrangeDotNET module loading...");
+		//dotnetasm = LoadDLL;
 		return;
 	}
 

@@ -31,7 +31,7 @@ public class MArray : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          OrangeDotNETPINVOKE.delete_MArray(swigCPtr);
+          OrangeDotNETModulePINVOKE.delete_MArray(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -41,10 +41,10 @@ public class MArray : global::System.IDisposable {
 
   public SWIGTYPE_p_std__mapT_int_MValue_p_t ikeys {
     set {
-      OrangeDotNETPINVOKE.MArray_ikeys_set(swigCPtr, SWIGTYPE_p_std__mapT_int_MValue_p_t.getCPtr(value));
+      OrangeDotNETModulePINVOKE.MArray_ikeys_set(swigCPtr, SWIGTYPE_p_std__mapT_int_MValue_p_t.getCPtr(value));
     } 
     get {
-      global::System.IntPtr cPtr = OrangeDotNETPINVOKE.MArray_ikeys_get(swigCPtr);
+      global::System.IntPtr cPtr = OrangeDotNETModulePINVOKE.MArray_ikeys_get(swigCPtr);
       SWIGTYPE_p_std__mapT_int_MValue_p_t ret = (cPtr == global::System.IntPtr.Zero) ? null : new SWIGTYPE_p_std__mapT_int_MValue_p_t(cPtr, false);
       return ret;
     } 
@@ -52,16 +52,16 @@ public class MArray : global::System.IDisposable {
 
   public SWIGTYPE_p_std__mapT_std__string_MValue_p_t skeys {
     set {
-      OrangeDotNETPINVOKE.MArray_skeys_set(swigCPtr, SWIGTYPE_p_std__mapT_std__string_MValue_p_t.getCPtr(value));
+      OrangeDotNETModulePINVOKE.MArray_skeys_set(swigCPtr, SWIGTYPE_p_std__mapT_std__string_MValue_p_t.getCPtr(value));
     } 
     get {
-      global::System.IntPtr cPtr = OrangeDotNETPINVOKE.MArray_skeys_get(swigCPtr);
+      global::System.IntPtr cPtr = OrangeDotNETModulePINVOKE.MArray_skeys_get(swigCPtr);
       SWIGTYPE_p_std__mapT_std__string_MValue_p_t ret = (cPtr == global::System.IntPtr.Zero) ? null : new SWIGTYPE_p_std__mapT_std__string_MValue_p_t(cPtr, false);
       return ret;
     } 
   }
 
-  public MArray() : this(OrangeDotNETPINVOKE.new_MArray(), true) {
+  public MArray() : this(OrangeDotNETModulePINVOKE.new_MArray(), true) {
   }
 
 }

@@ -8,6 +8,7 @@
 #else
 #include <cstring>
 #include <string.h>
+#include <dlfnc.h>
 #endif
 
 #include <sstream>

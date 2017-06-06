@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OrangeDotNET-Mono")]
+[assembly: AssemblyTitle("OrangeDotNET")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OrangeDotNET-Mono")]
+[assembly: AssemblyProduct("OrangeDotNET")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("834ad601-d87d-4d41-9163-f27f6561e0b2")]
+[assembly: Guid("5d3b1fa0-ff4d-4c4f-9864-371b4356c38d")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -60,6 +60,12 @@
     <Link>
       <SubSystem>Windows</SubSystem>
     </Link>
+    <CustomBuildStep>
+      <Command>swig -csharp -c++ -outdir "../OrangeDotNET/API" OrangeDotNETModule.i</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>.cxx</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -83,9 +89,12 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="orangedotnet.cpp" />
-    <ClCompile Include="OrangeDotNET_wrap.cxx" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="OrangeDotNETModule_wrap.cxx" />
     <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="OrangeDotNETModule.i" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,4 @@
-%module OrangeDotNET
+%module OrangeDotNETModule
 %{
 	#include "API.h"
 	#include "CVector3.h"
