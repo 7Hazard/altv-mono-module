@@ -6,18 +6,24 @@ void InitMono() {
 #endif
 	Domain = mono_jit_init("OrangeDotNET");
 	Thread = mono_thread_attach(Domain);
-	Assembly = mono_domain_assembly_open(Domain, "modules/OrangeDotNET/OrangeDotNET.dll");
+	Assembly = mono_domain_assembly_open(Domain, "modules/OrangeDotNET.dll");
 	if (!Assembly)
 		API::Get().Print("OrangeDotNET Mono Assembly failed to load!");
 	
 	Image = mono_assembly_get_image(Assembly);
 	MainClass = mono_class_from_name(Image, "OrangeDotNET", "Main");
 
-	MonoMethod *InitMethod = GetMethod(MainClass, ":.ctor(void*)", FALSE); // TODO: PASS CORRECT C# POINTER TYPE
-	MonoObject *obj = mono_object_new(Domain, MainClass);
-	MonoObject *result = mono_runtime_invoke(InitMethod, obj, (void**)&API::instance, NULL);
-	int int_result = *(int*)mono_object_unbox(result);
-	API::instance->Print("mono_runtime_invoke finished with code "+int_result);
+	MonoMethod *InitMethod = GetMethod(MainClass, ":.ctor()", FALSE);
+	MonoObject* exc = NULL;
+	MonoObject *result = mono_runtime_invoke(InitMethod, NULL, NULL, &exc);
+	if (exc != NULL) {
+		MonoString* ex = mono_object_to_string(exc, &exc);
+		API::instance->Print(mono_string_to_utf8(ex));
+	}
+	else {
+		int int_result = *(int*)mono_object_unbox(result); // Tested throws NULL exception
+		API::instance->Print("mono_runtime_invoke finished with code " + int_result);
+	}
 }
 
 MonoMethod* GetMethod(MonoClass* monoclass, const char* descstring, bool includenamespace) {

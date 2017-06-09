@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OrangeDotNET
 {
-    class Main
+    public class Main
     {
         public static API API = null;
-        unsafe Main(void* cPtr)
+        
+        Main()
         {
-            API API = new API((IntPtr)cPtr, false);
-            API.Print("Successfully initialized API for OrangeDotNET!");
+            API = API.Get();
         }
     }
 }
