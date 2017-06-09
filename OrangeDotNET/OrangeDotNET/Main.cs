@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace OrangeDotNET
 {
-    public class Main
+    class Main
     {
-        API API = API.Get();
-        Main()
+        public static API API = null;
+        unsafe Main(void* cPtr)
         {
-            API.Print("OrangeDotNET succesfully initialized!");
+            API API = new API((IntPtr)cPtr, false);
+            API.Print("Successfully initialized API for OrangeDotNET!");
         }
     }
 }

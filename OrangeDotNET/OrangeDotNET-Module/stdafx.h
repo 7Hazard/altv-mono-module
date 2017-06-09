@@ -8,14 +8,11 @@
 #else
 #include <cstring>
 #include <string.h>
-#include <dlfnc.h>
 #endif
 
 #include <sstream>
 #include <vector>
 #include <map>
-#include <iostream>
 #include <xmmintrin.h>
-#include <cmath>
 
 #include "API.h"

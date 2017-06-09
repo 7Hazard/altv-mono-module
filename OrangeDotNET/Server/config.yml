@@ -1,0 +1,5 @@
+name: GTA:Orange Test Server
+port: 7788
+players: 100
+resources:
+  #- vehshop

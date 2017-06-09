@@ -44,7 +44,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -56,16 +57,37 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;ORANGEMODULE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\Mono\include\mono-2.0</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>C:\Program Files\Mono\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <EmbedManagedResourceFile>
+      </EmbedManagedResourceFile>
+      <AddModuleNamesToAssembly>
+      </AddModuleNamesToAssembly>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
+      <AssemblyLinkResource>
+      </AssemblyLinkResource>
     </Link>
     <CustomBuildStep>
       <Command>swig -csharp -c++ -outdir "../OrangeDotNET/API" OrangeDotNETModule.i</Command>
     </CustomBuildStep>
     <CustomBuildStep>
       <Outputs>.cxx</Outputs>
+      <TreatOutputAsContent>
+      </TreatOutputAsContent>
     </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>copy /Y "$(OutputPath)$(TargetFileName)" "$(SolutionDir)Server\modules\$(TargetFileName)"
+copy /Y "$(ProjectDir)mono-2.0-sgen.dll" "$(SolutionDir)Server\modules\mono-2.0-sgen.dll"</Command>
+    </PostBuildEvent>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -84,14 +106,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="API.h" />
-    <ClInclude Include="CVector3.h" />
-    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="API.h">
+      <DeploymentContent>false</DeploymentContent>
+    </ClInclude>
+    <ClInclude Include="CVector3.h">
+      <DeploymentContent>false</DeploymentContent>
+    </ClInclude>
+    <ClInclude Include="Mono.h" />
+    <ClInclude Include="stdafx.h">
+      <DeploymentContent>false</DeploymentContent>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="OrangeDotNETModule_wrap.cxx" />
-    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Mono.cpp" />
+    <ClCompile Include="OrangeDotNET.cpp" />
+    <ClCompile Include="OrangeDotNETModule_wrap.cxx">
+      <DeploymentContent>false</DeploymentContent>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="OrangeDotNETModule.i" />
