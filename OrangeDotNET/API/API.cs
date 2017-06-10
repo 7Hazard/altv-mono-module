@@ -12,7 +12,7 @@
 public class API : APIBase {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
 
-  internal API(global::System.IntPtr cPtr, bool cMemoryOwn) : base(OrangeDotNETModulePINVOKE.API_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal API(global::System.IntPtr cPtr, bool cMemoryOwn) : base(OrangeDotNETMonoPINVOKE.API_SWIGUpcast(cPtr), cMemoryOwn) {
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
@@ -29,7 +29,7 @@ public class API : APIBase {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          OrangeDotNETModulePINVOKE.delete_API(swigCPtr);
+          OrangeDotNETMonoPINVOKE.delete_API(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -40,21 +40,21 @@ public class API : APIBase {
 
   public static API instance {
     set {
-      OrangeDotNETModulePINVOKE.API_instance_set(API.getCPtr(value));
+      OrangeDotNETMonoPINVOKE.API_instance_set(API.getCPtr(value));
     } 
     get {
-      global::System.IntPtr cPtr = OrangeDotNETModulePINVOKE.API_instance_get();
+      global::System.IntPtr cPtr = OrangeDotNETMonoPINVOKE.API_instance_get();
       API ret = (cPtr == global::System.IntPtr.Zero) ? null : new API(cPtr, false);
       return ret;
     } 
   }
 
   public static void Set(API api) {
-    OrangeDotNETModulePINVOKE.API_Set(API.getCPtr(api));
+    OrangeDotNETMonoPINVOKE.API_Set(API.getCPtr(api));
   }
 
   public static API Get() {
-    API ret = new API(OrangeDotNETModulePINVOKE.API_Get(), false);
+    API ret = new API(OrangeDotNETMonoPINVOKE.API_Get(), false);
     return ret;
   }
 

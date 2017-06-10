@@ -1,22 +1,13 @@
 #pragma once
-
-#include "stdafx.h"
-#include <mono/jit/jit.h>
-#include <mono/metadata/assembly.h>
-#include <mono/metadata/debug-helpers.h>
-#include <mono\metadata\threads.h>
-#include <mono/utils/mono-logger.h>
-
-#include <fstream>
+#include "API.h"
 
 
+#ifdef _WINDOWS
+typedef void(*APIINIT)(API* api);
+typedef void(*MONOINIT)();
 
-static MonoDomain* Domain;
-static MonoThread* Thread;
-static MonoAssembly* Assembly;
-static MonoImage* Image;
-static MonoClass* MainClass;
+static APIINIT MonoInitAPI;
+static MONOINIT MonoInit;
+#endif
 
-void InitMono();
-MonoMethod* GetMethod(MonoClass* monoclass, const char* descstring, bool includenamespace);
-static const char* ReadConfig();
+void MonoLoad();

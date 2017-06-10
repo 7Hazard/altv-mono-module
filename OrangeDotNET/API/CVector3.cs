@@ -31,7 +31,7 @@ public class CVector3 : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          OrangeDotNETModulePINVOKE.delete_CVector3(swigCPtr);
+          OrangeDotNETMonoPINVOKE.delete_CVector3(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -41,86 +41,86 @@ public class CVector3 : global::System.IDisposable {
 
   public float fX {
     set {
-      OrangeDotNETModulePINVOKE.CVector3_fX_set(swigCPtr, value);
+      OrangeDotNETMonoPINVOKE.CVector3_fX_set(swigCPtr, value);
     } 
     get {
-      float ret = OrangeDotNETModulePINVOKE.CVector3_fX_get(swigCPtr);
+      float ret = OrangeDotNETMonoPINVOKE.CVector3_fX_get(swigCPtr);
       return ret;
     } 
   }
 
   public float fY {
     set {
-      OrangeDotNETModulePINVOKE.CVector3_fY_set(swigCPtr, value);
+      OrangeDotNETMonoPINVOKE.CVector3_fY_set(swigCPtr, value);
     } 
     get {
-      float ret = OrangeDotNETModulePINVOKE.CVector3_fY_get(swigCPtr);
+      float ret = OrangeDotNETMonoPINVOKE.CVector3_fY_get(swigCPtr);
       return ret;
     } 
   }
 
   public float fZ {
     set {
-      OrangeDotNETModulePINVOKE.CVector3_fZ_set(swigCPtr, value);
+      OrangeDotNETMonoPINVOKE.CVector3_fZ_set(swigCPtr, value);
     } 
     get {
-      float ret = OrangeDotNETModulePINVOKE.CVector3_fZ_get(swigCPtr);
+      float ret = OrangeDotNETMonoPINVOKE.CVector3_fZ_get(swigCPtr);
       return ret;
     } 
   }
 
-  public CVector3() : this(OrangeDotNETModulePINVOKE.new_CVector3__SWIG_0(), true) {
+  public CVector3() : this(OrangeDotNETMonoPINVOKE.new_CVector3__SWIG_0(), true) {
   }
 
-  public CVector3(float _fX, float _fY, float _fZ) : this(OrangeDotNETModulePINVOKE.new_CVector3__SWIG_1(_fX, _fY, _fZ), true) {
+  public CVector3(float _fX, float _fY, float _fZ) : this(OrangeDotNETMonoPINVOKE.new_CVector3__SWIG_1(_fX, _fY, _fZ), true) {
   }
 
   public bool IsEmpty() {
-    bool ret = OrangeDotNETModulePINVOKE.CVector3_IsEmpty(swigCPtr);
+    bool ret = OrangeDotNETMonoPINVOKE.CVector3_IsEmpty(swigCPtr);
     return ret;
   }
 
   public float Length() {
-    float ret = OrangeDotNETModulePINVOKE.CVector3_Length(swigCPtr);
+    float ret = OrangeDotNETMonoPINVOKE.CVector3_Length(swigCPtr);
     return ret;
   }
 
   public void Normalize() {
-    OrangeDotNETModulePINVOKE.CVector3_Normalize(swigCPtr);
+    OrangeDotNETMonoPINVOKE.CVector3_Normalize(swigCPtr);
   }
 
   public SWIGTYPE_p_std__string ToString() {
-    SWIGTYPE_p_std__string ret = new SWIGTYPE_p_std__string(OrangeDotNETModulePINVOKE.CVector3_ToString(swigCPtr), true);
+    SWIGTYPE_p_std__string ret = new SWIGTYPE_p_std__string(OrangeDotNETMonoPINVOKE.CVector3_ToString(swigCPtr), true);
     return ret;
   }
 
   public static CVector3 Add(CVector3 left, CVector3 right) {
-    CVector3 ret = new CVector3(OrangeDotNETModulePINVOKE.CVector3_Add(CVector3.getCPtr(left), CVector3.getCPtr(right)), true);
-    if (OrangeDotNETModulePINVOKE.SWIGPendingException.Pending) throw OrangeDotNETModulePINVOKE.SWIGPendingException.Retrieve();
+    CVector3 ret = new CVector3(OrangeDotNETMonoPINVOKE.CVector3_Add(CVector3.getCPtr(left), CVector3.getCPtr(right)), true);
+    if (OrangeDotNETMonoPINVOKE.SWIGPendingException.Pending) throw OrangeDotNETMonoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public static CVector3 Subtract(CVector3 left, CVector3 right) {
-    CVector3 ret = new CVector3(OrangeDotNETModulePINVOKE.CVector3_Subtract(CVector3.getCPtr(left), CVector3.getCPtr(right)), true);
-    if (OrangeDotNETModulePINVOKE.SWIGPendingException.Pending) throw OrangeDotNETModulePINVOKE.SWIGPendingException.Retrieve();
+    CVector3 ret = new CVector3(OrangeDotNETMonoPINVOKE.CVector3_Subtract(CVector3.getCPtr(left), CVector3.getCPtr(right)), true);
+    if (OrangeDotNETMonoPINVOKE.SWIGPendingException.Pending) throw OrangeDotNETMonoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public static CVector3 Modulate(CVector3 left, CVector3 right) {
-    CVector3 ret = new CVector3(OrangeDotNETModulePINVOKE.CVector3_Modulate(CVector3.getCPtr(left), CVector3.getCPtr(right)), true);
-    if (OrangeDotNETModulePINVOKE.SWIGPendingException.Pending) throw OrangeDotNETModulePINVOKE.SWIGPendingException.Retrieve();
+    CVector3 ret = new CVector3(OrangeDotNETMonoPINVOKE.CVector3_Modulate(CVector3.getCPtr(left), CVector3.getCPtr(right)), true);
+    if (OrangeDotNETMonoPINVOKE.SWIGPendingException.Pending) throw OrangeDotNETMonoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public static CVector3 Multiply(CVector3 value, float scale) {
-    CVector3 ret = new CVector3(OrangeDotNETModulePINVOKE.CVector3_Multiply(CVector3.getCPtr(value), scale), true);
-    if (OrangeDotNETModulePINVOKE.SWIGPendingException.Pending) throw OrangeDotNETModulePINVOKE.SWIGPendingException.Retrieve();
+    CVector3 ret = new CVector3(OrangeDotNETMonoPINVOKE.CVector3_Multiply(CVector3.getCPtr(value), scale), true);
+    if (OrangeDotNETMonoPINVOKE.SWIGPendingException.Pending) throw OrangeDotNETMonoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public static CVector3 Divide(CVector3 value, float scale) {
-    CVector3 ret = new CVector3(OrangeDotNETModulePINVOKE.CVector3_Divide(CVector3.getCPtr(value), scale), true);
-    if (OrangeDotNETModulePINVOKE.SWIGPendingException.Pending) throw OrangeDotNETModulePINVOKE.SWIGPendingException.Retrieve();
+    CVector3 ret = new CVector3(OrangeDotNETMonoPINVOKE.CVector3_Divide(CVector3.getCPtr(value), scale), true);
+    if (OrangeDotNETMonoPINVOKE.SWIGPendingException.Pending) throw OrangeDotNETMonoPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

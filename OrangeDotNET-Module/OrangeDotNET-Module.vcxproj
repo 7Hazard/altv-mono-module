@@ -62,7 +62,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>C:\Program Files\Mono\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <EmbedManagedResourceFile>
       </EmbedManagedResourceFile>
@@ -74,16 +74,17 @@
       </AssemblyLinkResource>
     </Link>
     <CustomBuildStep>
-      <Command>swig -csharp -c++ -outdir "../OrangeDotNET/API" OrangeDotNETModule.i</Command>
+      <Command>
+      </Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>.cxx</Outputs>
+      <Outputs>
+      </Outputs>
       <TreatOutputAsContent>
       </TreatOutputAsContent>
     </CustomBuildStep>
     <PostBuildEvent>
-      <Command>copy /Y "$(OutputPath)$(TargetFileName)" "$(SolutionDir)Server\modules\$(TargetFileName)"
-copy /Y "$(ProjectDir)mono-2.0-sgen.dll" "$(SolutionDir)Server\modules\mono-2.0-sgen.dll"</Command>
+      <Command>copy /Y "$(OutputPath)$(TargetFileName)" "$(SolutionDir)Server\modules\$(TargetFileName)"</Command>
     </PostBuildEvent>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
@@ -120,12 +121,6 @@ copy /Y "$(ProjectDir)mono-2.0-sgen.dll" "$(SolutionDir)Server\modules\mono-2.0-
   <ItemGroup>
     <ClCompile Include="Mono.cpp" />
     <ClCompile Include="OrangeDotNET.cpp" />
-    <ClCompile Include="OrangeDotNETModule_wrap.cxx">
-      <DeploymentContent>false</DeploymentContent>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="OrangeDotNETModule.i" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

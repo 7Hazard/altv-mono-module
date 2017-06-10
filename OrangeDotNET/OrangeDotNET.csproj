@@ -46,8 +46,8 @@
     <Compile Include="API\CVector3.cs" />
     <Compile Include="API\MArray.cs" />
     <Compile Include="API\MValue.cs" />
-    <Compile Include="API\OrangeDotNETModule.cs" />
-    <Compile Include="API\OrangeDotNETModulePINVOKE.cs" />
+    <Compile Include="API\OrangeDotNETMono.cs" />
+    <Compile Include="API\OrangeDotNETMonoPINVOKE.cs" />
     <Compile Include="API\SWIGTYPE_p_float.cs" />
     <Compile Include="API\SWIGTYPE_p_int.cs" />
     <Compile Include="API\SWIGTYPE_p_std__mapT_int_MValue_p_t.cs" />
@@ -62,6 +62,6 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetPath)" "$(SolutionDir)Server\modules\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>copy /Y "$(TargetPath)" "$(SolutionDir)Server\modules\$(SolutionName)\$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

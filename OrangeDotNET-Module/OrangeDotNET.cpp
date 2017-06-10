@@ -28,7 +28,9 @@ extern "C"
 	{
 		API::instance->Print("OrangeDotNET module loading...");
 		Sleep(3000);
-		InitMono();
+		MonoLoad();
+		MonoInitAPI(API::instance);
+		MonoInit();
 	}
 
 	EXPORT const char* OnResourceTypeRegister()
