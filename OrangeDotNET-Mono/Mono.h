@@ -30,8 +30,8 @@ static MonoImage* Image;
 static MonoClass* MainClass;
 
 extern "C" {
-	EXPORT void MonoInitAPI(API* api);
-	EXPORT void MonoInit();
+	EXPORT bool MonoInitAPI(API* api);
+	EXPORT bool MonoInit();
 }
 const char* ReadConfig();
 

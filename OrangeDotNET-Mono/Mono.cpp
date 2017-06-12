@@ -1,17 +1,18 @@
 #include "Mono.h"
 
 extern "C" {
-	EXPORT void MonoInitAPI(API* api) {
+	EXPORT bool MonoInitAPI(API* api) {
 		API::Set(api);
+		return true;
 	}
 
-	EXPORT void MonoInit() {
+	EXPORT bool MonoInit() {
 	#ifdef _WINDOWS
 		mono_set_dirs("C:\\Program Files\\Mono\\lib", "C:\\Program Files\\Mono\\etc");
 	#endif
 		Domain = mono_jit_init("OrangeDotNET");
 		Thread = mono_thread_attach(Domain);
-		Assembly = mono_domain_assembly_open(Domain, "modules/OrangeDotNET.dll");
+		Assembly = mono_domain_assembly_open(Domain, "modules/OrangeDotNET/OrangeDotNET.dll");
 		if (!Assembly)
 			API::instance->Print("OrangeDotNET Mono Assembly failed to load!");
 
@@ -29,6 +30,7 @@ extern "C" {
 			int int_result = *(int*)mono_object_unbox(result); // Tested throws NULL exception
 			API::instance->Print("mono_runtime_invoke finished with code " + int_result);
 		}
+		return true;
 	}
 }
 

@@ -1,10 +1,10 @@
 #pragma once
 #include "API.h"
-
+#include "OrangeDotNET.h"
 
 #ifdef _WINDOWS
-typedef void(*APIINIT)(API* api);
-typedef void(*MONOINIT)();
+typedef bool(*APIINIT)(API* api);
+typedef bool(*MONOINIT)(void);
 
 static APIINIT MonoInitAPI;
 static MONOINIT MonoInit;

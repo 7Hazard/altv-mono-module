@@ -15,7 +15,7 @@
     <ProjectGuid>{1150C999-B918-4AF3-A65B-FA4C972A46B7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>orangemodule</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -114,6 +114,7 @@
       <DeploymentContent>false</DeploymentContent>
     </ClInclude>
     <ClInclude Include="Mono.h" />
+    <ClInclude Include="OrangeDotNET.h" />
     <ClInclude Include="stdafx.h">
       <DeploymentContent>false</DeploymentContent>
     </ClInclude>
