@@ -113,6 +113,7 @@ copy /Y "$(ProjectDir)mono-2.0-sgen.dll" "$(SolutionDir)Server\modules\mono-2.0-
       <DeploymentContent>false</DeploymentContent>
     </ClInclude>
     <ClInclude Include="Mono.h" />
+    <ClInclude Include="OrangeDotNET.h" />
     <ClInclude Include="stdafx.h">
       <DeploymentContent>false</DeploymentContent>
     </ClInclude>

@@ -8,7 +8,7 @@ void InitMono() {
 	Thread = mono_thread_attach(Domain);
 	Assembly = mono_domain_assembly_open(Domain, "modules/OrangeDotNET.dll");
 	if (!Assembly)
-		API::Get().Print("OrangeDotNET Mono Assembly failed to load!");
+		APIPrint("Mono Assembly failed to load!");
 	
 	Image = mono_assembly_get_image(Assembly);
 	MainClass = mono_class_from_name(Image, "OrangeDotNET", "Main");
@@ -18,11 +18,11 @@ void InitMono() {
 	MonoObject *result = mono_runtime_invoke(InitMethod, NULL, NULL, &exc);
 	if (exc != NULL) {
 		MonoString* ex = mono_object_to_string(exc, &exc);
-		API::instance->Print(mono_string_to_utf8(ex));
+		APIPrint(mono_string_to_utf8(ex));
 	}
 	else {
 		int int_result = *(int*)mono_object_unbox(result); // Tested throws NULL exception
-		API::instance->Print("mono_runtime_invoke finished with code " + int_result);
+		APIPrint("mono_runtime_invoke finished with code " + int_result);
 	}
 }
 

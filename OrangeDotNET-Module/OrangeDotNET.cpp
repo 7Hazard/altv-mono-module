@@ -26,7 +26,7 @@ extern "C"
 
 	EXPORT void OnModuleInit()
 	{
-		API::instance->Print("OrangeDotNET module loading...");
+		APIPrint("Module Loading...");
 		Sleep(3000);
 		InitMono();
 	}
@@ -93,4 +93,9 @@ extern "C"
 	{
 		return;
 	}
+}
+
+void APIPrint(std::string msg) {
+	std::string out = "[OrangeDotNET] " + msg;
+	API::instance->Print(out.c_str());
 }
