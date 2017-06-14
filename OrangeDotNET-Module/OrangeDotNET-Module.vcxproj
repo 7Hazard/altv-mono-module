@@ -120,9 +120,6 @@ copy /Y "$(ProjectDir)mono-2.0-sgen.dll" "$(SolutionDir)Server\modules\$(Solutio
   <ItemGroup>
     <ClCompile Include="Mono.cpp" />
     <ClCompile Include="OrangeDotNET.cpp" />
-    <ClCompile Include="OrangeDotNETModule_wrap.cxx">
-      <DeploymentContent>false</DeploymentContent>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="OrangeDotNETModule.i" />
