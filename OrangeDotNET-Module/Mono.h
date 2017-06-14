@@ -4,7 +4,7 @@
 #include <mono/jit/jit.h>
 #include <mono/metadata/assembly.h>
 #include <mono/metadata/debug-helpers.h>
-#include <mono\metadata\threads.h>
+#include <mono/metadata/threads.h>
 #include <mono/utils/mono-logger.h>
 #include <fstream>
 #include "OrangeDotNET.h"

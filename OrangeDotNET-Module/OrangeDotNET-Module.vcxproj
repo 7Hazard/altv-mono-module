@@ -82,8 +82,8 @@
       </TreatOutputAsContent>
     </CustomBuildStep>
     <PostBuildEvent>
-      <Command>copy /Y "$(OutputPath)$(TargetFileName)" "$(SolutionDir)Server\modules\$(TargetFileName)"
-copy /Y "$(ProjectDir)mono-2.0-sgen.dll" "$(SolutionDir)Server\modules\mono-2.0-sgen.dll"</Command>
+      <Command>copy /Y "$(OutputPath)$(TargetFileName)" "$(SolutionDir)Server\modules\OrangeDotNET.dll"
+copy /Y "$(ProjectDir)mono-2.0-sgen.dll" "$(SolutionDir)Server\modules\$(SolutionName)\bin\mono-2.0-sgen.dll"</Command>
     </PostBuildEvent>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>

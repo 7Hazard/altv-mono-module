@@ -6,7 +6,7 @@ void InitMono() {
 #endif
 	Domain = mono_jit_init("OrangeDotNET");
 	Thread = mono_thread_attach(Domain);
-	Assembly = mono_domain_assembly_open(Domain, "modules/OrangeDotNET.dll");
+	Assembly = mono_domain_assembly_open(Domain, "OrangeDotNET/OrangeDotNET.dll");
 	if (!Assembly)
 		APIPrint("Mono Assembly failed to load!");
 	
@@ -19,10 +19,6 @@ void InitMono() {
 	if (exc != NULL) {
 		MonoString* ex = mono_object_to_string(exc, &exc);
 		APIPrint(mono_string_to_utf8(ex));
-	}
-	else {
-		int int_result = *(int*)mono_object_unbox(result); // Tested throws NULL exception
-		APIPrint("mono_runtime_invoke finished with code " + int_result);
 	}
 }
 
