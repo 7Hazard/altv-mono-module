@@ -15,7 +15,7 @@
     <ProjectGuid>{1150C999-B918-4AF3-A65B-FA4C972A46B7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>orangemodule</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -62,7 +62,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>C:\Program Files\Mono\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <EmbedManagedResourceFile>
       </EmbedManagedResourceFile>
@@ -74,17 +74,16 @@
       </AssemblyLinkResource>
     </Link>
     <CustomBuildStep>
-      <Command>
-      </Command>
+      <Command>swig -csharp -c++ -outdir "../OrangeDotNET/API" OrangeDotNETModule.i</Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>
-      </Outputs>
+      <Outputs>.cxx</Outputs>
       <TreatOutputAsContent>
       </TreatOutputAsContent>
     </CustomBuildStep>
     <PostBuildEvent>
-      <Command>copy /Y "$(OutputPath)$(TargetFileName)" "$(SolutionDir)Server\modules\$(TargetFileName)"</Command>
+      <Command>copy /Y "$(OutputPath)$(TargetFileName)" "$(SolutionDir)Server\modules\OrangeDotNET.dll"
+copy /Y "$(ProjectDir)mono-2.0-sgen.dll" "$(SolutionDir)Server\modules\$(SolutionName)\bin\mono-2.0-sgen.dll"</Command>
     </PostBuildEvent>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
@@ -114,7 +113,6 @@
       <DeploymentContent>false</DeploymentContent>
     </ClInclude>
     <ClInclude Include="Mono.h" />
-    <ClInclude Include="OrangeDotNET.h" />
     <ClInclude Include="stdafx.h">
       <DeploymentContent>false</DeploymentContent>
     </ClInclude>
@@ -122,6 +120,12 @@
   <ItemGroup>
     <ClCompile Include="Mono.cpp" />
     <ClCompile Include="OrangeDotNET.cpp" />
+    <ClCompile Include="OrangeDotNETModule_wrap.cxx">
+      <DeploymentContent>false</DeploymentContent>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="OrangeDotNETModule.i" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

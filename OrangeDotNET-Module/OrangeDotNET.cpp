@@ -26,17 +26,9 @@ extern "C"
 
 	EXPORT void OnModuleInit()
 	{
-		APIPrint("Module initializing...");
+		APIPrint("Module Loading...");
 		Sleep(3000);
-		MonoLoad();
-		//bool success = MonoInitAPI(API::instance); // UNKNOWN NULL EXCEPTION
-		/*if (!success) {
-			APIPrint("Failed to pass API to Mono!");
-		}
-		success = MonoInit(); 
-		if (!success) {
-			APIPrint("Failed to Initialize the Mono Runtime!");
-		}*/
+		InitMono();
 	}
 
 	EXPORT const char* OnResourceTypeRegister()
@@ -46,7 +38,8 @@ extern "C"
 
 	EXPORT bool OnResourceLoad(const char* resource)
 	{
-		APIPrint("Resource '" + (std::string)resource + "' was attempted to be loaded using OrangeDotNET!"); // DBG
+		std::string msg = "Resource '" + (std::string)resource + "' was attempted to be loaded using OrangeDotNET!";
+		API::instance->Print(msg.c_str()); // DBG
 		// TODO Load C# resource assembly
 		return true;
 	}

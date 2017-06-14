@@ -1,14 +1,43 @@
 #include "Mono.h"
 
-void MonoLoad() {
+void InitMono() {
 #ifdef _WINDOWS
-	SetDllDirectory(L"modules/OrangeDotNET/");
-	HINSTANCE hDLL = LoadLibrary(L"modules/OrangeDotNET/OrangeDotNET-Mono.dll");
-	if (hDLL == NULL) {
-		APIPrint("Could not load the Mono Runtime!");
-	}
-
-	MonoInitAPI = (APIINIT)GetProcAddress(hDLL, "MonoInitAPI");
-	MonoInit = (MONOINIT)GetProcAddress(hDLL, "MonoInit");
+	mono_set_dirs("C:\\Program Files\\Mono\\lib", "C:\\Program Files\\Mono\\etc");
 #endif
+	Domain = mono_jit_init("OrangeDotNET");
+	Thread = mono_thread_attach(Domain);
+	Assembly = mono_domain_assembly_open(Domain, "OrangeDotNET/OrangeDotNET.dll");
+	if (!Assembly)
+		APIPrint("Mono Assembly failed to load!");
+	
+	Image = mono_assembly_get_image(Assembly);
+	MainClass = mono_class_from_name(Image, "OrangeDotNET", "Main");
+
+	MonoMethod *InitMethod = GetMethod(MainClass, ":.ctor()", FALSE);
+	MonoObject* exc = NULL;
+	MonoObject *result = mono_runtime_invoke(InitMethod, NULL, NULL, &exc);
+	if (exc != NULL) {
+		MonoString* ex = mono_object_to_string(exc, &exc);
+		APIPrint(mono_string_to_utf8(ex));
+	}
+}
+
+MonoMethod* GetMethod(MonoClass* monoclass, const char* descstring, bool includenamespace) {
+	MonoMethodDesc *desc = mono_method_desc_new(descstring, includenamespace);
+	MonoMethod *method = mono_method_desc_search_in_class(desc, monoclass);
+	mono_method_desc_free(desc);
+	return method;
+}
+
+static const char* ReadConfig() {
+	std::ifstream configfile;
+	configfile.open("modules/OrangeDotNET/OrangeDotNET.conf");
+	std::string output;
+	if (configfile.is_open()) {
+		while (!configfile.eof()) {
+			std::getline(configfile, output);
+		}
+	}
+	configfile.close();
+	return output.c_str();
 }
