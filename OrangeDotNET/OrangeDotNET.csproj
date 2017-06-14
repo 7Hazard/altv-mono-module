@@ -62,6 +62,6 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetPath)" "$(SolutionDir)Server\modules\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>copy /Y "$(TargetPath)" "$(SolutionDir)Server\modules\$(SolutionName)\$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>
