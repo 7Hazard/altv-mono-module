@@ -1,5 +1,4 @@
-#include "stdafx.h"
-#include "Mono.h"
+#include "OrangeDotNET.h"
 
 #ifdef _WINDOWS
 #define EXPORT __declspec(dllexport)

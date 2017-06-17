@@ -4,7 +4,6 @@
 
 #ifdef _WINDOWS
 #include <windows.h>
-#include <string>
 #else
 #include <cstring>
 #include <string.h>
@@ -14,6 +13,3 @@
 #include <vector>
 #include <map>
 #include <xmmintrin.h>
-
-#include "API.h"
-#include "OrangeDotNET.h"
