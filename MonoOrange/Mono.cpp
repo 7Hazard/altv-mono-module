@@ -28,10 +28,11 @@ namespace Mono {
 	void LoadResource(const char* resource) {
 		MonoMethod* Method = mono_class_get_method_from_name(MainClass, "LoadResource", 1);
 
+		
 		MonoObject* exc = NULL;
-		/*void* args[1];
-		args[0] = &resource;*/
-		mono_runtime_invoke(Method, MainInstance, (void**)resource, &exc);
+		void* args[1];
+		args[0] = mono_string_new(Domain, resource);
+		mono_runtime_invoke(Method, MainInstance, args, &exc);
 		CheckException(exc);
 	}
 
