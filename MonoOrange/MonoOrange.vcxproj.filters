@@ -2,17 +2,16 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Mono.cpp" />
-    <ClCompile Include="OrangeDotNET.cpp" />
+    <ClCompile Include="MonoOrange.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="API.h" />
     <ClInclude Include="CVector3.h" />
     <ClInclude Include="Mono.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="OrangeDotNET.h" />
+    <ClInclude Include="MonoOrange.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="OrangeDotNET.i" />
     <None Include="mono-2.0-sgen.dll" />
   </ItemGroup>
 </Project>

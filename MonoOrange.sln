@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OrangeDotNET-Module", "OrangeDotNET-Module\OrangeDotNET-Module.vcxproj", "{1150C999-B918-4AF3-A65B-FA4C972A46B7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MonoOrange", "MonoOrange\MonoOrange.vcxproj", "{1150C999-B918-4AF3-A65B-FA4C972A46B7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpOrange", "SharpOrange\SharpOrange.csproj", "{2AB5C547-4660-42C7-B479-EE7A1A2D7ECD}"
 EndProject

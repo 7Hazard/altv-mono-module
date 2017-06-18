@@ -31,6 +31,7 @@ namespace CppSharpOrange
             options.GeneratorKind = GeneratorKind.CSharp;
             options.OutputDir = "../../../SharpOrange/";
             var module = options.AddModule("SharpOrange");
+            // Issue: https://github.com/mono/CppSharp/issues/865
             module.IncludeDirs.Add("C:/Program Files (x86)/Windows Kits/10/Include/10.0.10586.0/ucrt");
             module.IncludeDirs.Add("../../../OrangeDotNET-Module");
             module.Headers.Add("stdafx.h");

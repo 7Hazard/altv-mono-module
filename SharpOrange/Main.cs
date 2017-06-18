@@ -14,5 +14,10 @@ namespace SharpOrange
             API = API.__CreateInstance(apiptr);
             API.Print("[SharpOrange] Module successfully initialized!");
         }
+
+        void LoadResource(String resource)
+        {
+            API.Print("Attempting to load resource "+resource);
+        }
     }
 }

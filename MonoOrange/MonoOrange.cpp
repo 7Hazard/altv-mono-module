@@ -1,4 +1,4 @@
-#include "OrangeDotNET.h"
+#include "MonoOrange.h"
 
 #ifdef _WINDOWS
 #define EXPORT __declspec(dllexport)
@@ -27,19 +27,20 @@ extern "C"
 	{
 		APIPrint("Module Loading...");
 		Sleep(3000);
-		InitMono();
+		Mono::InitMono();
 	}
 
 	EXPORT const char* OnResourceTypeRegister()
 	{
-		return "dotnet";
+		return ".net";
 	}
 
 	EXPORT bool OnResourceLoad(const char* resource)
 	{
-		std::string msg = "Resource '" + (std::string)resource + "' was attempted to be loaded using OrangeDotNET!";
-		API::instance->Print(msg.c_str()); // DBG
+		/*std::string msg = "Resource '" + (std::string)resource + "' was attempted to be loaded using OrangeDotNET!";
+		API::instance->Print(msg.c_str()); // DBG*/
 		// TODO Load C# resource assembly
+		Mono::LoadResource(resource);
 		return true;
 	}
 
