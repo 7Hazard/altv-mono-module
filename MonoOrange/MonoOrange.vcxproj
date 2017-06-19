@@ -87,7 +87,7 @@
     </CustomBuildStep>
     <PostBuildEvent>
       <Command>copy /Y "$(OutputPath)$(TargetFileName)" "$(SolutionDir)Server\modules\MonoOrange.dll"
-copy /Y "$(ProjectDir)mono-2.0-sgen.dll" "$(SolutionDir)Server\modules\$(SolutionName)\bin\mono-2.0-sgen.dll"</Command>
+copy /Y "$(ProjectDir)mono-2.0-sgen.dll" "$(SolutionDir)Server\modules\$(ProjectName)\bin\mono-2.0-sgen.dll"</Command>
     </PostBuildEvent>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
