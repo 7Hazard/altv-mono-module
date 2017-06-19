@@ -45,12 +45,12 @@ namespace SharpOrange
             ConstructorInfo ctor = type.GetConstructor(new Type[] { typeof(API) });
             if (ctor == null)
             {
-                APIPrint(resource+" constructor not found or doesn't take the correct parameters!");
+                APIPrint(resource+" constructor not found, is not public or doesn't take the correct parameters!");
                 return;
             }
+            APIPrint(resource+" resource loaded!");
             object instance = ctor.Invoke(new object[] { API });
             LoadedResources.Add(resource, asm);
-            APIPrint(resource+" resource loaded!");
         }
 
         private static void APIPrint(string msg)

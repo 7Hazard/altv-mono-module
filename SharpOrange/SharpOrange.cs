@@ -1222,6 +1222,8 @@ namespace SharpOrange
 
         public abstract void KickPlayer(int playerid);
 
+        public abstract void KickPlayer(int playerid, string reason);
+
         public abstract bool SetPlayerPosition(int playerid, float x, float y, float z);
 
         public abstract global::SharpOrange.CVector3 GetPlayerPosition(int playerid);
@@ -1282,65 +1284,69 @@ namespace SharpOrange
 
         public abstract uint CreateVehicle(int hash, float x, float y, float z, float heading);
 
-        public abstract bool DeleteVehicle(uint guid);
+        public abstract bool DeleteVehicle(uint vehid);
 
-        public abstract bool SetVehiclePosition(uint guid, float x, float y, float z);
+        public abstract bool SetVehiclePosition(uint vehid, float x, float y, float z);
 
-        public abstract global::SharpOrange.CVector3 GetVehiclePosition(uint guid);
+        public abstract global::SharpOrange.CVector3 GetVehiclePosition(uint vehid);
 
-        public abstract bool SetVehicleRotation(uint guid, float rx, float ry, float rz);
+        public abstract bool SetVehicleRotation(uint vehid, float rx, float ry, float rz);
 
-        public abstract global::SharpOrange.CVector3 GetVehicleRotation(uint guid);
+        public abstract global::SharpOrange.CVector3 GetVehicleRotation(uint vehid);
 
-        public abstract bool SetVehicleColours(uint guid, int Color1, int Color2);
+        public abstract bool SetVehicleColours(uint vehid, byte Color1, byte Color2);
 
-        public abstract bool GetVehicleColours(uint guid, ref int Color1, ref int Color2);
+        public abstract bool GetVehicleColours(uint vehid, byte* Color1, byte* Color2);
 
-        public abstract bool SetVehicleTyresBulletproof(uint guid, bool bulletproof);
+        public abstract bool SetVehicleTyresBulletproof(uint vehid, bool bulletproof);
 
-        public abstract bool GetVehicleTyresBulletproof(uint guid);
+        public abstract bool GetVehicleTyresBulletproof(uint vehid);
 
-        public abstract bool SetVehicleCustomPrimaryColor(uint guid, int rColor, int gColor, int bColor);
+        public abstract bool SetVehicleCustomPrimaryColor(uint vehid, int rColor, int gColor, int bColor);
 
-        public abstract bool GetVehicleCustomPrimaryColor(uint guid, ref int rColor, ref int gColor, ref int bColor);
+        public abstract bool GetVehicleCustomPrimaryColor(uint vehid, ref int rColor, ref int gColor, ref int bColor);
 
-        public abstract bool SetVehicleCustomSecondaryColor(uint guid, int rColor, int gColor, int bColor);
+        public abstract bool SetVehicleCustomSecondaryColor(uint vehid, int rColor, int gColor, int bColor);
 
-        public abstract bool GetVehicleCustomSecondaryColor(uint guid, ref int rColor, ref int gColor, ref int bColor);
+        public abstract bool GetVehicleCustomSecondaryColor(uint vehid, ref int rColor, ref int gColor, ref int bColor);
 
-        public abstract bool SetVehicleEngineStatus(uint guid, bool status, bool locked);
+        public abstract bool SetVehicleEngineStatus(uint vehid, bool status, bool locked);
 
-        public abstract bool GetVehicleEngineStatus(uint guid);
+        public abstract bool GetVehicleEngineStatus(uint vehid);
 
-        public abstract bool SetVehicleBodyHealth(uint guid, float health);
+        public abstract bool SetVehicleLocked(uint vehid, bool locked);
 
-        public abstract bool SetVehicleEngineHealth(uint guid, float health);
+        public abstract bool IsVehicleLocked(uint vehid);
 
-        public abstract bool SetVehicleTankHealth(uint guid, float health);
+        public abstract bool SetVehicleBodyHealth(uint vehid, float health);
 
-        public abstract bool GetVehicleHealth(uint guid, ref float body, ref float engine, ref float tank);
+        public abstract bool SetVehicleEngineHealth(uint vehid, float health);
 
-        public abstract bool SetVehicleNumberPlate(uint guid, string text);
+        public abstract bool SetVehicleTankHealth(uint vehid, float health);
 
-        public abstract string GetVehicleNumberPlate(uint guid);
+        public abstract bool GetVehicleHealth(uint vehid, ref float body, ref float engine, ref float tank);
 
-        public abstract bool SetVehicleNumberPlateStyle(uint guid, int style);
+        public abstract bool SetVehicleNumberPlate(uint vehid, string text);
 
-        public abstract int GetVehicleNumberPlateStyle(uint guid);
+        public abstract string GetVehicleNumberPlate(uint vehid);
 
-        public abstract bool SetVehicleSirenState(uint guid, bool state);
+        public abstract bool SetVehicleNumberPlateStyle(uint vehid, int style);
 
-        public abstract bool GetVehicleSirenState(uint guid);
+        public abstract int GetVehicleNumberPlateStyle(uint vehid);
 
-        public abstract bool SetVehicleWheelColor(uint guid, int color);
+        public abstract bool SetVehicleSirenState(uint vehid, bool state);
 
-        public abstract int GetVehicleWheelColor(uint guid);
+        public abstract bool GetVehicleSirenState(uint vehid);
 
-        public abstract bool SetVehicleWheelType(uint guid, int type);
+        public abstract bool SetVehicleWheelColor(uint vehid, int color);
 
-        public abstract int GetVehicleWheelType(uint guid);
+        public abstract int GetVehicleWheelColor(uint vehid);
 
-        public abstract uint GetVehicleDriver(uint guid);
+        public abstract bool SetVehicleWheelType(uint vehid, int type);
+
+        public abstract int GetVehicleWheelType(uint vehid);
+
+        public abstract int GetVehicleDriver(uint vehid);
 
         public abstract uint CreateObject(int model, float x, float y, float z, float pitch, float yaw, float roll);
 
@@ -1411,6 +1417,20 @@ namespace SharpOrange
             {
                 __target.LoadClientScript(__basicStringRet.CStr(), buffer, size);
             }
+        }
+
+        // void KickPlayer(long playerid, const char * reason) = 0
+        private static global::SharpOrange.Delegates.Action_IntPtr_int_string _KickPlayer_1DelegateInstance;
+
+        private static void _KickPlayer_1DelegateHook(global::System.IntPtr instance, int playerid, [MarshalAs(UnmanagedType.LPStr)] string reason)
+        {
+            if (!NativeToManagedMap.ContainsKey(instance))
+                throw new global::System.Exception("No managed instance was found");
+
+            var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
+            if (__target.__ownsNativeInstance)
+                __target.SetupVTables();
+            __target.KickPlayer(playerid, reason);
         }
 
         // void KickPlayer(long playerid) = 0
@@ -1876,10 +1896,10 @@ namespace SharpOrange
             return __ret;
         }
 
-        // bool DeleteVehicle(unsigned long guid) = 0
+        // bool DeleteVehicle(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint _DeleteVehicle_0DelegateInstance;
 
-        private static bool _DeleteVehicle_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static bool _DeleteVehicle_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -1887,14 +1907,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.DeleteVehicle(guid);
+            var __ret = __target.DeleteVehicle(vehid);
             return __ret;
         }
 
-        // bool SetVehiclePosition(unsigned long guid, float x, float y, float z) = 0
+        // bool SetVehiclePosition(unsigned long vehid, float x, float y, float z) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float _SetVehiclePosition_0DelegateInstance;
 
-        private static bool _SetVehiclePosition_0DelegateHook(global::System.IntPtr instance, uint guid, float x, float y, float z)
+        private static bool _SetVehiclePosition_0DelegateHook(global::System.IntPtr instance, uint vehid, float x, float y, float z)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -1902,14 +1922,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehiclePosition(guid, x, y, z);
+            var __ret = __target.SetVehiclePosition(vehid, x, y, z);
             return __ret;
         }
 
-        // CVector3 GetVehiclePosition(unsigned long guid) = 0
+        // CVector3 GetVehiclePosition(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint _GetVehiclePosition_0DelegateInstance;
 
-        private static void _GetVehiclePosition_0DelegateHook(global::System.IntPtr instance, global::System.IntPtr @return, uint guid)
+        private static void _GetVehiclePosition_0DelegateHook(global::System.IntPtr instance, global::System.IntPtr @return, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -1917,14 +1937,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehiclePosition(guid);
+            var __ret = __target.GetVehiclePosition(vehid);
             *(global::SharpOrange.CVector3.__Internal*) @return = ReferenceEquals(__ret, null) ? new global::SharpOrange.CVector3.__Internal() : *(global::SharpOrange.CVector3.__Internal*) __ret.__Instance;
         }
 
-        // bool SetVehicleRotation(unsigned long guid, float rx, float ry, float rz) = 0
+        // bool SetVehicleRotation(unsigned long vehid, float rx, float ry, float rz) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float _SetVehicleRotation_0DelegateInstance;
 
-        private static bool _SetVehicleRotation_0DelegateHook(global::System.IntPtr instance, uint guid, float rx, float ry, float rz)
+        private static bool _SetVehicleRotation_0DelegateHook(global::System.IntPtr instance, uint vehid, float rx, float ry, float rz)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -1932,14 +1952,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleRotation(guid, rx, ry, rz);
+            var __ret = __target.SetVehicleRotation(vehid, rx, ry, rz);
             return __ret;
         }
 
-        // CVector3 GetVehicleRotation(unsigned long guid) = 0
+        // CVector3 GetVehicleRotation(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint _GetVehicleRotation_0DelegateInstance;
 
-        private static void _GetVehicleRotation_0DelegateHook(global::System.IntPtr instance, global::System.IntPtr @return, uint guid)
+        private static void _GetVehicleRotation_0DelegateHook(global::System.IntPtr instance, global::System.IntPtr @return, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -1947,14 +1967,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleRotation(guid);
+            var __ret = __target.GetVehicleRotation(vehid);
             *(global::SharpOrange.CVector3.__Internal*) @return = ReferenceEquals(__ret, null) ? new global::SharpOrange.CVector3.__Internal() : *(global::SharpOrange.CVector3.__Internal*) __ret.__Instance;
         }
 
-        // bool SetVehicleColours(unsigned long guid, int Color1, int Color2) = 0
-        private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int _SetVehicleColours_0DelegateInstance;
+        // bool SetVehicleColours(unsigned long vehid, unsigned char Color1, unsigned char Color2) = 0
+        private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_byte_byte _SetVehicleColours_0DelegateInstance;
 
-        private static bool _SetVehicleColours_0DelegateHook(global::System.IntPtr instance, uint guid, int Color1, int Color2)
+        private static bool _SetVehicleColours_0DelegateHook(global::System.IntPtr instance, uint vehid, byte Color1, byte Color2)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -1962,14 +1982,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleColours(guid, Color1, Color2);
+            var __ret = __target.SetVehicleColours(vehid, Color1, Color2);
             return __ret;
         }
 
-        // bool GetVehicleColours(unsigned long guid, int *Color1, int *Color2) = 0
-        private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr _GetVehicleColours_0DelegateInstance;
+        // bool GetVehicleColours(unsigned long vehid, unsigned char *Color1, unsigned char *Color2) = 0
+        private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bytePtr_bytePtr _GetVehicleColours_0DelegateInstance;
 
-        private static bool _GetVehicleColours_0DelegateHook(global::System.IntPtr instance, uint guid, int* Color1, int* Color2)
+        private static bool _GetVehicleColours_0DelegateHook(global::System.IntPtr instance, uint vehid, byte* Color1, byte* Color2)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -1977,14 +1997,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleColours(guid, ref *Color1, ref *Color2);
+            var __ret = __target.GetVehicleColours(vehid, Color1, Color2);
             return __ret;
         }
 
-        // bool SetVehicleTyresBulletproof(unsigned long guid, bool bulletproof) = 0
+        // bool SetVehicleTyresBulletproof(unsigned long vehid, bool bulletproof) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool _SetVehicleTyresBulletproof_0DelegateInstance;
 
-        private static bool _SetVehicleTyresBulletproof_0DelegateHook(global::System.IntPtr instance, uint guid, bool bulletproof)
+        private static bool _SetVehicleTyresBulletproof_0DelegateHook(global::System.IntPtr instance, uint vehid, bool bulletproof)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -1992,14 +2012,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleTyresBulletproof(guid, bulletproof);
+            var __ret = __target.SetVehicleTyresBulletproof(vehid, bulletproof);
             return __ret;
         }
 
-        // bool GetVehicleTyresBulletproof(unsigned long guid) = 0
+        // bool GetVehicleTyresBulletproof(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint _GetVehicleTyresBulletproof_0DelegateInstance;
 
-        private static bool _GetVehicleTyresBulletproof_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static bool _GetVehicleTyresBulletproof_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2007,14 +2027,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleTyresBulletproof(guid);
+            var __ret = __target.GetVehicleTyresBulletproof(vehid);
             return __ret;
         }
 
-        // bool SetVehicleCustomPrimaryColor(unsigned long guid, int rColor, int gColor, int bColor) = 0
+        // bool SetVehicleCustomPrimaryColor(unsigned long vehid, int rColor, int gColor, int bColor) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int _SetVehicleCustomPrimaryColor_0DelegateInstance;
 
-        private static bool _SetVehicleCustomPrimaryColor_0DelegateHook(global::System.IntPtr instance, uint guid, int rColor, int gColor, int bColor)
+        private static bool _SetVehicleCustomPrimaryColor_0DelegateHook(global::System.IntPtr instance, uint vehid, int rColor, int gColor, int bColor)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2022,14 +2042,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleCustomPrimaryColor(guid, rColor, gColor, bColor);
+            var __ret = __target.SetVehicleCustomPrimaryColor(vehid, rColor, gColor, bColor);
             return __ret;
         }
 
-        // bool GetVehicleCustomPrimaryColor(unsigned long guid, int *rColor, int *gColor, int *bColor) = 0
+        // bool GetVehicleCustomPrimaryColor(unsigned long vehid, int *rColor, int *gColor, int *bColor) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr_intPtr _GetVehicleCustomPrimaryColor_0DelegateInstance;
 
-        private static bool _GetVehicleCustomPrimaryColor_0DelegateHook(global::System.IntPtr instance, uint guid, int* rColor, int* gColor, int* bColor)
+        private static bool _GetVehicleCustomPrimaryColor_0DelegateHook(global::System.IntPtr instance, uint vehid, int* rColor, int* gColor, int* bColor)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2037,14 +2057,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleCustomPrimaryColor(guid, ref *rColor, ref *gColor, ref *bColor);
+            var __ret = __target.GetVehicleCustomPrimaryColor(vehid, ref *rColor, ref *gColor, ref *bColor);
             return __ret;
         }
 
-        // bool SetVehicleCustomSecondaryColor(unsigned long guid, int rColor, int gColor, int bColor) = 0
+        // bool SetVehicleCustomSecondaryColor(unsigned long vehid, int rColor, int gColor, int bColor) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int _SetVehicleCustomSecondaryColor_0DelegateInstance;
 
-        private static bool _SetVehicleCustomSecondaryColor_0DelegateHook(global::System.IntPtr instance, uint guid, int rColor, int gColor, int bColor)
+        private static bool _SetVehicleCustomSecondaryColor_0DelegateHook(global::System.IntPtr instance, uint vehid, int rColor, int gColor, int bColor)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2052,14 +2072,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleCustomSecondaryColor(guid, rColor, gColor, bColor);
+            var __ret = __target.SetVehicleCustomSecondaryColor(vehid, rColor, gColor, bColor);
             return __ret;
         }
 
-        // bool GetVehicleCustomSecondaryColor(unsigned long guid, int *rColor, int *gColor, int *bColor) = 0
+        // bool GetVehicleCustomSecondaryColor(unsigned long vehid, int *rColor, int *gColor, int *bColor) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr_intPtr _GetVehicleCustomSecondaryColor_0DelegateInstance;
 
-        private static bool _GetVehicleCustomSecondaryColor_0DelegateHook(global::System.IntPtr instance, uint guid, int* rColor, int* gColor, int* bColor)
+        private static bool _GetVehicleCustomSecondaryColor_0DelegateHook(global::System.IntPtr instance, uint vehid, int* rColor, int* gColor, int* bColor)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2067,14 +2087,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleCustomSecondaryColor(guid, ref *rColor, ref *gColor, ref *bColor);
+            var __ret = __target.GetVehicleCustomSecondaryColor(vehid, ref *rColor, ref *gColor, ref *bColor);
             return __ret;
         }
 
-        // bool SetVehicleEngineStatus(unsigned long guid, bool status, bool locked) = 0
+        // bool SetVehicleEngineStatus(unsigned long vehid, bool status, bool locked) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool_bool _SetVehicleEngineStatus_0DelegateInstance;
 
-        private static bool _SetVehicleEngineStatus_0DelegateHook(global::System.IntPtr instance, uint guid, bool status, bool locked)
+        private static bool _SetVehicleEngineStatus_0DelegateHook(global::System.IntPtr instance, uint vehid, bool status, bool locked)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2082,14 +2102,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleEngineStatus(guid, status, locked);
+            var __ret = __target.SetVehicleEngineStatus(vehid, status, locked);
             return __ret;
         }
 
-        // bool GetVehicleEngineStatus(unsigned long guid) = 0
+        // bool GetVehicleEngineStatus(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint _GetVehicleEngineStatus_0DelegateInstance;
 
-        private static bool _GetVehicleEngineStatus_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static bool _GetVehicleEngineStatus_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2097,14 +2117,44 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleEngineStatus(guid);
+            var __ret = __target.GetVehicleEngineStatus(vehid);
             return __ret;
         }
 
-        // bool SetVehicleBodyHealth(unsigned long guid, float health) = 0
+        // bool SetVehicleLocked(unsigned long vehid, bool locked) = 0
+        private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool _SetVehicleLocked_0DelegateInstance;
+
+        private static bool _SetVehicleLocked_0DelegateHook(global::System.IntPtr instance, uint vehid, bool locked)
+        {
+            if (!NativeToManagedMap.ContainsKey(instance))
+                throw new global::System.Exception("No managed instance was found");
+
+            var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
+            if (__target.__ownsNativeInstance)
+                __target.SetupVTables();
+            var __ret = __target.SetVehicleLocked(vehid, locked);
+            return __ret;
+        }
+
+        // bool IsVehicleLocked(unsigned long vehid) = 0
+        private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint _IsVehicleLocked_0DelegateInstance;
+
+        private static bool _IsVehicleLocked_0DelegateHook(global::System.IntPtr instance, uint vehid)
+        {
+            if (!NativeToManagedMap.ContainsKey(instance))
+                throw new global::System.Exception("No managed instance was found");
+
+            var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
+            if (__target.__ownsNativeInstance)
+                __target.SetupVTables();
+            var __ret = __target.IsVehicleLocked(vehid);
+            return __ret;
+        }
+
+        // bool SetVehicleBodyHealth(unsigned long vehid, float health) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float _SetVehicleBodyHealth_0DelegateInstance;
 
-        private static bool _SetVehicleBodyHealth_0DelegateHook(global::System.IntPtr instance, uint guid, float health)
+        private static bool _SetVehicleBodyHealth_0DelegateHook(global::System.IntPtr instance, uint vehid, float health)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2112,14 +2162,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleBodyHealth(guid, health);
+            var __ret = __target.SetVehicleBodyHealth(vehid, health);
             return __ret;
         }
 
-        // bool SetVehicleEngineHealth(unsigned long guid, float health) = 0
+        // bool SetVehicleEngineHealth(unsigned long vehid, float health) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float _SetVehicleEngineHealth_0DelegateInstance;
 
-        private static bool _SetVehicleEngineHealth_0DelegateHook(global::System.IntPtr instance, uint guid, float health)
+        private static bool _SetVehicleEngineHealth_0DelegateHook(global::System.IntPtr instance, uint vehid, float health)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2127,14 +2177,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleEngineHealth(guid, health);
+            var __ret = __target.SetVehicleEngineHealth(vehid, health);
             return __ret;
         }
 
-        // bool SetVehicleTankHealth(unsigned long guid, float health) = 0
+        // bool SetVehicleTankHealth(unsigned long vehid, float health) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float _SetVehicleTankHealth_0DelegateInstance;
 
-        private static bool _SetVehicleTankHealth_0DelegateHook(global::System.IntPtr instance, uint guid, float health)
+        private static bool _SetVehicleTankHealth_0DelegateHook(global::System.IntPtr instance, uint vehid, float health)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2142,14 +2192,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleTankHealth(guid, health);
+            var __ret = __target.SetVehicleTankHealth(vehid, health);
             return __ret;
         }
 
-        // bool GetVehicleHealth(unsigned long guid, float *body, float *engine, float *tank) = 0
+        // bool GetVehicleHealth(unsigned long vehid, float *body, float *engine, float *tank) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_floatPtr_floatPtr_floatPtr _GetVehicleHealth_0DelegateInstance;
 
-        private static bool _GetVehicleHealth_0DelegateHook(global::System.IntPtr instance, uint guid, float* body, float* engine, float* tank)
+        private static bool _GetVehicleHealth_0DelegateHook(global::System.IntPtr instance, uint vehid, float* body, float* engine, float* tank)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2157,14 +2207,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleHealth(guid, ref *body, ref *engine, ref *tank);
+            var __ret = __target.GetVehicleHealth(vehid, ref *body, ref *engine, ref *tank);
             return __ret;
         }
 
-        // bool SetVehicleNumberPlate(unsigned long guid, const char *text) = 0
+        // bool SetVehicleNumberPlate(unsigned long vehid, const char *text) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_string _SetVehicleNumberPlate_0DelegateInstance;
 
-        private static bool _SetVehicleNumberPlate_0DelegateHook(global::System.IntPtr instance, uint guid, [MarshalAs(UnmanagedType.LPStr)] string text)
+        private static bool _SetVehicleNumberPlate_0DelegateHook(global::System.IntPtr instance, uint vehid, [MarshalAs(UnmanagedType.LPStr)] string text)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2172,14 +2222,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleNumberPlate(guid, text);
+            var __ret = __target.SetVehicleNumberPlate(vehid, text);
             return __ret;
         }
 
-        // std::string GetVehicleNumberPlate(unsigned long guid) = 0
+        // std::string GetVehicleNumberPlate(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint _GetVehicleNumberPlate_0DelegateInstance;
 
-        private static void _GetVehicleNumberPlate_0DelegateHook(global::System.IntPtr instance, global::System.IntPtr @return, uint guid)
+        private static void _GetVehicleNumberPlate_0DelegateHook(global::System.IntPtr instance, global::System.IntPtr @return, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2187,16 +2237,16 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleNumberPlate(guid);
+            var __ret = __target.GetVehicleNumberPlate(vehid);
             var __allocator0 = new global::Std.Allocator();
             var __basicString0 = new global::Std.BasicString(__ret, __allocator0);
             *(global::Std.BasicString.__Internal*) @return = *(global::Std.BasicString.__Internal*) __basicString0.__Instance;
         }
 
-        // bool SetVehicleNumberPlateStyle(unsigned long guid, int style) = 0
+        // bool SetVehicleNumberPlateStyle(unsigned long vehid, int style) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int _SetVehicleNumberPlateStyle_0DelegateInstance;
 
-        private static bool _SetVehicleNumberPlateStyle_0DelegateHook(global::System.IntPtr instance, uint guid, int style)
+        private static bool _SetVehicleNumberPlateStyle_0DelegateHook(global::System.IntPtr instance, uint vehid, int style)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2204,14 +2254,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleNumberPlateStyle(guid, style);
+            var __ret = __target.SetVehicleNumberPlateStyle(vehid, style);
             return __ret;
         }
 
-        // int GetVehicleNumberPlateStyle(unsigned long guid) = 0
+        // int GetVehicleNumberPlateStyle(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Func_int_IntPtr_uint _GetVehicleNumberPlateStyle_0DelegateInstance;
 
-        private static int _GetVehicleNumberPlateStyle_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static int _GetVehicleNumberPlateStyle_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2219,14 +2269,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleNumberPlateStyle(guid);
+            var __ret = __target.GetVehicleNumberPlateStyle(vehid);
             return __ret;
         }
 
-        // bool SetVehicleSirenState(unsigned long guid, bool state) = 0
+        // bool SetVehicleSirenState(unsigned long vehid, bool state) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool _SetVehicleSirenState_0DelegateInstance;
 
-        private static bool _SetVehicleSirenState_0DelegateHook(global::System.IntPtr instance, uint guid, bool state)
+        private static bool _SetVehicleSirenState_0DelegateHook(global::System.IntPtr instance, uint vehid, bool state)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2234,14 +2284,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleSirenState(guid, state);
+            var __ret = __target.SetVehicleSirenState(vehid, state);
             return __ret;
         }
 
-        // bool GetVehicleSirenState(unsigned long guid) = 0
+        // bool GetVehicleSirenState(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint _GetVehicleSirenState_0DelegateInstance;
 
-        private static bool _GetVehicleSirenState_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static bool _GetVehicleSirenState_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2249,14 +2299,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleSirenState(guid);
+            var __ret = __target.GetVehicleSirenState(vehid);
             return __ret;
         }
 
-        // bool SetVehicleWheelColor(unsigned long guid, int color) = 0
+        // bool SetVehicleWheelColor(unsigned long vehid, int color) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int _SetVehicleWheelColor_0DelegateInstance;
 
-        private static bool _SetVehicleWheelColor_0DelegateHook(global::System.IntPtr instance, uint guid, int color)
+        private static bool _SetVehicleWheelColor_0DelegateHook(global::System.IntPtr instance, uint vehid, int color)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2264,14 +2314,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleWheelColor(guid, color);
+            var __ret = __target.SetVehicleWheelColor(vehid, color);
             return __ret;
         }
 
-        // int GetVehicleWheelColor(unsigned long guid) = 0
+        // int GetVehicleWheelColor(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Func_int_IntPtr_uint _GetVehicleWheelColor_0DelegateInstance;
 
-        private static int _GetVehicleWheelColor_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static int _GetVehicleWheelColor_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2279,14 +2329,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleWheelColor(guid);
+            var __ret = __target.GetVehicleWheelColor(vehid);
             return __ret;
         }
 
-        // bool SetVehicleWheelType(unsigned long guid, int type) = 0
+        // bool SetVehicleWheelType(unsigned long vehid, int type) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int _SetVehicleWheelType_0DelegateInstance;
 
-        private static bool _SetVehicleWheelType_0DelegateHook(global::System.IntPtr instance, uint guid, int type)
+        private static bool _SetVehicleWheelType_0DelegateHook(global::System.IntPtr instance, uint vehid, int type)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2294,14 +2344,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleWheelType(guid, type);
+            var __ret = __target.SetVehicleWheelType(vehid, type);
             return __ret;
         }
 
-        // int GetVehicleWheelType(unsigned long guid) = 0
+        // int GetVehicleWheelType(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Func_int_IntPtr_uint _GetVehicleWheelType_0DelegateInstance;
 
-        private static int _GetVehicleWheelType_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static int _GetVehicleWheelType_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2309,14 +2359,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleWheelType(guid);
+            var __ret = __target.GetVehicleWheelType(vehid);
             return __ret;
         }
 
-        // unsigned long GetVehicleDriver(unsigned long guid) = 0
-        private static global::SharpOrange.Delegates.Func_uint_IntPtr_uint _GetVehicleDriver_0DelegateInstance;
+        // int GetVehicleDriver(unsigned long vehid) = 0
+        private static global::SharpOrange.Delegates.Func_int_IntPtr_uint _GetVehicleDriver_0DelegateInstance;
 
-        private static uint _GetVehicleDriver_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static int _GetVehicleDriver_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -2324,7 +2374,7 @@ namespace SharpOrange
             var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleDriver(guid);
+            var __ret = __target.GetVehicleDriver(vehid);
             return __ret;
         }
 
@@ -2730,280 +2780,290 @@ namespace SharpOrange
                 return;
             if (_Thunks == null)
             {
-                _Thunks = new void*[88];
+                _Thunks = new void*[91];
                 _LoadClientScript_0DelegateInstance += _LoadClientScript_0DelegateHook;
                 _Thunks[0] = Marshal.GetFunctionPointerForDelegate(_LoadClientScript_0DelegateInstance).ToPointer();
+                _KickPlayer_1DelegateInstance += _KickPlayer_1DelegateHook;
+                _Thunks[1] = Marshal.GetFunctionPointerForDelegate(_KickPlayer_1DelegateInstance).ToPointer();
                 _KickPlayer_0DelegateInstance += _KickPlayer_0DelegateHook;
-                _Thunks[1] = Marshal.GetFunctionPointerForDelegate(_KickPlayer_0DelegateInstance).ToPointer();
+                _Thunks[2] = Marshal.GetFunctionPointerForDelegate(_KickPlayer_0DelegateInstance).ToPointer();
                 _SetPlayerPosition_0DelegateInstance += _SetPlayerPosition_0DelegateHook;
-                _Thunks[2] = Marshal.GetFunctionPointerForDelegate(_SetPlayerPosition_0DelegateInstance).ToPointer();
+                _Thunks[3] = Marshal.GetFunctionPointerForDelegate(_SetPlayerPosition_0DelegateInstance).ToPointer();
                 _GetPlayerPosition_0DelegateInstance += _GetPlayerPosition_0DelegateHook;
-                _Thunks[3] = Marshal.GetFunctionPointerForDelegate(_GetPlayerPosition_0DelegateInstance).ToPointer();
+                _Thunks[4] = Marshal.GetFunctionPointerForDelegate(_GetPlayerPosition_0DelegateInstance).ToPointer();
                 _IsPlayerInRange_0DelegateInstance += _IsPlayerInRange_0DelegateHook;
-                _Thunks[4] = Marshal.GetFunctionPointerForDelegate(_IsPlayerInRange_0DelegateInstance).ToPointer();
+                _Thunks[5] = Marshal.GetFunctionPointerForDelegate(_IsPlayerInRange_0DelegateInstance).ToPointer();
                 _SetPlayerHeading_0DelegateInstance += _SetPlayerHeading_0DelegateHook;
-                _Thunks[5] = Marshal.GetFunctionPointerForDelegate(_SetPlayerHeading_0DelegateInstance).ToPointer();
+                _Thunks[6] = Marshal.GetFunctionPointerForDelegate(_SetPlayerHeading_0DelegateInstance).ToPointer();
                 _GetPlayerHeading_0DelegateInstance += _GetPlayerHeading_0DelegateHook;
-                _Thunks[6] = Marshal.GetFunctionPointerForDelegate(_GetPlayerHeading_0DelegateInstance).ToPointer();
+                _Thunks[7] = Marshal.GetFunctionPointerForDelegate(_GetPlayerHeading_0DelegateInstance).ToPointer();
                 _RemovePlayerWeapons_0DelegateInstance += _RemovePlayerWeapons_0DelegateHook;
-                _Thunks[7] = Marshal.GetFunctionPointerForDelegate(_RemovePlayerWeapons_0DelegateInstance).ToPointer();
+                _Thunks[8] = Marshal.GetFunctionPointerForDelegate(_RemovePlayerWeapons_0DelegateInstance).ToPointer();
                 _GivePlayerWeapon_0DelegateInstance += _GivePlayerWeapon_0DelegateHook;
-                _Thunks[8] = Marshal.GetFunctionPointerForDelegate(_GivePlayerWeapon_0DelegateInstance).ToPointer();
+                _Thunks[9] = Marshal.GetFunctionPointerForDelegate(_GivePlayerWeapon_0DelegateInstance).ToPointer();
                 _GivePlayerAmmo_0DelegateInstance += _GivePlayerAmmo_0DelegateHook;
-                _Thunks[9] = Marshal.GetFunctionPointerForDelegate(_GivePlayerAmmo_0DelegateInstance).ToPointer();
+                _Thunks[10] = Marshal.GetFunctionPointerForDelegate(_GivePlayerAmmo_0DelegateInstance).ToPointer();
                 _GivePlayerMoney_0DelegateInstance += _GivePlayerMoney_0DelegateHook;
-                _Thunks[10] = Marshal.GetFunctionPointerForDelegate(_GivePlayerMoney_0DelegateInstance).ToPointer();
+                _Thunks[11] = Marshal.GetFunctionPointerForDelegate(_GivePlayerMoney_0DelegateInstance).ToPointer();
                 _SetPlayerMoney_0DelegateInstance += _SetPlayerMoney_0DelegateHook;
-                _Thunks[11] = Marshal.GetFunctionPointerForDelegate(_SetPlayerMoney_0DelegateInstance).ToPointer();
+                _Thunks[12] = Marshal.GetFunctionPointerForDelegate(_SetPlayerMoney_0DelegateInstance).ToPointer();
                 _ResetPlayerMoney_0DelegateInstance += _ResetPlayerMoney_0DelegateHook;
-                _Thunks[12] = Marshal.GetFunctionPointerForDelegate(_ResetPlayerMoney_0DelegateInstance).ToPointer();
+                _Thunks[13] = Marshal.GetFunctionPointerForDelegate(_ResetPlayerMoney_0DelegateInstance).ToPointer();
                 _GetPlayerMoney_0DelegateInstance += _GetPlayerMoney_0DelegateHook;
-                _Thunks[13] = Marshal.GetFunctionPointerForDelegate(_GetPlayerMoney_0DelegateInstance).ToPointer();
+                _Thunks[14] = Marshal.GetFunctionPointerForDelegate(_GetPlayerMoney_0DelegateInstance).ToPointer();
                 _SetPlayerModel_0DelegateInstance += _SetPlayerModel_0DelegateHook;
-                _Thunks[14] = Marshal.GetFunctionPointerForDelegate(_SetPlayerModel_0DelegateInstance).ToPointer();
+                _Thunks[15] = Marshal.GetFunctionPointerForDelegate(_SetPlayerModel_0DelegateInstance).ToPointer();
                 _GetPlayerModel_0DelegateInstance += _GetPlayerModel_0DelegateHook;
-                _Thunks[15] = Marshal.GetFunctionPointerForDelegate(_GetPlayerModel_0DelegateInstance).ToPointer();
+                _Thunks[16] = Marshal.GetFunctionPointerForDelegate(_GetPlayerModel_0DelegateInstance).ToPointer();
                 _SetPlayerName_0DelegateInstance += _SetPlayerName_0DelegateHook;
-                _Thunks[16] = Marshal.GetFunctionPointerForDelegate(_SetPlayerName_0DelegateInstance).ToPointer();
+                _Thunks[17] = Marshal.GetFunctionPointerForDelegate(_SetPlayerName_0DelegateInstance).ToPointer();
                 _GetPlayerName_0DelegateInstance += _GetPlayerName_0DelegateHook;
-                _Thunks[17] = Marshal.GetFunctionPointerForDelegate(_GetPlayerName_0DelegateInstance).ToPointer();
+                _Thunks[18] = Marshal.GetFunctionPointerForDelegate(_GetPlayerName_0DelegateInstance).ToPointer();
                 _SetPlayerHealth_0DelegateInstance += _SetPlayerHealth_0DelegateHook;
-                _Thunks[18] = Marshal.GetFunctionPointerForDelegate(_SetPlayerHealth_0DelegateInstance).ToPointer();
+                _Thunks[19] = Marshal.GetFunctionPointerForDelegate(_SetPlayerHealth_0DelegateInstance).ToPointer();
                 _GetPlayerHealth_0DelegateInstance += _GetPlayerHealth_0DelegateHook;
-                _Thunks[19] = Marshal.GetFunctionPointerForDelegate(_GetPlayerHealth_0DelegateInstance).ToPointer();
+                _Thunks[20] = Marshal.GetFunctionPointerForDelegate(_GetPlayerHealth_0DelegateInstance).ToPointer();
                 _SetPlayerArmour_0DelegateInstance += _SetPlayerArmour_0DelegateHook;
-                _Thunks[20] = Marshal.GetFunctionPointerForDelegate(_SetPlayerArmour_0DelegateInstance).ToPointer();
+                _Thunks[21] = Marshal.GetFunctionPointerForDelegate(_SetPlayerArmour_0DelegateInstance).ToPointer();
                 _GetPlayerArmour_0DelegateInstance += _GetPlayerArmour_0DelegateHook;
-                _Thunks[21] = Marshal.GetFunctionPointerForDelegate(_GetPlayerArmour_0DelegateInstance).ToPointer();
+                _Thunks[22] = Marshal.GetFunctionPointerForDelegate(_GetPlayerArmour_0DelegateInstance).ToPointer();
                 _SetPlayerColor_0DelegateInstance += _SetPlayerColor_0DelegateHook;
-                _Thunks[22] = Marshal.GetFunctionPointerForDelegate(_SetPlayerColor_0DelegateInstance).ToPointer();
+                _Thunks[23] = Marshal.GetFunctionPointerForDelegate(_SetPlayerColor_0DelegateInstance).ToPointer();
                 _GetPlayerColor_0DelegateInstance += _GetPlayerColor_0DelegateHook;
-                _Thunks[23] = Marshal.GetFunctionPointerForDelegate(_GetPlayerColor_0DelegateInstance).ToPointer();
+                _Thunks[24] = Marshal.GetFunctionPointerForDelegate(_GetPlayerColor_0DelegateInstance).ToPointer();
                 _BroadcastClientMessage_0DelegateInstance += _BroadcastClientMessage_0DelegateHook;
-                _Thunks[24] = Marshal.GetFunctionPointerForDelegate(_BroadcastClientMessage_0DelegateInstance).ToPointer();
+                _Thunks[25] = Marshal.GetFunctionPointerForDelegate(_BroadcastClientMessage_0DelegateInstance).ToPointer();
                 _SendClientMessage_0DelegateInstance += _SendClientMessage_0DelegateHook;
-                _Thunks[25] = Marshal.GetFunctionPointerForDelegate(_SendClientMessage_0DelegateInstance).ToPointer();
+                _Thunks[26] = Marshal.GetFunctionPointerForDelegate(_SendClientMessage_0DelegateInstance).ToPointer();
                 _SetPlayerIntoVehicle_0DelegateInstance += _SetPlayerIntoVehicle_0DelegateHook;
-                _Thunks[26] = Marshal.GetFunctionPointerForDelegate(_SetPlayerIntoVehicle_0DelegateInstance).ToPointer();
+                _Thunks[27] = Marshal.GetFunctionPointerForDelegate(_SetPlayerIntoVehicle_0DelegateInstance).ToPointer();
                 _DisablePlayerHud_0DelegateInstance += _DisablePlayerHud_0DelegateHook;
-                _Thunks[27] = Marshal.GetFunctionPointerForDelegate(_DisablePlayerHud_0DelegateInstance).ToPointer();
+                _Thunks[28] = Marshal.GetFunctionPointerForDelegate(_DisablePlayerHud_0DelegateInstance).ToPointer();
                 _GetPlayerGUID_0DelegateInstance += _GetPlayerGUID_0DelegateHook;
-                _Thunks[28] = Marshal.GetFunctionPointerForDelegate(_GetPlayerGUID_0DelegateInstance).ToPointer();
+                _Thunks[29] = Marshal.GetFunctionPointerForDelegate(_GetPlayerGUID_0DelegateInstance).ToPointer();
                 _Print_0DelegateInstance += _Print_0DelegateHook;
-                _Thunks[29] = Marshal.GetFunctionPointerForDelegate(_Print_0DelegateInstance).ToPointer();
+                _Thunks[30] = Marshal.GetFunctionPointerForDelegate(_Print_0DelegateInstance).ToPointer();
                 _Hash_0DelegateInstance += _Hash_0DelegateHook;
-                _Thunks[30] = Marshal.GetFunctionPointerForDelegate(_Hash_0DelegateInstance).ToPointer();
+                _Thunks[31] = Marshal.GetFunctionPointerForDelegate(_Hash_0DelegateInstance).ToPointer();
                 _CreateVehicle_0DelegateInstance += _CreateVehicle_0DelegateHook;
-                _Thunks[31] = Marshal.GetFunctionPointerForDelegate(_CreateVehicle_0DelegateInstance).ToPointer();
+                _Thunks[32] = Marshal.GetFunctionPointerForDelegate(_CreateVehicle_0DelegateInstance).ToPointer();
                 _DeleteVehicle_0DelegateInstance += _DeleteVehicle_0DelegateHook;
-                _Thunks[32] = Marshal.GetFunctionPointerForDelegate(_DeleteVehicle_0DelegateInstance).ToPointer();
+                _Thunks[33] = Marshal.GetFunctionPointerForDelegate(_DeleteVehicle_0DelegateInstance).ToPointer();
                 _SetVehiclePosition_0DelegateInstance += _SetVehiclePosition_0DelegateHook;
-                _Thunks[33] = Marshal.GetFunctionPointerForDelegate(_SetVehiclePosition_0DelegateInstance).ToPointer();
+                _Thunks[34] = Marshal.GetFunctionPointerForDelegate(_SetVehiclePosition_0DelegateInstance).ToPointer();
                 _GetVehiclePosition_0DelegateInstance += _GetVehiclePosition_0DelegateHook;
-                _Thunks[34] = Marshal.GetFunctionPointerForDelegate(_GetVehiclePosition_0DelegateInstance).ToPointer();
+                _Thunks[35] = Marshal.GetFunctionPointerForDelegate(_GetVehiclePosition_0DelegateInstance).ToPointer();
                 _SetVehicleRotation_0DelegateInstance += _SetVehicleRotation_0DelegateHook;
-                _Thunks[35] = Marshal.GetFunctionPointerForDelegate(_SetVehicleRotation_0DelegateInstance).ToPointer();
+                _Thunks[36] = Marshal.GetFunctionPointerForDelegate(_SetVehicleRotation_0DelegateInstance).ToPointer();
                 _GetVehicleRotation_0DelegateInstance += _GetVehicleRotation_0DelegateHook;
-                _Thunks[36] = Marshal.GetFunctionPointerForDelegate(_GetVehicleRotation_0DelegateInstance).ToPointer();
+                _Thunks[37] = Marshal.GetFunctionPointerForDelegate(_GetVehicleRotation_0DelegateInstance).ToPointer();
                 _SetVehicleColours_0DelegateInstance += _SetVehicleColours_0DelegateHook;
-                _Thunks[37] = Marshal.GetFunctionPointerForDelegate(_SetVehicleColours_0DelegateInstance).ToPointer();
+                _Thunks[38] = Marshal.GetFunctionPointerForDelegate(_SetVehicleColours_0DelegateInstance).ToPointer();
                 _GetVehicleColours_0DelegateInstance += _GetVehicleColours_0DelegateHook;
-                _Thunks[38] = Marshal.GetFunctionPointerForDelegate(_GetVehicleColours_0DelegateInstance).ToPointer();
+                _Thunks[39] = Marshal.GetFunctionPointerForDelegate(_GetVehicleColours_0DelegateInstance).ToPointer();
                 _SetVehicleTyresBulletproof_0DelegateInstance += _SetVehicleTyresBulletproof_0DelegateHook;
-                _Thunks[39] = Marshal.GetFunctionPointerForDelegate(_SetVehicleTyresBulletproof_0DelegateInstance).ToPointer();
+                _Thunks[40] = Marshal.GetFunctionPointerForDelegate(_SetVehicleTyresBulletproof_0DelegateInstance).ToPointer();
                 _GetVehicleTyresBulletproof_0DelegateInstance += _GetVehicleTyresBulletproof_0DelegateHook;
-                _Thunks[40] = Marshal.GetFunctionPointerForDelegate(_GetVehicleTyresBulletproof_0DelegateInstance).ToPointer();
+                _Thunks[41] = Marshal.GetFunctionPointerForDelegate(_GetVehicleTyresBulletproof_0DelegateInstance).ToPointer();
                 _SetVehicleCustomPrimaryColor_0DelegateInstance += _SetVehicleCustomPrimaryColor_0DelegateHook;
-                _Thunks[41] = Marshal.GetFunctionPointerForDelegate(_SetVehicleCustomPrimaryColor_0DelegateInstance).ToPointer();
+                _Thunks[42] = Marshal.GetFunctionPointerForDelegate(_SetVehicleCustomPrimaryColor_0DelegateInstance).ToPointer();
                 _GetVehicleCustomPrimaryColor_0DelegateInstance += _GetVehicleCustomPrimaryColor_0DelegateHook;
-                _Thunks[42] = Marshal.GetFunctionPointerForDelegate(_GetVehicleCustomPrimaryColor_0DelegateInstance).ToPointer();
+                _Thunks[43] = Marshal.GetFunctionPointerForDelegate(_GetVehicleCustomPrimaryColor_0DelegateInstance).ToPointer();
                 _SetVehicleCustomSecondaryColor_0DelegateInstance += _SetVehicleCustomSecondaryColor_0DelegateHook;
-                _Thunks[43] = Marshal.GetFunctionPointerForDelegate(_SetVehicleCustomSecondaryColor_0DelegateInstance).ToPointer();
+                _Thunks[44] = Marshal.GetFunctionPointerForDelegate(_SetVehicleCustomSecondaryColor_0DelegateInstance).ToPointer();
                 _GetVehicleCustomSecondaryColor_0DelegateInstance += _GetVehicleCustomSecondaryColor_0DelegateHook;
-                _Thunks[44] = Marshal.GetFunctionPointerForDelegate(_GetVehicleCustomSecondaryColor_0DelegateInstance).ToPointer();
+                _Thunks[45] = Marshal.GetFunctionPointerForDelegate(_GetVehicleCustomSecondaryColor_0DelegateInstance).ToPointer();
                 _SetVehicleEngineStatus_0DelegateInstance += _SetVehicleEngineStatus_0DelegateHook;
-                _Thunks[45] = Marshal.GetFunctionPointerForDelegate(_SetVehicleEngineStatus_0DelegateInstance).ToPointer();
+                _Thunks[46] = Marshal.GetFunctionPointerForDelegate(_SetVehicleEngineStatus_0DelegateInstance).ToPointer();
                 _GetVehicleEngineStatus_0DelegateInstance += _GetVehicleEngineStatus_0DelegateHook;
-                _Thunks[46] = Marshal.GetFunctionPointerForDelegate(_GetVehicleEngineStatus_0DelegateInstance).ToPointer();
+                _Thunks[47] = Marshal.GetFunctionPointerForDelegate(_GetVehicleEngineStatus_0DelegateInstance).ToPointer();
+                _SetVehicleLocked_0DelegateInstance += _SetVehicleLocked_0DelegateHook;
+                _Thunks[48] = Marshal.GetFunctionPointerForDelegate(_SetVehicleLocked_0DelegateInstance).ToPointer();
+                _IsVehicleLocked_0DelegateInstance += _IsVehicleLocked_0DelegateHook;
+                _Thunks[49] = Marshal.GetFunctionPointerForDelegate(_IsVehicleLocked_0DelegateInstance).ToPointer();
                 _SetVehicleBodyHealth_0DelegateInstance += _SetVehicleBodyHealth_0DelegateHook;
-                _Thunks[47] = Marshal.GetFunctionPointerForDelegate(_SetVehicleBodyHealth_0DelegateInstance).ToPointer();
+                _Thunks[50] = Marshal.GetFunctionPointerForDelegate(_SetVehicleBodyHealth_0DelegateInstance).ToPointer();
                 _SetVehicleEngineHealth_0DelegateInstance += _SetVehicleEngineHealth_0DelegateHook;
-                _Thunks[48] = Marshal.GetFunctionPointerForDelegate(_SetVehicleEngineHealth_0DelegateInstance).ToPointer();
+                _Thunks[51] = Marshal.GetFunctionPointerForDelegate(_SetVehicleEngineHealth_0DelegateInstance).ToPointer();
                 _SetVehicleTankHealth_0DelegateInstance += _SetVehicleTankHealth_0DelegateHook;
-                _Thunks[49] = Marshal.GetFunctionPointerForDelegate(_SetVehicleTankHealth_0DelegateInstance).ToPointer();
+                _Thunks[52] = Marshal.GetFunctionPointerForDelegate(_SetVehicleTankHealth_0DelegateInstance).ToPointer();
                 _GetVehicleHealth_0DelegateInstance += _GetVehicleHealth_0DelegateHook;
-                _Thunks[50] = Marshal.GetFunctionPointerForDelegate(_GetVehicleHealth_0DelegateInstance).ToPointer();
+                _Thunks[53] = Marshal.GetFunctionPointerForDelegate(_GetVehicleHealth_0DelegateInstance).ToPointer();
                 _SetVehicleNumberPlate_0DelegateInstance += _SetVehicleNumberPlate_0DelegateHook;
-                _Thunks[51] = Marshal.GetFunctionPointerForDelegate(_SetVehicleNumberPlate_0DelegateInstance).ToPointer();
+                _Thunks[54] = Marshal.GetFunctionPointerForDelegate(_SetVehicleNumberPlate_0DelegateInstance).ToPointer();
                 _GetVehicleNumberPlate_0DelegateInstance += _GetVehicleNumberPlate_0DelegateHook;
-                _Thunks[52] = Marshal.GetFunctionPointerForDelegate(_GetVehicleNumberPlate_0DelegateInstance).ToPointer();
+                _Thunks[55] = Marshal.GetFunctionPointerForDelegate(_GetVehicleNumberPlate_0DelegateInstance).ToPointer();
                 _SetVehicleNumberPlateStyle_0DelegateInstance += _SetVehicleNumberPlateStyle_0DelegateHook;
-                _Thunks[53] = Marshal.GetFunctionPointerForDelegate(_SetVehicleNumberPlateStyle_0DelegateInstance).ToPointer();
+                _Thunks[56] = Marshal.GetFunctionPointerForDelegate(_SetVehicleNumberPlateStyle_0DelegateInstance).ToPointer();
                 _GetVehicleNumberPlateStyle_0DelegateInstance += _GetVehicleNumberPlateStyle_0DelegateHook;
-                _Thunks[54] = Marshal.GetFunctionPointerForDelegate(_GetVehicleNumberPlateStyle_0DelegateInstance).ToPointer();
+                _Thunks[57] = Marshal.GetFunctionPointerForDelegate(_GetVehicleNumberPlateStyle_0DelegateInstance).ToPointer();
                 _SetVehicleSirenState_0DelegateInstance += _SetVehicleSirenState_0DelegateHook;
-                _Thunks[55] = Marshal.GetFunctionPointerForDelegate(_SetVehicleSirenState_0DelegateInstance).ToPointer();
+                _Thunks[58] = Marshal.GetFunctionPointerForDelegate(_SetVehicleSirenState_0DelegateInstance).ToPointer();
                 _GetVehicleSirenState_0DelegateInstance += _GetVehicleSirenState_0DelegateHook;
-                _Thunks[56] = Marshal.GetFunctionPointerForDelegate(_GetVehicleSirenState_0DelegateInstance).ToPointer();
+                _Thunks[59] = Marshal.GetFunctionPointerForDelegate(_GetVehicleSirenState_0DelegateInstance).ToPointer();
                 _SetVehicleWheelColor_0DelegateInstance += _SetVehicleWheelColor_0DelegateHook;
-                _Thunks[57] = Marshal.GetFunctionPointerForDelegate(_SetVehicleWheelColor_0DelegateInstance).ToPointer();
+                _Thunks[60] = Marshal.GetFunctionPointerForDelegate(_SetVehicleWheelColor_0DelegateInstance).ToPointer();
                 _GetVehicleWheelColor_0DelegateInstance += _GetVehicleWheelColor_0DelegateHook;
-                _Thunks[58] = Marshal.GetFunctionPointerForDelegate(_GetVehicleWheelColor_0DelegateInstance).ToPointer();
+                _Thunks[61] = Marshal.GetFunctionPointerForDelegate(_GetVehicleWheelColor_0DelegateInstance).ToPointer();
                 _SetVehicleWheelType_0DelegateInstance += _SetVehicleWheelType_0DelegateHook;
-                _Thunks[59] = Marshal.GetFunctionPointerForDelegate(_SetVehicleWheelType_0DelegateInstance).ToPointer();
+                _Thunks[62] = Marshal.GetFunctionPointerForDelegate(_SetVehicleWheelType_0DelegateInstance).ToPointer();
                 _GetVehicleWheelType_0DelegateInstance += _GetVehicleWheelType_0DelegateHook;
-                _Thunks[60] = Marshal.GetFunctionPointerForDelegate(_GetVehicleWheelType_0DelegateInstance).ToPointer();
+                _Thunks[63] = Marshal.GetFunctionPointerForDelegate(_GetVehicleWheelType_0DelegateInstance).ToPointer();
                 _GetVehicleDriver_0DelegateInstance += _GetVehicleDriver_0DelegateHook;
-                _Thunks[61] = Marshal.GetFunctionPointerForDelegate(_GetVehicleDriver_0DelegateInstance).ToPointer();
+                _Thunks[64] = Marshal.GetFunctionPointerForDelegate(_GetVehicleDriver_0DelegateInstance).ToPointer();
                 _CreateObject_0DelegateInstance += _CreateObject_0DelegateHook;
-                _Thunks[62] = Marshal.GetFunctionPointerForDelegate(_CreateObject_0DelegateInstance).ToPointer();
+                _Thunks[65] = Marshal.GetFunctionPointerForDelegate(_CreateObject_0DelegateInstance).ToPointer();
                 _DeleteObject_0DelegateInstance += _DeleteObject_0DelegateHook;
-                _Thunks[63] = Marshal.GetFunctionPointerForDelegate(_DeleteObject_0DelegateInstance).ToPointer();
+                _Thunks[66] = Marshal.GetFunctionPointerForDelegate(_DeleteObject_0DelegateInstance).ToPointer();
                 _CreatePickup_0DelegateInstance += _CreatePickup_0DelegateHook;
-                _Thunks[64] = Marshal.GetFunctionPointerForDelegate(_CreatePickup_0DelegateInstance).ToPointer();
+                _Thunks[67] = Marshal.GetFunctionPointerForDelegate(_CreatePickup_0DelegateInstance).ToPointer();
                 _CreateBlipForAll_0DelegateInstance += _CreateBlipForAll_0DelegateHook;
-                _Thunks[65] = Marshal.GetFunctionPointerForDelegate(_CreateBlipForAll_0DelegateInstance).ToPointer();
+                _Thunks[68] = Marshal.GetFunctionPointerForDelegate(_CreateBlipForAll_0DelegateInstance).ToPointer();
                 _CreateBlipForPlayer_0DelegateInstance += _CreateBlipForPlayer_0DelegateHook;
-                _Thunks[66] = Marshal.GetFunctionPointerForDelegate(_CreateBlipForPlayer_0DelegateInstance).ToPointer();
+                _Thunks[69] = Marshal.GetFunctionPointerForDelegate(_CreateBlipForPlayer_0DelegateInstance).ToPointer();
                 _DeleteBlip_0DelegateInstance += _DeleteBlip_0DelegateHook;
-                _Thunks[67] = Marshal.GetFunctionPointerForDelegate(_DeleteBlip_0DelegateInstance).ToPointer();
+                _Thunks[70] = Marshal.GetFunctionPointerForDelegate(_DeleteBlip_0DelegateInstance).ToPointer();
                 _SetBlipColor_0DelegateInstance += _SetBlipColor_0DelegateHook;
-                _Thunks[68] = Marshal.GetFunctionPointerForDelegate(_SetBlipColor_0DelegateInstance).ToPointer();
+                _Thunks[71] = Marshal.GetFunctionPointerForDelegate(_SetBlipColor_0DelegateInstance).ToPointer();
                 _SetBlipScale_0DelegateInstance += _SetBlipScale_0DelegateHook;
-                _Thunks[69] = Marshal.GetFunctionPointerForDelegate(_SetBlipScale_0DelegateInstance).ToPointer();
+                _Thunks[72] = Marshal.GetFunctionPointerForDelegate(_SetBlipScale_0DelegateInstance).ToPointer();
                 _SetBlipRoute_0DelegateInstance += _SetBlipRoute_0DelegateHook;
-                _Thunks[70] = Marshal.GetFunctionPointerForDelegate(_SetBlipRoute_0DelegateInstance).ToPointer();
+                _Thunks[73] = Marshal.GetFunctionPointerForDelegate(_SetBlipRoute_0DelegateInstance).ToPointer();
                 _SetBlipSprite_0DelegateInstance += _SetBlipSprite_0DelegateHook;
-                _Thunks[71] = Marshal.GetFunctionPointerForDelegate(_SetBlipSprite_0DelegateInstance).ToPointer();
+                _Thunks[74] = Marshal.GetFunctionPointerForDelegate(_SetBlipSprite_0DelegateInstance).ToPointer();
                 _SetBlipName_0DelegateInstance += _SetBlipName_0DelegateHook;
-                _Thunks[72] = Marshal.GetFunctionPointerForDelegate(_SetBlipName_0DelegateInstance).ToPointer();
+                _Thunks[75] = Marshal.GetFunctionPointerForDelegate(_SetBlipName_0DelegateInstance).ToPointer();
                 _SetBlipAsShortRange_0DelegateInstance += _SetBlipAsShortRange_0DelegateHook;
-                _Thunks[73] = Marshal.GetFunctionPointerForDelegate(_SetBlipAsShortRange_0DelegateInstance).ToPointer();
+                _Thunks[76] = Marshal.GetFunctionPointerForDelegate(_SetBlipAsShortRange_0DelegateInstance).ToPointer();
                 _AttachBlipToPlayer_0DelegateInstance += _AttachBlipToPlayer_0DelegateHook;
-                _Thunks[74] = Marshal.GetFunctionPointerForDelegate(_AttachBlipToPlayer_0DelegateInstance).ToPointer();
+                _Thunks[77] = Marshal.GetFunctionPointerForDelegate(_AttachBlipToPlayer_0DelegateInstance).ToPointer();
                 _AttachBlipToVehicle_0DelegateInstance += _AttachBlipToVehicle_0DelegateHook;
-                _Thunks[75] = Marshal.GetFunctionPointerForDelegate(_AttachBlipToVehicle_0DelegateInstance).ToPointer();
+                _Thunks[78] = Marshal.GetFunctionPointerForDelegate(_AttachBlipToVehicle_0DelegateInstance).ToPointer();
                 _CreateMarkerForAll_0DelegateInstance += _CreateMarkerForAll_0DelegateHook;
-                _Thunks[76] = Marshal.GetFunctionPointerForDelegate(_CreateMarkerForAll_0DelegateInstance).ToPointer();
+                _Thunks[79] = Marshal.GetFunctionPointerForDelegate(_CreateMarkerForAll_0DelegateInstance).ToPointer();
                 _CreateMarkerForPlayer_0DelegateInstance += _CreateMarkerForPlayer_0DelegateHook;
-                _Thunks[77] = Marshal.GetFunctionPointerForDelegate(_CreateMarkerForPlayer_0DelegateInstance).ToPointer();
+                _Thunks[80] = Marshal.GetFunctionPointerForDelegate(_CreateMarkerForPlayer_0DelegateInstance).ToPointer();
                 _DeleteMarker_0DelegateInstance += _DeleteMarker_0DelegateHook;
-                _Thunks[78] = Marshal.GetFunctionPointerForDelegate(_DeleteMarker_0DelegateInstance).ToPointer();
+                _Thunks[81] = Marshal.GetFunctionPointerForDelegate(_DeleteMarker_0DelegateInstance).ToPointer();
                 _SendNotification_0DelegateInstance += _SendNotification_0DelegateHook;
-                _Thunks[79] = Marshal.GetFunctionPointerForDelegate(_SendNotification_0DelegateInstance).ToPointer();
+                _Thunks[82] = Marshal.GetFunctionPointerForDelegate(_SendNotification_0DelegateInstance).ToPointer();
                 _SetInfoMsg_0DelegateInstance += _SetInfoMsg_0DelegateHook;
-                _Thunks[80] = Marshal.GetFunctionPointerForDelegate(_SetInfoMsg_0DelegateInstance).ToPointer();
+                _Thunks[83] = Marshal.GetFunctionPointerForDelegate(_SetInfoMsg_0DelegateInstance).ToPointer();
                 _UnsetInfoMsg_0DelegateInstance += _UnsetInfoMsg_0DelegateHook;
-                _Thunks[81] = Marshal.GetFunctionPointerForDelegate(_UnsetInfoMsg_0DelegateInstance).ToPointer();
+                _Thunks[84] = Marshal.GetFunctionPointerForDelegate(_UnsetInfoMsg_0DelegateInstance).ToPointer();
                 _Create3DText_0DelegateInstance += _Create3DText_0DelegateHook;
-                _Thunks[82] = Marshal.GetFunctionPointerForDelegate(_Create3DText_0DelegateInstance).ToPointer();
+                _Thunks[85] = Marshal.GetFunctionPointerForDelegate(_Create3DText_0DelegateInstance).ToPointer();
                 _Create3DTextForPlayer_0DelegateInstance += _Create3DTextForPlayer_0DelegateHook;
-                _Thunks[83] = Marshal.GetFunctionPointerForDelegate(_Create3DTextForPlayer_0DelegateInstance).ToPointer();
+                _Thunks[86] = Marshal.GetFunctionPointerForDelegate(_Create3DTextForPlayer_0DelegateInstance).ToPointer();
                 _Attach3DTextToVehicle_0DelegateInstance += _Attach3DTextToVehicle_0DelegateHook;
-                _Thunks[84] = Marshal.GetFunctionPointerForDelegate(_Attach3DTextToVehicle_0DelegateInstance).ToPointer();
+                _Thunks[87] = Marshal.GetFunctionPointerForDelegate(_Attach3DTextToVehicle_0DelegateInstance).ToPointer();
                 _Attach3DTextToPlayer_0DelegateInstance += _Attach3DTextToPlayer_0DelegateHook;
-                _Thunks[85] = Marshal.GetFunctionPointerForDelegate(_Attach3DTextToPlayer_0DelegateInstance).ToPointer();
+                _Thunks[88] = Marshal.GetFunctionPointerForDelegate(_Attach3DTextToPlayer_0DelegateInstance).ToPointer();
                 _Set3DTextContent_0DelegateInstance += _Set3DTextContent_0DelegateHook;
-                _Thunks[86] = Marshal.GetFunctionPointerForDelegate(_Set3DTextContent_0DelegateInstance).ToPointer();
+                _Thunks[89] = Marshal.GetFunctionPointerForDelegate(_Set3DTextContent_0DelegateInstance).ToPointer();
                 _Delete3DText_0DelegateInstance += _Delete3DText_0DelegateHook;
-                _Thunks[87] = Marshal.GetFunctionPointerForDelegate(_Delete3DText_0DelegateInstance).ToPointer();
+                _Thunks[90] = Marshal.GetFunctionPointerForDelegate(_Delete3DText_0DelegateInstance).ToPointer();
             }
 
             if (__ManagedVTables == null)
             {
                 __ManagedVTables = new void*[1];
-                var vfptr0 = Marshal.AllocHGlobal(90 * 8);
+                var vfptr0 = Marshal.AllocHGlobal(94 * 8);
                 __ManagedVTables[0] = vfptr0.ToPointer();
                 *(void**) (vfptr0 + 0) = _Thunks[0];
                 *(void**) (vfptr0 + 8) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 8);
-                *(void**) (vfptr0 + 16) = _Thunks[1];
-                *(void**) (vfptr0 + 24) = _Thunks[2];
-                *(void**) (vfptr0 + 32) = _Thunks[3];
-                *(void**) (vfptr0 + 40) = _Thunks[4];
-                *(void**) (vfptr0 + 48) = _Thunks[5];
-                *(void**) (vfptr0 + 56) = _Thunks[6];
-                *(void**) (vfptr0 + 64) = _Thunks[7];
-                *(void**) (vfptr0 + 72) = _Thunks[8];
-                *(void**) (vfptr0 + 80) = _Thunks[9];
-                *(void**) (vfptr0 + 88) = _Thunks[10];
-                *(void**) (vfptr0 + 96) = _Thunks[11];
-                *(void**) (vfptr0 + 104) = _Thunks[12];
-                *(void**) (vfptr0 + 112) = _Thunks[13];
-                *(void**) (vfptr0 + 120) = _Thunks[14];
-                *(void**) (vfptr0 + 128) = _Thunks[15];
-                *(void**) (vfptr0 + 136) = _Thunks[16];
-                *(void**) (vfptr0 + 144) = _Thunks[17];
-                *(void**) (vfptr0 + 152) = _Thunks[18];
-                *(void**) (vfptr0 + 160) = _Thunks[19];
-                *(void**) (vfptr0 + 168) = _Thunks[20];
-                *(void**) (vfptr0 + 176) = _Thunks[21];
-                *(void**) (vfptr0 + 184) = _Thunks[22];
-                *(void**) (vfptr0 + 192) = _Thunks[23];
-                *(void**) (vfptr0 + 200) = _Thunks[24];
-                *(void**) (vfptr0 + 208) = _Thunks[25];
-                *(void**) (vfptr0 + 216) = _Thunks[26];
-                *(void**) (vfptr0 + 224) = _Thunks[27];
-                *(void**) (vfptr0 + 232) = _Thunks[28];
-                *(void**) (vfptr0 + 240) = _Thunks[29];
-                *(void**) (vfptr0 + 248) = _Thunks[30];
-                *(void**) (vfptr0 + 256) = _Thunks[31];
-                *(void**) (vfptr0 + 264) = _Thunks[32];
-                *(void**) (vfptr0 + 272) = _Thunks[33];
-                *(void**) (vfptr0 + 280) = _Thunks[34];
-                *(void**) (vfptr0 + 288) = _Thunks[35];
-                *(void**) (vfptr0 + 296) = _Thunks[36];
-                *(void**) (vfptr0 + 304) = _Thunks[37];
-                *(void**) (vfptr0 + 312) = _Thunks[38];
-                *(void**) (vfptr0 + 320) = _Thunks[39];
-                *(void**) (vfptr0 + 328) = _Thunks[40];
-                *(void**) (vfptr0 + 336) = _Thunks[41];
-                *(void**) (vfptr0 + 344) = _Thunks[42];
-                *(void**) (vfptr0 + 352) = _Thunks[43];
-                *(void**) (vfptr0 + 360) = _Thunks[44];
-                *(void**) (vfptr0 + 368) = _Thunks[45];
-                *(void**) (vfptr0 + 376) = _Thunks[46];
-                *(void**) (vfptr0 + 384) = _Thunks[47];
-                *(void**) (vfptr0 + 392) = _Thunks[48];
-                *(void**) (vfptr0 + 400) = _Thunks[49];
-                *(void**) (vfptr0 + 408) = _Thunks[50];
-                *(void**) (vfptr0 + 416) = _Thunks[51];
-                *(void**) (vfptr0 + 424) = _Thunks[52];
-                *(void**) (vfptr0 + 432) = _Thunks[53];
-                *(void**) (vfptr0 + 440) = _Thunks[54];
-                *(void**) (vfptr0 + 448) = _Thunks[55];
-                *(void**) (vfptr0 + 456) = _Thunks[56];
-                *(void**) (vfptr0 + 464) = _Thunks[57];
-                *(void**) (vfptr0 + 472) = _Thunks[58];
-                *(void**) (vfptr0 + 480) = _Thunks[59];
-                *(void**) (vfptr0 + 488) = _Thunks[60];
-                *(void**) (vfptr0 + 496) = _Thunks[61];
-                *(void**) (vfptr0 + 504) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 504);
+                *(void**) (vfptr0 + 16) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 16);
+                *(void**) (vfptr0 + 24) = _Thunks[1];
+                *(void**) (vfptr0 + 32) = _Thunks[2];
+                *(void**) (vfptr0 + 40) = _Thunks[3];
+                *(void**) (vfptr0 + 48) = _Thunks[4];
+                *(void**) (vfptr0 + 56) = _Thunks[5];
+                *(void**) (vfptr0 + 64) = _Thunks[6];
+                *(void**) (vfptr0 + 72) = _Thunks[7];
+                *(void**) (vfptr0 + 80) = _Thunks[8];
+                *(void**) (vfptr0 + 88) = _Thunks[9];
+                *(void**) (vfptr0 + 96) = _Thunks[10];
+                *(void**) (vfptr0 + 104) = _Thunks[11];
+                *(void**) (vfptr0 + 112) = _Thunks[12];
+                *(void**) (vfptr0 + 120) = _Thunks[13];
+                *(void**) (vfptr0 + 128) = _Thunks[14];
+                *(void**) (vfptr0 + 136) = _Thunks[15];
+                *(void**) (vfptr0 + 144) = _Thunks[16];
+                *(void**) (vfptr0 + 152) = _Thunks[17];
+                *(void**) (vfptr0 + 160) = _Thunks[18];
+                *(void**) (vfptr0 + 168) = _Thunks[19];
+                *(void**) (vfptr0 + 176) = _Thunks[20];
+                *(void**) (vfptr0 + 184) = _Thunks[21];
+                *(void**) (vfptr0 + 192) = _Thunks[22];
+                *(void**) (vfptr0 + 200) = _Thunks[23];
+                *(void**) (vfptr0 + 208) = _Thunks[24];
+                *(void**) (vfptr0 + 216) = _Thunks[25];
+                *(void**) (vfptr0 + 224) = _Thunks[26];
+                *(void**) (vfptr0 + 232) = _Thunks[27];
+                *(void**) (vfptr0 + 240) = _Thunks[28];
+                *(void**) (vfptr0 + 248) = _Thunks[29];
+                *(void**) (vfptr0 + 256) = _Thunks[30];
+                *(void**) (vfptr0 + 264) = _Thunks[31];
+                *(void**) (vfptr0 + 272) = _Thunks[32];
+                *(void**) (vfptr0 + 280) = _Thunks[33];
+                *(void**) (vfptr0 + 288) = _Thunks[34];
+                *(void**) (vfptr0 + 296) = _Thunks[35];
+                *(void**) (vfptr0 + 304) = _Thunks[36];
+                *(void**) (vfptr0 + 312) = _Thunks[37];
+                *(void**) (vfptr0 + 320) = _Thunks[38];
+                *(void**) (vfptr0 + 328) = _Thunks[39];
+                *(void**) (vfptr0 + 336) = _Thunks[40];
+                *(void**) (vfptr0 + 344) = _Thunks[41];
+                *(void**) (vfptr0 + 352) = _Thunks[42];
+                *(void**) (vfptr0 + 360) = _Thunks[43];
+                *(void**) (vfptr0 + 368) = _Thunks[44];
+                *(void**) (vfptr0 + 376) = _Thunks[45];
+                *(void**) (vfptr0 + 384) = _Thunks[46];
+                *(void**) (vfptr0 + 392) = _Thunks[47];
+                *(void**) (vfptr0 + 400) = _Thunks[48];
+                *(void**) (vfptr0 + 408) = _Thunks[49];
+                *(void**) (vfptr0 + 416) = _Thunks[50];
+                *(void**) (vfptr0 + 424) = _Thunks[51];
+                *(void**) (vfptr0 + 432) = _Thunks[52];
+                *(void**) (vfptr0 + 440) = _Thunks[53];
+                *(void**) (vfptr0 + 448) = _Thunks[54];
+                *(void**) (vfptr0 + 456) = _Thunks[55];
+                *(void**) (vfptr0 + 464) = _Thunks[56];
+                *(void**) (vfptr0 + 472) = _Thunks[57];
+                *(void**) (vfptr0 + 480) = _Thunks[58];
+                *(void**) (vfptr0 + 488) = _Thunks[59];
+                *(void**) (vfptr0 + 496) = _Thunks[60];
+                *(void**) (vfptr0 + 504) = _Thunks[61];
                 *(void**) (vfptr0 + 512) = _Thunks[62];
                 *(void**) (vfptr0 + 520) = _Thunks[63];
                 *(void**) (vfptr0 + 528) = _Thunks[64];
-                *(void**) (vfptr0 + 536) = _Thunks[65];
-                *(void**) (vfptr0 + 544) = _Thunks[66];
-                *(void**) (vfptr0 + 552) = _Thunks[67];
-                *(void**) (vfptr0 + 560) = _Thunks[68];
-                *(void**) (vfptr0 + 568) = _Thunks[69];
-                *(void**) (vfptr0 + 576) = _Thunks[70];
-                *(void**) (vfptr0 + 584) = _Thunks[71];
-                *(void**) (vfptr0 + 592) = _Thunks[72];
-                *(void**) (vfptr0 + 600) = _Thunks[73];
-                *(void**) (vfptr0 + 608) = _Thunks[74];
-                *(void**) (vfptr0 + 616) = _Thunks[75];
-                *(void**) (vfptr0 + 624) = _Thunks[76];
-                *(void**) (vfptr0 + 632) = _Thunks[77];
-                *(void**) (vfptr0 + 640) = _Thunks[78];
-                *(void**) (vfptr0 + 648) = _Thunks[79];
-                *(void**) (vfptr0 + 656) = _Thunks[80];
-                *(void**) (vfptr0 + 664) = _Thunks[81];
-                *(void**) (vfptr0 + 672) = _Thunks[82];
-                *(void**) (vfptr0 + 680) = _Thunks[83];
-                *(void**) (vfptr0 + 688) = _Thunks[84];
-                *(void**) (vfptr0 + 696) = _Thunks[85];
-                *(void**) (vfptr0 + 704) = _Thunks[86];
-                *(void**) (vfptr0 + 712) = _Thunks[87];
+                *(void**) (vfptr0 + 536) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 536);
+                *(void**) (vfptr0 + 544) = _Thunks[65];
+                *(void**) (vfptr0 + 552) = _Thunks[66];
+                *(void**) (vfptr0 + 560) = _Thunks[67];
+                *(void**) (vfptr0 + 568) = _Thunks[68];
+                *(void**) (vfptr0 + 576) = _Thunks[69];
+                *(void**) (vfptr0 + 584) = _Thunks[70];
+                *(void**) (vfptr0 + 592) = _Thunks[71];
+                *(void**) (vfptr0 + 600) = _Thunks[72];
+                *(void**) (vfptr0 + 608) = _Thunks[73];
+                *(void**) (vfptr0 + 616) = _Thunks[74];
+                *(void**) (vfptr0 + 624) = _Thunks[75];
+                *(void**) (vfptr0 + 632) = _Thunks[76];
+                *(void**) (vfptr0 + 640) = _Thunks[77];
+                *(void**) (vfptr0 + 648) = _Thunks[78];
+                *(void**) (vfptr0 + 656) = _Thunks[79];
+                *(void**) (vfptr0 + 664) = _Thunks[80];
+                *(void**) (vfptr0 + 672) = _Thunks[81];
+                *(void**) (vfptr0 + 680) = _Thunks[82];
+                *(void**) (vfptr0 + 688) = _Thunks[83];
+                *(void**) (vfptr0 + 696) = _Thunks[84];
+                *(void**) (vfptr0 + 704) = _Thunks[85];
+                *(void**) (vfptr0 + 712) = _Thunks[86];
+                *(void**) (vfptr0 + 720) = _Thunks[87];
+                *(void**) (vfptr0 + 728) = _Thunks[88];
+                *(void**) (vfptr0 + 736) = _Thunks[89];
+                *(void**) (vfptr0 + 744) = _Thunks[90];
             }
 
             *(void**) (__Instance + 0) = __ManagedVTables[0];
@@ -3096,6 +3156,43 @@ namespace SharpOrange
             __Instance = IntPtr.Zero;
         }
 
+        public static void Set(global::SharpOrange.API api)
+        {
+            var __arg0 = ReferenceEquals(api, null) ? global::System.IntPtr.Zero : api.__Instance;
+            __Internal.Set_0(__arg0);
+        }
+
+        public static global::SharpOrange.API Get()
+        {
+            var __ret = __Internal.Get_0();
+            global::SharpOrange.API __result0;
+            if (__ret == IntPtr.Zero) __result0 = null;
+            else if (global::SharpOrange.API.NativeToManagedMap.ContainsKey(__ret))
+                __result0 = (global::SharpOrange.API) global::SharpOrange.API.NativeToManagedMap[__ret];
+            else __result0 = global::SharpOrange.API.__CreateInstance(__ret);
+            return __result0;
+        }
+
+        public static global::SharpOrange.API Instance
+        {
+            get
+            {
+                var __ptr = (global::System.IntPtr*)CppSharp.SymbolResolver.ResolveSymbol("SharpOrange", "?instance@API@@2PEAV1@EA");
+                global::SharpOrange.API __result0;
+                if (*__ptr == IntPtr.Zero) __result0 = null;
+                else if (global::SharpOrange.API.NativeToManagedMap.ContainsKey(*__ptr))
+                    __result0 = (global::SharpOrange.API) global::SharpOrange.API.NativeToManagedMap[*__ptr];
+                else __result0 = global::SharpOrange.API.__CreateInstance(*__ptr);
+                return __result0;
+            }
+
+            set
+            {
+                var __ptr = (global::System.IntPtr*)CppSharp.SymbolResolver.ResolveSymbol("SharpOrange", "?instance@API@@2PEAV1@EA");
+                *__ptr = ReferenceEquals(value, null) ? global::System.IntPtr.Zero : value.__Instance;
+            }
+        }
+
         #region Virtual table interop
 
         // void LoadClientScript(std::string name, char* buffer, size_t size) = 0
@@ -3113,6 +3210,20 @@ namespace SharpOrange
             {
                 __target.LoadClientScript(__basicStringRet.CStr(), buffer, size);
             }
+        }
+
+        // void KickPlayer(long playerid, const char * reason) = 0
+        private static global::SharpOrange.Delegates.Action_IntPtr_int_string _KickPlayer_1DelegateInstance;
+
+        private static void _KickPlayer_1DelegateHook(global::System.IntPtr instance, int playerid, [MarshalAs(UnmanagedType.LPStr)] string reason)
+        {
+            if (!NativeToManagedMap.ContainsKey(instance))
+                throw new global::System.Exception("No managed instance was found");
+
+            var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
+            if (__target.__ownsNativeInstance)
+                __target.SetupVTables();
+            __target.KickPlayer(playerid, reason);
         }
 
         // void KickPlayer(long playerid) = 0
@@ -3578,10 +3689,10 @@ namespace SharpOrange
             return __ret;
         }
 
-        // bool DeleteVehicle(unsigned long guid) = 0
+        // bool DeleteVehicle(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint _DeleteVehicle_0DelegateInstance;
 
-        private static bool _DeleteVehicle_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static bool _DeleteVehicle_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3589,14 +3700,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.DeleteVehicle(guid);
+            var __ret = __target.DeleteVehicle(vehid);
             return __ret;
         }
 
-        // bool SetVehiclePosition(unsigned long guid, float x, float y, float z) = 0
+        // bool SetVehiclePosition(unsigned long vehid, float x, float y, float z) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float _SetVehiclePosition_0DelegateInstance;
 
-        private static bool _SetVehiclePosition_0DelegateHook(global::System.IntPtr instance, uint guid, float x, float y, float z)
+        private static bool _SetVehiclePosition_0DelegateHook(global::System.IntPtr instance, uint vehid, float x, float y, float z)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3604,14 +3715,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehiclePosition(guid, x, y, z);
+            var __ret = __target.SetVehiclePosition(vehid, x, y, z);
             return __ret;
         }
 
-        // CVector3 GetVehiclePosition(unsigned long guid) = 0
+        // CVector3 GetVehiclePosition(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint _GetVehiclePosition_0DelegateInstance;
 
-        private static void _GetVehiclePosition_0DelegateHook(global::System.IntPtr instance, global::System.IntPtr @return, uint guid)
+        private static void _GetVehiclePosition_0DelegateHook(global::System.IntPtr instance, global::System.IntPtr @return, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3619,14 +3730,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehiclePosition(guid);
+            var __ret = __target.GetVehiclePosition(vehid);
             *(global::SharpOrange.CVector3.__Internal*) @return = ReferenceEquals(__ret, null) ? new global::SharpOrange.CVector3.__Internal() : *(global::SharpOrange.CVector3.__Internal*) __ret.__Instance;
         }
 
-        // bool SetVehicleRotation(unsigned long guid, float rx, float ry, float rz) = 0
+        // bool SetVehicleRotation(unsigned long vehid, float rx, float ry, float rz) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float _SetVehicleRotation_0DelegateInstance;
 
-        private static bool _SetVehicleRotation_0DelegateHook(global::System.IntPtr instance, uint guid, float rx, float ry, float rz)
+        private static bool _SetVehicleRotation_0DelegateHook(global::System.IntPtr instance, uint vehid, float rx, float ry, float rz)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3634,14 +3745,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleRotation(guid, rx, ry, rz);
+            var __ret = __target.SetVehicleRotation(vehid, rx, ry, rz);
             return __ret;
         }
 
-        // CVector3 GetVehicleRotation(unsigned long guid) = 0
+        // CVector3 GetVehicleRotation(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint _GetVehicleRotation_0DelegateInstance;
 
-        private static void _GetVehicleRotation_0DelegateHook(global::System.IntPtr instance, global::System.IntPtr @return, uint guid)
+        private static void _GetVehicleRotation_0DelegateHook(global::System.IntPtr instance, global::System.IntPtr @return, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3649,14 +3760,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleRotation(guid);
+            var __ret = __target.GetVehicleRotation(vehid);
             *(global::SharpOrange.CVector3.__Internal*) @return = ReferenceEquals(__ret, null) ? new global::SharpOrange.CVector3.__Internal() : *(global::SharpOrange.CVector3.__Internal*) __ret.__Instance;
         }
 
-        // bool SetVehicleColours(unsigned long guid, int Color1, int Color2) = 0
-        private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int _SetVehicleColours_0DelegateInstance;
+        // bool SetVehicleColours(unsigned long vehid, unsigned char Color1, unsigned char Color2) = 0
+        private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_byte_byte _SetVehicleColours_0DelegateInstance;
 
-        private static bool _SetVehicleColours_0DelegateHook(global::System.IntPtr instance, uint guid, int Color1, int Color2)
+        private static bool _SetVehicleColours_0DelegateHook(global::System.IntPtr instance, uint vehid, byte Color1, byte Color2)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3664,14 +3775,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleColours(guid, Color1, Color2);
+            var __ret = __target.SetVehicleColours(vehid, Color1, Color2);
             return __ret;
         }
 
-        // bool GetVehicleColours(unsigned long guid, int *Color1, int *Color2) = 0
-        private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr _GetVehicleColours_0DelegateInstance;
+        // bool GetVehicleColours(unsigned long vehid, unsigned char *Color1, unsigned char *Color2) = 0
+        private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bytePtr_bytePtr _GetVehicleColours_0DelegateInstance;
 
-        private static bool _GetVehicleColours_0DelegateHook(global::System.IntPtr instance, uint guid, int* Color1, int* Color2)
+        private static bool _GetVehicleColours_0DelegateHook(global::System.IntPtr instance, uint vehid, byte* Color1, byte* Color2)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3679,14 +3790,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleColours(guid, ref *Color1, ref *Color2);
+            var __ret = __target.GetVehicleColours(vehid, Color1, Color2);
             return __ret;
         }
 
-        // bool SetVehicleTyresBulletproof(unsigned long guid, bool bulletproof) = 0
+        // bool SetVehicleTyresBulletproof(unsigned long vehid, bool bulletproof) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool _SetVehicleTyresBulletproof_0DelegateInstance;
 
-        private static bool _SetVehicleTyresBulletproof_0DelegateHook(global::System.IntPtr instance, uint guid, bool bulletproof)
+        private static bool _SetVehicleTyresBulletproof_0DelegateHook(global::System.IntPtr instance, uint vehid, bool bulletproof)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3694,14 +3805,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleTyresBulletproof(guid, bulletproof);
+            var __ret = __target.SetVehicleTyresBulletproof(vehid, bulletproof);
             return __ret;
         }
 
-        // bool GetVehicleTyresBulletproof(unsigned long guid) = 0
+        // bool GetVehicleTyresBulletproof(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint _GetVehicleTyresBulletproof_0DelegateInstance;
 
-        private static bool _GetVehicleTyresBulletproof_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static bool _GetVehicleTyresBulletproof_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3709,14 +3820,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleTyresBulletproof(guid);
+            var __ret = __target.GetVehicleTyresBulletproof(vehid);
             return __ret;
         }
 
-        // bool SetVehicleCustomPrimaryColor(unsigned long guid, int rColor, int gColor, int bColor) = 0
+        // bool SetVehicleCustomPrimaryColor(unsigned long vehid, int rColor, int gColor, int bColor) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int _SetVehicleCustomPrimaryColor_0DelegateInstance;
 
-        private static bool _SetVehicleCustomPrimaryColor_0DelegateHook(global::System.IntPtr instance, uint guid, int rColor, int gColor, int bColor)
+        private static bool _SetVehicleCustomPrimaryColor_0DelegateHook(global::System.IntPtr instance, uint vehid, int rColor, int gColor, int bColor)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3724,14 +3835,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleCustomPrimaryColor(guid, rColor, gColor, bColor);
+            var __ret = __target.SetVehicleCustomPrimaryColor(vehid, rColor, gColor, bColor);
             return __ret;
         }
 
-        // bool GetVehicleCustomPrimaryColor(unsigned long guid, int *rColor, int *gColor, int *bColor) = 0
+        // bool GetVehicleCustomPrimaryColor(unsigned long vehid, int *rColor, int *gColor, int *bColor) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr_intPtr _GetVehicleCustomPrimaryColor_0DelegateInstance;
 
-        private static bool _GetVehicleCustomPrimaryColor_0DelegateHook(global::System.IntPtr instance, uint guid, int* rColor, int* gColor, int* bColor)
+        private static bool _GetVehicleCustomPrimaryColor_0DelegateHook(global::System.IntPtr instance, uint vehid, int* rColor, int* gColor, int* bColor)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3739,14 +3850,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleCustomPrimaryColor(guid, ref *rColor, ref *gColor, ref *bColor);
+            var __ret = __target.GetVehicleCustomPrimaryColor(vehid, ref *rColor, ref *gColor, ref *bColor);
             return __ret;
         }
 
-        // bool SetVehicleCustomSecondaryColor(unsigned long guid, int rColor, int gColor, int bColor) = 0
+        // bool SetVehicleCustomSecondaryColor(unsigned long vehid, int rColor, int gColor, int bColor) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int _SetVehicleCustomSecondaryColor_0DelegateInstance;
 
-        private static bool _SetVehicleCustomSecondaryColor_0DelegateHook(global::System.IntPtr instance, uint guid, int rColor, int gColor, int bColor)
+        private static bool _SetVehicleCustomSecondaryColor_0DelegateHook(global::System.IntPtr instance, uint vehid, int rColor, int gColor, int bColor)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3754,14 +3865,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleCustomSecondaryColor(guid, rColor, gColor, bColor);
+            var __ret = __target.SetVehicleCustomSecondaryColor(vehid, rColor, gColor, bColor);
             return __ret;
         }
 
-        // bool GetVehicleCustomSecondaryColor(unsigned long guid, int *rColor, int *gColor, int *bColor) = 0
+        // bool GetVehicleCustomSecondaryColor(unsigned long vehid, int *rColor, int *gColor, int *bColor) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr_intPtr _GetVehicleCustomSecondaryColor_0DelegateInstance;
 
-        private static bool _GetVehicleCustomSecondaryColor_0DelegateHook(global::System.IntPtr instance, uint guid, int* rColor, int* gColor, int* bColor)
+        private static bool _GetVehicleCustomSecondaryColor_0DelegateHook(global::System.IntPtr instance, uint vehid, int* rColor, int* gColor, int* bColor)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3769,14 +3880,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleCustomSecondaryColor(guid, ref *rColor, ref *gColor, ref *bColor);
+            var __ret = __target.GetVehicleCustomSecondaryColor(vehid, ref *rColor, ref *gColor, ref *bColor);
             return __ret;
         }
 
-        // bool SetVehicleEngineStatus(unsigned long guid, bool status, bool locked) = 0
+        // bool SetVehicleEngineStatus(unsigned long vehid, bool status, bool locked) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool_bool _SetVehicleEngineStatus_0DelegateInstance;
 
-        private static bool _SetVehicleEngineStatus_0DelegateHook(global::System.IntPtr instance, uint guid, bool status, bool locked)
+        private static bool _SetVehicleEngineStatus_0DelegateHook(global::System.IntPtr instance, uint vehid, bool status, bool locked)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3784,14 +3895,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleEngineStatus(guid, status, locked);
+            var __ret = __target.SetVehicleEngineStatus(vehid, status, locked);
             return __ret;
         }
 
-        // bool GetVehicleEngineStatus(unsigned long guid) = 0
+        // bool GetVehicleEngineStatus(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint _GetVehicleEngineStatus_0DelegateInstance;
 
-        private static bool _GetVehicleEngineStatus_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static bool _GetVehicleEngineStatus_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3799,14 +3910,44 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleEngineStatus(guid);
+            var __ret = __target.GetVehicleEngineStatus(vehid);
             return __ret;
         }
 
-        // bool SetVehicleBodyHealth(unsigned long guid, float health) = 0
+        // bool SetVehicleLocked(unsigned long vehid, bool locked) = 0
+        private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool _SetVehicleLocked_0DelegateInstance;
+
+        private static bool _SetVehicleLocked_0DelegateHook(global::System.IntPtr instance, uint vehid, bool locked)
+        {
+            if (!NativeToManagedMap.ContainsKey(instance))
+                throw new global::System.Exception("No managed instance was found");
+
+            var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
+            if (__target.__ownsNativeInstance)
+                __target.SetupVTables();
+            var __ret = __target.SetVehicleLocked(vehid, locked);
+            return __ret;
+        }
+
+        // bool IsVehicleLocked(unsigned long vehid) = 0
+        private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint _IsVehicleLocked_0DelegateInstance;
+
+        private static bool _IsVehicleLocked_0DelegateHook(global::System.IntPtr instance, uint vehid)
+        {
+            if (!NativeToManagedMap.ContainsKey(instance))
+                throw new global::System.Exception("No managed instance was found");
+
+            var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
+            if (__target.__ownsNativeInstance)
+                __target.SetupVTables();
+            var __ret = __target.IsVehicleLocked(vehid);
+            return __ret;
+        }
+
+        // bool SetVehicleBodyHealth(unsigned long vehid, float health) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float _SetVehicleBodyHealth_0DelegateInstance;
 
-        private static bool _SetVehicleBodyHealth_0DelegateHook(global::System.IntPtr instance, uint guid, float health)
+        private static bool _SetVehicleBodyHealth_0DelegateHook(global::System.IntPtr instance, uint vehid, float health)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3814,14 +3955,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleBodyHealth(guid, health);
+            var __ret = __target.SetVehicleBodyHealth(vehid, health);
             return __ret;
         }
 
-        // bool SetVehicleEngineHealth(unsigned long guid, float health) = 0
+        // bool SetVehicleEngineHealth(unsigned long vehid, float health) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float _SetVehicleEngineHealth_0DelegateInstance;
 
-        private static bool _SetVehicleEngineHealth_0DelegateHook(global::System.IntPtr instance, uint guid, float health)
+        private static bool _SetVehicleEngineHealth_0DelegateHook(global::System.IntPtr instance, uint vehid, float health)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3829,14 +3970,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleEngineHealth(guid, health);
+            var __ret = __target.SetVehicleEngineHealth(vehid, health);
             return __ret;
         }
 
-        // bool SetVehicleTankHealth(unsigned long guid, float health) = 0
+        // bool SetVehicleTankHealth(unsigned long vehid, float health) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float _SetVehicleTankHealth_0DelegateInstance;
 
-        private static bool _SetVehicleTankHealth_0DelegateHook(global::System.IntPtr instance, uint guid, float health)
+        private static bool _SetVehicleTankHealth_0DelegateHook(global::System.IntPtr instance, uint vehid, float health)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3844,14 +3985,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleTankHealth(guid, health);
+            var __ret = __target.SetVehicleTankHealth(vehid, health);
             return __ret;
         }
 
-        // bool GetVehicleHealth(unsigned long guid, float *body, float *engine, float *tank) = 0
+        // bool GetVehicleHealth(unsigned long vehid, float *body, float *engine, float *tank) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_floatPtr_floatPtr_floatPtr _GetVehicleHealth_0DelegateInstance;
 
-        private static bool _GetVehicleHealth_0DelegateHook(global::System.IntPtr instance, uint guid, float* body, float* engine, float* tank)
+        private static bool _GetVehicleHealth_0DelegateHook(global::System.IntPtr instance, uint vehid, float* body, float* engine, float* tank)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3859,14 +4000,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleHealth(guid, ref *body, ref *engine, ref *tank);
+            var __ret = __target.GetVehicleHealth(vehid, ref *body, ref *engine, ref *tank);
             return __ret;
         }
 
-        // bool SetVehicleNumberPlate(unsigned long guid, const char *text) = 0
+        // bool SetVehicleNumberPlate(unsigned long vehid, const char *text) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_string _SetVehicleNumberPlate_0DelegateInstance;
 
-        private static bool _SetVehicleNumberPlate_0DelegateHook(global::System.IntPtr instance, uint guid, [MarshalAs(UnmanagedType.LPStr)] string text)
+        private static bool _SetVehicleNumberPlate_0DelegateHook(global::System.IntPtr instance, uint vehid, [MarshalAs(UnmanagedType.LPStr)] string text)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3874,14 +4015,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleNumberPlate(guid, text);
+            var __ret = __target.SetVehicleNumberPlate(vehid, text);
             return __ret;
         }
 
-        // std::string GetVehicleNumberPlate(unsigned long guid) = 0
+        // std::string GetVehicleNumberPlate(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint _GetVehicleNumberPlate_0DelegateInstance;
 
-        private static void _GetVehicleNumberPlate_0DelegateHook(global::System.IntPtr instance, global::System.IntPtr @return, uint guid)
+        private static void _GetVehicleNumberPlate_0DelegateHook(global::System.IntPtr instance, global::System.IntPtr @return, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3889,16 +4030,16 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleNumberPlate(guid);
+            var __ret = __target.GetVehicleNumberPlate(vehid);
             var __allocator0 = new global::Std.Allocator();
             var __basicString0 = new global::Std.BasicString(__ret, __allocator0);
             *(global::Std.BasicString.__Internal*) @return = *(global::Std.BasicString.__Internal*) __basicString0.__Instance;
         }
 
-        // bool SetVehicleNumberPlateStyle(unsigned long guid, int style) = 0
+        // bool SetVehicleNumberPlateStyle(unsigned long vehid, int style) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int _SetVehicleNumberPlateStyle_0DelegateInstance;
 
-        private static bool _SetVehicleNumberPlateStyle_0DelegateHook(global::System.IntPtr instance, uint guid, int style)
+        private static bool _SetVehicleNumberPlateStyle_0DelegateHook(global::System.IntPtr instance, uint vehid, int style)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3906,14 +4047,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleNumberPlateStyle(guid, style);
+            var __ret = __target.SetVehicleNumberPlateStyle(vehid, style);
             return __ret;
         }
 
-        // int GetVehicleNumberPlateStyle(unsigned long guid) = 0
+        // int GetVehicleNumberPlateStyle(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Func_int_IntPtr_uint _GetVehicleNumberPlateStyle_0DelegateInstance;
 
-        private static int _GetVehicleNumberPlateStyle_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static int _GetVehicleNumberPlateStyle_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3921,14 +4062,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleNumberPlateStyle(guid);
+            var __ret = __target.GetVehicleNumberPlateStyle(vehid);
             return __ret;
         }
 
-        // bool SetVehicleSirenState(unsigned long guid, bool state) = 0
+        // bool SetVehicleSirenState(unsigned long vehid, bool state) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool _SetVehicleSirenState_0DelegateInstance;
 
-        private static bool _SetVehicleSirenState_0DelegateHook(global::System.IntPtr instance, uint guid, bool state)
+        private static bool _SetVehicleSirenState_0DelegateHook(global::System.IntPtr instance, uint vehid, bool state)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3936,14 +4077,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleSirenState(guid, state);
+            var __ret = __target.SetVehicleSirenState(vehid, state);
             return __ret;
         }
 
-        // bool GetVehicleSirenState(unsigned long guid) = 0
+        // bool GetVehicleSirenState(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint _GetVehicleSirenState_0DelegateInstance;
 
-        private static bool _GetVehicleSirenState_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static bool _GetVehicleSirenState_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3951,14 +4092,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleSirenState(guid);
+            var __ret = __target.GetVehicleSirenState(vehid);
             return __ret;
         }
 
-        // bool SetVehicleWheelColor(unsigned long guid, int color) = 0
+        // bool SetVehicleWheelColor(unsigned long vehid, int color) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int _SetVehicleWheelColor_0DelegateInstance;
 
-        private static bool _SetVehicleWheelColor_0DelegateHook(global::System.IntPtr instance, uint guid, int color)
+        private static bool _SetVehicleWheelColor_0DelegateHook(global::System.IntPtr instance, uint vehid, int color)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3966,14 +4107,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleWheelColor(guid, color);
+            var __ret = __target.SetVehicleWheelColor(vehid, color);
             return __ret;
         }
 
-        // int GetVehicleWheelColor(unsigned long guid) = 0
+        // int GetVehicleWheelColor(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Func_int_IntPtr_uint _GetVehicleWheelColor_0DelegateInstance;
 
-        private static int _GetVehicleWheelColor_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static int _GetVehicleWheelColor_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3981,14 +4122,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleWheelColor(guid);
+            var __ret = __target.GetVehicleWheelColor(vehid);
             return __ret;
         }
 
-        // bool SetVehicleWheelType(unsigned long guid, int type) = 0
+        // bool SetVehicleWheelType(unsigned long vehid, int type) = 0
         private static global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int _SetVehicleWheelType_0DelegateInstance;
 
-        private static bool _SetVehicleWheelType_0DelegateHook(global::System.IntPtr instance, uint guid, int type)
+        private static bool _SetVehicleWheelType_0DelegateHook(global::System.IntPtr instance, uint vehid, int type)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -3996,14 +4137,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.SetVehicleWheelType(guid, type);
+            var __ret = __target.SetVehicleWheelType(vehid, type);
             return __ret;
         }
 
-        // int GetVehicleWheelType(unsigned long guid) = 0
+        // int GetVehicleWheelType(unsigned long vehid) = 0
         private static global::SharpOrange.Delegates.Func_int_IntPtr_uint _GetVehicleWheelType_0DelegateInstance;
 
-        private static int _GetVehicleWheelType_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static int _GetVehicleWheelType_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -4011,14 +4152,14 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleWheelType(guid);
+            var __ret = __target.GetVehicleWheelType(vehid);
             return __ret;
         }
 
-        // unsigned long GetVehicleDriver(unsigned long guid) = 0
-        private static global::SharpOrange.Delegates.Func_uint_IntPtr_uint _GetVehicleDriver_0DelegateInstance;
+        // int GetVehicleDriver(unsigned long vehid) = 0
+        private static global::SharpOrange.Delegates.Func_int_IntPtr_uint _GetVehicleDriver_0DelegateInstance;
 
-        private static uint _GetVehicleDriver_0DelegateHook(global::System.IntPtr instance, uint guid)
+        private static int _GetVehicleDriver_0DelegateHook(global::System.IntPtr instance, uint vehid)
         {
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
@@ -4026,7 +4167,7 @@ namespace SharpOrange
             var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
-            var __ret = __target.GetVehicleDriver(guid);
+            var __ret = __target.GetVehicleDriver(vehid);
             return __ret;
         }
 
@@ -4432,280 +4573,290 @@ namespace SharpOrange
                 return;
             if (_Thunks == null)
             {
-                _Thunks = new void*[88];
+                _Thunks = new void*[91];
                 _LoadClientScript_0DelegateInstance += _LoadClientScript_0DelegateHook;
                 _Thunks[0] = Marshal.GetFunctionPointerForDelegate(_LoadClientScript_0DelegateInstance).ToPointer();
+                _KickPlayer_1DelegateInstance += _KickPlayer_1DelegateHook;
+                _Thunks[1] = Marshal.GetFunctionPointerForDelegate(_KickPlayer_1DelegateInstance).ToPointer();
                 _KickPlayer_0DelegateInstance += _KickPlayer_0DelegateHook;
-                _Thunks[1] = Marshal.GetFunctionPointerForDelegate(_KickPlayer_0DelegateInstance).ToPointer();
+                _Thunks[2] = Marshal.GetFunctionPointerForDelegate(_KickPlayer_0DelegateInstance).ToPointer();
                 _SetPlayerPosition_0DelegateInstance += _SetPlayerPosition_0DelegateHook;
-                _Thunks[2] = Marshal.GetFunctionPointerForDelegate(_SetPlayerPosition_0DelegateInstance).ToPointer();
+                _Thunks[3] = Marshal.GetFunctionPointerForDelegate(_SetPlayerPosition_0DelegateInstance).ToPointer();
                 _GetPlayerPosition_0DelegateInstance += _GetPlayerPosition_0DelegateHook;
-                _Thunks[3] = Marshal.GetFunctionPointerForDelegate(_GetPlayerPosition_0DelegateInstance).ToPointer();
+                _Thunks[4] = Marshal.GetFunctionPointerForDelegate(_GetPlayerPosition_0DelegateInstance).ToPointer();
                 _IsPlayerInRange_0DelegateInstance += _IsPlayerInRange_0DelegateHook;
-                _Thunks[4] = Marshal.GetFunctionPointerForDelegate(_IsPlayerInRange_0DelegateInstance).ToPointer();
+                _Thunks[5] = Marshal.GetFunctionPointerForDelegate(_IsPlayerInRange_0DelegateInstance).ToPointer();
                 _SetPlayerHeading_0DelegateInstance += _SetPlayerHeading_0DelegateHook;
-                _Thunks[5] = Marshal.GetFunctionPointerForDelegate(_SetPlayerHeading_0DelegateInstance).ToPointer();
+                _Thunks[6] = Marshal.GetFunctionPointerForDelegate(_SetPlayerHeading_0DelegateInstance).ToPointer();
                 _GetPlayerHeading_0DelegateInstance += _GetPlayerHeading_0DelegateHook;
-                _Thunks[6] = Marshal.GetFunctionPointerForDelegate(_GetPlayerHeading_0DelegateInstance).ToPointer();
+                _Thunks[7] = Marshal.GetFunctionPointerForDelegate(_GetPlayerHeading_0DelegateInstance).ToPointer();
                 _RemovePlayerWeapons_0DelegateInstance += _RemovePlayerWeapons_0DelegateHook;
-                _Thunks[7] = Marshal.GetFunctionPointerForDelegate(_RemovePlayerWeapons_0DelegateInstance).ToPointer();
+                _Thunks[8] = Marshal.GetFunctionPointerForDelegate(_RemovePlayerWeapons_0DelegateInstance).ToPointer();
                 _GivePlayerWeapon_0DelegateInstance += _GivePlayerWeapon_0DelegateHook;
-                _Thunks[8] = Marshal.GetFunctionPointerForDelegate(_GivePlayerWeapon_0DelegateInstance).ToPointer();
+                _Thunks[9] = Marshal.GetFunctionPointerForDelegate(_GivePlayerWeapon_0DelegateInstance).ToPointer();
                 _GivePlayerAmmo_0DelegateInstance += _GivePlayerAmmo_0DelegateHook;
-                _Thunks[9] = Marshal.GetFunctionPointerForDelegate(_GivePlayerAmmo_0DelegateInstance).ToPointer();
+                _Thunks[10] = Marshal.GetFunctionPointerForDelegate(_GivePlayerAmmo_0DelegateInstance).ToPointer();
                 _GivePlayerMoney_0DelegateInstance += _GivePlayerMoney_0DelegateHook;
-                _Thunks[10] = Marshal.GetFunctionPointerForDelegate(_GivePlayerMoney_0DelegateInstance).ToPointer();
+                _Thunks[11] = Marshal.GetFunctionPointerForDelegate(_GivePlayerMoney_0DelegateInstance).ToPointer();
                 _SetPlayerMoney_0DelegateInstance += _SetPlayerMoney_0DelegateHook;
-                _Thunks[11] = Marshal.GetFunctionPointerForDelegate(_SetPlayerMoney_0DelegateInstance).ToPointer();
+                _Thunks[12] = Marshal.GetFunctionPointerForDelegate(_SetPlayerMoney_0DelegateInstance).ToPointer();
                 _ResetPlayerMoney_0DelegateInstance += _ResetPlayerMoney_0DelegateHook;
-                _Thunks[12] = Marshal.GetFunctionPointerForDelegate(_ResetPlayerMoney_0DelegateInstance).ToPointer();
+                _Thunks[13] = Marshal.GetFunctionPointerForDelegate(_ResetPlayerMoney_0DelegateInstance).ToPointer();
                 _GetPlayerMoney_0DelegateInstance += _GetPlayerMoney_0DelegateHook;
-                _Thunks[13] = Marshal.GetFunctionPointerForDelegate(_GetPlayerMoney_0DelegateInstance).ToPointer();
+                _Thunks[14] = Marshal.GetFunctionPointerForDelegate(_GetPlayerMoney_0DelegateInstance).ToPointer();
                 _SetPlayerModel_0DelegateInstance += _SetPlayerModel_0DelegateHook;
-                _Thunks[14] = Marshal.GetFunctionPointerForDelegate(_SetPlayerModel_0DelegateInstance).ToPointer();
+                _Thunks[15] = Marshal.GetFunctionPointerForDelegate(_SetPlayerModel_0DelegateInstance).ToPointer();
                 _GetPlayerModel_0DelegateInstance += _GetPlayerModel_0DelegateHook;
-                _Thunks[15] = Marshal.GetFunctionPointerForDelegate(_GetPlayerModel_0DelegateInstance).ToPointer();
+                _Thunks[16] = Marshal.GetFunctionPointerForDelegate(_GetPlayerModel_0DelegateInstance).ToPointer();
                 _SetPlayerName_0DelegateInstance += _SetPlayerName_0DelegateHook;
-                _Thunks[16] = Marshal.GetFunctionPointerForDelegate(_SetPlayerName_0DelegateInstance).ToPointer();
+                _Thunks[17] = Marshal.GetFunctionPointerForDelegate(_SetPlayerName_0DelegateInstance).ToPointer();
                 _GetPlayerName_0DelegateInstance += _GetPlayerName_0DelegateHook;
-                _Thunks[17] = Marshal.GetFunctionPointerForDelegate(_GetPlayerName_0DelegateInstance).ToPointer();
+                _Thunks[18] = Marshal.GetFunctionPointerForDelegate(_GetPlayerName_0DelegateInstance).ToPointer();
                 _SetPlayerHealth_0DelegateInstance += _SetPlayerHealth_0DelegateHook;
-                _Thunks[18] = Marshal.GetFunctionPointerForDelegate(_SetPlayerHealth_0DelegateInstance).ToPointer();
+                _Thunks[19] = Marshal.GetFunctionPointerForDelegate(_SetPlayerHealth_0DelegateInstance).ToPointer();
                 _GetPlayerHealth_0DelegateInstance += _GetPlayerHealth_0DelegateHook;
-                _Thunks[19] = Marshal.GetFunctionPointerForDelegate(_GetPlayerHealth_0DelegateInstance).ToPointer();
+                _Thunks[20] = Marshal.GetFunctionPointerForDelegate(_GetPlayerHealth_0DelegateInstance).ToPointer();
                 _SetPlayerArmour_0DelegateInstance += _SetPlayerArmour_0DelegateHook;
-                _Thunks[20] = Marshal.GetFunctionPointerForDelegate(_SetPlayerArmour_0DelegateInstance).ToPointer();
+                _Thunks[21] = Marshal.GetFunctionPointerForDelegate(_SetPlayerArmour_0DelegateInstance).ToPointer();
                 _GetPlayerArmour_0DelegateInstance += _GetPlayerArmour_0DelegateHook;
-                _Thunks[21] = Marshal.GetFunctionPointerForDelegate(_GetPlayerArmour_0DelegateInstance).ToPointer();
+                _Thunks[22] = Marshal.GetFunctionPointerForDelegate(_GetPlayerArmour_0DelegateInstance).ToPointer();
                 _SetPlayerColor_0DelegateInstance += _SetPlayerColor_0DelegateHook;
-                _Thunks[22] = Marshal.GetFunctionPointerForDelegate(_SetPlayerColor_0DelegateInstance).ToPointer();
+                _Thunks[23] = Marshal.GetFunctionPointerForDelegate(_SetPlayerColor_0DelegateInstance).ToPointer();
                 _GetPlayerColor_0DelegateInstance += _GetPlayerColor_0DelegateHook;
-                _Thunks[23] = Marshal.GetFunctionPointerForDelegate(_GetPlayerColor_0DelegateInstance).ToPointer();
+                _Thunks[24] = Marshal.GetFunctionPointerForDelegate(_GetPlayerColor_0DelegateInstance).ToPointer();
                 _BroadcastClientMessage_0DelegateInstance += _BroadcastClientMessage_0DelegateHook;
-                _Thunks[24] = Marshal.GetFunctionPointerForDelegate(_BroadcastClientMessage_0DelegateInstance).ToPointer();
+                _Thunks[25] = Marshal.GetFunctionPointerForDelegate(_BroadcastClientMessage_0DelegateInstance).ToPointer();
                 _SendClientMessage_0DelegateInstance += _SendClientMessage_0DelegateHook;
-                _Thunks[25] = Marshal.GetFunctionPointerForDelegate(_SendClientMessage_0DelegateInstance).ToPointer();
+                _Thunks[26] = Marshal.GetFunctionPointerForDelegate(_SendClientMessage_0DelegateInstance).ToPointer();
                 _SetPlayerIntoVehicle_0DelegateInstance += _SetPlayerIntoVehicle_0DelegateHook;
-                _Thunks[26] = Marshal.GetFunctionPointerForDelegate(_SetPlayerIntoVehicle_0DelegateInstance).ToPointer();
+                _Thunks[27] = Marshal.GetFunctionPointerForDelegate(_SetPlayerIntoVehicle_0DelegateInstance).ToPointer();
                 _DisablePlayerHud_0DelegateInstance += _DisablePlayerHud_0DelegateHook;
-                _Thunks[27] = Marshal.GetFunctionPointerForDelegate(_DisablePlayerHud_0DelegateInstance).ToPointer();
+                _Thunks[28] = Marshal.GetFunctionPointerForDelegate(_DisablePlayerHud_0DelegateInstance).ToPointer();
                 _GetPlayerGUID_0DelegateInstance += _GetPlayerGUID_0DelegateHook;
-                _Thunks[28] = Marshal.GetFunctionPointerForDelegate(_GetPlayerGUID_0DelegateInstance).ToPointer();
+                _Thunks[29] = Marshal.GetFunctionPointerForDelegate(_GetPlayerGUID_0DelegateInstance).ToPointer();
                 _Print_0DelegateInstance += _Print_0DelegateHook;
-                _Thunks[29] = Marshal.GetFunctionPointerForDelegate(_Print_0DelegateInstance).ToPointer();
+                _Thunks[30] = Marshal.GetFunctionPointerForDelegate(_Print_0DelegateInstance).ToPointer();
                 _Hash_0DelegateInstance += _Hash_0DelegateHook;
-                _Thunks[30] = Marshal.GetFunctionPointerForDelegate(_Hash_0DelegateInstance).ToPointer();
+                _Thunks[31] = Marshal.GetFunctionPointerForDelegate(_Hash_0DelegateInstance).ToPointer();
                 _CreateVehicle_0DelegateInstance += _CreateVehicle_0DelegateHook;
-                _Thunks[31] = Marshal.GetFunctionPointerForDelegate(_CreateVehicle_0DelegateInstance).ToPointer();
+                _Thunks[32] = Marshal.GetFunctionPointerForDelegate(_CreateVehicle_0DelegateInstance).ToPointer();
                 _DeleteVehicle_0DelegateInstance += _DeleteVehicle_0DelegateHook;
-                _Thunks[32] = Marshal.GetFunctionPointerForDelegate(_DeleteVehicle_0DelegateInstance).ToPointer();
+                _Thunks[33] = Marshal.GetFunctionPointerForDelegate(_DeleteVehicle_0DelegateInstance).ToPointer();
                 _SetVehiclePosition_0DelegateInstance += _SetVehiclePosition_0DelegateHook;
-                _Thunks[33] = Marshal.GetFunctionPointerForDelegate(_SetVehiclePosition_0DelegateInstance).ToPointer();
+                _Thunks[34] = Marshal.GetFunctionPointerForDelegate(_SetVehiclePosition_0DelegateInstance).ToPointer();
                 _GetVehiclePosition_0DelegateInstance += _GetVehiclePosition_0DelegateHook;
-                _Thunks[34] = Marshal.GetFunctionPointerForDelegate(_GetVehiclePosition_0DelegateInstance).ToPointer();
+                _Thunks[35] = Marshal.GetFunctionPointerForDelegate(_GetVehiclePosition_0DelegateInstance).ToPointer();
                 _SetVehicleRotation_0DelegateInstance += _SetVehicleRotation_0DelegateHook;
-                _Thunks[35] = Marshal.GetFunctionPointerForDelegate(_SetVehicleRotation_0DelegateInstance).ToPointer();
+                _Thunks[36] = Marshal.GetFunctionPointerForDelegate(_SetVehicleRotation_0DelegateInstance).ToPointer();
                 _GetVehicleRotation_0DelegateInstance += _GetVehicleRotation_0DelegateHook;
-                _Thunks[36] = Marshal.GetFunctionPointerForDelegate(_GetVehicleRotation_0DelegateInstance).ToPointer();
+                _Thunks[37] = Marshal.GetFunctionPointerForDelegate(_GetVehicleRotation_0DelegateInstance).ToPointer();
                 _SetVehicleColours_0DelegateInstance += _SetVehicleColours_0DelegateHook;
-                _Thunks[37] = Marshal.GetFunctionPointerForDelegate(_SetVehicleColours_0DelegateInstance).ToPointer();
+                _Thunks[38] = Marshal.GetFunctionPointerForDelegate(_SetVehicleColours_0DelegateInstance).ToPointer();
                 _GetVehicleColours_0DelegateInstance += _GetVehicleColours_0DelegateHook;
-                _Thunks[38] = Marshal.GetFunctionPointerForDelegate(_GetVehicleColours_0DelegateInstance).ToPointer();
+                _Thunks[39] = Marshal.GetFunctionPointerForDelegate(_GetVehicleColours_0DelegateInstance).ToPointer();
                 _SetVehicleTyresBulletproof_0DelegateInstance += _SetVehicleTyresBulletproof_0DelegateHook;
-                _Thunks[39] = Marshal.GetFunctionPointerForDelegate(_SetVehicleTyresBulletproof_0DelegateInstance).ToPointer();
+                _Thunks[40] = Marshal.GetFunctionPointerForDelegate(_SetVehicleTyresBulletproof_0DelegateInstance).ToPointer();
                 _GetVehicleTyresBulletproof_0DelegateInstance += _GetVehicleTyresBulletproof_0DelegateHook;
-                _Thunks[40] = Marshal.GetFunctionPointerForDelegate(_GetVehicleTyresBulletproof_0DelegateInstance).ToPointer();
+                _Thunks[41] = Marshal.GetFunctionPointerForDelegate(_GetVehicleTyresBulletproof_0DelegateInstance).ToPointer();
                 _SetVehicleCustomPrimaryColor_0DelegateInstance += _SetVehicleCustomPrimaryColor_0DelegateHook;
-                _Thunks[41] = Marshal.GetFunctionPointerForDelegate(_SetVehicleCustomPrimaryColor_0DelegateInstance).ToPointer();
+                _Thunks[42] = Marshal.GetFunctionPointerForDelegate(_SetVehicleCustomPrimaryColor_0DelegateInstance).ToPointer();
                 _GetVehicleCustomPrimaryColor_0DelegateInstance += _GetVehicleCustomPrimaryColor_0DelegateHook;
-                _Thunks[42] = Marshal.GetFunctionPointerForDelegate(_GetVehicleCustomPrimaryColor_0DelegateInstance).ToPointer();
+                _Thunks[43] = Marshal.GetFunctionPointerForDelegate(_GetVehicleCustomPrimaryColor_0DelegateInstance).ToPointer();
                 _SetVehicleCustomSecondaryColor_0DelegateInstance += _SetVehicleCustomSecondaryColor_0DelegateHook;
-                _Thunks[43] = Marshal.GetFunctionPointerForDelegate(_SetVehicleCustomSecondaryColor_0DelegateInstance).ToPointer();
+                _Thunks[44] = Marshal.GetFunctionPointerForDelegate(_SetVehicleCustomSecondaryColor_0DelegateInstance).ToPointer();
                 _GetVehicleCustomSecondaryColor_0DelegateInstance += _GetVehicleCustomSecondaryColor_0DelegateHook;
-                _Thunks[44] = Marshal.GetFunctionPointerForDelegate(_GetVehicleCustomSecondaryColor_0DelegateInstance).ToPointer();
+                _Thunks[45] = Marshal.GetFunctionPointerForDelegate(_GetVehicleCustomSecondaryColor_0DelegateInstance).ToPointer();
                 _SetVehicleEngineStatus_0DelegateInstance += _SetVehicleEngineStatus_0DelegateHook;
-                _Thunks[45] = Marshal.GetFunctionPointerForDelegate(_SetVehicleEngineStatus_0DelegateInstance).ToPointer();
+                _Thunks[46] = Marshal.GetFunctionPointerForDelegate(_SetVehicleEngineStatus_0DelegateInstance).ToPointer();
                 _GetVehicleEngineStatus_0DelegateInstance += _GetVehicleEngineStatus_0DelegateHook;
-                _Thunks[46] = Marshal.GetFunctionPointerForDelegate(_GetVehicleEngineStatus_0DelegateInstance).ToPointer();
+                _Thunks[47] = Marshal.GetFunctionPointerForDelegate(_GetVehicleEngineStatus_0DelegateInstance).ToPointer();
+                _SetVehicleLocked_0DelegateInstance += _SetVehicleLocked_0DelegateHook;
+                _Thunks[48] = Marshal.GetFunctionPointerForDelegate(_SetVehicleLocked_0DelegateInstance).ToPointer();
+                _IsVehicleLocked_0DelegateInstance += _IsVehicleLocked_0DelegateHook;
+                _Thunks[49] = Marshal.GetFunctionPointerForDelegate(_IsVehicleLocked_0DelegateInstance).ToPointer();
                 _SetVehicleBodyHealth_0DelegateInstance += _SetVehicleBodyHealth_0DelegateHook;
-                _Thunks[47] = Marshal.GetFunctionPointerForDelegate(_SetVehicleBodyHealth_0DelegateInstance).ToPointer();
+                _Thunks[50] = Marshal.GetFunctionPointerForDelegate(_SetVehicleBodyHealth_0DelegateInstance).ToPointer();
                 _SetVehicleEngineHealth_0DelegateInstance += _SetVehicleEngineHealth_0DelegateHook;
-                _Thunks[48] = Marshal.GetFunctionPointerForDelegate(_SetVehicleEngineHealth_0DelegateInstance).ToPointer();
+                _Thunks[51] = Marshal.GetFunctionPointerForDelegate(_SetVehicleEngineHealth_0DelegateInstance).ToPointer();
                 _SetVehicleTankHealth_0DelegateInstance += _SetVehicleTankHealth_0DelegateHook;
-                _Thunks[49] = Marshal.GetFunctionPointerForDelegate(_SetVehicleTankHealth_0DelegateInstance).ToPointer();
+                _Thunks[52] = Marshal.GetFunctionPointerForDelegate(_SetVehicleTankHealth_0DelegateInstance).ToPointer();
                 _GetVehicleHealth_0DelegateInstance += _GetVehicleHealth_0DelegateHook;
-                _Thunks[50] = Marshal.GetFunctionPointerForDelegate(_GetVehicleHealth_0DelegateInstance).ToPointer();
+                _Thunks[53] = Marshal.GetFunctionPointerForDelegate(_GetVehicleHealth_0DelegateInstance).ToPointer();
                 _SetVehicleNumberPlate_0DelegateInstance += _SetVehicleNumberPlate_0DelegateHook;
-                _Thunks[51] = Marshal.GetFunctionPointerForDelegate(_SetVehicleNumberPlate_0DelegateInstance).ToPointer();
+                _Thunks[54] = Marshal.GetFunctionPointerForDelegate(_SetVehicleNumberPlate_0DelegateInstance).ToPointer();
                 _GetVehicleNumberPlate_0DelegateInstance += _GetVehicleNumberPlate_0DelegateHook;
-                _Thunks[52] = Marshal.GetFunctionPointerForDelegate(_GetVehicleNumberPlate_0DelegateInstance).ToPointer();
+                _Thunks[55] = Marshal.GetFunctionPointerForDelegate(_GetVehicleNumberPlate_0DelegateInstance).ToPointer();
                 _SetVehicleNumberPlateStyle_0DelegateInstance += _SetVehicleNumberPlateStyle_0DelegateHook;
-                _Thunks[53] = Marshal.GetFunctionPointerForDelegate(_SetVehicleNumberPlateStyle_0DelegateInstance).ToPointer();
+                _Thunks[56] = Marshal.GetFunctionPointerForDelegate(_SetVehicleNumberPlateStyle_0DelegateInstance).ToPointer();
                 _GetVehicleNumberPlateStyle_0DelegateInstance += _GetVehicleNumberPlateStyle_0DelegateHook;
-                _Thunks[54] = Marshal.GetFunctionPointerForDelegate(_GetVehicleNumberPlateStyle_0DelegateInstance).ToPointer();
+                _Thunks[57] = Marshal.GetFunctionPointerForDelegate(_GetVehicleNumberPlateStyle_0DelegateInstance).ToPointer();
                 _SetVehicleSirenState_0DelegateInstance += _SetVehicleSirenState_0DelegateHook;
-                _Thunks[55] = Marshal.GetFunctionPointerForDelegate(_SetVehicleSirenState_0DelegateInstance).ToPointer();
+                _Thunks[58] = Marshal.GetFunctionPointerForDelegate(_SetVehicleSirenState_0DelegateInstance).ToPointer();
                 _GetVehicleSirenState_0DelegateInstance += _GetVehicleSirenState_0DelegateHook;
-                _Thunks[56] = Marshal.GetFunctionPointerForDelegate(_GetVehicleSirenState_0DelegateInstance).ToPointer();
+                _Thunks[59] = Marshal.GetFunctionPointerForDelegate(_GetVehicleSirenState_0DelegateInstance).ToPointer();
                 _SetVehicleWheelColor_0DelegateInstance += _SetVehicleWheelColor_0DelegateHook;
-                _Thunks[57] = Marshal.GetFunctionPointerForDelegate(_SetVehicleWheelColor_0DelegateInstance).ToPointer();
+                _Thunks[60] = Marshal.GetFunctionPointerForDelegate(_SetVehicleWheelColor_0DelegateInstance).ToPointer();
                 _GetVehicleWheelColor_0DelegateInstance += _GetVehicleWheelColor_0DelegateHook;
-                _Thunks[58] = Marshal.GetFunctionPointerForDelegate(_GetVehicleWheelColor_0DelegateInstance).ToPointer();
+                _Thunks[61] = Marshal.GetFunctionPointerForDelegate(_GetVehicleWheelColor_0DelegateInstance).ToPointer();
                 _SetVehicleWheelType_0DelegateInstance += _SetVehicleWheelType_0DelegateHook;
-                _Thunks[59] = Marshal.GetFunctionPointerForDelegate(_SetVehicleWheelType_0DelegateInstance).ToPointer();
+                _Thunks[62] = Marshal.GetFunctionPointerForDelegate(_SetVehicleWheelType_0DelegateInstance).ToPointer();
                 _GetVehicleWheelType_0DelegateInstance += _GetVehicleWheelType_0DelegateHook;
-                _Thunks[60] = Marshal.GetFunctionPointerForDelegate(_GetVehicleWheelType_0DelegateInstance).ToPointer();
+                _Thunks[63] = Marshal.GetFunctionPointerForDelegate(_GetVehicleWheelType_0DelegateInstance).ToPointer();
                 _GetVehicleDriver_0DelegateInstance += _GetVehicleDriver_0DelegateHook;
-                _Thunks[61] = Marshal.GetFunctionPointerForDelegate(_GetVehicleDriver_0DelegateInstance).ToPointer();
+                _Thunks[64] = Marshal.GetFunctionPointerForDelegate(_GetVehicleDriver_0DelegateInstance).ToPointer();
                 _CreateObject_0DelegateInstance += _CreateObject_0DelegateHook;
-                _Thunks[62] = Marshal.GetFunctionPointerForDelegate(_CreateObject_0DelegateInstance).ToPointer();
+                _Thunks[65] = Marshal.GetFunctionPointerForDelegate(_CreateObject_0DelegateInstance).ToPointer();
                 _DeleteObject_0DelegateInstance += _DeleteObject_0DelegateHook;
-                _Thunks[63] = Marshal.GetFunctionPointerForDelegate(_DeleteObject_0DelegateInstance).ToPointer();
+                _Thunks[66] = Marshal.GetFunctionPointerForDelegate(_DeleteObject_0DelegateInstance).ToPointer();
                 _CreatePickup_0DelegateInstance += _CreatePickup_0DelegateHook;
-                _Thunks[64] = Marshal.GetFunctionPointerForDelegate(_CreatePickup_0DelegateInstance).ToPointer();
+                _Thunks[67] = Marshal.GetFunctionPointerForDelegate(_CreatePickup_0DelegateInstance).ToPointer();
                 _CreateBlipForAll_0DelegateInstance += _CreateBlipForAll_0DelegateHook;
-                _Thunks[65] = Marshal.GetFunctionPointerForDelegate(_CreateBlipForAll_0DelegateInstance).ToPointer();
+                _Thunks[68] = Marshal.GetFunctionPointerForDelegate(_CreateBlipForAll_0DelegateInstance).ToPointer();
                 _CreateBlipForPlayer_0DelegateInstance += _CreateBlipForPlayer_0DelegateHook;
-                _Thunks[66] = Marshal.GetFunctionPointerForDelegate(_CreateBlipForPlayer_0DelegateInstance).ToPointer();
+                _Thunks[69] = Marshal.GetFunctionPointerForDelegate(_CreateBlipForPlayer_0DelegateInstance).ToPointer();
                 _DeleteBlip_0DelegateInstance += _DeleteBlip_0DelegateHook;
-                _Thunks[67] = Marshal.GetFunctionPointerForDelegate(_DeleteBlip_0DelegateInstance).ToPointer();
+                _Thunks[70] = Marshal.GetFunctionPointerForDelegate(_DeleteBlip_0DelegateInstance).ToPointer();
                 _SetBlipColor_0DelegateInstance += _SetBlipColor_0DelegateHook;
-                _Thunks[68] = Marshal.GetFunctionPointerForDelegate(_SetBlipColor_0DelegateInstance).ToPointer();
+                _Thunks[71] = Marshal.GetFunctionPointerForDelegate(_SetBlipColor_0DelegateInstance).ToPointer();
                 _SetBlipScale_0DelegateInstance += _SetBlipScale_0DelegateHook;
-                _Thunks[69] = Marshal.GetFunctionPointerForDelegate(_SetBlipScale_0DelegateInstance).ToPointer();
+                _Thunks[72] = Marshal.GetFunctionPointerForDelegate(_SetBlipScale_0DelegateInstance).ToPointer();
                 _SetBlipRoute_0DelegateInstance += _SetBlipRoute_0DelegateHook;
-                _Thunks[70] = Marshal.GetFunctionPointerForDelegate(_SetBlipRoute_0DelegateInstance).ToPointer();
+                _Thunks[73] = Marshal.GetFunctionPointerForDelegate(_SetBlipRoute_0DelegateInstance).ToPointer();
                 _SetBlipSprite_0DelegateInstance += _SetBlipSprite_0DelegateHook;
-                _Thunks[71] = Marshal.GetFunctionPointerForDelegate(_SetBlipSprite_0DelegateInstance).ToPointer();
+                _Thunks[74] = Marshal.GetFunctionPointerForDelegate(_SetBlipSprite_0DelegateInstance).ToPointer();
                 _SetBlipName_0DelegateInstance += _SetBlipName_0DelegateHook;
-                _Thunks[72] = Marshal.GetFunctionPointerForDelegate(_SetBlipName_0DelegateInstance).ToPointer();
+                _Thunks[75] = Marshal.GetFunctionPointerForDelegate(_SetBlipName_0DelegateInstance).ToPointer();
                 _SetBlipAsShortRange_0DelegateInstance += _SetBlipAsShortRange_0DelegateHook;
-                _Thunks[73] = Marshal.GetFunctionPointerForDelegate(_SetBlipAsShortRange_0DelegateInstance).ToPointer();
+                _Thunks[76] = Marshal.GetFunctionPointerForDelegate(_SetBlipAsShortRange_0DelegateInstance).ToPointer();
                 _AttachBlipToPlayer_0DelegateInstance += _AttachBlipToPlayer_0DelegateHook;
-                _Thunks[74] = Marshal.GetFunctionPointerForDelegate(_AttachBlipToPlayer_0DelegateInstance).ToPointer();
+                _Thunks[77] = Marshal.GetFunctionPointerForDelegate(_AttachBlipToPlayer_0DelegateInstance).ToPointer();
                 _AttachBlipToVehicle_0DelegateInstance += _AttachBlipToVehicle_0DelegateHook;
-                _Thunks[75] = Marshal.GetFunctionPointerForDelegate(_AttachBlipToVehicle_0DelegateInstance).ToPointer();
+                _Thunks[78] = Marshal.GetFunctionPointerForDelegate(_AttachBlipToVehicle_0DelegateInstance).ToPointer();
                 _CreateMarkerForAll_0DelegateInstance += _CreateMarkerForAll_0DelegateHook;
-                _Thunks[76] = Marshal.GetFunctionPointerForDelegate(_CreateMarkerForAll_0DelegateInstance).ToPointer();
+                _Thunks[79] = Marshal.GetFunctionPointerForDelegate(_CreateMarkerForAll_0DelegateInstance).ToPointer();
                 _CreateMarkerForPlayer_0DelegateInstance += _CreateMarkerForPlayer_0DelegateHook;
-                _Thunks[77] = Marshal.GetFunctionPointerForDelegate(_CreateMarkerForPlayer_0DelegateInstance).ToPointer();
+                _Thunks[80] = Marshal.GetFunctionPointerForDelegate(_CreateMarkerForPlayer_0DelegateInstance).ToPointer();
                 _DeleteMarker_0DelegateInstance += _DeleteMarker_0DelegateHook;
-                _Thunks[78] = Marshal.GetFunctionPointerForDelegate(_DeleteMarker_0DelegateInstance).ToPointer();
+                _Thunks[81] = Marshal.GetFunctionPointerForDelegate(_DeleteMarker_0DelegateInstance).ToPointer();
                 _SendNotification_0DelegateInstance += _SendNotification_0DelegateHook;
-                _Thunks[79] = Marshal.GetFunctionPointerForDelegate(_SendNotification_0DelegateInstance).ToPointer();
+                _Thunks[82] = Marshal.GetFunctionPointerForDelegate(_SendNotification_0DelegateInstance).ToPointer();
                 _SetInfoMsg_0DelegateInstance += _SetInfoMsg_0DelegateHook;
-                _Thunks[80] = Marshal.GetFunctionPointerForDelegate(_SetInfoMsg_0DelegateInstance).ToPointer();
+                _Thunks[83] = Marshal.GetFunctionPointerForDelegate(_SetInfoMsg_0DelegateInstance).ToPointer();
                 _UnsetInfoMsg_0DelegateInstance += _UnsetInfoMsg_0DelegateHook;
-                _Thunks[81] = Marshal.GetFunctionPointerForDelegate(_UnsetInfoMsg_0DelegateInstance).ToPointer();
+                _Thunks[84] = Marshal.GetFunctionPointerForDelegate(_UnsetInfoMsg_0DelegateInstance).ToPointer();
                 _Create3DText_0DelegateInstance += _Create3DText_0DelegateHook;
-                _Thunks[82] = Marshal.GetFunctionPointerForDelegate(_Create3DText_0DelegateInstance).ToPointer();
+                _Thunks[85] = Marshal.GetFunctionPointerForDelegate(_Create3DText_0DelegateInstance).ToPointer();
                 _Create3DTextForPlayer_0DelegateInstance += _Create3DTextForPlayer_0DelegateHook;
-                _Thunks[83] = Marshal.GetFunctionPointerForDelegate(_Create3DTextForPlayer_0DelegateInstance).ToPointer();
+                _Thunks[86] = Marshal.GetFunctionPointerForDelegate(_Create3DTextForPlayer_0DelegateInstance).ToPointer();
                 _Attach3DTextToVehicle_0DelegateInstance += _Attach3DTextToVehicle_0DelegateHook;
-                _Thunks[84] = Marshal.GetFunctionPointerForDelegate(_Attach3DTextToVehicle_0DelegateInstance).ToPointer();
+                _Thunks[87] = Marshal.GetFunctionPointerForDelegate(_Attach3DTextToVehicle_0DelegateInstance).ToPointer();
                 _Attach3DTextToPlayer_0DelegateInstance += _Attach3DTextToPlayer_0DelegateHook;
-                _Thunks[85] = Marshal.GetFunctionPointerForDelegate(_Attach3DTextToPlayer_0DelegateInstance).ToPointer();
+                _Thunks[88] = Marshal.GetFunctionPointerForDelegate(_Attach3DTextToPlayer_0DelegateInstance).ToPointer();
                 _Set3DTextContent_0DelegateInstance += _Set3DTextContent_0DelegateHook;
-                _Thunks[86] = Marshal.GetFunctionPointerForDelegate(_Set3DTextContent_0DelegateInstance).ToPointer();
+                _Thunks[89] = Marshal.GetFunctionPointerForDelegate(_Set3DTextContent_0DelegateInstance).ToPointer();
                 _Delete3DText_0DelegateInstance += _Delete3DText_0DelegateHook;
-                _Thunks[87] = Marshal.GetFunctionPointerForDelegate(_Delete3DText_0DelegateInstance).ToPointer();
+                _Thunks[90] = Marshal.GetFunctionPointerForDelegate(_Delete3DText_0DelegateInstance).ToPointer();
             }
 
             if (__ManagedVTables == null)
             {
                 __ManagedVTables = new void*[1];
-                var vfptr0 = Marshal.AllocHGlobal(90 * 8);
+                var vfptr0 = Marshal.AllocHGlobal(94 * 8);
                 __ManagedVTables[0] = vfptr0.ToPointer();
                 *(void**) (vfptr0 + 0) = _Thunks[0];
                 *(void**) (vfptr0 + 8) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 8);
-                *(void**) (vfptr0 + 16) = _Thunks[1];
-                *(void**) (vfptr0 + 24) = _Thunks[2];
-                *(void**) (vfptr0 + 32) = _Thunks[3];
-                *(void**) (vfptr0 + 40) = _Thunks[4];
-                *(void**) (vfptr0 + 48) = _Thunks[5];
-                *(void**) (vfptr0 + 56) = _Thunks[6];
-                *(void**) (vfptr0 + 64) = _Thunks[7];
-                *(void**) (vfptr0 + 72) = _Thunks[8];
-                *(void**) (vfptr0 + 80) = _Thunks[9];
-                *(void**) (vfptr0 + 88) = _Thunks[10];
-                *(void**) (vfptr0 + 96) = _Thunks[11];
-                *(void**) (vfptr0 + 104) = _Thunks[12];
-                *(void**) (vfptr0 + 112) = _Thunks[13];
-                *(void**) (vfptr0 + 120) = _Thunks[14];
-                *(void**) (vfptr0 + 128) = _Thunks[15];
-                *(void**) (vfptr0 + 136) = _Thunks[16];
-                *(void**) (vfptr0 + 144) = _Thunks[17];
-                *(void**) (vfptr0 + 152) = _Thunks[18];
-                *(void**) (vfptr0 + 160) = _Thunks[19];
-                *(void**) (vfptr0 + 168) = _Thunks[20];
-                *(void**) (vfptr0 + 176) = _Thunks[21];
-                *(void**) (vfptr0 + 184) = _Thunks[22];
-                *(void**) (vfptr0 + 192) = _Thunks[23];
-                *(void**) (vfptr0 + 200) = _Thunks[24];
-                *(void**) (vfptr0 + 208) = _Thunks[25];
-                *(void**) (vfptr0 + 216) = _Thunks[26];
-                *(void**) (vfptr0 + 224) = _Thunks[27];
-                *(void**) (vfptr0 + 232) = _Thunks[28];
-                *(void**) (vfptr0 + 240) = _Thunks[29];
-                *(void**) (vfptr0 + 248) = _Thunks[30];
-                *(void**) (vfptr0 + 256) = _Thunks[31];
-                *(void**) (vfptr0 + 264) = _Thunks[32];
-                *(void**) (vfptr0 + 272) = _Thunks[33];
-                *(void**) (vfptr0 + 280) = _Thunks[34];
-                *(void**) (vfptr0 + 288) = _Thunks[35];
-                *(void**) (vfptr0 + 296) = _Thunks[36];
-                *(void**) (vfptr0 + 304) = _Thunks[37];
-                *(void**) (vfptr0 + 312) = _Thunks[38];
-                *(void**) (vfptr0 + 320) = _Thunks[39];
-                *(void**) (vfptr0 + 328) = _Thunks[40];
-                *(void**) (vfptr0 + 336) = _Thunks[41];
-                *(void**) (vfptr0 + 344) = _Thunks[42];
-                *(void**) (vfptr0 + 352) = _Thunks[43];
-                *(void**) (vfptr0 + 360) = _Thunks[44];
-                *(void**) (vfptr0 + 368) = _Thunks[45];
-                *(void**) (vfptr0 + 376) = _Thunks[46];
-                *(void**) (vfptr0 + 384) = _Thunks[47];
-                *(void**) (vfptr0 + 392) = _Thunks[48];
-                *(void**) (vfptr0 + 400) = _Thunks[49];
-                *(void**) (vfptr0 + 408) = _Thunks[50];
-                *(void**) (vfptr0 + 416) = _Thunks[51];
-                *(void**) (vfptr0 + 424) = _Thunks[52];
-                *(void**) (vfptr0 + 432) = _Thunks[53];
-                *(void**) (vfptr0 + 440) = _Thunks[54];
-                *(void**) (vfptr0 + 448) = _Thunks[55];
-                *(void**) (vfptr0 + 456) = _Thunks[56];
-                *(void**) (vfptr0 + 464) = _Thunks[57];
-                *(void**) (vfptr0 + 472) = _Thunks[58];
-                *(void**) (vfptr0 + 480) = _Thunks[59];
-                *(void**) (vfptr0 + 488) = _Thunks[60];
-                *(void**) (vfptr0 + 496) = _Thunks[61];
-                *(void**) (vfptr0 + 504) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 504);
+                *(void**) (vfptr0 + 16) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 16);
+                *(void**) (vfptr0 + 24) = _Thunks[1];
+                *(void**) (vfptr0 + 32) = _Thunks[2];
+                *(void**) (vfptr0 + 40) = _Thunks[3];
+                *(void**) (vfptr0 + 48) = _Thunks[4];
+                *(void**) (vfptr0 + 56) = _Thunks[5];
+                *(void**) (vfptr0 + 64) = _Thunks[6];
+                *(void**) (vfptr0 + 72) = _Thunks[7];
+                *(void**) (vfptr0 + 80) = _Thunks[8];
+                *(void**) (vfptr0 + 88) = _Thunks[9];
+                *(void**) (vfptr0 + 96) = _Thunks[10];
+                *(void**) (vfptr0 + 104) = _Thunks[11];
+                *(void**) (vfptr0 + 112) = _Thunks[12];
+                *(void**) (vfptr0 + 120) = _Thunks[13];
+                *(void**) (vfptr0 + 128) = _Thunks[14];
+                *(void**) (vfptr0 + 136) = _Thunks[15];
+                *(void**) (vfptr0 + 144) = _Thunks[16];
+                *(void**) (vfptr0 + 152) = _Thunks[17];
+                *(void**) (vfptr0 + 160) = _Thunks[18];
+                *(void**) (vfptr0 + 168) = _Thunks[19];
+                *(void**) (vfptr0 + 176) = _Thunks[20];
+                *(void**) (vfptr0 + 184) = _Thunks[21];
+                *(void**) (vfptr0 + 192) = _Thunks[22];
+                *(void**) (vfptr0 + 200) = _Thunks[23];
+                *(void**) (vfptr0 + 208) = _Thunks[24];
+                *(void**) (vfptr0 + 216) = _Thunks[25];
+                *(void**) (vfptr0 + 224) = _Thunks[26];
+                *(void**) (vfptr0 + 232) = _Thunks[27];
+                *(void**) (vfptr0 + 240) = _Thunks[28];
+                *(void**) (vfptr0 + 248) = _Thunks[29];
+                *(void**) (vfptr0 + 256) = _Thunks[30];
+                *(void**) (vfptr0 + 264) = _Thunks[31];
+                *(void**) (vfptr0 + 272) = _Thunks[32];
+                *(void**) (vfptr0 + 280) = _Thunks[33];
+                *(void**) (vfptr0 + 288) = _Thunks[34];
+                *(void**) (vfptr0 + 296) = _Thunks[35];
+                *(void**) (vfptr0 + 304) = _Thunks[36];
+                *(void**) (vfptr0 + 312) = _Thunks[37];
+                *(void**) (vfptr0 + 320) = _Thunks[38];
+                *(void**) (vfptr0 + 328) = _Thunks[39];
+                *(void**) (vfptr0 + 336) = _Thunks[40];
+                *(void**) (vfptr0 + 344) = _Thunks[41];
+                *(void**) (vfptr0 + 352) = _Thunks[42];
+                *(void**) (vfptr0 + 360) = _Thunks[43];
+                *(void**) (vfptr0 + 368) = _Thunks[44];
+                *(void**) (vfptr0 + 376) = _Thunks[45];
+                *(void**) (vfptr0 + 384) = _Thunks[46];
+                *(void**) (vfptr0 + 392) = _Thunks[47];
+                *(void**) (vfptr0 + 400) = _Thunks[48];
+                *(void**) (vfptr0 + 408) = _Thunks[49];
+                *(void**) (vfptr0 + 416) = _Thunks[50];
+                *(void**) (vfptr0 + 424) = _Thunks[51];
+                *(void**) (vfptr0 + 432) = _Thunks[52];
+                *(void**) (vfptr0 + 440) = _Thunks[53];
+                *(void**) (vfptr0 + 448) = _Thunks[54];
+                *(void**) (vfptr0 + 456) = _Thunks[55];
+                *(void**) (vfptr0 + 464) = _Thunks[56];
+                *(void**) (vfptr0 + 472) = _Thunks[57];
+                *(void**) (vfptr0 + 480) = _Thunks[58];
+                *(void**) (vfptr0 + 488) = _Thunks[59];
+                *(void**) (vfptr0 + 496) = _Thunks[60];
+                *(void**) (vfptr0 + 504) = _Thunks[61];
                 *(void**) (vfptr0 + 512) = _Thunks[62];
                 *(void**) (vfptr0 + 520) = _Thunks[63];
                 *(void**) (vfptr0 + 528) = _Thunks[64];
-                *(void**) (vfptr0 + 536) = _Thunks[65];
-                *(void**) (vfptr0 + 544) = _Thunks[66];
-                *(void**) (vfptr0 + 552) = _Thunks[67];
-                *(void**) (vfptr0 + 560) = _Thunks[68];
-                *(void**) (vfptr0 + 568) = _Thunks[69];
-                *(void**) (vfptr0 + 576) = _Thunks[70];
-                *(void**) (vfptr0 + 584) = _Thunks[71];
-                *(void**) (vfptr0 + 592) = _Thunks[72];
-                *(void**) (vfptr0 + 600) = _Thunks[73];
-                *(void**) (vfptr0 + 608) = _Thunks[74];
-                *(void**) (vfptr0 + 616) = _Thunks[75];
-                *(void**) (vfptr0 + 624) = _Thunks[76];
-                *(void**) (vfptr0 + 632) = _Thunks[77];
-                *(void**) (vfptr0 + 640) = _Thunks[78];
-                *(void**) (vfptr0 + 648) = _Thunks[79];
-                *(void**) (vfptr0 + 656) = _Thunks[80];
-                *(void**) (vfptr0 + 664) = _Thunks[81];
-                *(void**) (vfptr0 + 672) = _Thunks[82];
-                *(void**) (vfptr0 + 680) = _Thunks[83];
-                *(void**) (vfptr0 + 688) = _Thunks[84];
-                *(void**) (vfptr0 + 696) = _Thunks[85];
-                *(void**) (vfptr0 + 704) = _Thunks[86];
-                *(void**) (vfptr0 + 712) = _Thunks[87];
+                *(void**) (vfptr0 + 536) = *(void**) (new IntPtr(*(void**) __Instance) + 0 + 536);
+                *(void**) (vfptr0 + 544) = _Thunks[65];
+                *(void**) (vfptr0 + 552) = _Thunks[66];
+                *(void**) (vfptr0 + 560) = _Thunks[67];
+                *(void**) (vfptr0 + 568) = _Thunks[68];
+                *(void**) (vfptr0 + 576) = _Thunks[69];
+                *(void**) (vfptr0 + 584) = _Thunks[70];
+                *(void**) (vfptr0 + 592) = _Thunks[71];
+                *(void**) (vfptr0 + 600) = _Thunks[72];
+                *(void**) (vfptr0 + 608) = _Thunks[73];
+                *(void**) (vfptr0 + 616) = _Thunks[74];
+                *(void**) (vfptr0 + 624) = _Thunks[75];
+                *(void**) (vfptr0 + 632) = _Thunks[76];
+                *(void**) (vfptr0 + 640) = _Thunks[77];
+                *(void**) (vfptr0 + 648) = _Thunks[78];
+                *(void**) (vfptr0 + 656) = _Thunks[79];
+                *(void**) (vfptr0 + 664) = _Thunks[80];
+                *(void**) (vfptr0 + 672) = _Thunks[81];
+                *(void**) (vfptr0 + 680) = _Thunks[82];
+                *(void**) (vfptr0 + 688) = _Thunks[83];
+                *(void**) (vfptr0 + 696) = _Thunks[84];
+                *(void**) (vfptr0 + 704) = _Thunks[85];
+                *(void**) (vfptr0 + 712) = _Thunks[86];
+                *(void**) (vfptr0 + 720) = _Thunks[87];
+                *(void**) (vfptr0 + 728) = _Thunks[88];
+                *(void**) (vfptr0 + 736) = _Thunks[89];
+                *(void**) (vfptr0 + 744) = _Thunks[90];
             }
 
             *(void**) (__Instance + 0) = __ManagedVTables[0];
@@ -4752,14 +4903,21 @@ namespace SharpOrange
 
         public override void KickPlayer(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 2 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 4 * 8);
             var ___KickPlayer_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_int));
             ___KickPlayer_0Delegate((__Instance + __PointerAdjustment), playerid);
         }
 
-        public override bool SetPlayerPosition(int playerid, float x, float y, float z)
+        public override void KickPlayer(int playerid, string reason)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 3 * 8);
+            var ___KickPlayer_1Delegate = (global::SharpOrange.Delegates.Action_IntPtr_int_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_int_string));
+            ___KickPlayer_1Delegate((__Instance + __PointerAdjustment), playerid, reason);
+        }
+
+        public override bool SetPlayerPosition(int playerid, float x, float y, float z)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 5 * 8);
             var ___SetPlayerPosition_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_float_float_float));
             var __ret = ___SetPlayerPosition_0Delegate((__Instance + __PointerAdjustment), playerid, x, y, z);
             return __ret;
@@ -4767,7 +4925,7 @@ namespace SharpOrange
 
         public override global::SharpOrange.CVector3 GetPlayerPosition(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 4 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 6 * 8);
             var ___GetPlayerPosition_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_IntPtr_int));
             var __ret = new global::SharpOrange.CVector3.__Internal();
             ___GetPlayerPosition_0Delegate((__Instance + __PointerAdjustment), new IntPtr(&__ret), playerid);
@@ -4776,7 +4934,7 @@ namespace SharpOrange
 
         public override bool IsPlayerInRange(int playerid, float x, float y, float z, float range)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 5 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 7 * 8);
             var ___IsPlayerInRange_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_float_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_float_float_float_float));
             var __ret = ___IsPlayerInRange_0Delegate((__Instance + __PointerAdjustment), playerid, x, y, z, range);
             return __ret;
@@ -4784,7 +4942,7 @@ namespace SharpOrange
 
         public override bool SetPlayerHeading(int playerid, float angle)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 6 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 8 * 8);
             var ___SetPlayerHeading_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_float));
             var __ret = ___SetPlayerHeading_0Delegate((__Instance + __PointerAdjustment), playerid, angle);
             return __ret;
@@ -4792,7 +4950,7 @@ namespace SharpOrange
 
         public override float GetPlayerHeading(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 7 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 9 * 8);
             var ___GetPlayerHeading_0Delegate = (global::SharpOrange.Delegates.Func_float_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_float_IntPtr_int));
             var __ret = ___GetPlayerHeading_0Delegate((__Instance + __PointerAdjustment), playerid);
             return __ret;
@@ -4800,7 +4958,7 @@ namespace SharpOrange
 
         public override bool RemovePlayerWeapons(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 8 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 10 * 8);
             var ___RemovePlayerWeapons_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int));
             var __ret = ___RemovePlayerWeapons_0Delegate((__Instance + __PointerAdjustment), playerid);
             return __ret;
@@ -4808,7 +4966,7 @@ namespace SharpOrange
 
         public override bool GivePlayerWeapon(int playerid, int weapon, int ammo)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 9 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 11 * 8);
             var ___GivePlayerWeapon_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_int_int));
             var __ret = ___GivePlayerWeapon_0Delegate((__Instance + __PointerAdjustment), playerid, weapon, ammo);
             return __ret;
@@ -4816,7 +4974,7 @@ namespace SharpOrange
 
         public override bool GivePlayerAmmo(int playerid, int weapon, int ammo)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 10 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 12 * 8);
             var ___GivePlayerAmmo_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_int_int));
             var __ret = ___GivePlayerAmmo_0Delegate((__Instance + __PointerAdjustment), playerid, weapon, ammo);
             return __ret;
@@ -4824,7 +4982,7 @@ namespace SharpOrange
 
         public override bool GivePlayerMoney(int playerid, int money)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 11 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 13 * 8);
             var ___GivePlayerMoney_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_int));
             var __ret = ___GivePlayerMoney_0Delegate((__Instance + __PointerAdjustment), playerid, money);
             return __ret;
@@ -4832,7 +4990,7 @@ namespace SharpOrange
 
         public override bool SetPlayerMoney(int playerid, int money)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 12 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 14 * 8);
             var ___SetPlayerMoney_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_int));
             var __ret = ___SetPlayerMoney_0Delegate((__Instance + __PointerAdjustment), playerid, money);
             return __ret;
@@ -4840,7 +4998,7 @@ namespace SharpOrange
 
         public override bool ResetPlayerMoney(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 13 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 15 * 8);
             var ___ResetPlayerMoney_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int));
             var __ret = ___ResetPlayerMoney_0Delegate((__Instance + __PointerAdjustment), playerid);
             return __ret;
@@ -4848,7 +5006,7 @@ namespace SharpOrange
 
         public override ulong GetPlayerMoney(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 14 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 16 * 8);
             var ___GetPlayerMoney_0Delegate = (global::SharpOrange.Delegates.Func_ulong_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_ulong_IntPtr_int));
             var __ret = ___GetPlayerMoney_0Delegate((__Instance + __PointerAdjustment), playerid);
             return __ret;
@@ -4856,7 +5014,7 @@ namespace SharpOrange
 
         public override bool SetPlayerModel(int playerid, int model)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 15 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 17 * 8);
             var ___SetPlayerModel_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_int));
             var __ret = ___SetPlayerModel_0Delegate((__Instance + __PointerAdjustment), playerid, model);
             return __ret;
@@ -4864,7 +5022,7 @@ namespace SharpOrange
 
         public override int GetPlayerModel(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 16 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 18 * 8);
             var ___GetPlayerModel_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_int));
             var __ret = ___GetPlayerModel_0Delegate((__Instance + __PointerAdjustment), playerid);
             return __ret;
@@ -4872,7 +5030,7 @@ namespace SharpOrange
 
         public override bool SetPlayerName(int playerid, string name)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 17 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 19 * 8);
             var ___SetPlayerName_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_string));
             var __ret = ___SetPlayerName_0Delegate((__Instance + __PointerAdjustment), playerid, name);
             return __ret;
@@ -4880,7 +5038,7 @@ namespace SharpOrange
 
         public override string GetPlayerName(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 18 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 20 * 8);
             var ___GetPlayerName_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_IntPtr_int));
             var __ret = new global::Std.BasicString.__Internal();
             ___GetPlayerName_0Delegate((__Instance + __PointerAdjustment), new IntPtr(&__ret), playerid);
@@ -4892,7 +5050,7 @@ namespace SharpOrange
 
         public override bool SetPlayerHealth(int playerid, float health)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 19 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 21 * 8);
             var ___SetPlayerHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_float));
             var __ret = ___SetPlayerHealth_0Delegate((__Instance + __PointerAdjustment), playerid, health);
             return __ret;
@@ -4900,7 +5058,7 @@ namespace SharpOrange
 
         public override float GetPlayerHealth(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 20 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 22 * 8);
             var ___GetPlayerHealth_0Delegate = (global::SharpOrange.Delegates.Func_float_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_float_IntPtr_int));
             var __ret = ___GetPlayerHealth_0Delegate((__Instance + __PointerAdjustment), playerid);
             return __ret;
@@ -4908,7 +5066,7 @@ namespace SharpOrange
 
         public override bool SetPlayerArmour(int playerid, float armour)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 21 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 23 * 8);
             var ___SetPlayerArmour_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_float));
             var __ret = ___SetPlayerArmour_0Delegate((__Instance + __PointerAdjustment), playerid, armour);
             return __ret;
@@ -4916,7 +5074,7 @@ namespace SharpOrange
 
         public override float GetPlayerArmour(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 22 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 24 * 8);
             var ___GetPlayerArmour_0Delegate = (global::SharpOrange.Delegates.Func_float_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_float_IntPtr_int));
             var __ret = ___GetPlayerArmour_0Delegate((__Instance + __PointerAdjustment), playerid);
             return __ret;
@@ -4924,7 +5082,7 @@ namespace SharpOrange
 
         public override bool SetPlayerColor(int playerid, uint color)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 23 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 25 * 8);
             var ___SetPlayerColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_uint));
             var __ret = ___SetPlayerColor_0Delegate((__Instance + __PointerAdjustment), playerid, color);
             return __ret;
@@ -4932,7 +5090,7 @@ namespace SharpOrange
 
         public override uint GetPlayerColor(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 24 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 26 * 8);
             var ___GetPlayerColor_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_int));
             var __ret = ___GetPlayerColor_0Delegate((__Instance + __PointerAdjustment), playerid);
             return __ret;
@@ -4940,14 +5098,14 @@ namespace SharpOrange
 
         public override void BroadcastClientMessage(string message, uint color)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 25 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 27 * 8);
             var ___BroadcastClientMessage_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_string_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_string_uint));
             ___BroadcastClientMessage_0Delegate((__Instance + __PointerAdjustment), message, color);
         }
 
         public override bool SendClientMessage(int playerid, string message, uint color)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 26 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 28 * 8);
             var ___SendClientMessage_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_string_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_string_uint));
             var __ret = ___SendClientMessage_0Delegate((__Instance + __PointerAdjustment), playerid, message, color);
             return __ret;
@@ -4955,7 +5113,7 @@ namespace SharpOrange
 
         public override bool SetPlayerIntoVehicle(int playerid, uint vehicle, sbyte seat)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 27 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 29 * 8);
             var ___SetPlayerIntoVehicle_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_uint_sbyte) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_uint_sbyte));
             var __ret = ___SetPlayerIntoVehicle_0Delegate((__Instance + __PointerAdjustment), playerid, vehicle, seat);
             return __ret;
@@ -4963,14 +5121,14 @@ namespace SharpOrange
 
         public override void DisablePlayerHud(int playerid, bool toggle)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 28 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 30 * 8);
             var ___DisablePlayerHud_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_int_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_int_bool));
             ___DisablePlayerHud_0Delegate((__Instance + __PointerAdjustment), playerid, toggle);
         }
 
         public override uint GetPlayerGUID(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 29 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 31 * 8);
             var ___GetPlayerGUID_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_int));
             var __ret = ___GetPlayerGUID_0Delegate((__Instance + __PointerAdjustment), playerid);
             return __ret;
@@ -4978,14 +5136,14 @@ namespace SharpOrange
 
         public override void Print(string message)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 30 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 32 * 8);
             var ___Print_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_string));
             ___Print_0Delegate((__Instance + __PointerAdjustment), message);
         }
 
         public override int Hash(string str)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 31 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 33 * 8);
             var ___Hash_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_string));
             var __ret = ___Hash_0Delegate((__Instance + __PointerAdjustment), str);
             return __ret;
@@ -4993,105 +5151,97 @@ namespace SharpOrange
 
         public override uint CreateVehicle(int hash, float x, float y, float z, float heading)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 32 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 34 * 8);
             var ___CreateVehicle_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_int_float_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_int_float_float_float_float));
             var __ret = ___CreateVehicle_0Delegate((__Instance + __PointerAdjustment), hash, x, y, z, heading);
             return __ret;
         }
 
-        public override bool DeleteVehicle(uint guid)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 33 * 8);
-            var ___DeleteVehicle_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
-            var __ret = ___DeleteVehicle_0Delegate((__Instance + __PointerAdjustment), guid);
-            return __ret;
-        }
-
-        public override bool SetVehiclePosition(uint guid, float x, float y, float z)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 34 * 8);
-            var ___SetVehiclePosition_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float));
-            var __ret = ___SetVehiclePosition_0Delegate((__Instance + __PointerAdjustment), guid, x, y, z);
-            return __ret;
-        }
-
-        public override global::SharpOrange.CVector3 GetVehiclePosition(uint guid)
+        public override bool DeleteVehicle(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 35 * 8);
-            var ___GetVehiclePosition_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint));
-            var __ret = new global::SharpOrange.CVector3.__Internal();
-            ___GetVehiclePosition_0Delegate((__Instance + __PointerAdjustment), new IntPtr(&__ret), guid);
-            return global::SharpOrange.CVector3.__CreateInstance(__ret);
+            var ___DeleteVehicle_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
+            var __ret = ___DeleteVehicle_0Delegate((__Instance + __PointerAdjustment), vehid);
+            return __ret;
         }
 
-        public override bool SetVehicleRotation(uint guid, float rx, float ry, float rz)
+        public override bool SetVehiclePosition(uint vehid, float x, float y, float z)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 36 * 8);
-            var ___SetVehicleRotation_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float));
-            var __ret = ___SetVehicleRotation_0Delegate((__Instance + __PointerAdjustment), guid, rx, ry, rz);
+            var ___SetVehiclePosition_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float));
+            var __ret = ___SetVehiclePosition_0Delegate((__Instance + __PointerAdjustment), vehid, x, y, z);
             return __ret;
         }
 
-        public override global::SharpOrange.CVector3 GetVehicleRotation(uint guid)
+        public override global::SharpOrange.CVector3 GetVehiclePosition(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 37 * 8);
-            var ___GetVehicleRotation_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint));
+            var ___GetVehiclePosition_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint));
             var __ret = new global::SharpOrange.CVector3.__Internal();
-            ___GetVehicleRotation_0Delegate((__Instance + __PointerAdjustment), new IntPtr(&__ret), guid);
+            ___GetVehiclePosition_0Delegate((__Instance + __PointerAdjustment), new IntPtr(&__ret), vehid);
             return global::SharpOrange.CVector3.__CreateInstance(__ret);
         }
 
-        public override bool SetVehicleColours(uint guid, int Color1, int Color2)
+        public override bool SetVehicleRotation(uint vehid, float rx, float ry, float rz)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 38 * 8);
-            var ___SetVehicleColours_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int));
-            var __ret = ___SetVehicleColours_0Delegate((__Instance + __PointerAdjustment), guid, Color1, Color2);
+            var ___SetVehicleRotation_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float));
+            var __ret = ___SetVehicleRotation_0Delegate((__Instance + __PointerAdjustment), vehid, rx, ry, rz);
             return __ret;
         }
 
-        public override bool GetVehicleColours(uint guid, ref int Color1, ref int Color2)
+        public override global::SharpOrange.CVector3 GetVehicleRotation(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 39 * 8);
-            var ___GetVehicleColours_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr));
-            fixed (int* __refParamPtr1 = &Color1)
-            {
-                var __arg1 = __refParamPtr1;
-                fixed (int* __refParamPtr2 = &Color2)
-                {
-                    var __arg2 = __refParamPtr2;
-                    var __ret = ___GetVehicleColours_0Delegate((__Instance + __PointerAdjustment), guid, __arg1, __arg2);
-                    return __ret;
-                }
-            }
+            var ___GetVehicleRotation_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint));
+            var __ret = new global::SharpOrange.CVector3.__Internal();
+            ___GetVehicleRotation_0Delegate((__Instance + __PointerAdjustment), new IntPtr(&__ret), vehid);
+            return global::SharpOrange.CVector3.__CreateInstance(__ret);
         }
 
-        public override bool SetVehicleTyresBulletproof(uint guid, bool bulletproof)
+        public override bool SetVehicleColours(uint vehid, byte Color1, byte Color2)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 40 * 8);
-            var ___SetVehicleTyresBulletproof_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool));
-            var __ret = ___SetVehicleTyresBulletproof_0Delegate((__Instance + __PointerAdjustment), guid, bulletproof);
+            var ___SetVehicleColours_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_byte_byte) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_byte_byte));
+            var __ret = ___SetVehicleColours_0Delegate((__Instance + __PointerAdjustment), vehid, Color1, Color2);
             return __ret;
         }
 
-        public override bool GetVehicleTyresBulletproof(uint guid)
+        public override bool GetVehicleColours(uint vehid, byte* Color1, byte* Color2)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 41 * 8);
-            var ___GetVehicleTyresBulletproof_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
-            var __ret = ___GetVehicleTyresBulletproof_0Delegate((__Instance + __PointerAdjustment), guid);
+            var ___GetVehicleColours_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bytePtr_bytePtr) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bytePtr_bytePtr));
+            var __ret = ___GetVehicleColours_0Delegate((__Instance + __PointerAdjustment), vehid, Color1, Color2);
             return __ret;
         }
 
-        public override bool SetVehicleCustomPrimaryColor(uint guid, int rColor, int gColor, int bColor)
+        public override bool SetVehicleTyresBulletproof(uint vehid, bool bulletproof)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 42 * 8);
-            var ___SetVehicleCustomPrimaryColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int));
-            var __ret = ___SetVehicleCustomPrimaryColor_0Delegate((__Instance + __PointerAdjustment), guid, rColor, gColor, bColor);
+            var ___SetVehicleTyresBulletproof_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool));
+            var __ret = ___SetVehicleTyresBulletproof_0Delegate((__Instance + __PointerAdjustment), vehid, bulletproof);
             return __ret;
         }
 
-        public override bool GetVehicleCustomPrimaryColor(uint guid, ref int rColor, ref int gColor, ref int bColor)
+        public override bool GetVehicleTyresBulletproof(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 43 * 8);
+            var ___GetVehicleTyresBulletproof_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
+            var __ret = ___GetVehicleTyresBulletproof_0Delegate((__Instance + __PointerAdjustment), vehid);
+            return __ret;
+        }
+
+        public override bool SetVehicleCustomPrimaryColor(uint vehid, int rColor, int gColor, int bColor)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 44 * 8);
+            var ___SetVehicleCustomPrimaryColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int));
+            var __ret = ___SetVehicleCustomPrimaryColor_0Delegate((__Instance + __PointerAdjustment), vehid, rColor, gColor, bColor);
+            return __ret;
+        }
+
+        public override bool GetVehicleCustomPrimaryColor(uint vehid, ref int rColor, ref int gColor, ref int bColor)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 45 * 8);
             var ___GetVehicleCustomPrimaryColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr_intPtr) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr_intPtr));
             fixed (int* __refParamPtr1 = &rColor)
             {
@@ -5102,24 +5252,24 @@ namespace SharpOrange
                     fixed (int* __refParamPtr3 = &bColor)
                     {
                         var __arg3 = __refParamPtr3;
-                        var __ret = ___GetVehicleCustomPrimaryColor_0Delegate((__Instance + __PointerAdjustment), guid, __arg1, __arg2, __arg3);
+                        var __ret = ___GetVehicleCustomPrimaryColor_0Delegate((__Instance + __PointerAdjustment), vehid, __arg1, __arg2, __arg3);
                         return __ret;
                     }
                 }
             }
         }
 
-        public override bool SetVehicleCustomSecondaryColor(uint guid, int rColor, int gColor, int bColor)
+        public override bool SetVehicleCustomSecondaryColor(uint vehid, int rColor, int gColor, int bColor)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 44 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 46 * 8);
             var ___SetVehicleCustomSecondaryColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int));
-            var __ret = ___SetVehicleCustomSecondaryColor_0Delegate((__Instance + __PointerAdjustment), guid, rColor, gColor, bColor);
+            var __ret = ___SetVehicleCustomSecondaryColor_0Delegate((__Instance + __PointerAdjustment), vehid, rColor, gColor, bColor);
             return __ret;
         }
 
-        public override bool GetVehicleCustomSecondaryColor(uint guid, ref int rColor, ref int gColor, ref int bColor)
+        public override bool GetVehicleCustomSecondaryColor(uint vehid, ref int rColor, ref int gColor, ref int bColor)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 45 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 47 * 8);
             var ___GetVehicleCustomSecondaryColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr_intPtr) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr_intPtr));
             fixed (int* __refParamPtr1 = &rColor)
             {
@@ -5130,56 +5280,72 @@ namespace SharpOrange
                     fixed (int* __refParamPtr3 = &bColor)
                     {
                         var __arg3 = __refParamPtr3;
-                        var __ret = ___GetVehicleCustomSecondaryColor_0Delegate((__Instance + __PointerAdjustment), guid, __arg1, __arg2, __arg3);
+                        var __ret = ___GetVehicleCustomSecondaryColor_0Delegate((__Instance + __PointerAdjustment), vehid, __arg1, __arg2, __arg3);
                         return __ret;
                     }
                 }
             }
         }
 
-        public override bool SetVehicleEngineStatus(uint guid, bool status, bool locked)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 46 * 8);
-            var ___SetVehicleEngineStatus_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool_bool));
-            var __ret = ___SetVehicleEngineStatus_0Delegate((__Instance + __PointerAdjustment), guid, status, locked);
-            return __ret;
-        }
-
-        public override bool GetVehicleEngineStatus(uint guid)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 47 * 8);
-            var ___GetVehicleEngineStatus_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
-            var __ret = ___GetVehicleEngineStatus_0Delegate((__Instance + __PointerAdjustment), guid);
-            return __ret;
-        }
-
-        public override bool SetVehicleBodyHealth(uint guid, float health)
+        public override bool SetVehicleEngineStatus(uint vehid, bool status, bool locked)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 48 * 8);
-            var ___SetVehicleBodyHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float));
-            var __ret = ___SetVehicleBodyHealth_0Delegate((__Instance + __PointerAdjustment), guid, health);
+            var ___SetVehicleEngineStatus_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool_bool));
+            var __ret = ___SetVehicleEngineStatus_0Delegate((__Instance + __PointerAdjustment), vehid, status, locked);
             return __ret;
         }
 
-        public override bool SetVehicleEngineHealth(uint guid, float health)
+        public override bool GetVehicleEngineStatus(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 49 * 8);
-            var ___SetVehicleEngineHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float));
-            var __ret = ___SetVehicleEngineHealth_0Delegate((__Instance + __PointerAdjustment), guid, health);
+            var ___GetVehicleEngineStatus_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
+            var __ret = ___GetVehicleEngineStatus_0Delegate((__Instance + __PointerAdjustment), vehid);
             return __ret;
         }
 
-        public override bool SetVehicleTankHealth(uint guid, float health)
+        public override bool SetVehicleLocked(uint vehid, bool locked)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 50 * 8);
-            var ___SetVehicleTankHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float));
-            var __ret = ___SetVehicleTankHealth_0Delegate((__Instance + __PointerAdjustment), guid, health);
+            var ___SetVehicleLocked_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool));
+            var __ret = ___SetVehicleLocked_0Delegate((__Instance + __PointerAdjustment), vehid, locked);
             return __ret;
         }
 
-        public override bool GetVehicleHealth(uint guid, ref float body, ref float engine, ref float tank)
+        public override bool IsVehicleLocked(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 51 * 8);
+            var ___IsVehicleLocked_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
+            var __ret = ___IsVehicleLocked_0Delegate((__Instance + __PointerAdjustment), vehid);
+            return __ret;
+        }
+
+        public override bool SetVehicleBodyHealth(uint vehid, float health)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 52 * 8);
+            var ___SetVehicleBodyHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float));
+            var __ret = ___SetVehicleBodyHealth_0Delegate((__Instance + __PointerAdjustment), vehid, health);
+            return __ret;
+        }
+
+        public override bool SetVehicleEngineHealth(uint vehid, float health)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 53 * 8);
+            var ___SetVehicleEngineHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float));
+            var __ret = ___SetVehicleEngineHealth_0Delegate((__Instance + __PointerAdjustment), vehid, health);
+            return __ret;
+        }
+
+        public override bool SetVehicleTankHealth(uint vehid, float health)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 54 * 8);
+            var ___SetVehicleTankHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float));
+            var __ret = ___SetVehicleTankHealth_0Delegate((__Instance + __PointerAdjustment), vehid, health);
+            return __ret;
+        }
+
+        public override bool GetVehicleHealth(uint vehid, ref float body, ref float engine, ref float tank)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 55 * 8);
             var ___GetVehicleHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_floatPtr_floatPtr_floatPtr) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_floatPtr_floatPtr_floatPtr));
             fixed (float* __refParamPtr1 = &body)
             {
@@ -5190,108 +5356,108 @@ namespace SharpOrange
                     fixed (float* __refParamPtr3 = &tank)
                     {
                         var __arg3 = __refParamPtr3;
-                        var __ret = ___GetVehicleHealth_0Delegate((__Instance + __PointerAdjustment), guid, __arg1, __arg2, __arg3);
+                        var __ret = ___GetVehicleHealth_0Delegate((__Instance + __PointerAdjustment), vehid, __arg1, __arg2, __arg3);
                         return __ret;
                     }
                 }
             }
         }
 
-        public override bool SetVehicleNumberPlate(uint guid, string text)
+        public override bool SetVehicleNumberPlate(uint vehid, string text)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 52 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 56 * 8);
             var ___SetVehicleNumberPlate_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_string));
-            var __ret = ___SetVehicleNumberPlate_0Delegate((__Instance + __PointerAdjustment), guid, text);
+            var __ret = ___SetVehicleNumberPlate_0Delegate((__Instance + __PointerAdjustment), vehid, text);
             return __ret;
         }
 
-        public override string GetVehicleNumberPlate(uint guid)
+        public override string GetVehicleNumberPlate(uint vehid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 53 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 57 * 8);
             var ___GetVehicleNumberPlate_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint));
             var __ret = new global::Std.BasicString.__Internal();
-            ___GetVehicleNumberPlate_0Delegate((__Instance + __PointerAdjustment), new IntPtr(&__ret), guid);
+            ___GetVehicleNumberPlate_0Delegate((__Instance + __PointerAdjustment), new IntPtr(&__ret), vehid);
             using (var __basicStringRet = global::Std.BasicString.__CreateInstance(__ret))
             {
                 return __basicStringRet.CStr();
             }
         }
 
-        public override bool SetVehicleNumberPlateStyle(uint guid, int style)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 54 * 8);
-            var ___SetVehicleNumberPlateStyle_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int));
-            var __ret = ___SetVehicleNumberPlateStyle_0Delegate((__Instance + __PointerAdjustment), guid, style);
-            return __ret;
-        }
-
-        public override int GetVehicleNumberPlateStyle(uint guid)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 55 * 8);
-            var ___GetVehicleNumberPlateStyle_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_uint));
-            var __ret = ___GetVehicleNumberPlateStyle_0Delegate((__Instance + __PointerAdjustment), guid);
-            return __ret;
-        }
-
-        public override bool SetVehicleSirenState(uint guid, bool state)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 56 * 8);
-            var ___SetVehicleSirenState_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool));
-            var __ret = ___SetVehicleSirenState_0Delegate((__Instance + __PointerAdjustment), guid, state);
-            return __ret;
-        }
-
-        public override bool GetVehicleSirenState(uint guid)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 57 * 8);
-            var ___GetVehicleSirenState_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
-            var __ret = ___GetVehicleSirenState_0Delegate((__Instance + __PointerAdjustment), guid);
-            return __ret;
-        }
-
-        public override bool SetVehicleWheelColor(uint guid, int color)
+        public override bool SetVehicleNumberPlateStyle(uint vehid, int style)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 58 * 8);
-            var ___SetVehicleWheelColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int));
-            var __ret = ___SetVehicleWheelColor_0Delegate((__Instance + __PointerAdjustment), guid, color);
+            var ___SetVehicleNumberPlateStyle_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int));
+            var __ret = ___SetVehicleNumberPlateStyle_0Delegate((__Instance + __PointerAdjustment), vehid, style);
             return __ret;
         }
 
-        public override int GetVehicleWheelColor(uint guid)
+        public override int GetVehicleNumberPlateStyle(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 59 * 8);
-            var ___GetVehicleWheelColor_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_uint));
-            var __ret = ___GetVehicleWheelColor_0Delegate((__Instance + __PointerAdjustment), guid);
+            var ___GetVehicleNumberPlateStyle_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_uint));
+            var __ret = ___GetVehicleNumberPlateStyle_0Delegate((__Instance + __PointerAdjustment), vehid);
             return __ret;
         }
 
-        public override bool SetVehicleWheelType(uint guid, int type)
+        public override bool SetVehicleSirenState(uint vehid, bool state)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 60 * 8);
-            var ___SetVehicleWheelType_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int));
-            var __ret = ___SetVehicleWheelType_0Delegate((__Instance + __PointerAdjustment), guid, type);
+            var ___SetVehicleSirenState_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool));
+            var __ret = ___SetVehicleSirenState_0Delegate((__Instance + __PointerAdjustment), vehid, state);
             return __ret;
         }
 
-        public override int GetVehicleWheelType(uint guid)
+        public override bool GetVehicleSirenState(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 61 * 8);
-            var ___GetVehicleWheelType_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_uint));
-            var __ret = ___GetVehicleWheelType_0Delegate((__Instance + __PointerAdjustment), guid);
+            var ___GetVehicleSirenState_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
+            var __ret = ___GetVehicleSirenState_0Delegate((__Instance + __PointerAdjustment), vehid);
             return __ret;
         }
 
-        public override uint GetVehicleDriver(uint guid)
+        public override bool SetVehicleWheelColor(uint vehid, int color)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 62 * 8);
-            var ___GetVehicleDriver_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_uint));
-            var __ret = ___GetVehicleDriver_0Delegate((__Instance + __PointerAdjustment), guid);
+            var ___SetVehicleWheelColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int));
+            var __ret = ___SetVehicleWheelColor_0Delegate((__Instance + __PointerAdjustment), vehid, color);
+            return __ret;
+        }
+
+        public override int GetVehicleWheelColor(uint vehid)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 63 * 8);
+            var ___GetVehicleWheelColor_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_uint));
+            var __ret = ___GetVehicleWheelColor_0Delegate((__Instance + __PointerAdjustment), vehid);
+            return __ret;
+        }
+
+        public override bool SetVehicleWheelType(uint vehid, int type)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 64 * 8);
+            var ___SetVehicleWheelType_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int));
+            var __ret = ___SetVehicleWheelType_0Delegate((__Instance + __PointerAdjustment), vehid, type);
+            return __ret;
+        }
+
+        public override int GetVehicleWheelType(uint vehid)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 65 * 8);
+            var ___GetVehicleWheelType_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_uint));
+            var __ret = ___GetVehicleWheelType_0Delegate((__Instance + __PointerAdjustment), vehid);
+            return __ret;
+        }
+
+        public override int GetVehicleDriver(uint vehid)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 66 * 8);
+            var ___GetVehicleDriver_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_uint));
+            var __ret = ___GetVehicleDriver_0Delegate((__Instance + __PointerAdjustment), vehid);
             return __ret;
         }
 
         public override uint CreateObject(int model, float x, float y, float z, float pitch, float yaw, float roll)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 64 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 68 * 8);
             var ___CreateObject_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_int_float_float_float_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_int_float_float_float_float_float_float));
             var __ret = ___CreateObject_0Delegate((__Instance + __PointerAdjustment), model, x, y, z, pitch, yaw, roll);
             return __ret;
@@ -5299,7 +5465,7 @@ namespace SharpOrange
 
         public override bool DeleteObject(uint guid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 65 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 69 * 8);
             var ___DeleteObject_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
             var __ret = ___DeleteObject_0Delegate((__Instance + __PointerAdjustment), guid);
             return __ret;
@@ -5307,7 +5473,7 @@ namespace SharpOrange
 
         public override bool CreatePickup(int type, float x, float y, float z, float scale)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 66 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 70 * 8);
             var ___CreatePickup_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_float_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_float_float_float_float));
             var __ret = ___CreatePickup_0Delegate((__Instance + __PointerAdjustment), type, x, y, z, scale);
             return __ret;
@@ -5315,7 +5481,7 @@ namespace SharpOrange
 
         public override uint CreateBlipForAll(string name, float x, float y, float z, float scale, int color, int sprite)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 67 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 71 * 8);
             var ___CreateBlipForAll_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_std_basic_string___Internal_float_float_float_float_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_std_basic_string___Internal_float_float_float_float_int_int));
             var __allocator0 = new global::Std.Allocator();
             var __basicString0 = new global::Std.BasicString(name, __allocator0);
@@ -5328,7 +5494,7 @@ namespace SharpOrange
 
         public override uint CreateBlipForPlayer(int playerid, string name, float x, float y, float z, float scale, int color, int sprite)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 68 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 72 * 8);
             var ___CreateBlipForPlayer_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_int_std_basic_string___Internal_float_float_float_float_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_int_std_basic_string___Internal_float_float_float_float_int_int));
             var __allocator1 = new global::Std.Allocator();
             var __basicString1 = new global::Std.BasicString(name, __allocator1);
@@ -5341,42 +5507,42 @@ namespace SharpOrange
 
         public override void DeleteBlip(uint guid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 69 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 73 * 8);
             var ___DeleteBlip_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint));
             ___DeleteBlip_0Delegate((__Instance + __PointerAdjustment), guid);
         }
 
         public override void SetBlipColor(uint guid, int color)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 70 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 74 * 8);
             var ___SetBlipColor_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_int));
             ___SetBlipColor_0Delegate((__Instance + __PointerAdjustment), guid, color);
         }
 
         public override void SetBlipScale(uint guid, float scale)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 71 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 75 * 8);
             var ___SetBlipScale_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_float));
             ___SetBlipScale_0Delegate((__Instance + __PointerAdjustment), guid, scale);
         }
 
         public override void SetBlipRoute(uint guid, bool route)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 72 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 76 * 8);
             var ___SetBlipRoute_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_bool));
             ___SetBlipRoute_0Delegate((__Instance + __PointerAdjustment), guid, route);
         }
 
         public override void SetBlipSprite(uint guid, int sprite)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 73 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 77 * 8);
             var ___SetBlipSprite_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_int));
             ___SetBlipSprite_0Delegate((__Instance + __PointerAdjustment), guid, sprite);
         }
 
         public override void SetBlipName(uint guid, string name)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 74 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 78 * 8);
             var ___SetBlipName_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_std_basic_string___Internal) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_std_basic_string___Internal));
             var __allocator1 = new global::Std.Allocator();
             var __basicString1 = new global::Std.BasicString(name, __allocator1);
@@ -5388,28 +5554,28 @@ namespace SharpOrange
 
         public override void SetBlipAsShortRange(uint guid, bool _short)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 75 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 79 * 8);
             var ___SetBlipAsShortRange_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_bool));
             ___SetBlipAsShortRange_0Delegate((__Instance + __PointerAdjustment), guid, _short);
         }
 
         public override void AttachBlipToPlayer(uint _guid, int player)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 76 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 80 * 8);
             var ___AttachBlipToPlayer_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_int));
             ___AttachBlipToPlayer_0Delegate((__Instance + __PointerAdjustment), _guid, player);
         }
 
         public override void AttachBlipToVehicle(uint _guid, uint vehicle)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 77 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 81 * 8);
             var ___AttachBlipToVehicle_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_uint));
             ___AttachBlipToVehicle_0Delegate((__Instance + __PointerAdjustment), _guid, vehicle);
         }
 
         public override uint CreateMarkerForAll(float x, float y, float z, float height, float radius)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 78 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 82 * 8);
             var ___CreateMarkerForAll_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_float_float_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_float_float_float_float_float));
             var __ret = ___CreateMarkerForAll_0Delegate((__Instance + __PointerAdjustment), x, y, z, height, radius);
             return __ret;
@@ -5417,7 +5583,7 @@ namespace SharpOrange
 
         public override uint CreateMarkerForPlayer(int playerid, float x, float y, float z, float height, float radius)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 79 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 83 * 8);
             var ___CreateMarkerForPlayer_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_int_float_float_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_int_float_float_float_float_float));
             var __ret = ___CreateMarkerForPlayer_0Delegate((__Instance + __PointerAdjustment), playerid, x, y, z, height, radius);
             return __ret;
@@ -5425,14 +5591,14 @@ namespace SharpOrange
 
         public override void DeleteMarker(uint guid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 80 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 84 * 8);
             var ___DeleteMarker_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint));
             ___DeleteMarker_0Delegate((__Instance + __PointerAdjustment), guid);
         }
 
         public override bool SendNotification(int playerid, string msg)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 81 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 85 * 8);
             var ___SendNotification_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_string));
             var __ret = ___SendNotification_0Delegate((__Instance + __PointerAdjustment), playerid, msg);
             return __ret;
@@ -5440,7 +5606,7 @@ namespace SharpOrange
 
         public override bool SetInfoMsg(int playerid, string msg)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 82 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 86 * 8);
             var ___SetInfoMsg_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_string));
             var __ret = ___SetInfoMsg_0Delegate((__Instance + __PointerAdjustment), playerid, msg);
             return __ret;
@@ -5448,7 +5614,7 @@ namespace SharpOrange
 
         public override bool UnsetInfoMsg(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 83 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 87 * 8);
             var ___UnsetInfoMsg_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int));
             var __ret = ___UnsetInfoMsg_0Delegate((__Instance + __PointerAdjustment), playerid);
             return __ret;
@@ -5456,7 +5622,7 @@ namespace SharpOrange
 
         public override uint Create3DText(string text, float x, float y, float z, int color, int outColor, float fontSize)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 84 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 88 * 8);
             var ___Create3DText_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_string_float_float_float_int_int_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_string_float_float_float_int_int_float));
             var __ret = ___Create3DText_0Delegate((__Instance + __PointerAdjustment), text, x, y, z, color, outColor, fontSize);
             return __ret;
@@ -5464,7 +5630,7 @@ namespace SharpOrange
 
         public override uint Create3DTextForPlayer(uint player, string text, float x, float y, float z, int color, int outColor)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 85 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 89 * 8);
             var ___Create3DTextForPlayer_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_uint_string_float_float_float_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_uint_string_float_float_float_int_int));
             var __ret = ___Create3DTextForPlayer_0Delegate((__Instance + __PointerAdjustment), player, text, x, y, z, color, outColor);
             return __ret;
@@ -5472,7 +5638,7 @@ namespace SharpOrange
 
         public override bool Attach3DTextToVehicle(uint textId, uint vehicle, float oX, float oY, float oZ)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 86 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 90 * 8);
             var ___Attach3DTextToVehicle_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_uint_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_uint_float_float_float));
             var __ret = ___Attach3DTextToVehicle_0Delegate((__Instance + __PointerAdjustment), textId, vehicle, oX, oY, oZ);
             return __ret;
@@ -5480,7 +5646,7 @@ namespace SharpOrange
 
         public override bool Attach3DTextToPlayer(uint textId, uint player, float oX, float oY, float oZ)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 87 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 91 * 8);
             var ___Attach3DTextToPlayer_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_uint_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_uint_float_float_float));
             var __ret = ___Attach3DTextToPlayer_0Delegate((__Instance + __PointerAdjustment), textId, player, oX, oY, oZ);
             return __ret;
@@ -5488,7 +5654,7 @@ namespace SharpOrange
 
         public override bool Set3DTextContent(uint textId, string text)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 88 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 92 * 8);
             var ___Set3DTextContent_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_string));
             var __ret = ___Set3DTextContent_0Delegate((__Instance + __PointerAdjustment), textId, text);
             return __ret;
@@ -5496,7 +5662,7 @@ namespace SharpOrange
 
         public override bool Delete3DText(uint textId)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 89 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 93 * 8);
             var ___Delete3DText_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
             var __ret = ___Delete3DText_0Delegate((__Instance + __PointerAdjustment), textId);
             return __ret;
@@ -5541,14 +5707,21 @@ namespace SharpOrange
 
         public override void KickPlayer(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 2 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 4 * 8);
             var ___KickPlayer_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_int));
             ___KickPlayer_0Delegate((__Instance), playerid);
         }
 
-        public override bool SetPlayerPosition(int playerid, float x, float y, float z)
+        public override void KickPlayer(int playerid, string reason)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 3 * 8);
+            var ___KickPlayer_1Delegate = (global::SharpOrange.Delegates.Action_IntPtr_int_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_int_string));
+            ___KickPlayer_1Delegate((__Instance), playerid, reason);
+        }
+
+        public override bool SetPlayerPosition(int playerid, float x, float y, float z)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 5 * 8);
             var ___SetPlayerPosition_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_float_float_float));
             var __ret = ___SetPlayerPosition_0Delegate((__Instance), playerid, x, y, z);
             return __ret;
@@ -5556,7 +5729,7 @@ namespace SharpOrange
 
         public override global::SharpOrange.CVector3 GetPlayerPosition(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 4 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 6 * 8);
             var ___GetPlayerPosition_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_IntPtr_int));
             var __ret = new global::SharpOrange.CVector3.__Internal();
             ___GetPlayerPosition_0Delegate((__Instance), new IntPtr(&__ret), playerid);
@@ -5565,7 +5738,7 @@ namespace SharpOrange
 
         public override bool IsPlayerInRange(int playerid, float x, float y, float z, float range)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 5 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 7 * 8);
             var ___IsPlayerInRange_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_float_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_float_float_float_float));
             var __ret = ___IsPlayerInRange_0Delegate((__Instance), playerid, x, y, z, range);
             return __ret;
@@ -5573,7 +5746,7 @@ namespace SharpOrange
 
         public override bool SetPlayerHeading(int playerid, float angle)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 6 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 8 * 8);
             var ___SetPlayerHeading_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_float));
             var __ret = ___SetPlayerHeading_0Delegate((__Instance), playerid, angle);
             return __ret;
@@ -5581,7 +5754,7 @@ namespace SharpOrange
 
         public override float GetPlayerHeading(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 7 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 9 * 8);
             var ___GetPlayerHeading_0Delegate = (global::SharpOrange.Delegates.Func_float_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_float_IntPtr_int));
             var __ret = ___GetPlayerHeading_0Delegate((__Instance), playerid);
             return __ret;
@@ -5589,7 +5762,7 @@ namespace SharpOrange
 
         public override bool RemovePlayerWeapons(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 8 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 10 * 8);
             var ___RemovePlayerWeapons_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int));
             var __ret = ___RemovePlayerWeapons_0Delegate((__Instance), playerid);
             return __ret;
@@ -5597,7 +5770,7 @@ namespace SharpOrange
 
         public override bool GivePlayerWeapon(int playerid, int weapon, int ammo)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 9 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 11 * 8);
             var ___GivePlayerWeapon_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_int_int));
             var __ret = ___GivePlayerWeapon_0Delegate((__Instance), playerid, weapon, ammo);
             return __ret;
@@ -5605,7 +5778,7 @@ namespace SharpOrange
 
         public override bool GivePlayerAmmo(int playerid, int weapon, int ammo)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 10 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 12 * 8);
             var ___GivePlayerAmmo_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_int_int));
             var __ret = ___GivePlayerAmmo_0Delegate((__Instance), playerid, weapon, ammo);
             return __ret;
@@ -5613,7 +5786,7 @@ namespace SharpOrange
 
         public override bool GivePlayerMoney(int playerid, int money)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 11 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 13 * 8);
             var ___GivePlayerMoney_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_int));
             var __ret = ___GivePlayerMoney_0Delegate((__Instance), playerid, money);
             return __ret;
@@ -5621,7 +5794,7 @@ namespace SharpOrange
 
         public override bool SetPlayerMoney(int playerid, int money)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 12 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 14 * 8);
             var ___SetPlayerMoney_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_int));
             var __ret = ___SetPlayerMoney_0Delegate((__Instance), playerid, money);
             return __ret;
@@ -5629,7 +5802,7 @@ namespace SharpOrange
 
         public override bool ResetPlayerMoney(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 13 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 15 * 8);
             var ___ResetPlayerMoney_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int));
             var __ret = ___ResetPlayerMoney_0Delegate((__Instance), playerid);
             return __ret;
@@ -5637,7 +5810,7 @@ namespace SharpOrange
 
         public override ulong GetPlayerMoney(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 14 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 16 * 8);
             var ___GetPlayerMoney_0Delegate = (global::SharpOrange.Delegates.Func_ulong_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_ulong_IntPtr_int));
             var __ret = ___GetPlayerMoney_0Delegate((__Instance), playerid);
             return __ret;
@@ -5645,7 +5818,7 @@ namespace SharpOrange
 
         public override bool SetPlayerModel(int playerid, int model)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 15 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 17 * 8);
             var ___SetPlayerModel_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_int));
             var __ret = ___SetPlayerModel_0Delegate((__Instance), playerid, model);
             return __ret;
@@ -5653,7 +5826,7 @@ namespace SharpOrange
 
         public override int GetPlayerModel(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 16 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 18 * 8);
             var ___GetPlayerModel_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_int));
             var __ret = ___GetPlayerModel_0Delegate((__Instance), playerid);
             return __ret;
@@ -5661,7 +5834,7 @@ namespace SharpOrange
 
         public override bool SetPlayerName(int playerid, string name)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 17 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 19 * 8);
             var ___SetPlayerName_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_string));
             var __ret = ___SetPlayerName_0Delegate((__Instance), playerid, name);
             return __ret;
@@ -5669,7 +5842,7 @@ namespace SharpOrange
 
         public override string GetPlayerName(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 18 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 20 * 8);
             var ___GetPlayerName_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_IntPtr_int));
             var __ret = new global::Std.BasicString.__Internal();
             ___GetPlayerName_0Delegate((__Instance), new IntPtr(&__ret), playerid);
@@ -5681,7 +5854,7 @@ namespace SharpOrange
 
         public override bool SetPlayerHealth(int playerid, float health)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 19 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 21 * 8);
             var ___SetPlayerHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_float));
             var __ret = ___SetPlayerHealth_0Delegate((__Instance), playerid, health);
             return __ret;
@@ -5689,7 +5862,7 @@ namespace SharpOrange
 
         public override float GetPlayerHealth(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 20 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 22 * 8);
             var ___GetPlayerHealth_0Delegate = (global::SharpOrange.Delegates.Func_float_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_float_IntPtr_int));
             var __ret = ___GetPlayerHealth_0Delegate((__Instance), playerid);
             return __ret;
@@ -5697,7 +5870,7 @@ namespace SharpOrange
 
         public override bool SetPlayerArmour(int playerid, float armour)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 21 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 23 * 8);
             var ___SetPlayerArmour_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_float));
             var __ret = ___SetPlayerArmour_0Delegate((__Instance), playerid, armour);
             return __ret;
@@ -5705,7 +5878,7 @@ namespace SharpOrange
 
         public override float GetPlayerArmour(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 22 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 24 * 8);
             var ___GetPlayerArmour_0Delegate = (global::SharpOrange.Delegates.Func_float_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_float_IntPtr_int));
             var __ret = ___GetPlayerArmour_0Delegate((__Instance), playerid);
             return __ret;
@@ -5713,7 +5886,7 @@ namespace SharpOrange
 
         public override bool SetPlayerColor(int playerid, uint color)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 23 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 25 * 8);
             var ___SetPlayerColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_uint));
             var __ret = ___SetPlayerColor_0Delegate((__Instance), playerid, color);
             return __ret;
@@ -5721,7 +5894,7 @@ namespace SharpOrange
 
         public override uint GetPlayerColor(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 24 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 26 * 8);
             var ___GetPlayerColor_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_int));
             var __ret = ___GetPlayerColor_0Delegate((__Instance), playerid);
             return __ret;
@@ -5729,14 +5902,14 @@ namespace SharpOrange
 
         public override void BroadcastClientMessage(string message, uint color)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 25 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 27 * 8);
             var ___BroadcastClientMessage_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_string_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_string_uint));
             ___BroadcastClientMessage_0Delegate((__Instance), message, color);
         }
 
         public override bool SendClientMessage(int playerid, string message, uint color)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 26 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 28 * 8);
             var ___SendClientMessage_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_string_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_string_uint));
             var __ret = ___SendClientMessage_0Delegate((__Instance), playerid, message, color);
             return __ret;
@@ -5744,7 +5917,7 @@ namespace SharpOrange
 
         public override bool SetPlayerIntoVehicle(int playerid, uint vehicle, sbyte seat)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 27 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 29 * 8);
             var ___SetPlayerIntoVehicle_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_uint_sbyte) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_uint_sbyte));
             var __ret = ___SetPlayerIntoVehicle_0Delegate((__Instance), playerid, vehicle, seat);
             return __ret;
@@ -5752,14 +5925,14 @@ namespace SharpOrange
 
         public override void DisablePlayerHud(int playerid, bool toggle)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 28 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 30 * 8);
             var ___DisablePlayerHud_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_int_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_int_bool));
             ___DisablePlayerHud_0Delegate((__Instance), playerid, toggle);
         }
 
         public override uint GetPlayerGUID(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 29 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 31 * 8);
             var ___GetPlayerGUID_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_int));
             var __ret = ___GetPlayerGUID_0Delegate((__Instance), playerid);
             return __ret;
@@ -5767,14 +5940,14 @@ namespace SharpOrange
 
         public override void Print(string message)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 30 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 32 * 8);
             var ___Print_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_string));
             ___Print_0Delegate((__Instance), message);
         }
 
         public override int Hash(string str)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 31 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 33 * 8);
             var ___Hash_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_string));
             var __ret = ___Hash_0Delegate((__Instance), str);
             return __ret;
@@ -5782,105 +5955,97 @@ namespace SharpOrange
 
         public override uint CreateVehicle(int hash, float x, float y, float z, float heading)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 32 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 34 * 8);
             var ___CreateVehicle_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_int_float_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_int_float_float_float_float));
             var __ret = ___CreateVehicle_0Delegate((__Instance), hash, x, y, z, heading);
             return __ret;
         }
 
-        public override bool DeleteVehicle(uint guid)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 33 * 8);
-            var ___DeleteVehicle_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
-            var __ret = ___DeleteVehicle_0Delegate((__Instance), guid);
-            return __ret;
-        }
-
-        public override bool SetVehiclePosition(uint guid, float x, float y, float z)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 34 * 8);
-            var ___SetVehiclePosition_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float));
-            var __ret = ___SetVehiclePosition_0Delegate((__Instance), guid, x, y, z);
-            return __ret;
-        }
-
-        public override global::SharpOrange.CVector3 GetVehiclePosition(uint guid)
+        public override bool DeleteVehicle(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 35 * 8);
-            var ___GetVehiclePosition_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint));
-            var __ret = new global::SharpOrange.CVector3.__Internal();
-            ___GetVehiclePosition_0Delegate((__Instance), new IntPtr(&__ret), guid);
-            return global::SharpOrange.CVector3.__CreateInstance(__ret);
+            var ___DeleteVehicle_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
+            var __ret = ___DeleteVehicle_0Delegate((__Instance), vehid);
+            return __ret;
         }
 
-        public override bool SetVehicleRotation(uint guid, float rx, float ry, float rz)
+        public override bool SetVehiclePosition(uint vehid, float x, float y, float z)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 36 * 8);
-            var ___SetVehicleRotation_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float));
-            var __ret = ___SetVehicleRotation_0Delegate((__Instance), guid, rx, ry, rz);
+            var ___SetVehiclePosition_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float));
+            var __ret = ___SetVehiclePosition_0Delegate((__Instance), vehid, x, y, z);
             return __ret;
         }
 
-        public override global::SharpOrange.CVector3 GetVehicleRotation(uint guid)
+        public override global::SharpOrange.CVector3 GetVehiclePosition(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 37 * 8);
-            var ___GetVehicleRotation_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint));
+            var ___GetVehiclePosition_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint));
             var __ret = new global::SharpOrange.CVector3.__Internal();
-            ___GetVehicleRotation_0Delegate((__Instance), new IntPtr(&__ret), guid);
+            ___GetVehiclePosition_0Delegate((__Instance), new IntPtr(&__ret), vehid);
             return global::SharpOrange.CVector3.__CreateInstance(__ret);
         }
 
-        public override bool SetVehicleColours(uint guid, int Color1, int Color2)
+        public override bool SetVehicleRotation(uint vehid, float rx, float ry, float rz)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 38 * 8);
-            var ___SetVehicleColours_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int));
-            var __ret = ___SetVehicleColours_0Delegate((__Instance), guid, Color1, Color2);
+            var ___SetVehicleRotation_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float_float_float));
+            var __ret = ___SetVehicleRotation_0Delegate((__Instance), vehid, rx, ry, rz);
             return __ret;
         }
 
-        public override bool GetVehicleColours(uint guid, ref int Color1, ref int Color2)
+        public override global::SharpOrange.CVector3 GetVehicleRotation(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 39 * 8);
-            var ___GetVehicleColours_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr));
-            fixed (int* __refParamPtr1 = &Color1)
-            {
-                var __arg1 = __refParamPtr1;
-                fixed (int* __refParamPtr2 = &Color2)
-                {
-                    var __arg2 = __refParamPtr2;
-                    var __ret = ___GetVehicleColours_0Delegate((__Instance), guid, __arg1, __arg2);
-                    return __ret;
-                }
-            }
+            var ___GetVehicleRotation_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint));
+            var __ret = new global::SharpOrange.CVector3.__Internal();
+            ___GetVehicleRotation_0Delegate((__Instance), new IntPtr(&__ret), vehid);
+            return global::SharpOrange.CVector3.__CreateInstance(__ret);
         }
 
-        public override bool SetVehicleTyresBulletproof(uint guid, bool bulletproof)
+        public override bool SetVehicleColours(uint vehid, byte Color1, byte Color2)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 40 * 8);
-            var ___SetVehicleTyresBulletproof_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool));
-            var __ret = ___SetVehicleTyresBulletproof_0Delegate((__Instance), guid, bulletproof);
+            var ___SetVehicleColours_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_byte_byte) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_byte_byte));
+            var __ret = ___SetVehicleColours_0Delegate((__Instance), vehid, Color1, Color2);
             return __ret;
         }
 
-        public override bool GetVehicleTyresBulletproof(uint guid)
+        public override bool GetVehicleColours(uint vehid, byte* Color1, byte* Color2)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 41 * 8);
-            var ___GetVehicleTyresBulletproof_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
-            var __ret = ___GetVehicleTyresBulletproof_0Delegate((__Instance), guid);
+            var ___GetVehicleColours_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bytePtr_bytePtr) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bytePtr_bytePtr));
+            var __ret = ___GetVehicleColours_0Delegate((__Instance), vehid, Color1, Color2);
             return __ret;
         }
 
-        public override bool SetVehicleCustomPrimaryColor(uint guid, int rColor, int gColor, int bColor)
+        public override bool SetVehicleTyresBulletproof(uint vehid, bool bulletproof)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 42 * 8);
-            var ___SetVehicleCustomPrimaryColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int));
-            var __ret = ___SetVehicleCustomPrimaryColor_0Delegate((__Instance), guid, rColor, gColor, bColor);
+            var ___SetVehicleTyresBulletproof_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool));
+            var __ret = ___SetVehicleTyresBulletproof_0Delegate((__Instance), vehid, bulletproof);
             return __ret;
         }
 
-        public override bool GetVehicleCustomPrimaryColor(uint guid, ref int rColor, ref int gColor, ref int bColor)
+        public override bool GetVehicleTyresBulletproof(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 43 * 8);
+            var ___GetVehicleTyresBulletproof_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
+            var __ret = ___GetVehicleTyresBulletproof_0Delegate((__Instance), vehid);
+            return __ret;
+        }
+
+        public override bool SetVehicleCustomPrimaryColor(uint vehid, int rColor, int gColor, int bColor)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 44 * 8);
+            var ___SetVehicleCustomPrimaryColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int));
+            var __ret = ___SetVehicleCustomPrimaryColor_0Delegate((__Instance), vehid, rColor, gColor, bColor);
+            return __ret;
+        }
+
+        public override bool GetVehicleCustomPrimaryColor(uint vehid, ref int rColor, ref int gColor, ref int bColor)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 45 * 8);
             var ___GetVehicleCustomPrimaryColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr_intPtr) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr_intPtr));
             fixed (int* __refParamPtr1 = &rColor)
             {
@@ -5891,24 +6056,24 @@ namespace SharpOrange
                     fixed (int* __refParamPtr3 = &bColor)
                     {
                         var __arg3 = __refParamPtr3;
-                        var __ret = ___GetVehicleCustomPrimaryColor_0Delegate((__Instance), guid, __arg1, __arg2, __arg3);
+                        var __ret = ___GetVehicleCustomPrimaryColor_0Delegate((__Instance), vehid, __arg1, __arg2, __arg3);
                         return __ret;
                     }
                 }
             }
         }
 
-        public override bool SetVehicleCustomSecondaryColor(uint guid, int rColor, int gColor, int bColor)
+        public override bool SetVehicleCustomSecondaryColor(uint vehid, int rColor, int gColor, int bColor)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 44 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 46 * 8);
             var ___SetVehicleCustomSecondaryColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int_int_int));
-            var __ret = ___SetVehicleCustomSecondaryColor_0Delegate((__Instance), guid, rColor, gColor, bColor);
+            var __ret = ___SetVehicleCustomSecondaryColor_0Delegate((__Instance), vehid, rColor, gColor, bColor);
             return __ret;
         }
 
-        public override bool GetVehicleCustomSecondaryColor(uint guid, ref int rColor, ref int gColor, ref int bColor)
+        public override bool GetVehicleCustomSecondaryColor(uint vehid, ref int rColor, ref int gColor, ref int bColor)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 45 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 47 * 8);
             var ___GetVehicleCustomSecondaryColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr_intPtr) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_intPtr_intPtr_intPtr));
             fixed (int* __refParamPtr1 = &rColor)
             {
@@ -5919,56 +6084,72 @@ namespace SharpOrange
                     fixed (int* __refParamPtr3 = &bColor)
                     {
                         var __arg3 = __refParamPtr3;
-                        var __ret = ___GetVehicleCustomSecondaryColor_0Delegate((__Instance), guid, __arg1, __arg2, __arg3);
+                        var __ret = ___GetVehicleCustomSecondaryColor_0Delegate((__Instance), vehid, __arg1, __arg2, __arg3);
                         return __ret;
                     }
                 }
             }
         }
 
-        public override bool SetVehicleEngineStatus(uint guid, bool status, bool locked)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 46 * 8);
-            var ___SetVehicleEngineStatus_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool_bool));
-            var __ret = ___SetVehicleEngineStatus_0Delegate((__Instance), guid, status, locked);
-            return __ret;
-        }
-
-        public override bool GetVehicleEngineStatus(uint guid)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 47 * 8);
-            var ___GetVehicleEngineStatus_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
-            var __ret = ___GetVehicleEngineStatus_0Delegate((__Instance), guid);
-            return __ret;
-        }
-
-        public override bool SetVehicleBodyHealth(uint guid, float health)
+        public override bool SetVehicleEngineStatus(uint vehid, bool status, bool locked)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 48 * 8);
-            var ___SetVehicleBodyHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float));
-            var __ret = ___SetVehicleBodyHealth_0Delegate((__Instance), guid, health);
+            var ___SetVehicleEngineStatus_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool_bool));
+            var __ret = ___SetVehicleEngineStatus_0Delegate((__Instance), vehid, status, locked);
             return __ret;
         }
 
-        public override bool SetVehicleEngineHealth(uint guid, float health)
+        public override bool GetVehicleEngineStatus(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 49 * 8);
-            var ___SetVehicleEngineHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float));
-            var __ret = ___SetVehicleEngineHealth_0Delegate((__Instance), guid, health);
+            var ___GetVehicleEngineStatus_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
+            var __ret = ___GetVehicleEngineStatus_0Delegate((__Instance), vehid);
             return __ret;
         }
 
-        public override bool SetVehicleTankHealth(uint guid, float health)
+        public override bool SetVehicleLocked(uint vehid, bool locked)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 50 * 8);
-            var ___SetVehicleTankHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float));
-            var __ret = ___SetVehicleTankHealth_0Delegate((__Instance), guid, health);
+            var ___SetVehicleLocked_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool));
+            var __ret = ___SetVehicleLocked_0Delegate((__Instance), vehid, locked);
             return __ret;
         }
 
-        public override bool GetVehicleHealth(uint guid, ref float body, ref float engine, ref float tank)
+        public override bool IsVehicleLocked(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 51 * 8);
+            var ___IsVehicleLocked_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
+            var __ret = ___IsVehicleLocked_0Delegate((__Instance), vehid);
+            return __ret;
+        }
+
+        public override bool SetVehicleBodyHealth(uint vehid, float health)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 52 * 8);
+            var ___SetVehicleBodyHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float));
+            var __ret = ___SetVehicleBodyHealth_0Delegate((__Instance), vehid, health);
+            return __ret;
+        }
+
+        public override bool SetVehicleEngineHealth(uint vehid, float health)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 53 * 8);
+            var ___SetVehicleEngineHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float));
+            var __ret = ___SetVehicleEngineHealth_0Delegate((__Instance), vehid, health);
+            return __ret;
+        }
+
+        public override bool SetVehicleTankHealth(uint vehid, float health)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 54 * 8);
+            var ___SetVehicleTankHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_float));
+            var __ret = ___SetVehicleTankHealth_0Delegate((__Instance), vehid, health);
+            return __ret;
+        }
+
+        public override bool GetVehicleHealth(uint vehid, ref float body, ref float engine, ref float tank)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 55 * 8);
             var ___GetVehicleHealth_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_floatPtr_floatPtr_floatPtr) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_floatPtr_floatPtr_floatPtr));
             fixed (float* __refParamPtr1 = &body)
             {
@@ -5979,108 +6160,108 @@ namespace SharpOrange
                     fixed (float* __refParamPtr3 = &tank)
                     {
                         var __arg3 = __refParamPtr3;
-                        var __ret = ___GetVehicleHealth_0Delegate((__Instance), guid, __arg1, __arg2, __arg3);
+                        var __ret = ___GetVehicleHealth_0Delegate((__Instance), vehid, __arg1, __arg2, __arg3);
                         return __ret;
                     }
                 }
             }
         }
 
-        public override bool SetVehicleNumberPlate(uint guid, string text)
+        public override bool SetVehicleNumberPlate(uint vehid, string text)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 52 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 56 * 8);
             var ___SetVehicleNumberPlate_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_string));
-            var __ret = ___SetVehicleNumberPlate_0Delegate((__Instance), guid, text);
+            var __ret = ___SetVehicleNumberPlate_0Delegate((__Instance), vehid, text);
             return __ret;
         }
 
-        public override string GetVehicleNumberPlate(uint guid)
+        public override string GetVehicleNumberPlate(uint vehid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 53 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 57 * 8);
             var ___GetVehicleNumberPlate_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_IntPtr_uint));
             var __ret = new global::Std.BasicString.__Internal();
-            ___GetVehicleNumberPlate_0Delegate((__Instance), new IntPtr(&__ret), guid);
+            ___GetVehicleNumberPlate_0Delegate((__Instance), new IntPtr(&__ret), vehid);
             using (var __basicStringRet = global::Std.BasicString.__CreateInstance(__ret))
             {
                 return __basicStringRet.CStr();
             }
         }
 
-        public override bool SetVehicleNumberPlateStyle(uint guid, int style)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 54 * 8);
-            var ___SetVehicleNumberPlateStyle_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int));
-            var __ret = ___SetVehicleNumberPlateStyle_0Delegate((__Instance), guid, style);
-            return __ret;
-        }
-
-        public override int GetVehicleNumberPlateStyle(uint guid)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 55 * 8);
-            var ___GetVehicleNumberPlateStyle_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_uint));
-            var __ret = ___GetVehicleNumberPlateStyle_0Delegate((__Instance), guid);
-            return __ret;
-        }
-
-        public override bool SetVehicleSirenState(uint guid, bool state)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 56 * 8);
-            var ___SetVehicleSirenState_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool));
-            var __ret = ___SetVehicleSirenState_0Delegate((__Instance), guid, state);
-            return __ret;
-        }
-
-        public override bool GetVehicleSirenState(uint guid)
-        {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 57 * 8);
-            var ___GetVehicleSirenState_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
-            var __ret = ___GetVehicleSirenState_0Delegate((__Instance), guid);
-            return __ret;
-        }
-
-        public override bool SetVehicleWheelColor(uint guid, int color)
+        public override bool SetVehicleNumberPlateStyle(uint vehid, int style)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 58 * 8);
-            var ___SetVehicleWheelColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int));
-            var __ret = ___SetVehicleWheelColor_0Delegate((__Instance), guid, color);
+            var ___SetVehicleNumberPlateStyle_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int));
+            var __ret = ___SetVehicleNumberPlateStyle_0Delegate((__Instance), vehid, style);
             return __ret;
         }
 
-        public override int GetVehicleWheelColor(uint guid)
+        public override int GetVehicleNumberPlateStyle(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 59 * 8);
-            var ___GetVehicleWheelColor_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_uint));
-            var __ret = ___GetVehicleWheelColor_0Delegate((__Instance), guid);
+            var ___GetVehicleNumberPlateStyle_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_uint));
+            var __ret = ___GetVehicleNumberPlateStyle_0Delegate((__Instance), vehid);
             return __ret;
         }
 
-        public override bool SetVehicleWheelType(uint guid, int type)
+        public override bool SetVehicleSirenState(uint vehid, bool state)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 60 * 8);
-            var ___SetVehicleWheelType_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int));
-            var __ret = ___SetVehicleWheelType_0Delegate((__Instance), guid, type);
+            var ___SetVehicleSirenState_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_bool));
+            var __ret = ___SetVehicleSirenState_0Delegate((__Instance), vehid, state);
             return __ret;
         }
 
-        public override int GetVehicleWheelType(uint guid)
+        public override bool GetVehicleSirenState(uint vehid)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 61 * 8);
-            var ___GetVehicleWheelType_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_uint));
-            var __ret = ___GetVehicleWheelType_0Delegate((__Instance), guid);
+            var ___GetVehicleSirenState_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
+            var __ret = ___GetVehicleSirenState_0Delegate((__Instance), vehid);
             return __ret;
         }
 
-        public override uint GetVehicleDriver(uint guid)
+        public override bool SetVehicleWheelColor(uint vehid, int color)
         {
             var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 62 * 8);
-            var ___GetVehicleDriver_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_uint));
-            var __ret = ___GetVehicleDriver_0Delegate((__Instance), guid);
+            var ___SetVehicleWheelColor_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int));
+            var __ret = ___SetVehicleWheelColor_0Delegate((__Instance), vehid, color);
+            return __ret;
+        }
+
+        public override int GetVehicleWheelColor(uint vehid)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 63 * 8);
+            var ___GetVehicleWheelColor_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_uint));
+            var __ret = ___GetVehicleWheelColor_0Delegate((__Instance), vehid);
+            return __ret;
+        }
+
+        public override bool SetVehicleWheelType(uint vehid, int type)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 64 * 8);
+            var ___SetVehicleWheelType_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_int));
+            var __ret = ___SetVehicleWheelType_0Delegate((__Instance), vehid, type);
+            return __ret;
+        }
+
+        public override int GetVehicleWheelType(uint vehid)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 65 * 8);
+            var ___GetVehicleWheelType_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_uint));
+            var __ret = ___GetVehicleWheelType_0Delegate((__Instance), vehid);
+            return __ret;
+        }
+
+        public override int GetVehicleDriver(uint vehid)
+        {
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 66 * 8);
+            var ___GetVehicleDriver_0Delegate = (global::SharpOrange.Delegates.Func_int_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_int_IntPtr_uint));
+            var __ret = ___GetVehicleDriver_0Delegate((__Instance), vehid);
             return __ret;
         }
 
         public override uint CreateObject(int model, float x, float y, float z, float pitch, float yaw, float roll)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 64 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 68 * 8);
             var ___CreateObject_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_int_float_float_float_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_int_float_float_float_float_float_float));
             var __ret = ___CreateObject_0Delegate((__Instance), model, x, y, z, pitch, yaw, roll);
             return __ret;
@@ -6088,7 +6269,7 @@ namespace SharpOrange
 
         public override bool DeleteObject(uint guid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 65 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 69 * 8);
             var ___DeleteObject_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
             var __ret = ___DeleteObject_0Delegate((__Instance), guid);
             return __ret;
@@ -6096,7 +6277,7 @@ namespace SharpOrange
 
         public override bool CreatePickup(int type, float x, float y, float z, float scale)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 66 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 70 * 8);
             var ___CreatePickup_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_float_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_float_float_float_float));
             var __ret = ___CreatePickup_0Delegate((__Instance), type, x, y, z, scale);
             return __ret;
@@ -6104,7 +6285,7 @@ namespace SharpOrange
 
         public override uint CreateBlipForAll(string name, float x, float y, float z, float scale, int color, int sprite)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 67 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 71 * 8);
             var ___CreateBlipForAll_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_std_basic_string___Internal_float_float_float_float_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_std_basic_string___Internal_float_float_float_float_int_int));
             var __allocator0 = new global::Std.Allocator();
             var __basicString0 = new global::Std.BasicString(name, __allocator0);
@@ -6117,7 +6298,7 @@ namespace SharpOrange
 
         public override uint CreateBlipForPlayer(int playerid, string name, float x, float y, float z, float scale, int color, int sprite)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 68 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 72 * 8);
             var ___CreateBlipForPlayer_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_int_std_basic_string___Internal_float_float_float_float_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_int_std_basic_string___Internal_float_float_float_float_int_int));
             var __allocator1 = new global::Std.Allocator();
             var __basicString1 = new global::Std.BasicString(name, __allocator1);
@@ -6130,42 +6311,42 @@ namespace SharpOrange
 
         public override void DeleteBlip(uint guid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 69 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 73 * 8);
             var ___DeleteBlip_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint));
             ___DeleteBlip_0Delegate((__Instance), guid);
         }
 
         public override void SetBlipColor(uint guid, int color)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 70 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 74 * 8);
             var ___SetBlipColor_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_int));
             ___SetBlipColor_0Delegate((__Instance), guid, color);
         }
 
         public override void SetBlipScale(uint guid, float scale)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 71 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 75 * 8);
             var ___SetBlipScale_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_float));
             ___SetBlipScale_0Delegate((__Instance), guid, scale);
         }
 
         public override void SetBlipRoute(uint guid, bool route)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 72 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 76 * 8);
             var ___SetBlipRoute_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_bool));
             ___SetBlipRoute_0Delegate((__Instance), guid, route);
         }
 
         public override void SetBlipSprite(uint guid, int sprite)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 73 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 77 * 8);
             var ___SetBlipSprite_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_int));
             ___SetBlipSprite_0Delegate((__Instance), guid, sprite);
         }
 
         public override void SetBlipName(uint guid, string name)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 74 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 78 * 8);
             var ___SetBlipName_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_std_basic_string___Internal) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_std_basic_string___Internal));
             var __allocator1 = new global::Std.Allocator();
             var __basicString1 = new global::Std.BasicString(name, __allocator1);
@@ -6177,28 +6358,28 @@ namespace SharpOrange
 
         public override void SetBlipAsShortRange(uint guid, bool _short)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 75 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 79 * 8);
             var ___SetBlipAsShortRange_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_bool) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_bool));
             ___SetBlipAsShortRange_0Delegate((__Instance), guid, _short);
         }
 
         public override void AttachBlipToPlayer(uint _guid, int player)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 76 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 80 * 8);
             var ___AttachBlipToPlayer_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_int));
             ___AttachBlipToPlayer_0Delegate((__Instance), _guid, player);
         }
 
         public override void AttachBlipToVehicle(uint _guid, uint vehicle)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 77 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 81 * 8);
             var ___AttachBlipToVehicle_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint_uint));
             ___AttachBlipToVehicle_0Delegate((__Instance), _guid, vehicle);
         }
 
         public override uint CreateMarkerForAll(float x, float y, float z, float height, float radius)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 78 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 82 * 8);
             var ___CreateMarkerForAll_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_float_float_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_float_float_float_float_float));
             var __ret = ___CreateMarkerForAll_0Delegate((__Instance), x, y, z, height, radius);
             return __ret;
@@ -6206,7 +6387,7 @@ namespace SharpOrange
 
         public override uint CreateMarkerForPlayer(int playerid, float x, float y, float z, float height, float radius)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 79 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 83 * 8);
             var ___CreateMarkerForPlayer_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_int_float_float_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_int_float_float_float_float_float));
             var __ret = ___CreateMarkerForPlayer_0Delegate((__Instance), playerid, x, y, z, height, radius);
             return __ret;
@@ -6214,14 +6395,14 @@ namespace SharpOrange
 
         public override void DeleteMarker(uint guid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 80 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 84 * 8);
             var ___DeleteMarker_0Delegate = (global::SharpOrange.Delegates.Action_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Action_IntPtr_uint));
             ___DeleteMarker_0Delegate((__Instance), guid);
         }
 
         public override bool SendNotification(int playerid, string msg)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 81 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 85 * 8);
             var ___SendNotification_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_string));
             var __ret = ___SendNotification_0Delegate((__Instance), playerid, msg);
             return __ret;
@@ -6229,7 +6410,7 @@ namespace SharpOrange
 
         public override bool SetInfoMsg(int playerid, string msg)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 82 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 86 * 8);
             var ___SetInfoMsg_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int_string));
             var __ret = ___SetInfoMsg_0Delegate((__Instance), playerid, msg);
             return __ret;
@@ -6237,7 +6418,7 @@ namespace SharpOrange
 
         public override bool UnsetInfoMsg(int playerid)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 83 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 87 * 8);
             var ___UnsetInfoMsg_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_int));
             var __ret = ___UnsetInfoMsg_0Delegate((__Instance), playerid);
             return __ret;
@@ -6245,7 +6426,7 @@ namespace SharpOrange
 
         public override uint Create3DText(string text, float x, float y, float z, int color, int outColor, float fontSize)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 84 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 88 * 8);
             var ___Create3DText_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_string_float_float_float_int_int_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_string_float_float_float_int_int_float));
             var __ret = ___Create3DText_0Delegate((__Instance), text, x, y, z, color, outColor, fontSize);
             return __ret;
@@ -6253,7 +6434,7 @@ namespace SharpOrange
 
         public override uint Create3DTextForPlayer(uint player, string text, float x, float y, float z, int color, int outColor)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 85 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 89 * 8);
             var ___Create3DTextForPlayer_0Delegate = (global::SharpOrange.Delegates.Func_uint_IntPtr_uint_string_float_float_float_int_int) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_uint_IntPtr_uint_string_float_float_float_int_int));
             var __ret = ___Create3DTextForPlayer_0Delegate((__Instance), player, text, x, y, z, color, outColor);
             return __ret;
@@ -6261,7 +6442,7 @@ namespace SharpOrange
 
         public override bool Attach3DTextToVehicle(uint textId, uint vehicle, float oX, float oY, float oZ)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 86 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 90 * 8);
             var ___Attach3DTextToVehicle_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_uint_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_uint_float_float_float));
             var __ret = ___Attach3DTextToVehicle_0Delegate((__Instance), textId, vehicle, oX, oY, oZ);
             return __ret;
@@ -6269,7 +6450,7 @@ namespace SharpOrange
 
         public override bool Attach3DTextToPlayer(uint textId, uint player, float oX, float oY, float oZ)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 87 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 91 * 8);
             var ___Attach3DTextToPlayer_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_uint_float_float_float) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_uint_float_float_float));
             var __ret = ___Attach3DTextToPlayer_0Delegate((__Instance), textId, player, oX, oY, oZ);
             return __ret;
@@ -6277,7 +6458,7 @@ namespace SharpOrange
 
         public override bool Set3DTextContent(uint textId, string text)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 88 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 92 * 8);
             var ___Set3DTextContent_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint_string) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint_string));
             var __ret = ___Set3DTextContent_0Delegate((__Instance), textId, text);
             return __ret;
@@ -6285,7 +6466,7 @@ namespace SharpOrange
 
         public override bool Delete3DText(uint textId)
         {
-            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 89 * 8);
+            var __slot = *(void**) ((IntPtr) __OriginalVTables[0] + 93 * 8);
             var ___Delete3DText_0Delegate = (global::SharpOrange.Delegates.Func_bool_IntPtr_uint) Marshal.GetDelegateForFunctionPointer(new IntPtr(__slot), typeof(global::SharpOrange.Delegates.Func_bool_IntPtr_uint));
             var __ret = ___Delete3DText_0Delegate((__Instance), textId);
             return __ret;
@@ -6299,6 +6480,9 @@ namespace SharpOrange
 
         [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(global::System.Runtime.InteropServices.CallingConvention.Cdecl)]
         internal unsafe delegate void Action_IntPtr_int(global::System.IntPtr instance, int arg1);
+
+        [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(global::System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        internal unsafe delegate void Action_IntPtr_int_string(global::System.IntPtr instance, int arg1, [MarshalAs(UnmanagedType.LPStr)] string arg2);
 
         [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(global::System.Runtime.InteropServices.CallingConvention.Cdecl)]
         internal unsafe delegate bool Func_bool_IntPtr_int_float_float_float(global::System.IntPtr instance, int arg1, float arg2, float arg3, float arg4);
@@ -6370,10 +6554,10 @@ namespace SharpOrange
         internal unsafe delegate void Action_IntPtr_IntPtr_uint(global::System.IntPtr instance, global::System.IntPtr arg1, uint arg2);
 
         [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(global::System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        internal unsafe delegate bool Func_bool_IntPtr_uint_int_int(global::System.IntPtr instance, uint arg1, int arg2, int arg3);
+        internal unsafe delegate bool Func_bool_IntPtr_uint_byte_byte(global::System.IntPtr instance, uint arg1, byte arg2, byte arg3);
 
         [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(global::System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        internal unsafe delegate bool Func_bool_IntPtr_uint_intPtr_intPtr(global::System.IntPtr instance, uint arg1, int* arg2, int* arg3);
+        internal unsafe delegate bool Func_bool_IntPtr_uint_bytePtr_bytePtr(global::System.IntPtr instance, uint arg1, byte* arg2, byte* arg3);
 
         [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(global::System.Runtime.InteropServices.CallingConvention.Cdecl)]
         internal unsafe delegate bool Func_bool_IntPtr_uint_bool(global::System.IntPtr instance, uint arg1, bool arg2);
@@ -6401,9 +6585,6 @@ namespace SharpOrange
 
         [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(global::System.Runtime.InteropServices.CallingConvention.Cdecl)]
         internal unsafe delegate int Func_int_IntPtr_uint(global::System.IntPtr instance, uint arg1);
-
-        [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(global::System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        internal unsafe delegate uint Func_uint_IntPtr_uint(global::System.IntPtr instance, uint arg1);
 
         [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(global::System.Runtime.InteropServices.CallingConvention.Cdecl)]
         internal unsafe delegate uint Func_uint_IntPtr_int_float_float_float_float_float_float(global::System.IntPtr instance, int arg1, float arg2, float arg3, float arg4, float arg5, float arg6, float arg7);

@@ -1,5 +1,6 @@
-name: GTA:Orange Test Server
+name: "{ff8f00}GTA:Orange{ffffff}Test Server"
 port: 7788
 players: 100
+masterserver: true
 resources:
-  - SharpTest
+  - MySharpResource

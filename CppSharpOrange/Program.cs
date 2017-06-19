@@ -29,11 +29,11 @@ namespace CppSharpOrange
             var options = driver.Options;
             options.Verbose = true;
             options.GeneratorKind = GeneratorKind.CSharp;
-            options.OutputDir = "../../../SharpOrange/";
+            options.OutputDir = "../../Generated";
             var module = options.AddModule("SharpOrange");
-            // Issue: https://github.com/mono/CppSharp/issues/865
+            // Issued: https://github.com/mono/CppSharp/issues/865
             module.IncludeDirs.Add("C:/Program Files (x86)/Windows Kits/10/Include/10.0.10586.0/ucrt");
-            module.IncludeDirs.Add("../../../OrangeDotNET-Module");
+            module.IncludeDirs.Add("../../../MonoOrange/");
             module.Headers.Add("stdafx.h");
             module.Headers.Add("CVector3.h");
             module.Headers.Add("API.h");
