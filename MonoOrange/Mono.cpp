@@ -44,17 +44,4 @@ namespace Mono {
 			mono_free(exc);
 		}
 	}
-
-	const char* ReadConfig() {
-		std::ifstream configfile;
-		configfile.open("modules/MonoOrange/MonoOrange.conf");
-		std::string output;
-		if (configfile.is_open()) {
-			while (!configfile.eof()) {
-				std::getline(configfile, output);
-			}
-		}
-		configfile.close();
-		return output.c_str();
-	}
 }

@@ -35,9 +35,6 @@ extern "C"
 
 	EXPORT bool OnResourceLoad(const char* resource)
 	{
-		/*std::string msg = "Resource '" + (std::string)resource + "' was attempted to be loaded using OrangeDotNET!";
-		API::instance->Print(msg.c_str()); // DBG*/
-		// TODO Load C# resource assembly
 		Mono::LoadResource(resource);
 		return true;
 	}

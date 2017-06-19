@@ -20,5 +20,4 @@ namespace Mono {
 	void InitMono();
 	void LoadResource(const char*);
 	void CheckException(MonoObject*);
-	const char* ReadConfig();
 }
