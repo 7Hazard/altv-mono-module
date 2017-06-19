@@ -15,12 +15,11 @@ namespace SharpOrange
         SharpOrange(ref IntPtr apiptr)
         {
             API = API.__CreateInstance(apiptr);
-            SharpPrint("Module successfully initialized!");
+            APIPrint("Module successfully initialized!");
         }
 
         void LoadResource(string resource)
         {
-            SharpPrint("Attempting to load resource '"+resource+"'");
             Assembly asm;
             try
             {
@@ -28,17 +27,17 @@ namespace SharpOrange
             }
             catch (FileNotFoundException)
             {
-                SharpPrint("Resource assembly '" + resource + ".dll' not found!");
+                APIPrint("Resource assembly '" + resource + ".dll' not found!");
                 return;
             }
             catch (FileLoadException)
             {
-                SharpPrint("Resource assembly '" + resource + ".dll' failed to load!");
+                APIPrint("Resource assembly '" + resource + ".dll' failed to load!");
                 return;
             }
             catch (BadImageFormatException)
             {
-                SharpPrint("Resource assembly '" + resource + ".dll' is not 64-bit compatible!");
+                APIPrint("Resource assembly '" + resource + ".dll' is not 64-bit compatible!");
                 return;
             }
 
@@ -46,14 +45,15 @@ namespace SharpOrange
             ConstructorInfo ctor = type.GetConstructor(new Type[] { typeof(API) });
             if (ctor == null)
             {
-                SharpPrint(resource+" constructor not found or doesn't take the correct parameters!");
+                APIPrint(resource+" constructor not found or doesn't take the correct parameters!");
                 return;
             }
             object instance = ctor.Invoke(new object[] { API });
             LoadedResources.Add(resource, asm);
+            APIPrint(resource+" resource loaded!");
         }
 
-        private static void SharpPrint(string msg)
+        private static void APIPrint(string msg)
         {
             API.Print("[SharpOrange] "+msg);
         }

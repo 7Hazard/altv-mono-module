@@ -11,6 +11,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <StartAction>Program</StartAction>
     <StartProgram>C:\Users\Dator\Source\Repos\OrangeDotNET\Server\orange_server.exe</StartProgram>
-    <StartWorkingDirectory>C:\Users\Dator\Source\Repos\OrangeDotNET\Server\modules</StartWorkingDirectory>
+    <StartWorkingDirectory>C:\Users\Dator\Source\Repos\OrangeDotNET\Server\modules\MonoOrange</StartWorkingDirectory>
   </PropertyGroup>
 </Project>

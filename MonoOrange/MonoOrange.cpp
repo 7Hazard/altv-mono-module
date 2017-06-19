@@ -26,7 +26,6 @@ extern "C"
 	EXPORT void OnModuleInit()
 	{
 		APIPrint("Module Loading...");
-		Sleep(3000);
 		Mono::InitMono();
 	}
 
