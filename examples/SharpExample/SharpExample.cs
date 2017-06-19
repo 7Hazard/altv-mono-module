@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharpOrange;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,12 @@ namespace SharpExample
 {
     public class SharpExample
     {
-        public SharpExample(API api)
+        public static API api;
+        public SharpExample(API apip)
         {
-
+            api = apip;
+            api.Print("Hello from SharpExample!");
+            
         }
     }
 }
