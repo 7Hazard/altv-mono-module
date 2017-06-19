@@ -95,6 +95,6 @@ extern "C"
 }
 
 void APIPrint(std::string msg) {
-	std::string out = "[OrangeDotNET] " + msg;
+	std::string out = "[MonoOrange] " + msg;
 	API::instance->Print(out.c_str());
 }
