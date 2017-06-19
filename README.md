@@ -4,3 +4,5 @@
 Mono module for GTA Orange
 
 Currently only supports C# with SharpOrange library
+
+NuGet Package: https://www.nuget.org/packages/SharpOrange/
