@@ -22,12 +22,13 @@ namespace SharpExample
 
         void MyTicks()
         {
-            //api.Print("Ticking"); // Will litterally print every tick...
+            api.Print("Ticking..."); // Will litterally print "Ticking..." every tick...
         }
 
         void MyPlayerConnect(int playerid)
         {
             api.Print(playerid+" connected!");
+            api.SetPlayerPosition(playerid, 1000, 200, 500);
         }
 
         void MyServerCommand(string command)
