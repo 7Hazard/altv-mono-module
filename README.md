@@ -3,7 +3,15 @@
 
 Mono module for GTA Orange (https://gta-orange.net)
 
-Currently only supports C# with SharpOrange library
+## Requirements (as of now)
+
+* Windows 64-bit (will support linux in future)
+
+* Mono 64-bit (Win: https://download.mono-project.com/archive/5.0.1/windows-installer/mono-5.0.1.1-x64-0.msi)
+
+  (Keep default mono install path)
+
+* SharpOrange library (included, MonoOrange currently only supports C#)
 
 ### [GET STARTED](https://github.com/7Hazard/MonoOrange/wiki/Getting-started)
 
