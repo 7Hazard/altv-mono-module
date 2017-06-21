@@ -25,6 +25,7 @@ extern "C"
 
 	EXPORT void OnModuleInit()
 	{
+		Sleep(3000);
 		Mono::InitMono();
 	}
 
@@ -41,11 +42,13 @@ extern "C"
 
 	EXPORT bool OnTick()
 	{
+		Mono::Tick();
 		return true;
 	}
 
 	EXPORT bool OnPlayerConnect(long playerid)
 	{
+		Mono::PlayerConnected(playerid);
 		return true;
 	}
 
@@ -56,36 +59,31 @@ extern "C"
 
 	EXPORT bool OnServerCommand(std::string command)
 	{
+		Mono::ServerCommand(command.c_str());
 		return true;
 	}
 
 	EXPORT bool OnPlayerDisconnect(long playerid, int reason)
 	{
+		Mono::PlayerDisconnected(playerid, reason);
 		return true;
 	}
 
 	EXPORT bool OnPlayerUpdate(long playerid)
 	{
-		return true;
-	}
-
-	EXPORT bool OnPlayerCommand(long playerid, const char * command)
-	{
-		return false;
-	}
-
-	EXPORT bool OnPlayerText(long playerid, const char * text)
-	{
+		Mono::PlayerUpdated(playerid);
 		return true;
 	}
 
 	EXPORT bool OnKeyStateChanged(long playerid, int keycode, bool isUp)
 	{
+		Mono::KeyStateChanged(playerid, keycode, isUp);
 		return true;
 	}
 
-	EXPORT void OnEvent(const char* e, std::vector<MValue> *args)
+	EXPORT void OnEvent(const char* e, std::vector<MValue>* args)
 	{
+		//Mono::Event(e, args);
 		return;
 	}
 }

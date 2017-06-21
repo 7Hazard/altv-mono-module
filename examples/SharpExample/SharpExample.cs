@@ -9,12 +9,30 @@ namespace SharpExample
 {
     public class SharpExample
     {
-        public static API api;
+        static API api;
         public SharpExample(API apip)
         {
             api = apip;
-            api.Print("Hello from SharpExample!");
-            
+            api.Print("SharpExample started!");
+
+            Event.OnTick += MyTicks; // Haha goteem
+            Event.OnPlayerConnect += MyPlayerConnect;
+            Event.OnServerCommand += MyServerCommand;
+        }
+
+        void MyTicks()
+        {
+            //api.Print("Ticking"); // Will litterally print every tick...
+        }
+
+        void MyPlayerConnect(int playerid)
+        {
+            api.Print(playerid+" connected!");
+        }
+
+        void MyServerCommand(string command)
+        {
+            api.Print("Command '"+command+"' was input");
         }
     }
 }

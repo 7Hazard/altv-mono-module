@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,8 +11,9 @@ namespace SharpOrange
 {
     public class SharpOrange
     {
+        static Event events;
         public Dictionary<string, Assembly> LoadedResources = new Dictionary<string, Assembly>();
-        public static API API = null;
+        static API API = null;
         SharpOrange(ref IntPtr apiptr)
         {
             API = API.__CreateInstance(apiptr);
@@ -45,7 +47,7 @@ namespace SharpOrange
             ConstructorInfo ctor = type.GetConstructor(new Type[] { typeof(API) });
             if (ctor == null)
             {
-                APIPrint(resource+" constructor not found, is not public or doesn't take the correct parameters!");
+                APIPrint(resource+" constructor not found, is not public or doesn't take the API as a parameter!");
                 return;
             }
             APIPrint(resource+" resource loaded!");
@@ -53,7 +55,7 @@ namespace SharpOrange
             LoadedResources.Add(resource, asm);
         }
 
-        private static void APIPrint(string msg)
+        static void APIPrint(string msg)
         {
             API.Print("[SharpOrange] "+msg);
         }
