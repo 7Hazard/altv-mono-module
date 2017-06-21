@@ -25,7 +25,9 @@ extern "C"
 
 	EXPORT void OnModuleInit()
 	{
+#ifdef _DEBUG
 		Sleep(3000);
+#endif // _DEBUG
 		Mono::InitMono();
 	}
 
