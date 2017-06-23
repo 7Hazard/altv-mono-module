@@ -13,6 +13,6 @@ Mono module for GTA Orange (https://gta-orange.net)
 
 * SharpOrange library (included, MonoOrange currently only supports C#)
 
-### [GET STARTED](https://github.com/7Hazard/MonoOrange/wiki/Getting-started)
+### [GET STARTED](https://gitlab.com/orange_team/csharp-module/wikis/Getting%20started)
 
 NuGet Package: https://www.nuget.org/packages/SharpOrange/
