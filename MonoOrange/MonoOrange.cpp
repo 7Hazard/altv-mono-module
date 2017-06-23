@@ -85,7 +85,7 @@ extern "C"
 
 	EXPORT void OnEvent(const char* e, std::vector<MValue>* args)
 	{
-		Mono::Event(e); //Mono::Event(e, args);
+		//Mono::Event(e, args);
 		return;
 	}
 }

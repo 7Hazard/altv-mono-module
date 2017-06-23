@@ -71,8 +71,7 @@ namespace Mono {
 		Invoke(Method::KeyStateChanged, NULL, args, true);
 	}
 
-	// void Event(const char* e, std::vector<MValue>* vector)
-	void Event(const char* e) { // NOT COMPLETE (call commented in MonoOrange.cpp)
+	void Event(const char* e, std::vector<MValue>* vector) { // NOT FUNCTIONING (call commented in MonoOrange.cpp)
 		void* args[1]{ mono_string_new(Domain, e) };
 		Invoke(Method::Event, NULL, args, true);
 	}

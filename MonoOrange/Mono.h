@@ -39,5 +39,5 @@ namespace Mono {
 	void PlayerDisconnected(long playerid, int reason);
 	void PlayerUpdated(long playerid);
 	void KeyStateChanged(long playerid, int keycode, bool isUp);
-	void Event(const char* e); // void Event(const char* e, std::vector<MValue>* args);
+	void Event(const char* e, std::vector<MValue>* args);
 }
