@@ -26,7 +26,8 @@ namespace Mono {
 		Method::PlayerDisconnected = mono_class_get_method_from_name(EventClass, "PlayerDisconnected", 2);
 		Method::PlayerUpdated = mono_class_get_method_from_name(EventClass, "PlayerUpdated", 1);
 		Method::KeyStateChanged = mono_class_get_method_from_name(EventClass, "KeyStateChanged", 3);
-		Method::Event = mono_class_get_method_from_name(EventClass, "EEvent", 2);
+		//Method::Event = mono_class_get_method_from_name(EventClass, "EEvent", 2);
+		Method::Event = mono_class_get_method_from_name(EventClass, "EEvent", 1);
 
 		void* args[1]{ &API::instance };
 		MonoObject* exc = NULL;
@@ -70,8 +71,9 @@ namespace Mono {
 		Invoke(Method::KeyStateChanged, NULL, args, true);
 	}
 
-	void Event(const char* e, std::vector<MValue>* vector) { // NOT FUNCTIONAL (call commented in MonoOrange.cpp)
-		void* args[2]{ mono_string_new(Domain, e), &vector->at(0) };
+	// void Event(const char* e, std::vector<MValue>* vector)
+	void Event(const char* e) { // NOT COMPLETE (call commented in MonoOrange.cpp)
+		void* args[1]{ mono_string_new(Domain, e) };
 		Invoke(Method::Event, NULL, args, true);
 	}
 
