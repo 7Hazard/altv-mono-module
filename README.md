@@ -1,5 +1,6 @@
 # MonoOrange
-![alt text](http://i.imgur.com/qF4DQKg.png)
+![Mono](http://i.imgur.com/vEh6rHr.png)
+![SharpOrange](http://i.imgur.com/qF4DQKg.png)
 
 Mono module for GTA Orange (https://gta-orange.net)
 
