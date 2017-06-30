@@ -8,7 +8,6 @@
 
 #pragma once
 #include "stdafx.h"
-#include <cmath>
 
 inline void vmul_sse(const float *a, const float b, float *r)
 {
