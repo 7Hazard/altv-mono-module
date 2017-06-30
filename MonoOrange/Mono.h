@@ -27,7 +27,6 @@ namespace Mono {
 	static MonoClass* ServerClass;
 	static MonoObject* ServerObject;
 	static MonoClass* EventClass;
-	static MonoObject* EventObject;
 
 	void InitMono();
 	void Invoke(MonoMethod* method, MonoObject* obj, void** args, bool threaded);

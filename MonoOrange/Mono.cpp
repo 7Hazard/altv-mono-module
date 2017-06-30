@@ -16,7 +16,6 @@ namespace Mono {
 		ServerClass = mono_class_from_name(Image, "SharpOrange", "Server");
 		ServerObject = mono_object_new(Domain, ServerClass);
 		EventClass = mono_class_from_name(Image, "SharpOrange", "Event");
-		EventObject = mono_object_new(Domain, EventClass);
 
 		Method::ctor = mono_class_get_method_from_name(ServerClass, ".ctor", 1);
 		Method::LoadResource = mono_class_get_method_from_name(ServerClass, "LoadResource", 1);
