@@ -32,7 +32,9 @@ namespace SharpExample
         void MyPlayerConnects(int playerid)
         {
             api.SetPlayerPosition(playerid, 1000, 200, 80);
-            api.CreateVehicle(165154707, 1000, 210, 90, 1);
+            api.CreateVehicle(Vehicle.Miljet, 1000, 210, 90, 1);
+            api.GivePlayerWeapon(playerid, Weapon.AssaultRifle, 100);
+            api.CreatePickup(Pickup.ParachuteBag, 1000, 190, 80, 1);
         }
 
         void MyServerCommands(string command)

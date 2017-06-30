@@ -33,6 +33,7 @@ namespace CppSharpOrange
             module.IncludeDirs.Add("../../../MonoOrange/");
             module.Headers.Add("stdafx.h");
             module.Headers.Add("CVector3.h");
+            module.Headers.Add("Enums.h");
             module.Headers.Add("API.h");
         }
 

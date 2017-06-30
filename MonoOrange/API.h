@@ -1,10 +1,13 @@
 #pragma once
 
 #include "CVector3.h"
+#include "Enums.h"
 
-#ifndef ULONG
-#define ULONG unsigned long
-#endif // ULONG
+#ifdef _MSC_VER
+#define strdupEx _strdup
+#else
+#define strdupEx strdup
+#endif
 
 enum {
 	M_STRING,
@@ -41,7 +44,7 @@ public:
 		(*counter)++;
 	};
 	MValue(const char* val) {
-		_val = _strdup(val);
+		_val = strdupEx(val);
 		type = M_STRING;
 		counter = new int(1);
 	};
@@ -181,8 +184,8 @@ public:
 	virtual bool SetPlayerHeading(long playerid, float angle) = 0;
 	virtual float GetPlayerHeading(long playerid) = 0;
 	virtual bool RemovePlayerWeapons(long playerid) = 0;
-	virtual bool GivePlayerWeapon(long playerid, long weapon, long ammo) = 0;
-	virtual bool GivePlayerAmmo(long playerid, long weapon, long ammo) = 0;
+	virtual bool GivePlayerWeapon(long playerid, Weapon hash, long ammo) = 0;
+	virtual bool GivePlayerAmmo(long playerid, Weapon hash, long ammo) = 0;
 	virtual bool GivePlayerMoney(long playerid, long money) = 0;
 	virtual bool SetPlayerMoney(long playerid, long money) = 0;
 	virtual bool ResetPlayerMoney(long playerid) = 0;
@@ -210,7 +213,7 @@ public:
 	//TODO
 	//virtual bool PlayerExists(long playerid) = 0;
 	//virtual bool VehicleExists(long playerid) = 0;
-	virtual unsigned long CreateVehicle(long hash, float x, float y, float z, float heading) = 0;
+	virtual unsigned long CreateVehicle(Vehicle hash, float x, float y, float z, float heading) = 0;
 	virtual bool DeleteVehicle(unsigned long vehid) = 0;
 	virtual bool SetVehiclePosition(unsigned long vehid, float x, float y, float z) = 0;
 	virtual CVector3 GetVehiclePosition(unsigned long vehid) = 0;
@@ -248,7 +251,7 @@ public:
 	virtual unsigned long CreateObject(long model, float x, float y, float z, float pitch, float yaw, float roll) = 0;
 	virtual bool DeleteObject(unsigned long guid) = 0;
 
-	virtual bool CreatePickup(int type, float x, float y, float z, float scale) = 0;
+	virtual bool CreatePickup(Pickup hash, float x, float y, float z, float scale) = 0;
 
 	virtual unsigned long CreateBlipForAll(std::string name, float x, float y, float z, float scale, int color, int sprite) = 0;
 	virtual unsigned long CreateBlipForPlayer(long playerid, std::string name, float x, float y, float z, float scale, int color, int sprite) = 0;

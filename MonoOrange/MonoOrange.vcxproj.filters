@@ -10,6 +10,7 @@
     <ClInclude Include="Mono.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="MonoOrange.h" />
+    <ClInclude Include="Enums.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="mono-2.0-sgen.dll" />
