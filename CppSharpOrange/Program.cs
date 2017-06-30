@@ -2,10 +2,6 @@
 using CppSharp.AST;
 using CppSharp.Generators;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CppSharpOrange
 {
@@ -13,7 +9,7 @@ namespace CppSharpOrange
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Generating OrangeDotNET C# Bindings...");
+            Console.WriteLine("Generating MonoOrange C# Bindings...");
             ConsoleDriver.Run(new CppSharp());
             Console.WriteLine("Finished Generating C# Bindings! \nPress any key to continue...");
             Console.ReadKey();
@@ -30,6 +26,7 @@ namespace CppSharpOrange
             options.Verbose = true;
             options.GeneratorKind = GeneratorKind.CSharp;
             options.OutputDir = "../../Generated";
+            //options.CompileCode = true;
             var module = options.AddModule("SharpOrange");
             // Issued: https://github.com/mono/CppSharp/issues/865
             module.IncludeDirs.Add("C:/Program Files (x86)/Windows Kits/10/Include/10.0.10586.0/ucrt");

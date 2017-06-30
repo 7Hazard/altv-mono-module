@@ -1410,14 +1410,13 @@ namespace SharpOrange
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
 
-            var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
+            var __target = (global::SharpOrange.APIBase)NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
             using (var __basicStringRet = global::Std.BasicString.__CreateInstance(name))
             {
                 __target.LoadClientScript(__basicStringRet.CStr(), buffer, size);
-            }
-        }
+            } }
 
         // void KickPlayer(long playerid, const char * reason) = 0
         private static global::SharpOrange.Delegates.Action_IntPtr_int_string _KickPlayer_1DelegateInstance;
@@ -2431,15 +2430,14 @@ namespace SharpOrange
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
 
-            var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
+            var __target = (global::SharpOrange.APIBase)NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
             using (var __basicStringRet = global::Std.BasicString.__CreateInstance(name))
             {
                 var __ret = __target.CreateBlipForAll(__basicStringRet.CStr(), x, y, z, scale, color, sprite);
                 return __ret;
-            }
-        }
+            } }
 
         // unsigned long CreateBlipForPlayer(long playerid, std::string name, float x, float y, float z, float scale, int color, int sprite) = 0
         private static global::SharpOrange.Delegates.Func_uint_IntPtr_int_std_basic_string___Internal_float_float_float_float_int_int _CreateBlipForPlayer_0DelegateInstance;
@@ -2449,15 +2447,14 @@ namespace SharpOrange
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
 
-            var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
+            var __target = (global::SharpOrange.APIBase)NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
             using (var __basicStringRet = global::Std.BasicString.__CreateInstance(name))
             {
                 var __ret = __target.CreateBlipForPlayer(playerid, __basicStringRet.CStr(), x, y, z, scale, color, sprite);
                 return __ret;
-            }
-        }
+            } }
 
         // void DeleteBlip(unsigned long guid) = 0
         private static global::SharpOrange.Delegates.Action_IntPtr_uint _DeleteBlip_0DelegateInstance;
@@ -2537,7 +2534,7 @@ namespace SharpOrange
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
 
-            var __target = (global::SharpOrange.APIBase) NativeToManagedMap[instance];
+            var __target = (global::SharpOrange.APIBase)NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
             using (var __basicStringRet = global::Std.BasicString.__CreateInstance(name))
@@ -3203,14 +3200,13 @@ namespace SharpOrange
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
 
-            var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
+            var __target = (global::SharpOrange.API)NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
             using (var __basicStringRet = global::Std.BasicString.__CreateInstance(name))
             {
                 __target.LoadClientScript(__basicStringRet.CStr(), buffer, size);
-            }
-        }
+            } }
 
         // void KickPlayer(long playerid, const char * reason) = 0
         private static global::SharpOrange.Delegates.Action_IntPtr_int_string _KickPlayer_1DelegateInstance;
@@ -4224,15 +4220,14 @@ namespace SharpOrange
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
 
-            var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
+            var __target = (global::SharpOrange.API)NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
             using (var __basicStringRet = global::Std.BasicString.__CreateInstance(name))
             {
                 var __ret = __target.CreateBlipForAll(__basicStringRet.CStr(), x, y, z, scale, color, sprite);
                 return __ret;
-            }
-        }
+            } }
 
         // unsigned long CreateBlipForPlayer(long playerid, std::string name, float x, float y, float z, float scale, int color, int sprite) = 0
         private static global::SharpOrange.Delegates.Func_uint_IntPtr_int_std_basic_string___Internal_float_float_float_float_int_int _CreateBlipForPlayer_0DelegateInstance;
@@ -4242,15 +4237,14 @@ namespace SharpOrange
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
 
-            var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
+            var __target = (global::SharpOrange.API)NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
             using (var __basicStringRet = global::Std.BasicString.__CreateInstance(name))
             {
                 var __ret = __target.CreateBlipForPlayer(playerid, __basicStringRet.CStr(), x, y, z, scale, color, sprite);
                 return __ret;
-            }
-        }
+            } }
 
         // void DeleteBlip(unsigned long guid) = 0
         private static global::SharpOrange.Delegates.Action_IntPtr_uint _DeleteBlip_0DelegateInstance;
@@ -4330,7 +4324,7 @@ namespace SharpOrange
             if (!NativeToManagedMap.ContainsKey(instance))
                 throw new global::System.Exception("No managed instance was found");
 
-            var __target = (global::SharpOrange.API) NativeToManagedMap[instance];
+            var __target = (global::SharpOrange.API)NativeToManagedMap[instance];
             if (__target.__ownsNativeInstance)
                 __target.SetupVTables();
             using (var __basicStringRet = global::Std.BasicString.__CreateInstance(name))

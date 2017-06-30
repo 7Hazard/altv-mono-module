@@ -4,3 +4,5 @@ players: 30
 masterserver: true
 resources:
   - SharpExample
+  - chat
+  - SharpLua

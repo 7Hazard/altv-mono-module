@@ -24,12 +24,14 @@ namespace Mono {
 	static MonoAssembly* Assembly;
 	static MonoImage* Image;
 
-	static MonoClass* MainClass;
-	static MonoObject* MainObject;
+	static MonoClass* ServerClass;
+	static MonoObject* ServerObject;
 	static MonoClass* EventClass;
+	static MonoObject* EventObject;
 
 	void InitMono();
 	void Invoke(MonoMethod* method, MonoObject* obj, void** args, bool threaded);
+	void InvokeArray(MonoMethod* method, MonoObject* obj, MonoArray* args, bool threaded);
 	void CheckException(MonoObject* exception);
 
 	void LoadResource(const char* resource);
@@ -40,4 +42,6 @@ namespace Mono {
 	void PlayerUpdated(long playerid);
 	void KeyStateChanged(long playerid, int keycode, bool isUp);
 	void Event(const char* e, std::vector<MValue>* args);
+
+	void HandleEventArgs(MonoArray* earray, std::vector<MValue>* args);
 }

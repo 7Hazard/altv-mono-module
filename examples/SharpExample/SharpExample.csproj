@@ -33,9 +33,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SharpOrange, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\SharpOrange\SharpOrange.dll</HintPath>
+    <Reference Include="SharpOrange">
+      <HintPath>..\..\Server\modules\MonoOrange\SharpOrange.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

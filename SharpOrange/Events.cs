@@ -49,11 +49,11 @@ namespace SharpOrange
             OnKeyStateChanged(playerid, keycode, isUp);
         }
 
-        /*public delegate void EventHandler(int playerid, MValue[] array);
+        public delegate void EventHandler(string eventname, object[] args);
         public static event EventHandler OnEvent = delegate { };
-        static void EEvent(int playerid, ref MValue[] array)
+        static void EEvent(string eventname, object[] args)
         {
-            OnEvent(playerid, array);
-        }*/
+            OnEvent(eventname, args);
+        }
     }
 }

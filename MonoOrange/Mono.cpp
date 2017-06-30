@@ -1,5 +1,4 @@
 #include "Mono.h"
-#include <iostream>;
 
 namespace Mono {
 	void InitMono() {
@@ -14,31 +13,31 @@ namespace Mono {
 		}
 		Image = mono_assembly_get_image(Assembly);
 
-		MainClass = mono_class_from_name(Image, "SharpOrange", "SharpOrange");
-		MainObject = mono_object_new(Domain, MainClass);
+		ServerClass = mono_class_from_name(Image, "SharpOrange", "Server");
+		ServerObject = mono_object_new(Domain, ServerClass);
 		EventClass = mono_class_from_name(Image, "SharpOrange", "Event");
+		EventObject = mono_object_new(Domain, EventClass);
 
-		Method::ctor = mono_class_get_method_from_name(MainClass, ".ctor", 1);
-		Method::LoadResource = mono_class_get_method_from_name(MainClass, "LoadResource", 1);
+		Method::ctor = mono_class_get_method_from_name(ServerClass, ".ctor", 1);
+		Method::LoadResource = mono_class_get_method_from_name(ServerClass, "LoadResource", 1);
 		Method::Tick = mono_class_get_method_from_name(EventClass, "Tick", 0);
 		Method::ServerCommand = mono_class_get_method_from_name(EventClass, "ServerCommand", 1);
 		Method::PlayerConnected = mono_class_get_method_from_name(EventClass, "PlayerConnected", 1);
 		Method::PlayerDisconnected = mono_class_get_method_from_name(EventClass, "PlayerDisconnected", 2);
 		Method::PlayerUpdated = mono_class_get_method_from_name(EventClass, "PlayerUpdated", 1);
 		Method::KeyStateChanged = mono_class_get_method_from_name(EventClass, "KeyStateChanged", 3);
-		//Method::Event = mono_class_get_method_from_name(EventClass, "EEvent", 2);
-		Method::Event = mono_class_get_method_from_name(EventClass, "EEvent", 1);
+		Method::Event = mono_class_get_method_from_name(EventClass, "EEvent", 2);
 
 		void* args[1]{ &API::instance };
 		MonoObject* exc = NULL;
-		mono_runtime_invoke(Method::ctor, MainObject, args, &exc);
+		mono_runtime_invoke(Method::ctor, ServerObject, args, &exc);
 		CheckException(exc);
 	}
 
 	/* SharpOrange */
 	void LoadResource(const char* resource) {
 		void* args[1]{ mono_string_new(Domain, resource) };
-		Invoke(Method::LoadResource, MainObject, args, false);
+		Invoke(Method::LoadResource, ServerObject, args, false);
 	}
 
 	/* Events */
@@ -71,9 +70,54 @@ namespace Mono {
 		Invoke(Method::KeyStateChanged, NULL, args, true);
 	}
 
-	void Event(const char* e, std::vector<MValue>* vector) { // NOT FUNCTIONING (call commented in MonoOrange.cpp)
-		void* args[1]{ mono_string_new(Domain, e) };
+	void Event(const char* e, std::vector<MValue>* vector) {
+		if (!strcmp(e, "unload") || !strcmp(e, "ServerUnload")) return;
+		MonoArray* earray = mono_array_new(Domain, EventClass, vector->size());
+		HandleEventArgs(earray, vector);
+
+		void* args[2]{ mono_string_new(Domain, e), earray };
 		Invoke(Method::Event, NULL, args, true);
+	}
+
+	void HandleEventArgs(MonoArray* earray, std::vector<MValue>* vector) {
+		for (int i = 0; i < vector->size(); i++) {
+			MValue value = vector->at(i);
+			switch (value.type)
+			{
+			case M_STRING: {
+				mono_array_setref(earray, i, mono_string_new(Domain, value.getString()));
+				break;
+			}
+			case M_INT: {
+				int val = value.getInt();
+				mono_array_setref(earray, i, mono_value_box(Domain, mono_get_int64_class(), &val));
+				break;
+			}
+			case M_BOOL: {
+				bool val = value.getBool();
+				mono_array_setref(earray, i, mono_value_box(Domain, mono_get_boolean_class(), &val));
+				break;
+			}
+			case M_ULONG: {
+				unsigned long val = value.getULong();
+				mono_array_setref(earray, i, mono_value_box(Domain, mono_get_uint64_class(), &val));
+				break;
+			}
+			case M_DOUBLE: {
+				double val = value.getDouble();
+				mono_array_setref(earray, i, mono_value_box(Domain, mono_get_double_class(), &val));
+				break;
+			}
+			case M_ARRAY:
+				APIPrint("Arrays passed through events are not supported yet!");
+				/*MonoArray* iarray = mono_array_new(Domain, mono_get_object_class(), value.getArray().ikeys.size());
+				HandleEventArgs(iarray, vector);
+				mono_array_set(earray, MonoArray*, i, iarray);*/
+				break;
+			default:
+				break;
+			}
+		}
 	}
 
 	/* Mono */
@@ -85,12 +129,21 @@ namespace Mono {
 		mono_runtime_invoke(method, obj, args, &exc);
 		CheckException(exc);
 	}
+
+	void InvokeArray(MonoMethod* method, MonoObject* obj, MonoArray* array, bool threaded) {
+		if (threaded) {
+			mono_thread_attach(Domain);
+		}
+		MonoObject* exc = NULL;
+		mono_runtime_invoke_array(method, obj, array, &exc);
+		CheckException(exc);
+	}
 	
 	void CheckException(MonoObject* exc) {
 		if (exc != NULL) {
 			MonoString* ex = mono_object_to_string(exc, &exc);
-			APIPrint("SharpOrange threw an exception: ");
-			APIPrint(mono_string_to_utf8(ex));
+			std::string out = "SharpOrange threw an exception: \n" + (std::string)mono_string_to_utf8(ex);
+			APIPrint(out);
 			mono_free(exc);
 		}
 	}

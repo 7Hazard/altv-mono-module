@@ -9,15 +9,14 @@ using System.Threading.Tasks;
 
 namespace SharpOrange
 {
-    public class SharpOrange
+    public class Server
     {
-        static Event events;
         public Dictionary<string, Assembly> LoadedResources = new Dictionary<string, Assembly>();
-        static API API = null;
-        SharpOrange(ref IntPtr apiptr)
+        internal static API API = null;
+        Server(ref IntPtr apiptr)
         {
             API = API.__CreateInstance(apiptr);
-            APIPrint("Module successfully initialized!");
+            APIPrint("Module successfully initialized");
         }
 
         void LoadResource(string resource)
@@ -50,12 +49,12 @@ namespace SharpOrange
                 APIPrint(resource+" constructor not found, is not public or doesn't take the API as a parameter!");
                 return;
             }
-            APIPrint(resource+" resource loaded!");
+            APIPrint("Loaded resource "+resource);
             object instance = ctor.Invoke(new object[] { API });
             LoadedResources.Add(resource, asm);
         }
 
-        static void APIPrint(string msg)
+        internal static void APIPrint(string msg)
         {
             API.Print("[SharpOrange] "+msg);
         }
