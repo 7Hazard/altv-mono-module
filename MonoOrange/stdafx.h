@@ -9,6 +9,7 @@
 #include <string.h>
 #endif
 
+#include <cmath>
 #include <sstream>
 #include <vector>
 #include <map>
