@@ -3,11 +3,15 @@ variables:
 
 mono-module:linux:
   image: hexaflexagon/gtao-mono-ci:latest
+  before_script:
+  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\Common7\Tools\VsDevCmd.bat"
   script:
+  - msbuild MonoOrange/MonoOrange.vcxproj /t:Rebuild /p:Configuration=Release;Platform=x64
   - (cd MonoOrange && cmake . && make)
   artifacts:
-    name: "mono_module_linux64_${CI_COMMIT_SHA:0:8}"
+    name: "mono-module-${CI_COMMIT_REF_NAME}-linux64"
     paths:
-      - MonoOrange/MonoOrange.so
+      - MonoOrange.so
+      - MonoOrange
   only:
   - tags
