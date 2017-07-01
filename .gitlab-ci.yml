@@ -8,4 +8,4 @@ mono-module:linux:
   artifacts:
     name: "mono_module_linux64_${CI_COMMIT_SHA:0:8}"
     paths:
-      - MonoOrange.so
+      - MonoOrange/MonoOrange.so
