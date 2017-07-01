@@ -9,3 +9,5 @@ mono-module:linux:
     name: "mono_module_linux64_${CI_COMMIT_SHA:0:8}"
     paths:
       - MonoOrange/MonoOrange.so
+  only:
+  - tags
