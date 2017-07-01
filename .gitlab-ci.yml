@@ -1,0 +1,11 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+mono-module:linux:
+  image: hexaflexagon/gtao-mono-ci:latest
+  script:
+  - (cd MonoOrange && cmake . && make)
+  artifacts:
+    name: "mono_module_linux64_${CI_COMMIT_SHA:0:8}"
+    paths:
+      - MonoOrange.so
