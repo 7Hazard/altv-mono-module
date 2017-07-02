@@ -4,7 +4,7 @@ mkdir bin
 cd bin
 cmake -G "Unix Makefiles" ../MonoOrange/
 make VERBOSE=1
-xbuild ../SharpOrange/SharpOrange.csproj
+msbuild ../SharpOrange/SharpOrange.csproj
 cd ../
 mkdir linux
 cd linux
