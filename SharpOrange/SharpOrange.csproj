@@ -60,6 +60,9 @@
   <ItemGroup>
     <Content Include="Std-symbols.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Std-symbols.so" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetPath)" "$(SolutionDir)Server\modules\$(SolutionName)\$(TargetFileName)"

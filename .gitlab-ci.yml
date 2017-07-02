@@ -12,6 +12,7 @@ mono-module:windows:
         - modules/MonoOrange.dll
         - modules/MonoOrange/SharpOrange.dll
         - modules/MonoOrange/Std-symbols.so
+        - modules/MonoOrange/bin/mono-2.0-sgen.dll
     only:
         - tags
 
@@ -24,6 +25,6 @@ mono-module:linux:
     paths:
         - modules/MonoOrange.so
         - modules/MonoOrange/SharpOrange.dll
-        - modules/MonoOrange/Std-symbols.dll
+        - modules/MonoOrange/Std-symbols.so
     only:
         - tags
