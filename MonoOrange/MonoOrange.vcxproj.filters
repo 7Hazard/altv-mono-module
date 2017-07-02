@@ -15,4 +15,7 @@
   <ItemGroup>
     <None Include="mono-2.0-sgen.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
 </Project>

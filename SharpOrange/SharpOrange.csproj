@@ -57,8 +57,12 @@
       <Version>0.8.11</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Std-symbols.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetPath)" "$(SolutionDir)Server\modules\$(SolutionName)\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>copy /Y "$(TargetPath)" "$(SolutionDir)Server\modules\$(SolutionName)\$(TargetFileName)"
+copy /Y "$(ProjectDir)Std-modules.dll" "$(SolutionDir)Server\modules\$(SolutionName)\Std-modules.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>

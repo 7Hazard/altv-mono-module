@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir build
-cd build
+mkdir modules
+cd modules
 cmake -G "Unix Makefiles" ../MonoOrange/
 make VERBOSE=1

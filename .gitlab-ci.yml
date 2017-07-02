@@ -1,17 +1,29 @@
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
-mono-module:linux:
-  image: hexaflexagon/gtao-mono-ci:latest
-  before_script:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\Common7\Tools\VsDevCmd.bat"
-  script:
-  - msbuild MonoOrange/MonoOrange.vcxproj /t:Rebuild /p:Configuration=Release;Platform=x64
-  - (cd MonoOrange && cmake . && make)
-  artifacts:
-    name: "mono-module-${CI_COMMIT_REF_NAME}-linux64"
+mono-module:windows:
+    before_script:
+        - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\Common7\Tools\VsDevCmd.bat"
+    script:
+        - ./build.bat
+    artifacts:
+        name: "mono-module-${CI_COMMIT_REF_NAME}-win64"
     paths:
-      - MonoOrange.so
-      - MonoOrange
-  only:
-  - tags
+        - modules/MonoOrange.dll
+        - modules/MonoOrange/SharpOrange.dll
+        - modules/MonoOrange/Std-symbols.so
+    only:
+        - tags
+
+mono-module:linux:
+    image: hexaflexagon/gtao-mono-ci:latest
+    script:
+        - ./build.sh
+    artifacts:
+        name: "mono-module-${CI_COMMIT_REF_NAME}-linux64"
+    paths:
+        - modules/MonoOrange.so
+        - modules/MonoOrange/SharpOrange.dll
+        - modules/MonoOrange/Std-symbols.dll
+    only:
+        - tags

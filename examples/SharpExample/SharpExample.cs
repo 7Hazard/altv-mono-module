@@ -31,6 +31,7 @@ namespace SharpExample
 
         void MyPlayerConnects(int playerid)
         {
+            api.Print("Ayy, "+api.GetPlayerName(playerid)+" is tryin' to get in!");
             api.SetPlayerPosition(playerid, 1000, 200, 80);
             api.CreateVehicle(Vehicle.Miljet, 1000, 210, 90, 1);
             api.GivePlayerWeapon(playerid, Weapon.AssaultRifle, 100);
