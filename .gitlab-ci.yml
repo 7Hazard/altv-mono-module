@@ -7,7 +7,7 @@ mono-module:windows:
     script:
         - ./build.bat
     artifacts:
-        name: "mono-module-${CI_COMMIT_REF_NAME}-win64"
+        name: "mono-module-${CI_COMMIT_REF_NAME:0:8}-win64"
     paths:
         - modules/MonoOrange.dll
         - modules/MonoOrange/SharpOrange.dll
@@ -21,7 +21,7 @@ mono-module:linux:
     script:
         - ./build.sh
     artifacts:
-        name: "mono-module-${CI_COMMIT_REF_NAME}-linux64"
+        name: "mono-module-${CI_COMMIT_REF_NAME:0:8}-linux64"
     paths:
         - modules/MonoOrange.so
         - modules/MonoOrange/SharpOrange.dll
