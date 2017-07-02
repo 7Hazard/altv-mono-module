@@ -9,10 +9,7 @@ mono-module:windows:
     artifacts:
         name: "mono-module-${CI_COMMIT_REF_NAME:~0,8%}-win64"
     paths:
-        - windows/MonoOrange.dll
-        - windows/MonoOrange/SharpOrange.dll
-        - windows/MonoOrange/Std-symbols.so
-        - windows/MonoOrange/bin/mono-2.0-sgen.dll
+        - windows
     only:
         - tags
 
@@ -23,8 +20,6 @@ mono-module:linux:
     artifacts:
         name: "mono-module-${CI_COMMIT_REF_NAME:0:8}-linux64"
     paths:
-        - linux/MonoOrange.so
-        - linux/MonoOrange/SharpOrange.dll
-        - linux/MonoOrange/Std-symbols.so
+        - linux
     only:
         - tags

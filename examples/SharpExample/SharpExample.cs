@@ -36,6 +36,10 @@ namespace SharpExample
             api.CreateVehicle(Vehicle.Miljet, 1000, 210, 90, 1);
             api.GivePlayerWeapon(playerid, Weapon.AssaultRifle, 100);
             api.CreatePickup(Pickup.ParachuteBag, 1000, 190, 80, 1);
+
+            /*api.CreateVehicle((Vehicle)165154707, 1000, 210, 90, 1);
+            api.GivePlayerWeapon(playerid, (Weapon)(-1074790547), 100);
+            api.CreatePickup((Pickup)1735599485, 1000, 190, 80, 1);*/
         }
 
         void MyServerCommands(string command)
