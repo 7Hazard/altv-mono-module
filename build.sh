@@ -1,5 +1,6 @@
 #!/bin/bash
 
+mkdir bin
 cd bin
 cmake -G "Unix Makefiles" ../MonoOrange/
 make VERBOSE=1
@@ -10,5 +11,5 @@ cd linux
 cp ../bin/MonoOrange.so .
 mkdir MonoOrange
 cd MonoOrange
-cp ../bin/SharpOrange.dll .
+cp ../bin/SharpOrange/SharpOrange.dll .
 cp ../SharpOrange/Std-symbols.so .
