@@ -7,7 +7,7 @@ mono-module:windows:
     script:
         - ./build.bat
     artifacts:
-        name: "mono-module-${CI_COMMIT_REF_NAME:0:8}-win64"
+        name: "mono-module-${CI_COMMIT_REF_NAME:~0,8%}-win64"
     paths:
         - windows/MonoOrange.dll
         - windows/MonoOrange/SharpOrange.dll
