@@ -8,6 +8,8 @@ namespace Mono {
 		Domain = mono_jit_init("SharpOrange");
 #ifdef _WINDOWS
 		mono_domain_set_config(Domain, "C:\\Program Files\\Mono\\etc\\mono\\4.5", "machine.config");
+#else
+		mono_domain_set_config(Domain, "/etc/mono/4.5", "machine.config");
 #endif
 		Assembly = mono_domain_assembly_open(Domain, "modules/MonoOrange/SharpOrange.dll");
 		if (!Assembly) {
