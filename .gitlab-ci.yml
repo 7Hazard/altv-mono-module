@@ -8,8 +8,8 @@ mono-module:windows:
         - ./build.bat
     artifacts:
         name: "mono-module-${CI_COMMIT_REF_NAME:~0,8%}-win64"
-    paths:
-        - windows
+        paths:
+            - windows
     only:
         - tags
 
@@ -19,7 +19,7 @@ mono-module:linux:
         - ./build.sh
     artifacts:
         name: "mono-module-${CI_COMMIT_REF_NAME:0:8}-linux64"
-    paths:
-        - linux
+        paths:
+            - linux
     only:
         - tags
