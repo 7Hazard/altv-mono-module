@@ -6,6 +6,9 @@ namespace Mono {
 		mono_set_dirs("C:\\Program Files\\Mono\\lib", "C:\\Program Files\\Mono\\etc");
 #endif
 		Domain = mono_jit_init("SharpOrange");
+#ifdef _WINDOWS
+		mono_domain_set_config(Domain, "C:\\Program Files\\Mono\\etc\\mono\\4.5", "machine.config");
+#endif
 		Assembly = mono_domain_assembly_open(Domain, "modules/MonoOrange/SharpOrange.dll");
 		if (!Assembly) {
 			APIPrint("Assembly failed to load!");

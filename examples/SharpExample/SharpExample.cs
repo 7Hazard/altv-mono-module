@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
 
 namespace SharpExample
 {
@@ -22,6 +23,8 @@ namespace SharpExample
             Event.OnEvent += MyEvents;
 
             //Client.AddScript("client.lua");
+
+            TestMySQL();
         }
 
         void MyTicks()
@@ -56,6 +59,22 @@ namespace SharpExample
                     foreach (object arg in args)
                         api.Print("'" + arg + "'");
                     break;
+            }
+        }
+
+        MySqlConnection conn;
+        void TestMySQL()
+        {
+            conn = new MySqlConnection("Server=leizaki.com;Uid=gtaorange;Pwd=jizzle;Database=gtaorange;");
+            try
+            {
+                conn.Open();
+                api.Print("OPEN");
+                conn.Close();
+            }
+            catch (MySqlException ex)
+            {
+                api.Print("Not Open\n" + ex);
             }
         }
     }
