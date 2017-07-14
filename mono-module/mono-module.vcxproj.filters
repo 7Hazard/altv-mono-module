@@ -12,7 +12,6 @@
     <ClInclude Include="Export.h" />
     <ClInclude Include="mono-module.h" />
     <ClInclude Include="API\API.h" />
-    <ClInclude Include="API\CPPSAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
