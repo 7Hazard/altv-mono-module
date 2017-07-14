@@ -1,59 +1,72 @@
-﻿using System;
+﻿using SharpOrange.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SharpOrange
 {
-    public class Event
+    public static class Event
     {
         public static event Action OnTick = delegate { };
-        static void Tick()
+        static void TriggerOnTick()
         {
+            //new Thread(new ThreadStart(OnTick)).Start();
             OnTick();
         }
 
-        public delegate void ServerCommandHandler(string command);
-        public static event ServerCommandHandler OnServerCommand = delegate { };
-        static void ServerCommand(string command)
+        public delegate void OnServerCommandHandler(string command);
+        public static event OnServerCommandHandler OnServerCommand = delegate { };
+        static void TriggerOnServerCommand(string command)
         {
             OnServerCommand(command);
         }
 
-        public delegate void PlayerConnectedHandler(int playerid);
-        public static event PlayerConnectedHandler OnPlayerConnect = delegate { };
-        static void PlayerConnected(int playerid)
+        public delegate void OnPlayerConnectHandler(Player player);
+        public static event OnPlayerConnectHandler OnPlayerConnect = delegate { };
+
+        public delegate void OnPlayerDisconnectedHandler(Player player, int reason);
+        public static event OnPlayerDisconnectedHandler OnPlayerDisconnected = delegate { };
+        static void TriggerOnPlayerDisconnect(uint playerid, int reason)
         {
-            OnPlayerConnect(playerid);
+            Server.Players.TryGetValue(playerid, out Player player);
+            OnPlayerDisconnected(player, reason);
         }
 
-        public delegate void PlayerDisconnectedHandler(int playerid, int reason);
-        public static event PlayerDisconnectedHandler OnPlayerDisconnected = delegate { };
-        static void PlayerDisconnected(int playerid, int reason)
+        public delegate void PlayerUpdateHandler(Player player);
+        public static event PlayerUpdateHandler OnPlayerUpdate = delegate { };
+        static void TriggerOnPlayerUpdate(uint playerid)
         {
-            OnPlayerDisconnected(playerid, reason);
+            Server.Players.TryGetValue(playerid, out Player player);
+            OnPlayerUpdate(player);
         }
 
-        public delegate void PlayerUpdatedHandler(int playerid);
-        public static event PlayerUpdatedHandler OnPlayerUpdated = delegate { };
-        static void PlayerUpdated(int playerid)
+        public delegate void OnKeyStateChangedHandler(Player player, int keycode, bool isUp);
+        public static event OnKeyStateChangedHandler OnKeyStateChanged = delegate { };
+        static void TriggerOnKeyStateChanged(uint playerid, int keycode, bool isUp)
         {
-            OnPlayerUpdated(playerid);
+            Server.Players.TryGetValue(playerid, out Player player);
+            OnKeyStateChanged(player, keycode, isUp);
         }
 
-        public delegate void KeyStateChangedHandler(int playerid, int keycode, bool isUp);
-        public static event KeyStateChangedHandler OnKeyStateChanged = delegate { };
-        static void KeyStateChanged(int playerid, int keycode, bool isUp)
+        public delegate void OnEventHandler(string eventname, object[] args);
+        public static event OnEventHandler OnEvent = delegate { };
+        static void TriggerOnEvent(string e, object[] args)
         {
-            OnKeyStateChanged(playerid, keycode, isUp);
-        }
-
-        public delegate void EventHandler(string eventname, object[] args);
-        public static event EventHandler OnEvent = delegate { };
-        static void EEvent(string eventname, object[] args)
-        {
-            OnEvent(eventname, args);
+            new Thread(new ThreadStart(task)).Start();
+            void task() {
+                if (e == "PlayerConnect")
+                {
+                    uint playerid = (UInt32)args[0];
+                    Player player = new Player(playerid);
+                    Server.Players.Add(playerid, player);
+                    OnPlayerConnect(player);
+                    return;
+                }
+                OnEvent(e, args);
+            }
         }
     }
 }

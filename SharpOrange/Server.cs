@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharpOrange.Objects;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,52 +12,45 @@ namespace SharpOrange
 {
     public class Server
     {
-        public Dictionary<string, Assembly> LoadedResources = new Dictionary<string, Assembly>();
-        internal static API API = null;
-        Server(ref IntPtr apiptr)
+        /// Server/Console
+        public static Dictionary<string, object> LoadedResources = new Dictionary<string, object>();
+
+        [DllImport("mono-module", EntryPoint = "Print", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Print(string text);
+
+        /// Players
+        public static Dictionary<long, Player> Players;
+
+        public static void KickPlayer(Player player)
         {
-            API = API.__CreateInstance(apiptr);
-            APIPrint("Module successfully initialized");
+            KickPlayer(player.ID);
         }
 
-        void LoadResource(string resource)
+        public static void KickPlayer(Player player, string reason)
         {
-            Assembly asm;
-            try
-            {
-                asm = Assembly.LoadFrom("resources/" + resource + "/" + resource + ".dll");
-            }
-            catch (FileNotFoundException)
-            {
-                APIPrint("Resource assembly '" + resource + ".dll' not found!");
-                return;
-            }
-            catch (FileLoadException)
-            {
-                APIPrint("Resource assembly '" + resource + ".dll' failed to load!");
-                return;
-            }
-            catch (BadImageFormatException)
-            {
-                APIPrint("Resource assembly '" + resource + ".dll' is not 64-bit compatible!");
-                return;
-            }
-
-            Type type = asm.GetType(resource+"."+resource);
-            ConstructorInfo ctor = type.GetConstructor(new Type[] { typeof(API) });
-            if (ctor == null)
-            {
-                APIPrint(resource+" constructor not found, is not public or doesn't take the API as a parameter!");
-                return;
-            }
-            APIPrint("Loaded resource "+resource);
-            object instance = ctor.Invoke(new object[] { API });
-            LoadedResources.Add(resource, asm);
+            KickPlayer(player.ID, reason);
         }
 
-        internal static void APIPrint(string msg)
+        [DllImport("mono-module", EntryPoint = "KickPlayer", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void KickPlayer(long playerid);
+
+        [DllImport("mono-module", EntryPoint = "KickPlayer", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void KickPlayer(long playerid, string reason);
+
+        public static string GetPlayerName(long playerid)
         {
-            API.Print("[SharpOrange] "+msg);
+            StringBuilder sb = new StringBuilder();
+            API.GetPlayerName(playerid, sb);
+            return sb.ToString();
         }
+
+        [DllImport("mono-module", EntryPoint = "SetPlayerName", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void SetPlayerName(long playerid, string name);
+
+        [DllImport("mono-module", EntryPoint = "GetPlayerPosition", CallingConvention = CallingConvention.Cdecl)]
+        public static extern Vector3 GetPlayerPosition(long playerid);
+
+        [DllImport("mono-module", EntryPoint = "SetPlayerPosition", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void SetPlayerPosition(long playerid, float x, float y, float z);
     }
 }
