@@ -14,7 +14,7 @@ mono-module:windows:
     - tags
 
 mono-module:linux:
-    image: hexaflexagon/gtao-mono-ci:latest
+    image: gtaorange/mono-linux-ci:latest
     before_script:
     - chmod +x ./build.sh
     script:
