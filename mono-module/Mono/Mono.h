@@ -8,9 +8,9 @@
 namespace Method {
 	static MonoMethod* ctor;
 	static MonoMethod* LoadResource;
+	static MonoMethod* TriggerOnServerUnload;
 	static MonoMethod* TriggerOnTick;
 	static MonoMethod* TriggerOnServerCommand;
-	static MonoMethod* TriggerOnPlayerDisconnect;
 	static MonoMethod* TriggerOnPlayerUpdate;
 	static MonoMethod* TriggerOnKeyStateChanged;
 	static MonoMethod* TriggerOnEvent;
@@ -33,7 +33,6 @@ namespace Mono {
 	void LoadResource(const char* resource);
 	void TriggerOnTick();
 	void TriggerOnServerCommand(const char* command);
-	void TriggerOnPlayerDisconnect(long playerid, int reason);
 	void TriggerOnPlayerUpdate(long playerid);
 	void TriggerOnKeyStateChanged(long playerid, int keycode, bool isUp);
 	void TriggerOnEvent(const char* e, MValueList& mvlist);

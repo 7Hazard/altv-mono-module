@@ -20,5 +20,19 @@ namespace SharpOrange.Objects
             y = pos[1];
             z = pos[2];
         }
+
+        public Vector3(double x, double y, double z)
+        {
+            this.x = (float)x;
+            this.y = (float)y;
+            this.z = (float)z;
+        }
+
+        public Vector3(Vector3 pos)
+        {
+            x = pos.x;
+            y = pos.y;
+            z = pos.z;
+        }
     }
 }

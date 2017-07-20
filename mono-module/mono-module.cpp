@@ -49,12 +49,6 @@ extern "C"
 		return true;
 	}
 
-	EXPORT bool OnPlayerDisconnect(unsigned int playerid, int reason)
-	{
-		Mono::TriggerOnPlayerDisconnect(playerid, reason);
-		return true;
-	}
-
 	EXPORT bool OnPlayerUpdate(unsigned int playerid)
 	{
 		Mono::TriggerOnPlayerUpdate(playerid);

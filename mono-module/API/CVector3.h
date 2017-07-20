@@ -8,9 +8,8 @@
 
 #pragma once
 #include <cmath>
-#include <xmmintrin.h>
 #include <sstream>
-
+#include <xmmintrin.h>
 inline void vmul_sse(const float *a, const float b, float *r)
 {
 	_mm_storeu_ps(r, _mm_mul_ps(_mm_loadu_ps(a), _mm_set1_ps(b)));

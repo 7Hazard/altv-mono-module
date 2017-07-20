@@ -49,7 +49,7 @@ public:
 
 	MValue(const char* _val) {
 		type = M_STRING;
-		string_val = _strdup(_val);
+		string_val = strdup(_val);
 	};
 
 	MValue(unsigned long _val) {
@@ -107,7 +107,7 @@ public:
 	static std::shared_ptr<MValue> CreateString(const char* _val) {
 		MValue *val = new MValue;
 		val->type = M_STRING;
-		val->string_val = _strdup(_val);
+		val->string_val = strdup(_val);
 		return std::shared_ptr<MValue>(val);
 	};
 
@@ -345,30 +345,37 @@ public:
 	virtual CVector3 GetVehicleRotation(unsigned long vehid) = 0;
 	virtual bool SetVehicleColours(unsigned long vehid, unsigned char Color1, unsigned char Color2) = 0;
 	virtual bool GetVehicleColours(unsigned long vehid, unsigned char *Color1, unsigned char *Color2) = 0;
+	virtual bool SetVehiclePrimaryColor(unsigned long guid, unsigned char Color) = 0;
+	virtual bool GetVehiclePrimaryColor(unsigned long guid, unsigned char *Color) = 0;
+	virtual bool SetVehicleSecondaryColor(unsigned long guid, unsigned char Color) = 0;
+	virtual bool GetVehicleSecondaryColor(unsigned long guid, unsigned char *Color) = 0;
 	virtual bool SetVehicleTyresBulletproof(unsigned long vehid, bool bulletproof) = 0;
 	virtual bool GetVehicleTyresBulletproof(unsigned long vehid) = 0;
-	virtual bool SetVehicleCustomPrimaryColor(unsigned long vehid, int rColor, int gColor, int bColor) = 0; //Not implemented
-	virtual bool GetVehicleCustomPrimaryColor(unsigned long vehid, int *rColor, int *gColor, int *bColor) = 0; //Not implemented
-	virtual bool SetVehicleCustomSecondaryColor(unsigned long vehid, int rColor, int gColor, int bColor) = 0; //Not implemented
-	virtual bool GetVehicleCustomSecondaryColor(unsigned long vehid, int *rColor, int *gColor, int *bColor) = 0; //Not implemented
+	virtual bool HasVehicleCustomColours(unsigned long guid, bool *PrimaryColor, bool *SecondaryColor) = 0;
+	virtual bool SetVehicleCustomColours(unsigned long guid, unsigned char PrimaryColorR, unsigned char PrimaryColorG, unsigned char PrimaryColorB, unsigned char SecondaryColorR, unsigned char SecondaryColorG, unsigned char SecondaryColorB) = 0;
+	virtual bool GetVehicleCustomColours(unsigned long guid, unsigned char *PrimaryColorR, unsigned char *PrimaryColorG, unsigned char *PrimaryColorB, unsigned char *SecondaryColorR, unsigned char *SecondaryColorG, unsigned char *SecondaryColorB) = 0;
+	virtual bool SetVehicleCustomPrimaryColor(unsigned long vehid, unsigned char rColor, unsigned char gColor, unsigned char bColor) = 0;
+	virtual bool GetVehicleCustomPrimaryColor(unsigned long vehid, unsigned char *rColor, unsigned char *gColor, unsigned char *bColor) = 0;
+	virtual bool SetVehicleCustomSecondaryColor(unsigned long vehid, unsigned char rColor, unsigned char gColor, unsigned char bColor) = 0;
+	virtual bool GetVehicleCustomSecondaryColor(unsigned long vehid, unsigned char *rColor, unsigned char *gColor, unsigned char *bColor) = 0;
 	virtual bool SetVehicleEngineStatus(unsigned long vehid, bool status, bool locked) = 0;
 	virtual bool GetVehicleEngineStatus(unsigned long vehid) = 0;
 	virtual bool SetVehicleLocked(unsigned long vehid, bool locked) = 0;
 	virtual bool IsVehicleLocked(unsigned long vehid) = 0;
-	virtual bool SetVehicleBodyHealth(unsigned long vehid, float health) = 0; //Not implemented
-	virtual bool SetVehicleEngineHealth(unsigned long vehid, float health) = 0; //Not implemented
-	virtual bool SetVehicleTankHealth(unsigned long vehid, float health) = 0; //Not implemented
+	virtual bool SetVehicleBodyHealth(unsigned long vehid, float health) = 0;
+	virtual bool SetVehicleEngineHealth(unsigned long vehid, float health) = 0;
+	virtual bool SetVehicleTankHealth(unsigned long vehid, float health) = 0;
 	virtual bool GetVehicleHealth(unsigned long vehid, float *body, float *engine, float *tank) = 0;
 	virtual bool SetVehicleNumberPlate(unsigned long vehid, const char *text) = 0; //Not implemented
 	virtual std::string GetVehicleNumberPlate(unsigned long vehid) = 0; //Not implemented
-	virtual bool SetVehicleNumberPlateStyle(unsigned long vehid, int style) = 0; //Not implemented
-	virtual int GetVehicleNumberPlateStyle(unsigned long vehid) = 0; //Not implemented
+	virtual bool SetVehicleNumberPlateStyle(unsigned long vehid, unsigned char style) = 0;
+	virtual bool GetVehicleNumberPlateStyle(unsigned long vehid, unsigned char *NumberPlateStyle) = 0;
 	virtual bool SetVehicleSirenState(unsigned long vehid, bool state) = 0;
 	virtual bool GetVehicleSirenState(unsigned long vehid) = 0;
-	virtual bool SetVehicleWheelColor(unsigned long vehid, int color) = 0; //Not implemented
-	virtual int GetVehicleWheelColor(unsigned long vehid) = 0; //Not implemented
-	virtual bool SetVehicleWheelType(unsigned long vehid, int type) = 0; //Not implemented
-	virtual int GetVehicleWheelType(unsigned long vehid) = 0; //Not implemented
+	virtual bool SetVehicleWheelColor(unsigned long vehid, unsigned char color) = 0;
+	virtual bool GetVehicleWheelColor(unsigned long vehid, unsigned char *WheelColor) = 0;
+	virtual bool SetVehicleWheelType(unsigned long vehid, unsigned char type) = 0;
+	virtual bool GetVehicleWheelType(unsigned long vehid, unsigned char *WheelType) = 0;
 	virtual int GetVehicleDriver(unsigned long vehid) = 0;
 	virtual std::vector<unsigned int> GetVehiclePassengers(unsigned long vehid) = 0;
 

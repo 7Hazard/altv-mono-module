@@ -14,6 +14,7 @@ namespace SharpOrange
         SharpOrange()
         {
             Server.Players = new Dictionary<long, Player>();
+            Server.Vehicles = new Dictionary<ulong, Vehicle>();
             Print("Module successfully initialized");
         }
 
@@ -27,27 +28,27 @@ namespace SharpOrange
             }
             catch (FileNotFoundException)
             {
-                PrintError($"Resource assembly '{resource}.dll' not found!");
+                Error($"Resource assembly '{resource}.dll' not found!");
                 return;
             }
             catch (FileLoadException)
             {
-                PrintError($"Resource assembly '{resource}.dll' failed to load!");
+                Error($"Resource assembly '{resource}.dll' failed to load!");
                 return;
             }
             catch (BadImageFormatException)
             {
-                PrintError($"Resource assembly '{resource}.dll' is not targeting .NET Framework!");
+                Error($"Resource assembly '{resource}.dll' is not targeting .NET Framework!");
                 return;
             }
             catch (MissingMethodException)
             {
-                PrintError($"Constructor in '{resource}.{resource}' is not public or is missing!");
+                Error($"Constructor in '{resource}.{resource}' is not public or is missing!");
                 return;
             }
             catch (Exception e)
             {
-                PrintError("Exception caught attempting to load assembly:\n"+e);
+                Error("Exception caught attempting to load assembly:\n"+e);
                 return;
             }
 
@@ -59,9 +60,15 @@ namespace SharpOrange
         {
             Server.Print("[SharpOrange] " + msg);
         }
-        internal static void PrintError(string msg)
+        internal static void Error(string msg)
         {
             Server.Print("[SharpOrange] ERROR - " + msg);
+        }
+
+        internal static T GetEnum<T>(object obj)
+        {
+            T enumVal = (T)Enum.Parse(typeof(T), obj.ToString());
+            return enumVal;
         }
     }
 }

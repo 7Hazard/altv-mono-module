@@ -48,17 +48,15 @@
     <Compile Include="API.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Events.cs" />
+    <Compile Include="Objects\RGB.cs" />
+    <Compile Include="Objects\Vehicle.cs" />
+    <Compile Include="Objects\VehicleHealth.cs" />
     <Compile Include="SharpOrange.cs" />
     <Compile Include="Objects\Enums.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\Vector3.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="CppSharp">
-      <Version>0.8.11</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

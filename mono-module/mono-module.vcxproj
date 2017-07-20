@@ -118,6 +118,7 @@ copy /Y "$(ProjectDir)mono-2.0-sgen.dll" "$(SolutionDir)Server\modules\$(Project
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="API\API.h" />
+    <ClInclude Include="API\APIExports.h" />
     <ClInclude Include="API\CVector3.h" />
     <ClInclude Include="Export.h" />
     <ClInclude Include="Mono\Mono.h" />

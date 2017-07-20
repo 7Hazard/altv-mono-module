@@ -24,9 +24,9 @@ namespace Mono {
 
 		Method::ctor = mono_class_get_method_from_name(MainClass, ".ctor", 0);
 		Method::LoadResource = mono_class_get_method_from_name(MainClass, "LoadResource", 1);
+		Method::TriggerOnServerUnload = mono_class_get_method_from_name(EventClass, "TriggerOnServerUnload", 0);
 		Method::TriggerOnTick = mono_class_get_method_from_name(EventClass, "TriggerOnTick", 0);
 		Method::TriggerOnServerCommand = mono_class_get_method_from_name(EventClass, "TriggerOnServerCommand", 1);
-		Method::TriggerOnPlayerDisconnect = mono_class_get_method_from_name(EventClass, "TriggerOnPlayerDisconnect", 2);
 		Method::TriggerOnPlayerUpdate = mono_class_get_method_from_name(EventClass, "TriggerOnPlayerUpdate", 1);
 		Method::TriggerOnKeyStateChanged = mono_class_get_method_from_name(EventClass, "TriggerOnKeyStateChanged", 3);
 		Method::TriggerOnEvent = mono_class_get_method_from_name(EventClass, "TriggerOnEvent", 2);
@@ -52,11 +52,6 @@ namespace Mono {
 		Invoke(Method::TriggerOnServerCommand, NULL, args, true);
 	}
 
-	void TriggerOnPlayerDisconnect(long playerid, int reason) {
-		void* args[2]{ &playerid, &reason };
-		Invoke(Method::TriggerOnPlayerDisconnect, NULL, args, true);
-	}
-
 	void TriggerOnPlayerUpdate(long playerid) {
 		void* args[1]{ &playerid };
 		Invoke(Method::TriggerOnPlayerUpdate, NULL, args, true);
@@ -68,7 +63,11 @@ namespace Mono {
 	}
 
 	void TriggerOnEvent(const char* e, MValueList& mvlist) {
-		if (!strcmp(e, "unload") || !strcmp(e, "ServerUnload")) return;
+		if (!strcmp(e, "unload")) return;
+		if (!strcmp(e, "ServerUnload")) {
+			Invoke(Method::TriggerOnServerUnload, NULL, NULL, true);
+			return;
+		}
 		int size = mvlist.size();
 		MonoArray* earray = mono_array_new(Domain, EventClass, size);
 		HandleEventArgs(earray, mvlist, size);
@@ -114,8 +113,6 @@ namespace Mono {
 				auto string_keys = value->getStringDict();*/
 				APIPrint("Warning: Dictionaries in events are not supported yet by the Mono Module!");
 				values[i] = NULL;
-				break;
-			default:
 				break;
 			}
 		}
