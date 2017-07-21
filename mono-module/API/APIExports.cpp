@@ -240,6 +240,28 @@ extern "C" {
 	EXPORT void AttachBlipToVehicle(unsigned long guid, unsigned long vehicle) {
 		API::instance->AttachBlipToVehicle(guid, vehicle);
 	}
+
+	// Markers
+	EXPORT unsigned long CreateMarkerForAll(float x, float y, float z, float height, float radius) {
+		return API::instance->CreateMarkerForPlayer(x, y, z, height, radius);
+	}
+	EXPORT unsigned long CreateMarkerForPlayer(long playerid, float x, float y, float z, float height, float radius) {
+		return API::instance->CreateMarkerForPlayer(playerid, x, y, z, height, radius);
+	}
+	EXPORT void DeleteMarker(unsigned long guid) {
+		API::instance->DeleteMarker(guid);
+	}
+
+	// Notifications
+	EXPORT bool SendNotification(long playerid, const char * msg) {
+		return API::instance->SendNotification(playerid, msg);
+	}
+	EXPORT bool SetInfoMsg(long playerid, const char * msg) {
+		return API::instance->SetInfoMsg(playerid, msg);
+	}
+	EXPORT bool UnsetInfoMsg(long playerid) {
+		return API::instance->UnsetInfoMsg(playerid);
+	}
 }
 
 MValueList GetMValueList(EValue* args, int size) {

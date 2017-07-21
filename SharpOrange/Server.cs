@@ -253,5 +253,25 @@ namespace SharpOrange
 
         [DllImport("mono-module", EntryPoint = "AttachBlipToVehicle", CallingConvention = CallingConvention.Cdecl)]
         public static extern void AttachBlipToVehicle(ulong guid, ulong vehicle);
+
+        // Markers
+        [DllImport("mono-module", EntryPoint = "CreateMarkerForAll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern ulong CreateMarkerForAll(float x, float y, float z, float height, float radius);
+
+        [DllImport("mono-module", EntryPoint = "CreateMarkerForPlayer", CallingConvention = CallingConvention.Cdecl)]
+        public static extern ulong CreateMarkerForPlayer(long playerid, float x, float y, float z, float height, float radius);
+
+        [DllImport("mono-module", EntryPoint = "DeleteMarker", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void DeleteMarker(ulong guid);
+
+        // Notifications
+        [DllImport("mono-module", EntryPoint = "SendNotification", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool SendNotification(long playerid, string msg);
+
+        [DllImport("mono-module", EntryPoint = "SetInfoMsg", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool SetInfoMsg(long playerid, string msg);
+
+        [DllImport("mono-module", EntryPoint = "UnsetInfoMsg", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool UnsetInfoMsg(long playerid);
     }
 }
