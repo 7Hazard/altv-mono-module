@@ -18,48 +18,102 @@ extern "C" {
 	}
 
 	// Clients
-	EXPORT void ClientEvent(long guid, const char* e, EValue* args, int size) {
+	EXPORT void ClientEvent(long playerid, const char* e, EValue* args, int size) {
 		MValueList& values = GetMValueList(args, size);
 		APIPrint(values.at(0)->getString());
-		API::instance->ClientEvent(e, values, guid);
+		API::instance->ClientEvent(e, values, playerid);
 	}
 
 	// Players
-	EXPORT void KickPlayer(long guid, const char* reason) {
+	EXPORT void KickPlayer(long playerid, const char* reason) {
 		if (reason == nullptr) {
-			API::instance->KickPlayer(guid);
+			API::instance->KickPlayer(playerid);
 		}
-		API::instance->KickPlayer(guid, reason);
+		API::instance->KickPlayer(playerid, reason);
 	}
-	EXPORT void GetPlayerName(long guid, char* sb) {
-		std::string name = API::instance->GetPlayerName(guid);
-		strcpy(sb, name.c_str());
-	}
-	EXPORT void SetPlayerName(long guid, const char* name) {
-		API::instance->SetPlayerName(guid, name);
-	}
-	EXPORT Vector3 GetPlayerPosition(long guid) {
-		CVector3 vector = API::instance->GetPlayerPosition(guid);
+	EXPORT Vector3 GetPlayerPosition(long playerid) {
+		CVector3 vector = API::instance->GetPlayerPosition(playerid);
 		Vector3 pos{ vector.fX, vector.fY, vector.fZ };
 		return pos;
 	}
-	EXPORT void SetPlayerPosition(long guid, float x, float y, float z) {
-		API::instance->SetPlayerPosition(guid, x, y, z);
+	EXPORT void SetPlayerPosition(long playerid, float x, float y, float z) {
+		API::instance->SetPlayerPosition(playerid, x, y, z);
 	}
-	EXPORT bool SetPlayerModel(long guid, long model) {
-		return API::instance->SetPlayerModel(guid, model);
+	EXPORT bool IsPlayerInRange(long playerid, float x, float y, float z, float range) {
+		return API::instance->IsPlayerInRange(playerid, x, y, z, range);
 	}
-	EXPORT long GetPlayerModel(long guid) {
-		return API::instance->GetPlayerModel(guid);
+	EXPORT bool SetPlayerHeading(long playerid, float angle) {
+		return API::instance->SetPlayerHeading(playerid, angle);
 	}
-	EXPORT bool RemovePlayerWeapons(long guid) {
-		return API::instance->RemovePlayerWeapons(guid);
+	EXPORT float GetPlayerHeading(long playerid) {
+		return API::instance->GetPlayerHeading(playerid);
 	}
-	EXPORT bool GivePlayerWeapon(long guid, long weapon, long ammo) {
-		return API::instance->GivePlayerWeapon(guid, weapon, ammo);
+	EXPORT bool RemovePlayerWeapons(long playerid) {
+		return API::instance->RemovePlayerWeapons(playerid);
 	}
-	EXPORT bool GivePlayerAmmo(long guid, long weapon, long ammo) {
-		return API::instance->GivePlayerAmmo(guid, weapon, ammo);
+	EXPORT bool GivePlayerWeapon(long playerid, long weapon, long ammo) {
+		return API::instance->GivePlayerWeapon(playerid, weapon, ammo);
+	}
+	EXPORT bool GivePlayerAmmo(long playerid, long weapon, long ammo) {
+		return API::instance->GivePlayerAmmo(playerid, weapon, ammo);
+	}
+	EXPORT bool GivePlayerMoney(long playerid, long money) {
+		return API::instance->GivePlayerMoney(playerid, money);
+	}
+	EXPORT bool SetPlayerMoney(long playerid, long money) {
+		return API::instance->SetPlayerMoney(playerid, money);
+	}
+	EXPORT bool ResetPlayerMoney(long playerid) {
+		return API::instance->ResetPlayerMoney(playerid);
+	}
+	EXPORT long GetPlayerMoney(long playerid) {
+		return API::instance->GetPlayerMoney(playerid);
+	}
+	EXPORT bool SetPlayerModel(long playerid, long model) {
+		return API::instance->SetPlayerModel(playerid, model);
+	}
+	EXPORT long GetPlayerModel(long playerid) {
+		return API::instance->GetPlayerModel(playerid);
+	}
+	EXPORT void SetPlayerName(long playerid, const char* name) {
+		API::instance->SetPlayerName(playerid, name);
+	}
+	EXPORT void GetPlayerName(long playerid, char* sb) {
+		std::string name = API::instance->GetPlayerName(playerid);
+		strcpy(sb, name.c_str());
+	}
+	EXPORT bool SetPlayerHealth(long playerid, float health) {
+		return API::instance->SetPlayerHealth(playerid, health);
+	}
+	EXPORT float GetPlayerHealth(long playerid) {
+		return API::instance->GetPlayerHealth(playerid);
+	}
+	EXPORT bool SetPlayerArmour(long playerid, float armour) {
+		return API::instance->SetPlayerArmour(playerid, armour);
+	}
+	EXPORT float GetPlayerArmour(long playerid) {
+		return API::instance->GetPlayerArmour(playerid);
+	}
+	EXPORT bool SetPlayerColor(long playerid, unsigned int color) {
+		return API::instance->SetPlayerColor(playerid, color);
+	}
+	EXPORT unsigned int GetPlayerColor(long playerid) {
+		return API::instance->GetPlayerColor(playerid);
+	}
+	EXPORT void BroadcastClientMessage(const char* message, unsigned int color) {
+		API::instance->BroadcastClientMessage(message, color);
+	}
+	EXPORT bool SendClientMessage(long playerid, const char * message, unsigned int color) {
+		return API::instance->SendClientMessage(playerid, message, color);
+	}
+	EXPORT bool SetPlayerIntoVehicle(long playerid, unsigned long vehicle, char seat) {
+		return API::instance->SetPlayerIntoVehicle(playerid, vehicle, seat);
+	}
+	EXPORT void DisablePlayerHud(long playerid, bool disabled) {
+		API::instance->DisablePlayerHud(playerid, disabled);
+	}
+	EXPORT unsigned long GetPlayerGUID(long playerid) {
+		return API::instance->GetPlayerGUID(playerid);
 	}
 
 	// Vehicles
@@ -254,7 +308,7 @@ extern "C" {
 
 	// Markers
 	EXPORT unsigned long CreateMarkerForAll(float x, float y, float z, float height, float radius) {
-		return API::instance->CreateMarkerForPlayer(x, y, z, height, radius);
+		return API::instance->CreateMarkerForAll(x, y, z, height, radius);
 	}
 	EXPORT unsigned long CreateMarkerForPlayer(long playerid, float x, float y, float z, float height, float radius) {
 		return API::instance->CreateMarkerForPlayer(playerid, x, y, z, height, radius);
