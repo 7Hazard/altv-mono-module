@@ -114,7 +114,16 @@ namespace SharpOrange
 
         [DllImport("mono-module", EntryPoint = "GetVehicleRotation", CallingConvention = CallingConvention.Cdecl)]
         public static extern Vector3 GetVehicleRotation(ulong guid);
-        
+
+        [DllImport("mono-module", EntryPoint = "SetVehicleTyresBulletproof", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool SetVehicleTyresBulletproof(ulong guid, bool bulletproof);
+
+        [DllImport("mono-module", EntryPoint = "GetVehicleTyresBulletproof", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool GetVehicleTyresBulletproof(ulong guid);
+
+        [DllImport("mono-module", EntryPoint = "GetVehicleTyresBulletproof", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool[] HasVehicleCustomColours(ulong guid);
+
         [DllImport("mono-module", EntryPoint = "SetVehiclePrimaryColor", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool SetVehiclePrimaryColor(ulong guid, byte r, byte g, byte b);
         

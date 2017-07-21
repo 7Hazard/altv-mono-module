@@ -85,6 +85,17 @@ extern "C" {
 		Vector3 rot{ vector.fX, vector.fY, vector.fZ };
 		return rot;
 	}
+	EXPORT bool SetVehicleTyresBulletproof(unsigned long guid, bool bulletproof) {
+		return API::instance->SetVehicleTyresBulletproof(guid, bulletproof);
+	}
+	EXPORT bool GetVehicleTyresBulletproof(unsigned long guid) {
+		return API::instance->GetVehicleTyresBulletproof(guid);
+	}
+	EXPORT bool HasVehicleCustomColours(unsigned long guid) {
+		bool colors[2];
+		API::instance->HasVehicleCustomColours(guid, &colors[0], &colors[1]);
+		return colors;
+	}
 	EXPORT bool SetVehiclePrimaryColor(unsigned long guid, unsigned char r, unsigned char g, unsigned char b) {
 		return API::instance->SetVehicleCustomPrimaryColor(guid, r, g, b);
 	}
