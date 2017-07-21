@@ -58,41 +58,41 @@ namespace SharpOrange
         }
 
         [DllImport("mono-module", EntryPoint = "KickPlayer", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void KickPlayer(long playerid);
+        public static extern void KickPlayer(long guid);
 
         [DllImport("mono-module", EntryPoint = "KickPlayer", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void KickPlayer(long playerid, string reason);
+        public static extern void KickPlayer(long guid, string reason);
 
-        public static string GetPlayerName(long playerid)
+        public static string GetPlayerName(long guid)
         {
             StringBuilder sb = new StringBuilder();
-            API.GetPlayerName(playerid, sb);
+            API.GetPlayerName(guid, sb);
             return sb.ToString();
         }
 
         [DllImport("mono-module", EntryPoint = "SetPlayerName", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SetPlayerName(long playerid, string name);
+        public static extern void SetPlayerName(long guid, string name);
 
         [DllImport("mono-module", EntryPoint = "SetPlayerPosition", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SetPlayerPosition(long playerid, float x, float y, float z);
+        public static extern void SetPlayerPosition(long guid, float x, float y, float z);
 
         [DllImport("mono-module", EntryPoint = "GetPlayerPosition", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Vector3 GetPlayerPosition(long playerid);
+        public static extern Vector3 GetPlayerPosition(long guid);
 
         [DllImport("mono-module", EntryPoint = "SetPlayerModel", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SetPlayerModel(long playerid, long model);
+        public static extern bool SetPlayerModel(long guid, long model);
 
         [DllImport("mono-module", EntryPoint = "GetPlayerModel", CallingConvention = CallingConvention.Cdecl)]
-        public static extern long GetPlayerModel(long playerid);
+        public static extern long GetPlayerModel(long guid);
 
         [DllImport("mono-module", EntryPoint = "RemovePlayerWeapons", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool RemovePlayerWeapons(long playerid);
+        public static extern bool RemovePlayerWeapons(long guid);
 
         [DllImport("mono-module", EntryPoint = "GivePlayerWeapon", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool GivePlayerWeapon(long playerid, long weapon, long ammo);
+        public static extern bool GivePlayerWeapon(long guid, long weapon, long ammo);
 
         [DllImport("mono-module", EntryPoint = "GivePlayerAmmo", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool GivePlayerAmmo(long playerid, long weapon, long ammo);
+        public static extern bool GivePlayerAmmo(long guid, long weapon, long ammo);
 
         // Vehicles
         public static Dictionary<ulong, Vehicle> Vehicles;
@@ -101,53 +101,157 @@ namespace SharpOrange
         public static extern ulong CreateVehicle(VehicleHash vehicle, float x, float y, float z);
 
         [DllImport("mono-module", EntryPoint = "DeleteVehicle", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool DeleteVehicle(ulong vehicleid);
+        public static extern bool DeleteVehicle(ulong guid);
 
         [DllImport("mono-module", EntryPoint = "SetVehiclePosition", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SetVehiclePosition(ulong vehicleid, float x, float y, float z);
+        public static extern bool SetVehiclePosition(ulong guid, float x, float y, float z);
 
         [DllImport("mono-module", EntryPoint = "GetVehiclePosition", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Vector3 GetVehiclePosition(ulong vehicleid);
+        public static extern Vector3 GetVehiclePosition(ulong guid);
 
         [DllImport("mono-module", EntryPoint = "SetVehicleRotation", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SetVehicleRotation(ulong vehicleid, float rx, float ry, float rz);
+        public static extern bool SetVehicleRotation(ulong guid, float rx, float ry, float rz);
 
         [DllImport("mono-module", EntryPoint = "GetVehicleRotation", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Vector3 GetVehicleRotation(ulong vehicleid);
+        public static extern Vector3 GetVehicleRotation(ulong guid);
         
         [DllImport("mono-module", EntryPoint = "SetVehiclePrimaryColor", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SetVehiclePrimaryColor(ulong vehicleid, byte r, byte g, byte b);
+        public static extern bool SetVehiclePrimaryColor(ulong guid, byte r, byte g, byte b);
         
         [DllImport("mono-module", EntryPoint = "GetVehiclePrimaryColor", CallingConvention = CallingConvention.Cdecl)]
-        public static extern RGB GetVehiclePrimaryColor(ulong vehicleid);
+        public static extern RGB GetVehiclePrimaryColor(ulong guid);
+        // TBT START
         [DllImport("mono-module", EntryPoint = "SetVehicleSecondaryColor", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SetVehicleSecondaryColor(ulong vehicleid, byte r, byte g, byte b);
+        public static extern bool SetVehicleSecondaryColor(ulong guid, byte r, byte g, byte b);
         
-        [DllImport("mono-module", EntryPoint = "GetVehiclePrimaryColor", CallingConvention = CallingConvention.Cdecl)]
-        public static extern RGB GetVehicleSecondaryColor(ulong vehicleid);
+        [DllImport("mono-module", EntryPoint = "GetVehicleSecondaryColor", CallingConvention = CallingConvention.Cdecl)]
+        public static extern RGB GetVehicleSecondaryColor(ulong guid);
 
         [DllImport("mono-module", EntryPoint = "SetVehicleEngineStatus", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SetVehicleEngineStatus(ulong vehicleid, bool status, bool locked);
+        public static extern bool SetVehicleEngineStatus(ulong guid, bool status, bool locked);
 
         [DllImport("mono-module", EntryPoint = "GetVehicleEngineStatus", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool GetVehicleEngineStatus(ulong vehicleid);
+        public static extern bool GetVehicleEngineStatus(ulong guid);
 
         [DllImport("mono-module", EntryPoint = "SetVehicleLocked", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SetVehicleLocked(ulong vehicleid, bool locked);
+        public static extern bool SetVehicleLocked(ulong guid, bool locked);
 
         [DllImport("mono-module", EntryPoint = "IsVehicleLocked", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool IsVehicleLocked(ulong vehicleid);
+        public static extern bool IsVehicleLocked(ulong guid);
 
         [DllImport("mono-module", EntryPoint = "SetVehicleBodyHealth", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SetVehicleBodyHealth(ulong vehicleid, float health);
+        public static extern bool SetVehicleBodyHealth(ulong guid, float health);
 
         [DllImport("mono-module", EntryPoint = "SetVehicleEngineHealth", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SetVehicleEngineHealth(ulong vehicleid, float health);
+        public static extern bool SetVehicleEngineHealth(ulong guid, float health);
 
         [DllImport("mono-module", EntryPoint = "SetVehicleTankHealth", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SetVehicleTankHealth(ulong vehicleid, float health);
+        public static extern bool SetVehicleTankHealth(ulong guid, float health);
 
         [DllImport("mono-module", EntryPoint = "SetVehicleTankHealth", CallingConvention = CallingConvention.Cdecl)]
-        public static extern VehicleHealth GetVehicleHealth(ulong vehicleid);
+        public static extern VehicleHealth GetVehicleHealth(ulong guid);
+
+        [DllImport("mono-module", EntryPoint = "SetVehicleNumberPlate", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool SetVehicleNumberPlate(ulong guid, string text);
+
+        [DllImport("mono-module", EntryPoint = "GetVehicleNumberPlate", CallingConvention = CallingConvention.Cdecl)]
+        public static extern string GetVehicleNumberPlate(ulong guid);
+
+        [DllImport("mono-module", EntryPoint = "SetVehicleNumberPlateStyle", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool GetVehicleNumberPlateStyle(ulong guid, byte style);
+
+        [DllImport("mono-module", EntryPoint = "SetVehicleNumberPlateStyle", CallingConvention = CallingConvention.Cdecl)]
+        public static extern byte GetVehicleNumberPlateStyle(ulong guid);
+
+        [DllImport("mono-module", EntryPoint = "SetVehicleSirenState", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool SetVehicleSirenState(ulong guid, bool state);
+
+        [DllImport("mono-module", EntryPoint = "GetVehicleSirenState", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool GetVehicleSirenState(ulong guid);
+
+        [DllImport("mono-module", EntryPoint = "SetVehicleWheelColor", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool SetVehicleWheelColor(ulong guid, byte color);
+
+        [DllImport("mono-module", EntryPoint = "GetVehicleWheelColor", CallingConvention = CallingConvention.Cdecl)]
+        public static extern byte GetVehicleWheelColor(ulong guid);
+
+        [DllImport("mono-module", EntryPoint = "SetVehicleWheelType", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool SetVehicleWheelType(ulong guid, byte type);
+
+        [DllImport("mono-module", EntryPoint = "GetVehicleWheelType", CallingConvention = CallingConvention.Cdecl)]
+        public static extern byte GetVehicleWheelType(ulong guid);
+
+        [DllImport("mono-module", EntryPoint = "SetVehicleLights", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool SetVehicleLights(ulong guid, byte lightstate);
+
+        [DllImport("mono-module", EntryPoint = "GetVehicleLights", CallingConvention = CallingConvention.Cdecl)]
+        public static extern byte GetVehicleLights(ulong guid);
+
+        [DllImport("mono-module", EntryPoint = "GetVehicleDriver", CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint GetVehicleDriver(ulong guid);
+        
+        [DllImport("mono-module", EntryPoint = "GetVehicleDriver", CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint[] GetVehiclePassengers(ulong guid);
+        // TBT END
+
+        // Objects
+        [DllImport("mono-module", EntryPoint = "CreateObject", CallingConvention = CallingConvention.Cdecl)]
+        public static extern ulong CreateObject(long model, float x, float y, float z, float rx, float ry, float rz);
+
+        [DllImport("mono-module", EntryPoint = "DeleteObject", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool DeleteObject(ulong guid);
+
+        [DllImport("mono-module", EntryPoint = "CreatePickup", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool CreatePickup(PickupHash pickup, float x, float y, float z, float scale);
+
+        // 3D Texts
+        [DllImport("mono-module", EntryPoint = "Create3DText", CallingConvention = CallingConvention.Cdecl)]
+        public static extern ulong Create3DText(string text, float x, float y, float z, int color, int outColor, float fontSize);
+
+        [DllImport("mono-module", EntryPoint = "Create3DTextForPlayer", CallingConvention = CallingConvention.Cdecl)]
+        public static extern ulong Create3DTextForPlayer(long guid, string text, float x, float y, float z, int color, int outColor);
+
+        [DllImport("mono-module", EntryPoint = "Delete3DText", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool Delete3DText(ulong guid);
+
+        [DllImport("mono-module", EntryPoint = "Attach3DTextToPlayer", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool Attach3DTextToPlayer(ulong guid, long player, float x, float y, float z);
+
+        [DllImport("mono-module", EntryPoint = "Attach3DTextToVehicle", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool Attach3DTextToVehicle(ulong guid, ulong vehicle, float x, float y, float z);
+
+        // Blips
+        [DllImport("mono-module", EntryPoint = "CreateBlipForAll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern ulong CreateBlipForAll(string name, float x, float y, float z, float scale, int color, int sprite);
+
+        [DllImport("mono-module", EntryPoint = "CreateBlipForPlayer", CallingConvention = CallingConvention.Cdecl)]
+        public static extern ulong CreateBlipForPlayer(ulong guid, string name, float x, float y, float z, float scale, int color, int sprite);
+
+        [DllImport("mono-module", EntryPoint = "DeleteBlip", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void DeleteBlip(ulong guid);
+
+        [DllImport("mono-module", EntryPoint = "SetBlipColor", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void SetBlipColor(ulong guid, int color);
+
+        [DllImport("mono-module", EntryPoint = "SetBlipScale", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void SetBlipScale(ulong guid, float scale);
+
+        [DllImport("mono-module", EntryPoint = "SetBlipRoute", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void SetBlipRoute(ulong guid, bool route);
+
+        [DllImport("mono-module", EntryPoint = "SetBlipSprite", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void SetBlipSprite(ulong guid, int sprite);
+
+        [DllImport("mono-module", EntryPoint = "SetBlipName", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void SetBlipName(ulong guid, string name);
+
+        [DllImport("mono-module", EntryPoint = "SetBlipAsShortRange", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void SetBlipAsShortRange(ulong guid, bool shortrange);
+
+        [DllImport("mono-module", EntryPoint = "AttachBlipToPlayer", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void AttachBlipToPlayer(ulong guid, long player);
+
+        [DllImport("mono-module", EntryPoint = "AttachBlipToVehicle", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void AttachBlipToVehicle(ulong guid, ulong vehicle);
     }
 }

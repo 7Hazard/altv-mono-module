@@ -376,6 +376,8 @@ public:
 	virtual bool GetVehicleWheelColor(unsigned long vehid, unsigned char *WheelColor) = 0;
 	virtual bool SetVehicleWheelType(unsigned long vehid, unsigned char type) = 0;
 	virtual bool GetVehicleWheelType(unsigned long vehid, unsigned char *WheelType) = 0;
+	virtual bool SetVehicleLights(unsigned long vehid, unsigned char LightState) = 0;
+	virtual bool GetVehicleLights(unsigned long vehid, unsigned char *LightState) = 0;
 	virtual int GetVehicleDriver(unsigned long vehid) = 0;
 	virtual std::vector<unsigned int> GetVehiclePassengers(unsigned long vehid) = 0;
 
