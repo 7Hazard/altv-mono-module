@@ -91,12 +91,6 @@ extern "C" {
 	EXPORT bool SetPlayerArmour(long playerid, float armour) {
 		return API::instance->SetPlayerArmour(playerid, armour);
 	}
-	EXPORT float GetPlayerArmour(long playerid) {
-		return API::instance->GetPlayerArmour(playerid);
-	}
-	EXPORT bool SetPlayerColor(long playerid, unsigned int color) {
-		return API::instance->SetPlayerColor(playerid, color);
-	}
 	EXPORT unsigned int GetPlayerColor(long playerid) {
 		return API::instance->GetPlayerColor(playerid);
 	}
@@ -117,8 +111,8 @@ extern "C" {
 	}
 
 	// Vehicles
-	EXPORT unsigned long CreateVehicle(long vehicle, float x, float y, float z) {
-		return API::instance->CreateVehicle(vehicle, x, y, z, 0);
+	EXPORT unsigned long CreateVehicle(long vehicle, float x, float y, float z, float heading) {
+		return API::instance->CreateVehicle(vehicle, x, y, z, heading);
 	}
 	EXPORT bool DeleteVehicle(unsigned long guid) {
 		return API::instance->DeleteVehicle(guid);

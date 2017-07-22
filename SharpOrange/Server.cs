@@ -13,17 +13,33 @@ namespace SharpOrange
     public class Server
     {
         // Server/Console
+        /// <summary>
+        /// Dictionary/Map of loaded resources
+        /// </summary>
         public static Dictionary<string, object> LoadedResources = new Dictionary<string, object>();
-
+        /// <summary>
+        /// Print a server message
+        /// </summary>
+        /// <param name="text"></param>
         [DllImport("mono-module", EntryPoint = "Print", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Print(string text);
-
+        /// <summary>
+        /// Text (string) to hash (long)
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         [DllImport("mono-module", EntryPoint = "Hash", CallingConvention = CallingConvention.Cdecl)]
         public static extern long Hash(string text);
-
+        /// <summary>
+        /// Shut down the server
+        /// </summary>
         [DllImport("mono-module", EntryPoint = "Shutdown", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Shutdown();
-        
+        /// <summary>
+        /// Trigger a server event
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="args"></param>
         public unsafe static void TriggerEvent(string name, object[] args)
         {
             Task.Run(() =>
@@ -45,6 +61,9 @@ namespace SharpOrange
         }
 
         // Players
+        /// <summary>
+        /// Dictionary/Map of the currently connected Players
+        /// </summary>
         public static Dictionary<long, Player> Players;
 
         public static void KickPlayer(Player player)
@@ -126,13 +145,11 @@ namespace SharpOrange
 
         [DllImport("mono-module", EntryPoint = "GetPlayerArmour", CallingConvention = CallingConvention.Cdecl)]
         public static extern float GetPlayerArmour(long playerid);
-
-        [DllImport("mono-module", EntryPoint = "SetPlayerColor", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SetPlayerColor(long playerid, uint color);
-
-        [DllImport("mono-module", EntryPoint = "SetPlayerColor", CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint GetPlayerColor(long playerid);
-
+        /// <summary>
+        /// Broadcast client message to all players
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="color"></param>
         [DllImport("mono-module", EntryPoint = "SetPlayerColor", CallingConvention = CallingConvention.Cdecl)]
         public static extern void BroadcastClientMessage(string message, uint color);
 
@@ -158,10 +175,13 @@ namespace SharpOrange
         public static extern bool UnsetInfoMsg(long playerid);
 
         // Vehicles
+        /// <summary>
+        /// Dictionary/Map of Vehicles
+        /// </summary>
         public static Dictionary<ulong, Vehicle> Vehicles;
 
         [DllImport("mono-module", EntryPoint = "CreateVehicle", CallingConvention = CallingConvention.Cdecl)]
-        public static extern ulong CreateVehicle(VehicleHash vehicle, float x, float y, float z);
+        public static extern ulong CreateVehicle(VehicleHash vehicle, float x, float y, float z, float heading);
 
         [DllImport("mono-module", EntryPoint = "DeleteVehicle", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool DeleteVehicle(ulong vehicleid);
@@ -326,6 +346,11 @@ namespace SharpOrange
         public static extern void AttachBlipToVehicle(ulong guid, ulong vehicle);
 
         // Markers
+        /// <summary>
+        /// Dictionary/Map of markers for the GTA V map
+        /// </summary>
+        public static Dictionary<ulong, Marker> Markers;
+
         [DllImport("mono-module", EntryPoint = "CreateMarkerForAll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong CreateMarkerForAll(float x, float y, float z, float height, float radius);
 

@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 
 namespace SharpOrange.Objects
 {
+    /// <summary>
+    /// Vehicle object which is automatically added to Server.Vehicles dictionary.
+    /// </summary>
     public class Vehicle : IDisposable
     {
+        /// <summary>
+        /// Creates a new Vehicle
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <param name="position"></param>
         public Vehicle(VehicleHash vehicle, Vector3 position)
         {
-            ID = Server.CreateVehicle(vehicle, position.x, position.y, position.z);
+            ID = Server.CreateVehicle(vehicle, position.x, position.y, position.z, 0);
             if (ID == 0)
             {
                 SharpOrange.Print($"Failed to create vehicle with model {vehicle}!");
@@ -25,6 +33,9 @@ namespace SharpOrange.Objects
                 SharpOrange.Print($"Failed to delete vehicle! ID: '{ID}', Model: '{Model}'");
             Server.Vehicles.Remove(ID);
         }
+        /// <summary>
+        /// Proper vehicle disposition, prevents Garbage collection to wrongfully dispose it
+        /// </summary>
         public void Dispose()
         {
             GC.SuppressFinalize(this);
@@ -32,9 +43,17 @@ namespace SharpOrange.Objects
                 SharpOrange.Print($"Failed to delete vehicle! ID: '{ID}', Model: '{Model}'");
             Server.Vehicles.Remove(ID);
         }
-
+        /// <summary>
+        /// Vehicle ID used for unmanaged usage
+        /// </summary>
         public ulong ID { get; }
+        /// <summary>
+        /// Model of the vehicle
+        /// </summary>
         public VehicleHash Model { get; }
+        /// <summary>
+        /// Get/Set Vehicle position
+        /// </summary>
         public Vector3 Position
         {
             get
@@ -47,7 +66,9 @@ namespace SharpOrange.Objects
                     SharpOrange.Error($"Failed to set Position of vehicle '{ID}'!");
             }
         }
-
+        /// <summary>
+        /// Set Yaw, Pitch and Roll
+        /// </summary>
         public Vector3 Rotation
         {
             get
@@ -60,7 +81,9 @@ namespace SharpOrange.Objects
                     SharpOrange.Error($"Failed to set Rotation of vehicle '{ID}'!");
             }
         }
-
+        /// <summary>
+        /// Get/Set lock state of vehicle
+        /// </summary>
         public bool Locked
         {
             get
@@ -73,7 +96,9 @@ namespace SharpOrange.Objects
                     SharpOrange.Error($"Failed to Lock vehicle ID '{ID}'!");
             }
         }
-
+        /// <summary>
+        /// Get/Set health of vehicle
+        /// </summary>
         public VehicleHealth Health
         {
             get
@@ -90,7 +115,9 @@ namespace SharpOrange.Objects
                     SharpOrange.Error($"Failed to set VehicleTankHealth of vehicle ID '{ID}'!");
             }
         }
-
+        /// <summary>
+        /// Get/Set Primary Color of Vehicle
+        /// </summary>
         public RGB PrimaryColor
         {
             get
@@ -103,7 +130,9 @@ namespace SharpOrange.Objects
                     SharpOrange.Error($"Failed to set PrimaryColor of vehicle '{ID}'!");
             }
         }
-
+        /// <summary>
+        /// Get/Set Secondary Color of Vehicle
+        /// </summary>
         public RGB SecondaryColor
         {
             get

@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <DocumentationFile>..\bin\SharpOrange\SharpOrange.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -48,6 +49,7 @@
     <Compile Include="API.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Events.cs" />
+    <Compile Include="Objects\Marker.cs" />
     <Compile Include="Objects\RGB.cs" />
     <Compile Include="Objects\Vehicle.cs" />
     <Compile Include="Objects\VehicleHealth.cs" />
@@ -58,7 +60,11 @@
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="Vsxmd">
+      <Version>1.2.0</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetPath)" "$(SolutionDir)Server\modules\$(SolutionName)\$(TargetFileName)"</PostBuildEvent>
