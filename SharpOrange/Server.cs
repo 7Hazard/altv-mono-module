@@ -181,7 +181,7 @@ namespace SharpOrange
         public static Dictionary<ulong, Vehicle> Vehicles;
 
         [DllImport("mono-module", EntryPoint = "CreateVehicle", CallingConvention = CallingConvention.Cdecl)]
-        public static extern ulong CreateVehicle(VehicleHash vehicle, float x, float y, float z, float heading);
+        public static extern ulong CreateVehicle(long vehicle, float x, float y, float z, float heading);
 
         [DllImport("mono-module", EntryPoint = "DeleteVehicle", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool DeleteVehicle(ulong vehicleid);
@@ -204,7 +204,7 @@ namespace SharpOrange
         [DllImport("mono-module", EntryPoint = "GetVehicleTyresBulletproof", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool GetVehicleTyresBulletproof(ulong vehicleid);
 
-        [DllImport("mono-module", EntryPoint = "GetVehicleTyresBulletproof", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("mono-module", EntryPoint = "HasVehicleCustomColours", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool[] HasVehicleCustomColours(ulong vehicleid);
 
         [DllImport("mono-module", EntryPoint = "SetVehiclePrimaryColor", CallingConvention = CallingConvention.Cdecl)]
@@ -250,7 +250,7 @@ namespace SharpOrange
         public static extern string GetVehicleNumberPlate(ulong vehicleid);
 
         [DllImport("mono-module", EntryPoint = "SetVehicleNumberPlateStyle", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool GetVehicleNumberPlateStyle(ulong vehicleid, byte style);
+        public static extern bool SetVehicleNumberPlateStyle(ulong vehicleid, byte style);
 
         [DllImport("mono-module", EntryPoint = "SetVehicleNumberPlateStyle", CallingConvention = CallingConvention.Cdecl)]
         public static extern byte GetVehicleNumberPlateStyle(ulong vehicleid);
@@ -286,16 +286,23 @@ namespace SharpOrange
         public static extern uint[] GetVehiclePassengers(ulong vehicleid);
 
         // Objects
+        /// <summary>
+        /// Dictionary of holo texts
+        /// </summary>
+        public static Dictionary<ulong, GTAObject> GTAObjects;
+
         [DllImport("mono-module", EntryPoint = "CreateObject", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong CreateObject(long model, float x, float y, float z, float rx, float ry, float rz);
 
         [DllImport("mono-module", EntryPoint = "DeleteObject", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool DeleteObject(ulong guid);
 
-        [DllImport("mono-module", EntryPoint = "CreatePickup", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool CreatePickup(PickupHash pickup, float x, float y, float z, float scale);
-
         // 3D Texts
+        /// <summary>
+        /// Dictionary of holo texts
+        /// </summary>
+        public static Dictionary<ulong, HoloText> HoloTexts;
+
         [DllImport("mono-module", EntryPoint = "Create3DText", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong Create3DText(string text, float x, float y, float z, int color, int outColor, float fontSize);
 
@@ -306,17 +313,22 @@ namespace SharpOrange
         public static extern bool Delete3DText(ulong guid);
 
         [DllImport("mono-module", EntryPoint = "Attach3DTextToPlayer", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool Attach3DTextToPlayer(ulong guid, long player, float x, float y, float z);
+        public static extern bool Attach3DTextToPlayer(ulong guid, long player, float pitch, float yaw, float roll);
 
         [DllImport("mono-module", EntryPoint = "Attach3DTextToVehicle", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool Attach3DTextToVehicle(ulong guid, ulong vehicle, float x, float y, float z);
+        public static extern bool Attach3DTextToVehicle(ulong guid, ulong vehicle, float pitch, float yaw, float roll);
 
         // Blips
+        /// <summary>
+        /// Dictionary of Blips
+        /// </summary>
+        public static Dictionary<ulong, Blip> Blips;
+
         [DllImport("mono-module", EntryPoint = "CreateBlipForAll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong CreateBlipForAll(string name, float x, float y, float z, float scale, int color, int sprite);
 
         [DllImport("mono-module", EntryPoint = "CreateBlipForPlayer", CallingConvention = CallingConvention.Cdecl)]
-        public static extern ulong CreateBlipForPlayer(ulong guid, string name, float x, float y, float z, float scale, int color, int sprite);
+        public static extern ulong CreateBlipForPlayer(long playerid, string name, float x, float y, float z, float scale, int color, int sprite);
 
         [DllImport("mono-module", EntryPoint = "DeleteBlip", CallingConvention = CallingConvention.Cdecl)]
         public static extern void DeleteBlip(ulong guid);
@@ -359,5 +371,9 @@ namespace SharpOrange
 
         [DllImport("mono-module", EntryPoint = "DeleteMarker", CallingConvention = CallingConvention.Cdecl)]
         public static extern void DeleteMarker(ulong guid);
+
+        // Misc
+        [DllImport("mono-module", EntryPoint = "CreatePickup", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool CreatePickup(long pickup, float x, float y, float z, float scale);
     }
 }

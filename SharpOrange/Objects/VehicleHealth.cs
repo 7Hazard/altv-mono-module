@@ -3,6 +3,12 @@
     public class VehicleHealth
     {
         public float body, engine, tank;
+        /// <summary>
+        /// Create a VehicleHealth info object
+        /// </summary>
+        /// <param name="body"></param>
+        /// <param name="engine"></param>
+        /// <param name="tank"></param>
         public VehicleHealth(float body, float engine, float tank)
         {
             this.body = body;

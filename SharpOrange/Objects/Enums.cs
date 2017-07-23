@@ -4,6 +4,9 @@ using System.Text;
 
 namespace SharpOrange.Objects
 {
+    /// <summary>
+    /// Enum for Vehicle hashes
+    /// </summary>
     public enum VehicleHash
     {
         Bagger = -2140431165,
@@ -507,6 +510,9 @@ namespace SharpOrange.Objects
         Rocoto = 2136773105
     }
 
+    /// <summary>
+    /// Enum for Weapon hashes
+    /// </summary>
     public enum WeaponHash
     {
         CarbineRifle = -2084633992,
@@ -586,6 +592,9 @@ namespace SharpOrange.Objects
         CombatMG = 2144741730
     }
 
+    /// <summary>
+    /// Enum for Pickup Hashes
+    /// </summary>
     public enum PickupHash
     {
         PortablePackage = -2136239332,

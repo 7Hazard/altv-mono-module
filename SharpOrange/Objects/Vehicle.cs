@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace SharpOrange.Objects
 {
-    /// <summary>
-    /// Vehicle object which is automatically added to Server.Vehicles dictionary.
-    /// </summary>
     public class Vehicle : IDisposable
     {
         /// <summary>
@@ -18,7 +15,7 @@ namespace SharpOrange.Objects
         /// <param name="position"></param>
         public Vehicle(VehicleHash vehicle, Vector3 position)
         {
-            ID = Server.CreateVehicle(vehicle, position.x, position.y, position.z, 0);
+            ID = Server.CreateVehicle((long)vehicle, position.x, position.y, position.z, 0);
             if (ID == 0)
             {
                 SharpOrange.Print($"Failed to create vehicle with model {vehicle}!");
@@ -34,7 +31,7 @@ namespace SharpOrange.Objects
             Server.Vehicles.Remove(ID);
         }
         /// <summary>
-        /// Proper vehicle disposition, prevents Garbage collection to wrongfully dispose it
+        /// Proper vehicle disposition, prevents garbage collector to wrongfully dispose it
         /// </summary>
         public void Dispose()
         {
@@ -67,7 +64,7 @@ namespace SharpOrange.Objects
             }
         }
         /// <summary>
-        /// Set Yaw, Pitch and Roll
+        /// Set Pitch, Yaw and Roll
         /// </summary>
         public Vector3 Rotation
         {
@@ -116,7 +113,7 @@ namespace SharpOrange.Objects
             }
         }
         /// <summary>
-        /// Get/Set Primary Color of Vehicle
+        /// Get/Set primary color of vehicle
         /// </summary>
         public RGB PrimaryColor
         {
@@ -131,7 +128,7 @@ namespace SharpOrange.Objects
             }
         }
         /// <summary>
-        /// Get/Set Secondary Color of Vehicle
+        /// Get/Set secondary color of vehicle
         /// </summary>
         public RGB SecondaryColor
         {
@@ -143,6 +140,114 @@ namespace SharpOrange.Objects
             {
                 if (!Server.SetVehicleSecondaryColor(ID, value.r, value.g, value.b))
                     SharpOrange.Error($"Failed to set PrimaryColor of vehicle '{ID}'!");
+            }
+        }
+        /// <summary>
+        /// Get/Set bulletproof tires to vehicle
+        /// </summary>
+        public bool BulletproofTires
+        {
+            get
+            {
+                return Server.GetVehicleTyresBulletproof(ID);
+            }
+            set
+            {
+                if (!Server.SetVehicleTyresBulletproof(ID, value))
+                    SharpOrange.Print($"Failed to set Bulletproof Tires to Vehicle '{ID}'!");
+            }
+        }
+        /// <summary>
+        /// Get/Set license/number plate style of vehicle
+        /// </summary>
+        public byte PlateStyle
+        {
+            get
+            {
+                return Server.GetVehicleNumberPlateStyle(ID);
+            }
+            set
+            {
+                if (!Server.SetVehicleNumberPlateStyle(ID, value))
+                    SharpOrange.Print($"Failed to set Plate Style of Vehicle '{ID}'!");
+            }
+        }
+        /// <summary>
+        /// Get/Set license/number plate content of vehicle
+        /// </summary>
+        public string Plate
+        {
+            get
+            {
+                return Server.GetVehicleNumberPlate(ID);
+            }
+            set
+            {
+                if (!Server.SetVehicleNumberPlate(ID, value))
+                    SharpOrange.Print($"Failed to set Plate content of Vehicle '{ID}'!");
+            }
+        }
+        /// <summary>
+        /// Get/Set siren state On/Off (True/False)
+        /// </summary>
+        public bool Sirens
+        {
+            get
+            {
+                return Server.GetVehicleSirenState(ID);
+            }
+            set
+            {
+                if (!Server.SetVehicleSirenState(ID, value))
+                    SharpOrange.Print($"Failed to set Sirens State of Vehicle '{ID}'!");
+            }
+        }
+        /// <summary>
+        /// Get/Set vehicle lights state
+        /// </summary>
+        public byte Lights
+        {
+            get
+            {
+                return Server.GetVehicleLights(ID);
+            }
+            set
+            {
+                if(!Server.SetVehicleLights(ID, value))
+                    SharpOrange.Print($"Failed to set Lights of Vehicle '{ID}'!");
+            }
+        }
+        /// <summary>
+        /// Get/Set the vehicle driver
+        /// </summary>
+        public Player Driver
+        {
+            get
+            {
+                Server.Players.TryGetValue(Server.GetVehicleDriver(ID), out Player player);
+                return player;
+            }
+            set
+            {
+                if (!Server.SetPlayerIntoVehicle(value.ID, ID, '0'))
+                    SharpOrange.Print($"Failed to set Driver of Vehicle '{ID}'!");
+            }
+        }
+        /// <summary>
+        /// Returns passengers in a List of Players
+        /// </summary>
+        public List<Player> Passengers
+        {
+            get
+            {
+                List<Player> passengers = new List<Player>();
+                uint[] playerids = Server.GetVehiclePassengers(ID);
+                foreach(uint playerid in playerids)
+                {
+                    Server.Players.TryGetValue(playerid, out Player player);
+                    passengers.Add(player);
+                }
+                return passengers;
             }
         }
     }

@@ -15,7 +15,10 @@ namespace SharpOrange
         {
             Server.Players = new Dictionary<long, Player>();
             Server.Vehicles = new Dictionary<ulong, Vehicle>();
+            Server.Blips = new Dictionary<ulong, Blip>();
             Server.Markers = new Dictionary<ulong, Marker>();
+            Server.HoloTexts = new Dictionary<ulong, HoloText>();
+            Server.GTAObjects = new Dictionary<ulong, GTAObject>();
             Print("Module successfully initialized");
         }
 

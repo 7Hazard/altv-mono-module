@@ -18,7 +18,9 @@ namespace SharpOrange.Objects
         {
             Server.Players.Remove(ID);
         }
-
+        /// <summary>
+        /// USE KICK METHOD AND NOT THIS!
+        /// </summary>
         public void Dispose()
         {
             GC.SuppressFinalize(this);
@@ -47,21 +49,6 @@ namespace SharpOrange.Objects
             }
         }
         /// <summary>
-        /// Get/Set the heading of the player
-        /// </summary>
-        public float Heading
-        {
-            get
-            {
-                return Server.GetPlayerHeading(ID);
-            }
-            set
-            {
-                if (!Server.SetPlayerHeading(ID, value))
-                    SharpOrange.Print($"Failed to set Heading for the player '{Name}' ({ID})!");
-            }
-        }
-        /// <summary>
         /// Get/Set position of the player
         /// </summary>
         public Vector3 Position
@@ -73,6 +60,21 @@ namespace SharpOrange.Objects
             set
             {
                 Server.SetPlayerPosition(ID, value.x, value.y, value.z);
+            }
+        }
+        /// <summary>
+        /// Get/Set the Z rotation/heading of the player
+        /// </summary>
+        public float Rotation
+        {
+            get
+            {
+                return Server.GetPlayerHeading(ID);
+            }
+            set
+            {
+                if (!Server.SetPlayerHeading(ID, value))
+                    SharpOrange.Print($"Failed to set Heading for the player '{Name}' ({ID})!");
             }
         }
         /// <summary>
@@ -232,29 +234,28 @@ namespace SharpOrange.Objects
         /// </summary>
         public bool HasInfoMessage { get; internal set; }
         /// <summary>
-        /// Set the info message for the player
+        /// Set InfoMessage, set to null, string.Empty or "" to Unset
         /// </summary>
-        /// <param name="message"></param>
-        public void SetInfoMessage(string message)
+        public string InfoMessage
         {
-            if (!Server.SetInfoMsg(ID, message))
+            set
             {
-                SharpOrange.Print($"Failed to Set Info Message to {Name} ({ID})!");
-                return;
+                if (value == null || value == string.Empty || value == "")
+                {
+                    if (!Server.UnsetInfoMsg(ID))
+                    {
+                        SharpOrange.Print($"Failed to unset Info Message to {Name} ({ID})!");
+                        return;
+                    }
+                    HasInfoMessage = false;
+                }
+                if (!Server.SetInfoMsg(ID, value))
+                {
+                    SharpOrange.Print($"Failed to Set Info Message to {Name} ({ID})!");
+                    return;
+                }
+                HasInfoMessage = true;
             }
-            HasInfoMessage = true;
-        }
-        /// <summary>
-        /// Unset the info message for the player
-        /// </summary>
-        public void UnsetInfoMessage()
-        {
-            if (!Server.UnsetInfoMsg(ID))
-            {
-                SharpOrange.Print($"Failed to unset Info Message to {Name} ({ID})!");
-                return;
-            }
-            HasInfoMessage = false;
         }
         /// <summary>
         /// Send a client message to the player

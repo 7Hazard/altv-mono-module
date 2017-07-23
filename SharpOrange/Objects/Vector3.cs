@@ -7,6 +7,12 @@ namespace SharpOrange.Objects
     public struct Vector3
     {
         public float x, y, z;
+        /// <summary>
+        /// Create a 3 value Vector, primarily used for positions and rotations
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
         public Vector3(float x, float y, float z)
         {
             this.x = x;
