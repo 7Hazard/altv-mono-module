@@ -166,21 +166,6 @@ namespace SharpOrange
                             return;
                         }
                 }
-                /// DEBUG START
-                /*try
-                {
-                    SharpOrange.Print($"Event '{e}' with args:\n");
-                    string msg = "";
-                    for (int i = 0; i < args.Length; i++)
-                        msg += $"Index '{i}': {args[i]}\n";
-                    Console.WriteLine(msg);
-
-                }
-                catch (Exception ex)
-                {
-                    SharpOrange.Print(ex.ToString());
-                }*/
-                /// DEBUG END
                 OnEvent(e, args);
             });
         }
