@@ -257,7 +257,7 @@ namespace SharpOrange.Objects
                 HasInfoMessage = true;
             }
         }
-        /// <summary>
+        /*/// <summary>
         /// Send a client message to the player
         /// </summary>
         /// <param name="message"></param>
@@ -266,7 +266,7 @@ namespace SharpOrange.Objects
         {
             if(!Server.SendClientMessage(ID, message, color))
                 SharpOrange.Print($"Failed to Send Message '{message}' to {Name} ({ID})!");
-        }
+        }*/
         /// <summary>
         /// Remove all weapons of the player
         /// </summary>

@@ -145,7 +145,7 @@ namespace SharpOrange
 
         [DllImport("mono-module", EntryPoint = "GetPlayerArmour", CallingConvention = CallingConvention.Cdecl)]
         public static extern float GetPlayerArmour(long playerid);
-        /// <summary>
+        /*/// <summary>
         /// Broadcast client message to all players
         /// </summary>
         /// <param name="message"></param>
@@ -154,7 +154,7 @@ namespace SharpOrange
         public static extern void BroadcastClientMessage(string message, uint color);
 
         [DllImport("mono-module", EntryPoint = "SendClientMessage", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SendClientMessage(long playerid, string message, uint color);
+        public static extern bool SendClientMessage(long playerid, string message, uint color);*/
 
         [DllImport("mono-module", EntryPoint = "SetPlayerIntoVehicle", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool SetPlayerIntoVehicle(long playerid, ulong vehicle, char seat);

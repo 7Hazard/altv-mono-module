@@ -10,12 +10,17 @@ namespace SharpOrange
 {
     public static class Event
     {
+        /// <summary>
+        /// Triggered before the server unloads/stops
+        /// </summary>
         public static event Action OnServerUnload = delegate { };
         static void TriggerOnServerUnload()
         {
             Task.Run(() => OnServerUnload());
         }
-
+        /// <summary>
+        /// Triggered every server tick
+        /// </summary>
         public static event Action OnTick = delegate { };
         static void TriggerOnTick()
         {
@@ -23,6 +28,9 @@ namespace SharpOrange
         }
 
         public delegate void OnServerCommandHandler(string command);
+        /// <summary>
+        /// Triggered when command has been input on server console
+        /// </summary>
         public static event OnServerCommandHandler OnServerCommand = delegate { };
         static void TriggerOnServerCommand(string command)
         {
@@ -30,12 +38,22 @@ namespace SharpOrange
         }
 
         public delegate void OnPlayerConnectHandler(Player player);
+        /// <summary>
+        /// Triggered when player connects
+        /// </summary>
         public static event OnPlayerConnectHandler OnPlayerConnect = delegate { };
 
         public delegate void OnPlayerDisconnectHandler(Player player, long reason);
+        /// <summary>
+        /// Triggered when player disconnects
+        /// </summary>
         public static event OnPlayerDisconnectHandler OnPlayerDisconnect = delegate { };
 
         public delegate void OnPlayerDeathHandler(Player player, Player killer, long weapon);
+        /// <summary>
+        /// Triggered right before the black screen is supposed to go away
+        /// Basically when a player respawn is requested
+        /// </summary>
         public static event OnPlayerDeathHandler OnPlayerDeath = delegate { };
 
         public delegate void OnPlayerRespawnHandler(Player player, Vector3 deathPosition);
@@ -43,16 +61,22 @@ namespace SharpOrange
 
         public delegate void OnPlayerEnterVehicleHandler(Player player, Vehicle vehicle);
         /// <summary>
-        /// Called when a player enters a vehicle
+        /// Triggered when a player enters a vehicle
         /// </summary>
         /// <param name="player"></param>
         /// <param name="vehicle"></param>
         public static event OnPlayerEnterVehicleHandler OnPlayerEnterVehicle = delegate { };
 
         public delegate void OnPlayerExitVehicleHandler(Player player, Vehicle vehicle);
+        /// <summary>
+        /// Triggered when a player exits the vehicle
+        /// </summary>
         public static event OnPlayerExitVehicleHandler OnPlayerExitVehicle = delegate { };
 
         public delegate void PlayerUpdateHandler(Player player);
+        /// <summary>
+        /// Triggered when a player has been updated
+        /// </summary>
         public static event PlayerUpdateHandler OnPlayerUpdate = delegate { };
         static void TriggerOnPlayerUpdate(uint playerid)
         {
@@ -64,6 +88,9 @@ namespace SharpOrange
         }
 
         public delegate void OnKeyStateChangedHandler(Player player, int keycode, bool isUp);
+        /// <summary>
+        /// Triggered when a players Key State has been changed/button has been pressed
+        /// </summary>
         public static event OnKeyStateChangedHandler OnKeyStateChanged = delegate { };
         static void TriggerOnKeyStateChanged(uint playerid, int keycode, bool isUp)
         {
@@ -75,6 +102,9 @@ namespace SharpOrange
         }
 
         public delegate void OnEventHandler(string eventname, object[] args);
+        /// <summary>
+        /// Triggered whenever any other client and server event is passed
+        /// </summary>
         public static event OnEventHandler OnEvent = delegate { };
         static void TriggerOnEvent(string e, object[] args)
         {
@@ -137,7 +167,7 @@ namespace SharpOrange
                         }
                 }
                 /// DEBUG START
-                try
+                /*try
                 {
                     SharpOrange.Print($"Event '{e}' with args:\n");
                     string msg = "";
@@ -149,7 +179,7 @@ namespace SharpOrange
                 catch (Exception ex)
                 {
                     SharpOrange.Print(ex.ToString());
-                }
+                }*/
                 /// DEBUG END
                 OnEvent(e, args);
             });

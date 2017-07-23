@@ -94,12 +94,12 @@ extern "C" {
 	EXPORT unsigned int GetPlayerColor(long playerid) {
 		return API::instance->GetPlayerColor(playerid);
 	}
-	EXPORT void BroadcastClientMessage(const char* message, unsigned int color) {
+	/*EXPORT void BroadcastClientMessage(const char* message, unsigned int color) {
 		API::instance->BroadcastClientMessage(message, color);
 	}
 	EXPORT bool SendClientMessage(long playerid, const char * message, unsigned int color) {
 		return API::instance->SendClientMessage(playerid, message, color);
-	}
+	}*/
 	EXPORT bool SetPlayerIntoVehicle(long playerid, unsigned long vehicle, char seat) {
 		return API::instance->SetPlayerIntoVehicle(playerid, vehicle, seat);
 	}
