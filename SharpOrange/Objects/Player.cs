@@ -216,7 +216,7 @@ namespace SharpOrange.Objects
         /// </summary>
         /// <param name="name"></param>
         /// <param name="args"></param>
-        public void TriggerEvent(string name, object[] args)
+        public void TriggerEvent(string name, params object[] args)
         {
             Client.TriggerEvent(ID, name, args);
         }

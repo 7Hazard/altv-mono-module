@@ -13,14 +13,12 @@ extern "C" {
 	}
 	EXPORT void ServerEvent(const char* e, EValue* args, int size) {
 		MValueList& values = GetMValueList(args, size);
-		APIPrint(values.at(0)->getString());
 		API::instance->ServerEvent(e, values);
 	}
 
 	// Clients
 	EXPORT void ClientEvent(long playerid, const char* e, EValue* args, int size) {
 		MValueList& values = GetMValueList(args, size);
-		APIPrint(values.at(0)->getString());
 		API::instance->ClientEvent(e, values, playerid);
 	}
 

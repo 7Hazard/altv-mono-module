@@ -12,7 +12,6 @@ extern "C"
 
 	EXPORT void OnModuleInit()
 	{
-		//Sleep(3000);
 		Mono::InitMono();
 	}
 

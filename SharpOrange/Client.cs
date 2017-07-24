@@ -12,22 +12,35 @@ namespace SharpOrange
 {
     public class Client
     {
-        public unsafe static void TriggerEvent(long playerid, string name, object[] args)
+        /// <summary>
+        /// Trigger Client event
+        /// </summary>
+        /// <param name="playerid"></param>
+        /// <param name="name"></param>
+        /// <param name="args"></param>
+        public unsafe static void TriggerEvent(long playerid, string name, params object[] args)
         {
             Task.Run(() =>
             {
                 int len = args.Length;
-                EValue[] values = new EValue[len];
-                for (int i = 0; i < len; i++)
+                if (len != 0)
                 {
-                    values[i] = new EValue(args[i]);
+                    EValue[] values = new EValue[len];
+                    for (int i = 0; i < len; i++)
+                    {
+                        values[i] = new EValue(args[i]);
+                    }
+                    fixed (EValue* mvalues = &values[0])
+                        API.ClientEvent(playerid, name, values, len);
+                    for (int i = 0; i < len; i++)
+                    {
+                        if (values[i].type == EType.M_STRING)
+                            Marshal.FreeCoTaskMem(values[i].value._string);
+                    }
                 }
-                fixed (EValue* mvalues = &values[0])
-                    API.ClientEvent(playerid, name, values, len);
-                for (int i = 0; i < len; i++)
+                else
                 {
-                    if (values[i].type == EType.M_STRING)
-                        Marshal.FreeCoTaskMem(values[i].value._string);
+                    API.ClientEvent(playerid, name, null, len);
                 }
             });
         }

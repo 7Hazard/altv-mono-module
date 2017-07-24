@@ -40,22 +40,29 @@ namespace SharpOrange
         /// </summary>
         /// <param name="name"></param>
         /// <param name="args"></param>
-        public unsafe static void TriggerEvent(string name, object[] args)
+        public unsafe static void TriggerEvent(string name, params object[] args)
         {
             Task.Run(() =>
             {
                 int len = args.Length;
-                EValue[] values = new EValue[len];
-                for (int i = 0; i < len; i++)
+                if (len != 0)
                 {
-                    values[i] = new EValue(args[i]);
+                    EValue[] values = new EValue[len];
+                    for (int i = 0; i < len; i++)
+                    {
+                        values[i] = new EValue(args[i]);
+                    }
+                    fixed (EValue* mvalues = &values[0])
+                        API.ServerEvent(name, values, len);
+                    for (int i = 0; i < len; i++)
+                    {
+                        if (values[i].type == EType.M_STRING)
+                            Marshal.FreeCoTaskMem(values[i].value._string);
+                    }
                 }
-                fixed (EValue* mvalues = &values[0])
-                    API.ServerEvent(name, values, len);
-                for (int i = 0; i < len; i++)
+                else
                 {
-                    if (values[i].type == EType.M_STRING)
-                        Marshal.FreeCoTaskMem(values[i].value._string);
+                    API.ServerEvent(name, null, len);
                 }
             });
         }

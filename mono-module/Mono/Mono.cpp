@@ -13,7 +13,7 @@ namespace Mono {
 #endif
 		Assembly = mono_domain_assembly_open(Domain, "modules/mono-module/SharpOrange.dll");
 		if (!Assembly) {
-			APIPrint("Assembly failed to load!");
+			APIPrint("SharpOrange assembly failed to load!");
 			return;
 		}
 		Image = mono_assembly_get_image(Assembly);
