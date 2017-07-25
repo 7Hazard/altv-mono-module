@@ -160,8 +160,8 @@ namespace SharpOrange
                     case "serverEvent":
                         {
                             Server.Players.TryGetValue((uint)args[1], out Player player);
-                            int arglen = args.Length - 2;
-                            object[] cliargs = new object[arglen];
+                            int arglen = args.Length;
+                            object[] cliargs = new object[arglen - 2];
                             for (int i = 2; i < arglen; i++)
                             {
                                 cliargs[i - 2] = args[i];
