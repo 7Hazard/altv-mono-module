@@ -28,7 +28,6 @@ namespace Mono {
 		Method::TriggerOnTick = mono_class_get_method_from_name(EventClass, "TriggerOnTick", 0);
 		Method::TriggerOnServerCommand = mono_class_get_method_from_name(EventClass, "TriggerOnServerCommand", 1);
 		Method::TriggerOnPlayerUpdate = mono_class_get_method_from_name(EventClass, "TriggerOnPlayerUpdate", 1);
-		Method::TriggerOnKeyStateChanged = mono_class_get_method_from_name(EventClass, "TriggerOnKeyStateChanged", 3);
 		Method::TriggerOnEvent = mono_class_get_method_from_name(EventClass, "TriggerOnEvent", 2);
 
 		MonoObject* exc = NULL;
@@ -55,11 +54,6 @@ namespace Mono {
 	void TriggerOnPlayerUpdate(long playerid) {
 		void* args[1]{ &playerid };
 		Invoke(Method::TriggerOnPlayerUpdate, NULL, args, true);
-	}
-
-	void TriggerOnKeyStateChanged(long playerid, int keycode, bool isUp) {
-		void* args[3]{ &playerid, &keycode, &isUp };
-		Invoke(Method::TriggerOnKeyStateChanged, NULL, args, true);
 	}
 
 	void TriggerOnEvent(const char* e, MValueList& mvlist) {

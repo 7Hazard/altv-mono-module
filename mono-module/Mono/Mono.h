@@ -4,6 +4,7 @@
 #include <mono/jit/jit.h>
 #include <mono/metadata/assembly.h>
 #include <mono/metadata/threads.h>
+//#include <mono/metadata/exception.h>
 
 namespace Method {
 	static MonoMethod* ctor;
@@ -12,7 +13,6 @@ namespace Method {
 	static MonoMethod* TriggerOnTick;
 	static MonoMethod* TriggerOnServerCommand;
 	static MonoMethod* TriggerOnPlayerUpdate;
-	static MonoMethod* TriggerOnKeyStateChanged;
 	static MonoMethod* TriggerOnEvent;
 }
 
@@ -34,7 +34,6 @@ namespace Mono {
 	void TriggerOnTick();
 	void TriggerOnServerCommand(const char* command);
 	void TriggerOnPlayerUpdate(long playerid);
-	void TriggerOnKeyStateChanged(long playerid, int keycode, bool isUp);
 	void TriggerOnEvent(const char* e, MValueList& mvlist);
 
 	void HandleEventArgs(MonoArray* earray, MValueList& args, int size);

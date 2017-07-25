@@ -52,7 +52,7 @@ browser:on("load", function()
 	chatloaded = true
 end)
 
-Server:On("KeyPress", function(key)
+UI:On("KeyPress", function(key)
 	if chatloaded and chatactive and not chatopened and key == Button.T then
 		chatopened = true
 		if timeout then

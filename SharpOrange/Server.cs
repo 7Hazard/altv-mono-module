@@ -14,9 +14,13 @@ namespace SharpOrange
     {
         // Server/Console
         /// <summary>
-        /// Dictionary/Map of loaded resources
+        /// List of loaded addons
         /// </summary>
-        public static Dictionary<string, object> LoadedResources = new Dictionary<string, object>();
+        public static List<string> Plugins { get; internal set; }
+        /// <summary>
+        /// List of loaded resources
+        /// </summary>
+        public static List<string> Resources { get; internal set; }
         /// <summary>
         /// Print a server message
         /// </summary>
@@ -24,17 +28,33 @@ namespace SharpOrange
         [DllImport("mono-module", EntryPoint = "Print", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Print(string text);
         /// <summary>
+        /// Load a plugin by name
+        /// </summary>
+        /// <param name="pluginName"></param>
+        public static void LoadPlugin(string pluginName)
+        {
+            SharpOrange.LoadPlugin(pluginName);
+        }
+        /// <summary>
+        /// Load a resource by name
+        /// </summary>
+        /// <param name="resourceName"></param>
+        public static void LoadResource(string resourceName)
+        {
+            SharpOrange.LoadResource(resourceName);
+        }
+        /// <summary>
+        /// Shut down the server
+        /// </summary>
+        [DllImport("mono-module", EntryPoint = "Shutdown", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Shutdown();
+        /// <summary>
         /// Text (string) to hash (long)
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
         [DllImport("mono-module", EntryPoint = "Hash", CallingConvention = CallingConvention.Cdecl)]
         public static extern long Hash(string text);
-        /// <summary>
-        /// Shut down the server
-        /// </summary>
-        [DllImport("mono-module", EntryPoint = "Shutdown", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Shutdown();
         /// <summary>
         /// Trigger a server event
         /// </summary>
@@ -53,7 +73,7 @@ namespace SharpOrange
                         values[i] = new EValue(args[i]);
                     }
                     fixed (EValue* mvalues = &values[0])
-                        API.ServerEvent(name, values, len);
+                        Orange.ServerEvent(name, values, len);
                     for (int i = 0; i < len; i++)
                     {
                         if (values[i].type == EType.M_STRING)
@@ -62,7 +82,7 @@ namespace SharpOrange
                 }
                 else
                 {
-                    API.ServerEvent(name, null, len);
+                    Orange.ServerEvent(name, null, len);
                 }
             });
         }
@@ -71,7 +91,7 @@ namespace SharpOrange
         /// <summary>
         /// Dictionary/Map of the currently connected Players
         /// </summary>
-        public static Dictionary<long, Player> Players;
+        public static Dictionary<long, Player> Players { get; internal set; }
 
         public static void KickPlayer(Player player)
         {
@@ -107,7 +127,7 @@ namespace SharpOrange
         public static string GetPlayerName(long playerid)
         {
             StringBuilder sb = new StringBuilder();
-            API.GetPlayerName(playerid, sb);
+            Orange.GetPlayerName(playerid, sb);
             return sb.ToString();
         }
 
@@ -296,7 +316,7 @@ namespace SharpOrange
         /// <summary>
         /// Dictionary of holo texts
         /// </summary>
-        public static Dictionary<ulong, GTAObject> GTAObjects;
+        public static Dictionary<ulong, GTAObject> GTAObjects { get; internal set; }
 
         [DllImport("mono-module", EntryPoint = "CreateObject", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong CreateObject(long model, float x, float y, float z, float rx, float ry, float rz);
@@ -308,7 +328,7 @@ namespace SharpOrange
         /// <summary>
         /// Dictionary of holo texts
         /// </summary>
-        public static Dictionary<ulong, HoloText> HoloTexts;
+        public static Dictionary<ulong, HoloText> HoloTexts { get; internal set; }
 
         [DllImport("mono-module", EntryPoint = "Create3DText", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong Create3DText(string text, float x, float y, float z, int color, int outColor, float fontSize);
@@ -329,7 +349,7 @@ namespace SharpOrange
         /// <summary>
         /// Dictionary of Blips
         /// </summary>
-        public static Dictionary<ulong, Blip> Blips;
+        public static Dictionary<ulong, Blip> Blips { get; internal set; }
 
         [DllImport("mono-module", EntryPoint = "CreateBlipForAll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong CreateBlipForAll(string name, float x, float y, float z, float scale, int color, int sprite);
@@ -368,7 +388,7 @@ namespace SharpOrange
         /// <summary>
         /// Dictionary/Map of markers for the GTA V map
         /// </summary>
-        public static Dictionary<ulong, Marker> Markers;
+        public static Dictionary<ulong, Marker> Markers { get; internal set; }
 
         [DllImport("mono-module", EntryPoint = "CreateMarkerForAll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong CreateMarkerForAll(float x, float y, float z, float height, float radius);

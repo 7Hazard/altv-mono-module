@@ -37,11 +37,6 @@ extern "C"
 		return true;
 	}
 
-	/*EXPORT char* OnHTTPRequest(const char* method, const char* url, const char* query, std::string body)
-	{
-		return ;
-	}*/
-
 	EXPORT bool OnServerCommand(std::string& command)
 	{
 		Mono::TriggerOnServerCommand(command.c_str());
@@ -51,12 +46,6 @@ extern "C"
 	EXPORT bool OnPlayerUpdate(unsigned int playerid)
 	{
 		Mono::TriggerOnPlayerUpdate(playerid);
-		return true;
-	}
-
-	EXPORT bool OnKeyStateChanged(unsigned int playerid, int keycode, bool isUp)
-	{
-		Mono::TriggerOnKeyStateChanged(playerid, keycode, isUp);
 		return true;
 	}
 

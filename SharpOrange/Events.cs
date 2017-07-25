@@ -87,19 +87,11 @@ namespace SharpOrange
             });
         }
 
-        public delegate void OnKeyStateChangedHandler(Player player, int keycode, bool isUp);
+        public delegate void OnClientEventHandler(Player player, string eventname, object[] args);
         /// <summary>
-        /// Triggered when a players Key State has been changed/button has been pressed
+        /// Triggered when a client event is passed
         /// </summary>
-        public static event OnKeyStateChangedHandler OnKeyStateChanged = delegate { };
-        static void TriggerOnKeyStateChanged(uint playerid, int keycode, bool isUp)
-        {
-            Task.Run(() =>
-            {
-                Server.Players.TryGetValue(playerid, out Player player);
-                OnKeyStateChanged(player, keycode, isUp);
-            });
-        }
+        public static event OnClientEventHandler OnClientEvent = delegate { };
 
         public delegate void OnEventHandler(string eventname, object[] args);
         /// <summary>
@@ -163,6 +155,18 @@ namespace SharpOrange
                             Server.Vehicles.TryGetValue((uint)args[1], out Vehicle vehicle);
                             player.Vehicle = null;
                             OnPlayerExitVehicle(player, vehicle);
+                            return;
+                        }
+                    case "serverEvent":
+                        {
+                            Server.Players.TryGetValue((uint)args[1], out Player player);
+                            int arglen = args.Length - 2;
+                            object[] cliargs = new object[arglen];
+                            for (int i = 2; i < arglen; i++)
+                            {
+                                cliargs[i - 2] = args[i];
+                            }
+                            OnClientEvent(player, (string)args[0], cliargs);
                             return;
                         }
                 }

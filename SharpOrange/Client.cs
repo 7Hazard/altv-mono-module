@@ -31,7 +31,7 @@ namespace SharpOrange
                         values[i] = new EValue(args[i]);
                     }
                     fixed (EValue* mvalues = &values[0])
-                        API.ClientEvent(playerid, name, values, len);
+                        Orange.ClientEvent(playerid, name, values, len);
                     for (int i = 0; i < len; i++)
                     {
                         if (values[i].type == EType.M_STRING)
@@ -40,7 +40,7 @@ namespace SharpOrange
                 }
                 else
                 {
-                    API.ClientEvent(playerid, name, null, len);
+                    Orange.ClientEvent(playerid, name, null, len);
                 }
             });
         }
