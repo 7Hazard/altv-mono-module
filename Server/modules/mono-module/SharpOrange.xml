@@ -474,6 +474,11 @@
             Set InfoMessage, set to null, string.Empty or "" to Unset
             </summary>
         </member>
+        <member name="P:SharpOrange.Objects.Player.Dimension">
+            <summary>
+            Get/Set the world dimension of player
+            </summary>
+        </member>
         <member name="M:SharpOrange.Objects.Player.RemoveWeapons">
             <summary>
             Remove all weapons of the player

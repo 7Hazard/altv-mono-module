@@ -316,6 +316,8 @@ public:
 	virtual size_t GetPlayerMoney(long playerid) = 0;
 	virtual bool SetPlayerModel(long playerid, long model) = 0;
 	virtual long GetPlayerModel(long playerid) = 0;
+	virtual bool SetPlayerWorld(long playerid, unsigned short world) = 0;
+	virtual unsigned short GetPlayerWorld(long playerid) = 0;
 	virtual bool SetPlayerName(long playerid, const char * name) = 0;
 	virtual std::string GetPlayerName(long playerid) = 0;
 	virtual bool SetPlayerHealth(long playerid, float health) = 0;

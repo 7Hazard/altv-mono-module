@@ -107,6 +107,12 @@ extern "C" {
 	EXPORT unsigned long GetPlayerGUID(long playerid) {
 		return API::instance->GetPlayerGUID(playerid);
 	}
+	EXPORT bool SetPlayerWorld(long playerid, unsigned short world) {
+		return API::instance->SetPlayerWorld(playerid, world);
+	}
+	EXPORT unsigned short GetPlayerWorld(long playerid) {
+		return API::instance->GetPlayerWorld(playerid);
+	}
 
 	// Vehicles
 	EXPORT unsigned long CreateVehicle(long vehicle, float x, float y, float z, float heading) {

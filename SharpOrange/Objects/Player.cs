@@ -7,9 +7,10 @@ namespace SharpOrange.Objects
 {
     public class Player : IDisposable
     {
-        internal Player(long playerid)
+        internal Player(long playerid, string ip)
         {
             ID = playerid;
+            IP = ip;
             ClientID = Server.GetPlayerGUID(playerid);
             Server.Players.Add(playerid, this);
         }
@@ -30,6 +31,7 @@ namespace SharpOrange.Objects
         /// The unique ID of the player for it's current session
         /// </summary>
         public long ID { get; }
+        public string IP { get; }
         /// <summary>
         /// The Client GUID
         /// </summary>
@@ -251,10 +253,27 @@ namespace SharpOrange.Objects
                 }
                 if (!Server.SetInfoMsg(ID, value))
                 {
-                    SharpOrange.Print($"Failed to Set Info Message to {Name} ({ID})!");
+                    SharpOrange.Print($"Failed to Set Info Message to '{Name}' ({ID})!");
                     return;
                 }
                 HasInfoMessage = true;
+            }
+        }
+        /// <summary>
+        /// Get/Set the world dimension of player
+        /// </summary>
+        public ushort Dimension
+        {
+            get
+            {
+                return Server.GetPlayerWorld(ID);
+            }
+            set
+            {
+                if(!Server.SetPlayerWorld(ID, value))
+                {
+                    SharpOrange.Print($"Failed to Set Dimension '{value}' to Player '{Name}' ({ID})!");
+                }
             }
         }
         /*/// <summary>

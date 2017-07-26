@@ -36,6 +36,7 @@
 - [Player](#T-SharpOrange-Objects-Player 'SharpOrange.Objects.Player')
   - [Armor](#P-SharpOrange-Objects-Player-Armor 'SharpOrange.Objects.Player.Armor')
   - [ClientID](#P-SharpOrange-Objects-Player-ClientID 'SharpOrange.Objects.Player.ClientID')
+  - [Dimension](#P-SharpOrange-Objects-Player-Dimension 'SharpOrange.Objects.Player.Dimension')
   - [HasInfoMessage](#P-SharpOrange-Objects-Player-HasInfoMessage 'SharpOrange.Objects.Player.HasInfoMessage')
   - [Health](#P-SharpOrange-Objects-Player-Health 'SharpOrange.Objects.Player.Health')
   - [ID](#P-SharpOrange-Objects-Player-ID 'SharpOrange.Objects.Player.ID')
@@ -463,6 +464,13 @@ Get/Set the player's armor
 ##### Summary
 
 The Client GUID
+
+<a name='P-SharpOrange-Objects-Player-Dimension'></a>
+### Dimension `property` [#](#P-SharpOrange-Objects-Player-Dimension 'Go To Here') [=](#contents 'Back To Contents')
+
+##### Summary
+
+Get/Set the world dimension of player
 
 <a name='P-SharpOrange-Objects-Player-HasInfoMessage'></a>
 ### HasInfoMessage `property` [#](#P-SharpOrange-Objects-Player-HasInfoMessage 'Go To Here') [=](#contents 'Back To Contents')

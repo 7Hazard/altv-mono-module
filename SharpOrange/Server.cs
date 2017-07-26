@@ -201,6 +201,12 @@ namespace SharpOrange
         [DllImport("mono-module", EntryPoint = "UnsetInfoMsg", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool UnsetInfoMsg(long playerid);
 
+        [DllImport("mono-module", EntryPoint = "SetPlayerWorld", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool SetPlayerWorld(long playerid, ushort world);
+
+        [DllImport("mono-module", EntryPoint = "GetPlayerWorld", CallingConvention = CallingConvention.Cdecl)]
+        public static extern ushort GetPlayerWorld(long playerid);
+
         // Vehicles
         /// <summary>
         /// Dictionary/Map of Vehicles

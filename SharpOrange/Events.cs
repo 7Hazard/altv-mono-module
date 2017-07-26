@@ -106,7 +106,7 @@ namespace SharpOrange
                 {
                     case "PlayerConnect":
                         {
-                            Player player = new Player((uint)args[0]);
+                            Player player = new Player((uint)args[0], (string)args[1]);
                             OnPlayerConnect(player);
                             return;
                         }

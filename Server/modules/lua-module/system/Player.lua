@@ -23,6 +23,8 @@ local setCoords = __orange__.SetPlayerCoords
 local getGUID = __orange__.GetPlayerGUID
 local setName = __orange__.SetPlayerName
 local kick = __orange__.KickPlayer
+local getWorld = __orange__.GetPlayerWorld
+local setWorld = __orange__.SetPlayerWorld
 
 Player = {}
 Player.__pool = pool
@@ -81,6 +83,10 @@ function Player:new(id)
 
 	function obj:getName()
 		return getName(self.id)
+	end
+
+	function obj:getWorld()
+		return getWorld(self.id)
 	end
 
 	function obj:getPosition()
@@ -156,6 +162,10 @@ function Player:new(id)
 
 	function obj:setPosition(x, y, z)
 		setCoords(self.id, x, y, z)
+	end
+
+	function obj:setWorld(world)
+		return setWorld(self.id, world)
 	end
 
 	function obj:trigger(event, ...)
