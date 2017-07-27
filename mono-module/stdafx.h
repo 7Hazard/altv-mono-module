@@ -4,11 +4,12 @@
 
 //#include <iostream>
 //#include <thread>
+//#include <string>
 
 #ifdef _WINDOWS
-#include <string>
+
 #else
-#include <string.h>
+
 #endif
 
 #include "Export.h"

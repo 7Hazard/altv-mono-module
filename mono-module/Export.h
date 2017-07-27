@@ -1,5 +1,7 @@
 #pragma once
 
+#include "stdafx.h"
+
 #ifdef _WINDOWS
 #define EXPORT __declspec(dllexport)
 #else
