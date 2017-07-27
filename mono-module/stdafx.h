@@ -7,7 +7,7 @@
 //#include <string>
 
 #ifdef _WINDOWS
-
+#include <string>
 #else
 #include <stdlib.h>
 #include <cstring>
