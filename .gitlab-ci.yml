@@ -10,6 +10,8 @@ mono-module:windows:
         name: "mono-module-${CI_COMMIT_REF_NAME:~0,8%}-win64"
         paths:
         - windows
+    tags:
+        - windows
     only:
     - tags
 
