@@ -11,11 +11,10 @@ if exist "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\Common7
   )
 )
 
-msbuild MonoOrange\MonoOrange.vcxproj /p:Configuration=Release;Platform=x64 /p:OutputPath=..\bin\
-msbuild SharpOrange\SharpOrange.csproj /p:Configuration=Release;Platform="Any CPU" /p:OutputPath=..\bin\
-copy bin\MonoOrange.dll windows\MonoOrange.dll
-copy MonoOrange\mono-2.0-sgen.dll windows\MonoOrange\bin\mono-2.0-sgen.dll
-copy bin\SharpOrange.dll windows\MonoOrange\SharpOrange.dll
-copy SharpOrange\Std-symbols.dll windows\MonoOrange\Std-symbols.dll
-
+msbuild mono-module\mono-module.vcxproj /p:Configuration=Release;Platform=x64 /p:OutputPath=..\bin\
+msbuild SharpOrange\SharpOrange.csproj /p:Configuration=Release;Platform="Any CPU";AllowUnsafeBlocks=true;SkipBuildPackage=false;RestorePackages=false /p:PreBuildEvent= /p:PostBuildEvent= /p:OutputPath=..\bin\
+mkdir windows
+copy mono-module\bin\mono-module.dll windows\mono-module.dll
+copy mono-module\mono-2.0-sgen.dll windows\mono-module\bin\mono-2.0-sgen.dll
+copy bin\SharpOrange.dll windows\mono-module\SharpOrange.dll
 :END

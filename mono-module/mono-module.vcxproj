@@ -15,7 +15,7 @@
     <ProjectGuid>{1150C999-B918-4AF3-A65B-FA4C972A46B7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>orangemodule</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <ProjectName>mono-module</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -112,8 +112,8 @@ copy /Y "$(ProjectDir)mono-2.0-sgen.dll" "$(SolutionDir)Server\modules\$(Project
       <AdditionalDependencies>mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(TargetPath)" "$(SolutionDir)Server\modules\mono-module.dll"
-copy /Y "$(ProjectDir)mono-2.0-sgen.dll" "$(SolutionDir)Server\modules\$(ProjectName)\bin\mono-2.0-sgen.dll"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
