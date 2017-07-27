@@ -10,7 +10,7 @@
 
 #else
 #include <stdlib.h>
-#include <string>
+#include <cstring>
 #endif
 
 #include "Export.h"
