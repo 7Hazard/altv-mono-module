@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Orange.cs" />
-    <Compile Include="Client.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="Objects\Blip.cs" />
     <Compile Include="Objects\HoloText.cs" />

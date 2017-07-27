@@ -93,6 +93,39 @@ namespace SharpOrange
         /// </summary>
         public static Dictionary<long, Player> Players { get; internal set; }
 
+        /// <summary>
+        /// Trigger Client event
+        /// </summary>
+        /// <param name="playerid"></param>
+        /// <param name="name"></param>
+        /// <param name="args"></param>
+        public unsafe static void TriggerEvent(long playerid, string name, params object[] args)
+        {
+            Task.Run(() =>
+            {
+                int len = args.Length;
+                if (len != 0)
+                {
+                    EValue[] values = new EValue[len];
+                    for (int i = 0; i < len; i++)
+                    {
+                        values[i] = new EValue(args[i]);
+                    }
+                    fixed (EValue* mvalues = &values[0])
+                        Orange.ClientEvent(playerid, name, values, len);
+                    for (int i = 0; i < len; i++)
+                    {
+                        if (values[i].type == EType.M_STRING)
+                            Marshal.FreeCoTaskMem(values[i].value._string);
+                    }
+                }
+                else
+                {
+                    Orange.ClientEvent(playerid, name, null, len);
+                }
+            });
+        }
+
         public static void KickPlayer(Player player)
         {
             KickPlayer(player.ID);

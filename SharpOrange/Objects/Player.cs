@@ -220,7 +220,7 @@ namespace SharpOrange.Objects
         /// <param name="args"></param>
         public void TriggerEvent(string name, params object[] args)
         {
-            Client.TriggerEvent(ID, name, args);
+            Server.TriggerEvent(ID, name, args);
         }
         /// <summary>
         /// Send a notification to the player
