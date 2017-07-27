@@ -11,5 +11,4 @@ cd linux
 cp ../bin/mono-module.so .
 mkdir mono-module
 cd mono-module
-cp ../bin/SharpOrange/SharpOrange.dll .
-cp ../SharpOrange/Std-symbols.so .
+cp ../../bin/SharpOrange/SharpOrange.dll .
