@@ -9,7 +9,7 @@
 #ifdef _WINDOWS
 
 #else
-
+#include <stdlib.h>
 #endif
 
 #include "Export.h"
