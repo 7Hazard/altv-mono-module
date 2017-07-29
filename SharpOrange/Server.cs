@@ -60,9 +60,9 @@ namespace SharpOrange
         /// </summary>
         /// <param name="name"></param>
         /// <param name="args"></param>
-        public unsafe static void TriggerEvent(string name, params object[] args)
+        public unsafe static Task TriggerEvent(string name, params object[] args)
         {
-            Task.Run(() =>
+            return Task.Run(() =>
             {
                 int len = args.Length;
                 if (len != 0)
@@ -73,7 +73,7 @@ namespace SharpOrange
                         values[i] = new EValue(args[i]);
                     }
                     fixed (EValue* mvalues = &values[0])
-                        Orange.ServerEvent(name, values, len);
+                        Orange.TriggerEvent(name, values, len);
                     for (int i = 0; i < len; i++)
                     {
                         if (values[i].type == EType.M_STRING)
@@ -82,7 +82,7 @@ namespace SharpOrange
                 }
                 else
                 {
-                    Orange.ServerEvent(name, null, len);
+                    Orange.TriggerEvent(name, null, len);
                 }
             });
         }
@@ -99,9 +99,9 @@ namespace SharpOrange
         /// <param name="playerid"></param>
         /// <param name="name"></param>
         /// <param name="args"></param>
-        public unsafe static void TriggerEvent(long playerid, string name, params object[] args)
+        public unsafe static Task TriggerEvent(long playerid, string name, params object[] args)
         {
-            Task.Run(() =>
+            return Task.Run(() =>
             {
                 int len = args.Length;
                 if (len != 0)
@@ -112,7 +112,7 @@ namespace SharpOrange
                         values[i] = new EValue(args[i]);
                     }
                     fixed (EValue* mvalues = &values[0])
-                        Orange.ClientEvent(playerid, name, values, len);
+                        Orange.TriggerEvent(playerid, name, values, len);
                     for (int i = 0; i < len; i++)
                     {
                         if (values[i].type == EType.M_STRING)
@@ -121,7 +121,7 @@ namespace SharpOrange
                 }
                 else
                 {
-                    Orange.ClientEvent(playerid, name, null, len);
+                    Orange.TriggerEvent(playerid, name, null, len);
                 }
             });
         }

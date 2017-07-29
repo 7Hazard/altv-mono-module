@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SharpOrange.Objects
 {
@@ -218,9 +219,9 @@ namespace SharpOrange.Objects
         /// </summary>
         /// <param name="name"></param>
         /// <param name="args"></param>
-        public void TriggerEvent(string name, params object[] args)
+        public Task TriggerEvent(string name, params object[] args)
         {
-            Server.TriggerEvent(ID, name, args);
+            return Server.TriggerEvent(ID, name, args);
         }
         /// <summary>
         /// Send a notification to the player
@@ -228,7 +229,7 @@ namespace SharpOrange.Objects
         /// <param name="message"></param>
         public void SendNotification(string message)
         {
-            if (!Server.SendNotification(ID, message))
+            if (Server.SendNotification(ID, message))
                 SharpOrange.Print($"Failed to Send Notification to {Name} ({ID})!");
         }
         /// <summary>

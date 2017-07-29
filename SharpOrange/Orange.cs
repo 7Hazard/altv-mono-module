@@ -10,11 +10,11 @@ namespace SharpOrange
     {
         // Server/Console
         [DllImport("mono-module", EntryPoint = "ServerEvent", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void ServerEvent(string name, EValue[] args, int size);
+        internal static extern void TriggerEvent(string name, EValue[] args, int size);
 
         // Clients
         [DllImport("mono-module", EntryPoint = "ClientEvent", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void ClientEvent(long playerid, string name, EValue[] args, int size);
+        internal static extern void TriggerEvent(long playerid, string name, EValue[] args, int size);
 
         // Players
         [DllImport("mono-module", EntryPoint = "GetPlayerName", CallingConvention = CallingConvention.Cdecl)]
