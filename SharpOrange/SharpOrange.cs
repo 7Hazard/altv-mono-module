@@ -14,7 +14,8 @@ namespace SharpOrange
     {
         SharpOrange()
         {
-            AppDomain.CurrentDomain.SetupInformation.LoaderOptimization = LoaderOptimization.MultiDomainHost;
+            //AppDomain.CurrentDomain.SetupInformation.LoaderOptimization = LoaderOptimization.MultiDomainHost;
+            AppDomain.CurrentDomain.UnhandledException += HandleException;
 
             Server.Plugins = new List<string>();
             Server.Resources = new List<string>();
@@ -32,6 +33,11 @@ namespace SharpOrange
                 LoadPlugin(plugin);
 
             Print("Module successfully initialized"); 
+        }
+
+        private void HandleException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Print(e.ToString());
         }
 
         static string pluginsPath = @"modules/mono-module";
