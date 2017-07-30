@@ -43,7 +43,7 @@ namespace SharpOrange
         /// </summary>
         public static event OnPlayerConnectHandler OnPlayerConnect = delegate { };
 
-        public delegate void OnPlayerDisconnectHandler(Player player, long reason);
+        public delegate void OnPlayerDisconnectHandler(Player player, DisconnectReason reason);
         /// <summary>
         /// Triggered when player disconnects
         /// </summary>
@@ -112,8 +112,9 @@ namespace SharpOrange
                         }
                     case "PlayerDisconnect":
                         {
-                            Server.Players.TryGetValue((uint)args[0], out Player player);
-                            OnPlayerDisconnect(player, (long)args[1]);
+                            Player player;
+                            Server.Players.TryGetValue((uint)args[0], out player);
+                            OnPlayerDisconnect(player, (DisconnectReason)(Int64)args[1]);
                             player.Dispose();
                             return;
                         }
@@ -121,7 +122,8 @@ namespace SharpOrange
                         {
                             uint playerid = (uint)args[0];
                             uint killerid = (uint)args[1];
-                            Server.Players.TryGetValue(playerid, out Player player);
+                            Player player;
+                            Server.Players.TryGetValue(playerid, out player);
                             player.IsAlive = false;
                             if (playerid == killerid)
                             {
@@ -129,37 +131,44 @@ namespace SharpOrange
                             }
                             else
                             {
-                                Server.Players.TryGetValue(killerid, out Player killer);
+                                Player killer;
+                                Server.Players.TryGetValue(killerid, out killer);
                                 OnPlayerDeath(player, killer, (long)args[2]);
                             }
                             return;
                         }
                     case "PlayerSpawn":
                         {
-                            Server.Players.TryGetValue((uint)args[0], out Player player);
+                            Player player;
+                            Server.Players.TryGetValue((uint)args[0], out player);
                             player.IsAlive = true;
                             OnPlayerRespawn(player, new Vector3((double)args[1], (double)args[2], (double)args[3]));
                             return;
                         }
                     case "EnterVehicle":
                         {
-                            Server.Players.TryGetValue((uint)args[0], out Player player);
-                            Server.Vehicles.TryGetValue((uint)args[1], out Vehicle vehicle);
+                            Player player;
+                            Server.Players.TryGetValue((uint)args[0], out player);
+                            Vehicle vehicle;
+                            Server.Vehicles.TryGetValue((uint)args[1], out vehicle);
                             player.Vehicle = vehicle;
                             OnPlayerEnterVehicle(player, vehicle);
                             return;
                         }
                     case "LeftVehicle":
                         {
-                            Server.Players.TryGetValue((uint)args[0], out Player player);
-                            Server.Vehicles.TryGetValue((uint)args[1], out Vehicle vehicle);
+                            Player player;
+                            Server.Players.TryGetValue((uint)args[0], out player);
+                            Vehicle vehicle;
+                            Server.Vehicles.TryGetValue((uint)args[1], out vehicle);
                             player.Vehicle = null;
                             OnPlayerExitVehicle(player, vehicle);
                             return;
                         }
                     case "serverEvent":
                         {
-                            Server.Players.TryGetValue((uint)args[1], out Player player);
+                            Player player;
+                            Server.Players.TryGetValue((uint)args[1], out player);
                             int arglen = args.Length;
                             object[] cliargs = new object[arglen - 2];
                             for (int i = 2; i < arglen; i++)

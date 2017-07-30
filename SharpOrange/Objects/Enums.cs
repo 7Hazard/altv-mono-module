@@ -4,6 +4,13 @@ using System.Text;
 
 namespace SharpOrange.Objects
 {
+    public enum DisconnectReason
+    {
+        Unknown,
+        Leave,
+        Timeout
+    }
+
     /// <summary>
     /// Enum for Vehicle hashes
     /// </summary>

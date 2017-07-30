@@ -224,7 +224,8 @@ namespace SharpOrange.Objects
         {
             get
             {
-                Server.Players.TryGetValue(Server.GetVehicleDriver(ID), out Player player);
+                Player player;
+                Server.Players.TryGetValue(Server.GetVehicleDriver(ID), out player);
                 return player;
             }
             set
@@ -244,7 +245,8 @@ namespace SharpOrange.Objects
                 uint[] playerids = Server.GetVehiclePassengers(ID);
                 foreach(uint playerid in playerids)
                 {
-                    Server.Players.TryGetValue(playerid, out Player player);
+                    Player player;
+                    Server.Players.TryGetValue(playerid, out player);
                     passengers.Add(player);
                 }
                 return passengers;
