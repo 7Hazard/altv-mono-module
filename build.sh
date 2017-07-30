@@ -4,10 +4,10 @@ mkdir bin
 cd bin
 cmake -G "Unix Makefiles" ../mono-module/
 make VERBOSE=1
-msbuild ../SharpOrange/SharpOrange.csproj
+xbuild ../SharpOrange/SharpOrange.csproj
 cd ../
-mkdir linux
-cd linux
+mkdir build
+cd build
 cp ../bin/mono-module.so .
 mkdir mono-module
 cd mono-module
