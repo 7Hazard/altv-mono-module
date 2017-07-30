@@ -82,7 +82,8 @@ namespace SharpOrange
         {
             Task.Run(() =>
             {
-                Server.Players.TryGetValue(playerid, out Player player);
+                Player player;
+                Server.Players.TryGetValue(playerid, out player);
                 OnPlayerUpdate(player);
             });
         }
