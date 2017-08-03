@@ -35,13 +35,13 @@ namespace Mono {
 		CheckException(exc);
 	}
 
-	/// SharpOrange
+	// SharpOrange
 	void LoadResource(const char* resource) {
 		void* args[1]{ mono_string_new(Domain, resource) };
 		Invoke(Method::LoadResource, ServerObject, args, false);
 	}
 
-	/// Events
+	// Events
 	void TriggerOnTick() {
 		Invoke(Method::TriggerOnTick, NULL, NULL, true);
 	}
@@ -112,7 +112,7 @@ namespace Mono {
 		}
 	}
 
-	/// Mono
+	// Mono
 	void Invoke(MonoMethod* method, MonoObject* obj, void** args, bool threaded) {
 		if (threaded) {
 			mono_thread_attach(Domain);

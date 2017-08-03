@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../stdafx.h"
+#include "../mono-module.h"
 
 typedef struct {
 	float x, y, z;

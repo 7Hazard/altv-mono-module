@@ -1,10 +1,9 @@
 #pragma once
 
-#include "stdafx.h"
-
 #ifdef _WINDOWS
 #define EXPORT __declspec(dllexport)
 #else
+#include <cstring>
 #define EXPORT
 char *_strdup(const char *str) {
 	size_t len = std::strlen(str);

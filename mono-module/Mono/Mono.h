@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../stdafx.h"
+#include "../mono-module.h"
 #include <mono/jit/jit.h>
 #include <mono/metadata/assembly.h>
 #include <mono/metadata/threads.h>

@@ -6,7 +6,6 @@
     <ClCompile Include="mono-module.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="API\CVector3.h" />
     <ClInclude Include="Mono\Mono.h" />
     <ClInclude Include="mono-module.h" />
