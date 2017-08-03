@@ -16,13 +16,11 @@ extern "C" {
 		API::instance->ServerEvent(e, values);
 	}
 
-	// Clients
+	// Clients/Players
 	EXPORT void ClientEvent(long playerid, const char* e, EValue* args, int size) {
 		MValueList& values = GetMValueList(args, size);
 		API::instance->ClientEvent(e, values, playerid);
 	}
-
-	// Players
 	EXPORT void KickPlayer(long playerid, const char* reason) {
 		if (reason == nullptr) {
 			API::instance->KickPlayer(playerid);
@@ -112,6 +110,12 @@ extern "C" {
 	}
 	EXPORT unsigned short GetPlayerWorld(long playerid) {
 		return API::instance->GetPlayerWorld(playerid);
+	}
+	EXPORT bool SetPlayerSyncedData(unsigned int playerid, const char* key, EValue* value) {
+		return API::instance->SetPlayerSyncedData(playerid, key, EToMValue(*value));
+	}
+	EXPORT EValue GetPlayerSyncedData(unsigned int playerid, const char* key) {
+		return MToEValue(API::instance->GetPlayerSyncedData(playerid, key));
 	}
 
 	// Vehicles
@@ -358,4 +362,58 @@ MValueList GetMValueList(EValue* args, int size) {
 		}
 	}
 	return values;
+}
+
+std::shared_ptr<MValue> EToMValue(EValue& value) {
+	switch (value.type)
+	{
+	case M_STRING: {
+		return MValue::CreateString(value.string_val);
+	}
+	case M_INT: {
+		return MValue::CreateInt(value.int_val);
+	}
+	case M_BOOL: {
+		return MValue::CreateBool(value.bool_val);
+	}
+	case M_UINT: {
+		return MValue::CreateUInt(value.uint_val);
+	}
+	case M_DOUBLE: {
+		return MValue::CreateDouble(value.double_val);
+	}
+	default:
+		return MValue::CreateNil();
+	}
+}
+
+EValue MToEValue(std::shared_ptr<MValue> value) {
+	EValue evalue;
+	switch (value->getType())
+	{
+	case M_STRING: {
+		std::string& val = value->getString();
+		evalue.string_val = val.c_str();
+		break;
+	}
+	case M_INT: {
+		evalue.int_val = value->getInt();
+		break;
+	}
+	case M_BOOL: {
+		evalue.bool_val = value->getBool();
+		break;
+	}
+	case M_UINT: {
+		evalue.uint_val = value->getUInt();
+		break;
+	}
+	case M_DOUBLE: {
+		evalue.double_val = value->getDouble();
+		break;
+	}
+	default:
+		break;
+	}
+	return evalue;
 }

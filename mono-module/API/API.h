@@ -1,5 +1,5 @@
 #pragma once
-#include <string.h>
+#include <string>
 #include <map>
 #include <vector>
 #include <memory>
@@ -414,6 +414,11 @@ public:
 	virtual bool Attach3DTextToPlayer(unsigned long textId, unsigned long player, float oX, float oY, float oZ) = 0;
 	virtual bool Set3DTextContent(unsigned long textId, const char * text) = 0;
 	virtual bool Delete3DText(unsigned long textId) = 0;
+
+	//UNSORTED
+
+	virtual bool SetPlayerSyncedData(unsigned int playerid, const char* key, const std::shared_ptr<MValue> &val) = 0;
+	virtual std::shared_ptr<MValue> GetPlayerSyncedData(unsigned int playerid, const char* key) = 0;
 };
 
 #ifndef GTA_ORANGE_SERVER

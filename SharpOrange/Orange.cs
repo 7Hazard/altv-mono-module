@@ -12,13 +12,18 @@ namespace SharpOrange
         [DllImport("mono-module", EntryPoint = "ServerEvent", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void TriggerEvent(string name, EValue[] args, int size);
 
-        // Clients
+        // Clients/Players
         [DllImport("mono-module", EntryPoint = "ClientEvent", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void TriggerEvent(long playerid, string name, EValue[] args, int size);
 
-        // Players
         [DllImport("mono-module", EntryPoint = "GetPlayerName", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void GetPlayerName(long playerid, StringBuilder sb);
+
+        [DllImport("mono-module", EntryPoint = "SetPlayerSyncedData", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern bool SetPlayerSyncedData(long playerid, string key, EValue value);
+
+        [DllImport("mono-module", EntryPoint = "GetPlayerSyncedData", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern EValue GetPlayerSyncedData(long playerid, string key);
     }
 
     /* I gave up on this
@@ -96,6 +101,11 @@ namespace SharpOrange
                 type = EType.M_UINT;
                 value._uint = (uint)val;
             }
+            else if (t.Equals(typeof(float)))
+            {
+                type = EType.M_DOUBLE;
+                value._double = (float)val;
+            }
             else if (t.Equals(typeof(double)))
             {
                 type = EType.M_DOUBLE;
@@ -129,6 +139,29 @@ namespace SharpOrange
             //[FieldOffset(0)] internal Dict _dict;
         }
 
+        internal object GetObject()
+        {
+            switch (type)
+            {
+                case EType.M_BOOL:
+                    return value._string;
+                case EType.M_DOUBLE:
+                    return value._double;
+                case EType.M_INT:
+                    return value._int;
+                case EType.M_NIL:
+                    return null;
+                case EType.M_STRING:
+                    return value._string;
+                case EType.M_UINT:
+                    return value._uint;
+                case EType.M_DICT:
+                    SharpOrange.Print("Tried to get a dictionary from an Event/Synced value which is not supported yet!");
+                    return null;
+                default:
+                    return null;
+            }
+        }
     }
     internal enum EType
     {

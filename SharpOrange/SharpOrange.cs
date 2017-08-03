@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SharpOrange.Objects;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace SharpOrange
 {
@@ -38,6 +39,7 @@ namespace SharpOrange
         private void HandleException(object sender, UnhandledExceptionEventArgs e)
         {
             Print(e.ToString());
+            throw new Exception(e.ToString());
         }
 
         static string pluginsPath = @"modules/mono-module";
@@ -201,12 +203,6 @@ namespace SharpOrange
         internal static void Error(string msg)
         {
             Server.Print("[SharpOrange] ERROR - " + msg);
-        }
-
-        internal static T GetEnum<T>(object obj)
-        {
-            T enumVal = (T)Enum.Parse(typeof(T), obj.ToString());
-            return enumVal;
         }
     }
 }

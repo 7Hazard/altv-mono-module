@@ -229,7 +229,7 @@ namespace SharpOrange.Objects
         /// <param name="message"></param>
         public void SendNotification(string message)
         {
-            if (Server.SendNotification(ID, message))
+            if (Server.SendNotificationToPlayer(ID, message))
                 SharpOrange.Print($"Failed to Send Notification to {Name} ({ID})!");
         }
         /// <summary>
@@ -245,14 +245,14 @@ namespace SharpOrange.Objects
             {
                 if (value == null || value == string.Empty || value == "")
                 {
-                    if (!Server.UnsetInfoMsg(ID))
+                    if (!Server.UnsetInfoMsgForPlayer(ID))
                     {
                         SharpOrange.Print($"Failed to unset Info Message to {Name} ({ID})!");
                         return;
                     }
                     HasInfoMessage = false;
                 }
-                if (!Server.SetInfoMsg(ID, value))
+                if (!Server.SetInfoMsgForPlayer(ID, value))
                 {
                     SharpOrange.Print($"Failed to Set Info Message to '{Name}' ({ID})!");
                     return;
@@ -271,7 +271,7 @@ namespace SharpOrange.Objects
             }
             set
             {
-                if(!Server.SetPlayerWorld(ID, value))
+                if(!Server.SetPlayerWorldForPlayer(ID, value))
                 {
                     SharpOrange.Print($"Failed to Set Dimension '{value}' to Player '{Name}' ({ID})!");
                 }
@@ -314,6 +314,24 @@ namespace SharpOrange.Objects
         {
             if (!Server.GivePlayerAmmo(ID, (long)weapon, ammo))
                 SharpOrange.Print($"Failed to Give {ammo} Ammo of {weapon} to {Name} ({ID})!");
+        }
+        /// <summary>
+        /// Get synced data of player
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public object GetData(string key)
+        {
+            return Server.GetPlayerSyncedData(ID, key);
+        }
+        /// <summary>
+        /// Set synced data of player
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public void SetData(string key, object value)
+        {
+            Server.SetPlayerSyncedData(ID, key, value);
         }
     }
 }

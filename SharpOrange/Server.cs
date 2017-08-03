@@ -126,6 +126,17 @@ namespace SharpOrange
             });
         }
 
+        /// <summary>
+        /// Triggers a client event for all players
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public static Task TriggerEventForAll(string name, params object[] args)
+        {
+            return TriggerEvent(-1, name, args);
+        }
+
         public static void KickPlayer(Player player)
         {
             KickPlayer(player.ID);
@@ -226,19 +237,50 @@ namespace SharpOrange
         public static extern ulong GetPlayerGUID(long playerid);
 
         [DllImport("mono-module", EntryPoint = "SendNotification", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SendNotification(long playerid, string msg);
+        public static extern bool SendNotificationToPlayer(long playerid, string msg);
+
+        public static bool SendNotificationToAll(string msg)
+        {
+            return SendNotificationToPlayer(-1, msg);
+        }
 
         [DllImport("mono-module", EntryPoint = "SetInfoMsg", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SetInfoMsg(long playerid, string msg);
+        public static extern bool SetInfoMsgForPlayer(long playerid, string msg);
+
+        public static bool SetInfoMsgForAll(string msg)
+        {
+            return SetInfoMsgForPlayer(-1, msg);
+        }
 
         [DllImport("mono-module", EntryPoint = "UnsetInfoMsg", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool UnsetInfoMsg(long playerid);
+        public static extern bool UnsetInfoMsgForPlayer(long playerid);
+
+        public static bool UnsetInfoMsgForAll()
+        {
+            return UnsetInfoMsgForPlayer(-1);
+        }
 
         [DllImport("mono-module", EntryPoint = "SetPlayerWorld", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SetPlayerWorld(long playerid, ushort world);
+        public static extern bool SetPlayerWorldForPlayer(long playerid, ushort world);
+
+        public static bool SetPlayerWorldForAll(ushort world)
+        {
+            return SetPlayerWorldForPlayer(-1, world);
+        }
 
         [DllImport("mono-module", EntryPoint = "GetPlayerWorld", CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort GetPlayerWorld(long playerid);
+
+        public static bool SetPlayerSyncedData(long playerid, string key, object value)
+        {
+            EValue evalue = new EValue(value);
+            return Orange.SetPlayerSyncedData(playerid, key, evalue);
+        }
+
+        public static object GetPlayerSyncedData(long playerid, string key)
+        {
+            return Orange.GetPlayerSyncedData(playerid, key).GetObject();
+        }
 
         // Vehicles
         /// <summary>
