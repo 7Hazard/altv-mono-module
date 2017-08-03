@@ -4,6 +4,7 @@
 #define EXPORT __declspec(dllexport)
 #else
 #define EXPORT
+#include <cstring>
 char *_strdup(const char *str) {
 	size_t len = std::strlen(str);
 	char *x = (char *)malloc(len + 1); /* 1 for the null terminator */
