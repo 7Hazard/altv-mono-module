@@ -15,5 +15,5 @@
 
 #include "Export.h"
 #include "mono-module.h"
-#include "API/API.h"
-#include "Mono/Mono.h"
+#include "api/API.h"
+#include "mono/Mono.h"
