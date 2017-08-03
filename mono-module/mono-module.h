@@ -5,8 +5,8 @@
 //#include "stdafx.h"
 #include <string>
 
-#include "export.h"
-#include "api/API.h"
-#include "mono/mono.h"
+#include "Export.h"
+#include "API/API.h"
+#include "Mono/Mono.h"
 
 void APIPrint(std::string msg);
