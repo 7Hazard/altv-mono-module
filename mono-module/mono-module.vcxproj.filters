@@ -11,7 +11,6 @@
     <ClInclude Include="API\APIExports.h" />
     <ClInclude Include="API\CVector3.h" />
     <ClInclude Include="Mono\Mono.h" />
-    <ClInclude Include="Export.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
