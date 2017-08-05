@@ -1,5 +1,12 @@
 #pragma once
 
+#define WIN32_LEAN_AND_MEAN
+
+#include <string>
+
+#include "API/API.h"
+#include "Mono/Mono.h"
+
 #ifdef _WINDOWS
 #define EXPORT __declspec(dllexport)
 #else
@@ -13,12 +20,5 @@ char *_strdup(const char *str) {
 	return x;
 }
 #endif
-
-#define WIN32_LEAN_AND_MEAN
-
-#include <string>
-
-#include "API/API.h"
-#include "Mono/Mono.h"
 
 void APIPrint(std::string msg);
