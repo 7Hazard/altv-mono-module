@@ -23,18 +23,18 @@ namespace Mono {
 		EventClass = mono_class_from_name(Image, "SharpOrange", "Event");
 
 		Method::ctor = mono_class_get_method_from_name(MainClass, ".ctor", 0);
-		Method::LoadResource = mono_class_get_method_from_name(MainClass, "LoadResource", 1);
+		/*Method::LoadResource = mono_class_get_method_from_name(MainClass, "LoadResource", 1);
 		Method::TriggerOnServerUnload = mono_class_get_method_from_name(EventClass, "TriggerOnServerUnload", 0);
 		Method::TriggerOnTick = mono_class_get_method_from_name(EventClass, "TriggerOnTick", 0);
 		Method::TriggerOnServerCommand = mono_class_get_method_from_name(EventClass, "TriggerOnServerCommand", 1);
 		Method::TriggerOnPlayerUpdate = mono_class_get_method_from_name(EventClass, "TriggerOnPlayerUpdate", 1);
-		Method::TriggerOnEvent = mono_class_get_method_from_name(EventClass, "TriggerOnEvent", 2);
+		Method::TriggerOnEvent = mono_class_get_method_from_name(EventClass, "TriggerOnEvent", 2);*/
 
 		MonoObject* exc = NULL;
 		mono_runtime_invoke(Method::ctor, ServerObject, NULL, &exc);
 		CheckException(exc);
 	}
-
+	/*
 	// SharpOrange
 	void LoadResource(const char* resource) {
 		void* args[1]{ mono_string_new(Domain, resource) };
@@ -103,14 +103,14 @@ namespace Mono {
 				break;
 			}
 			case M_DICT:
-				/*auto int_keys = value->getIntDict();
-				auto string_keys = value->getStringDict();*/
+				//auto int_keys = value->getIntDict();
+				//auto string_keys = value->getStringDict();
 				APIPrint("Warning: Dictionaries in events are not supported yet by the Mono Module!");
 				values[i] = NULL;
 				break;
 			}
 		}
-	}
+	}*/
 
 	// Mono
 	void Invoke(MonoMethod* method, MonoObject* obj, void** args, bool threaded) {

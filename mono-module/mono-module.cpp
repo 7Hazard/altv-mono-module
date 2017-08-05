@@ -12,9 +12,7 @@ extern "C"
 
 	EXPORT void OnModuleInit()
 	{
-		mono_set_dirs("C:\\Program Files\\Mono\\lib", "C:\\Program Files\\Mono\\etc");
-		MonoDomain* domain = mono_jit_init("Test");
-		//Mono::InitMono();
+		Mono::InitMono();
 	}
 
 	EXPORT const char* OnResourceTypeRegister()
