@@ -81,19 +81,18 @@ namespace SharpOrange.Objects
             }
         }
         /// <summary>
-        /// Get/Set the model of the player using the Model name (http://slice.wikidot.com/)
+        /// Get/Set the model of the player using the Model hash (http://slice.wikidot.com/)
+        /// Use Server.Hash() to get the hash from string name
         /// </summary>
-        public string Model
+        public long Model
         {
             get
             {
-                return Server.GetPlayerModel(ID).ToString();
+                return Server.GetPlayerModel(ID);
             }
             set
             {
-                long hash = Server.Hash(value);
-                if (!Server.SetPlayerModel(ID, hash))
-                    SharpOrange.Print($"Failed to set Model '{value}' to player '{Name}' ({ID})!");
+                Server.SetPlayerModel(ID, value);
             }
         }
         /// <summary>
