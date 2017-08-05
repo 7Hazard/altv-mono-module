@@ -1,4 +1,5 @@
 #include "mono-module.h"
+#include "Export.h"
 
 API * API::instance = nullptr;
 
