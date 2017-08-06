@@ -11,4 +11,4 @@ cd build
 cp ../bin/libmono-module.so .
 mkdir mono-module
 cd mono-module
-cp ../../bin/SharpOrange/SharpOrange.dll .
+cp ../../bin/SharpOrange.dll .
