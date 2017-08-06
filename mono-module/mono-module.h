@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "API/API.h"
-#include "Mono/Mono.h"
+#include "Mono.h"
 
 #ifdef _WINDOWS
 #define EXPORT __declspec(dllexport)

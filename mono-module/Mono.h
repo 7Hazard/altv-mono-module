@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../mono-module.h"
+#include "mono-module.h"
 #include <mono/jit/jit.h>
 #include <mono/metadata/assembly.h>
 #include <mono/metadata/threads.h>
@@ -8,12 +8,12 @@
 
 namespace Method {
 	static MonoMethod* ctor;
-	/*static MonoMethod* LoadResource;
+	static MonoMethod* LoadResource;
 	static MonoMethod* TriggerOnServerUnload;
 	static MonoMethod* TriggerOnTick;
 	static MonoMethod* TriggerOnServerCommand;
 	static MonoMethod* TriggerOnPlayerUpdate;
-	static MonoMethod* TriggerOnEvent;*/
+	static MonoMethod* TriggerOnEvent;
 }
 
 namespace Mono {
@@ -27,14 +27,14 @@ namespace Mono {
 	static MonoClass* EventClass;
 
 	void InitMono();
-	//void Invoke(MonoMethod* method, MonoObject* obj, void** args, bool threaded);
+	void Invoke(MonoMethod* method, MonoObject* obj, void** args, bool threaded);
 	void CheckException(MonoObject* exception);
 
-	/*void LoadResource(const char* resource);
+	void LoadResource(const char* resource);
 	void TriggerOnTick();
 	void TriggerOnServerCommand(const char* command);
 	void TriggerOnPlayerUpdate(long playerid);
 	void TriggerOnEvent(const char* e, MValueList& mvlist);
 
-	void HandleEventArgs(MonoArray* earray, MValueList& args, int size);*/
+	void HandleEventArgs(MonoArray* earray, MValueList& args, int size);
 }

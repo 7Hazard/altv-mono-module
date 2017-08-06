@@ -2,15 +2,15 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="mono-module.cpp" />
+    <ClCompile Include="Mono.cpp" />
     <ClCompile Include="API\APIExports.cpp" />
-    <ClCompile Include="Mono\Mono.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mono-module.h" />
+    <ClInclude Include="Mono.h" />
     <ClInclude Include="API\API.h" />
     <ClInclude Include="API\APIExports.h" />
     <ClInclude Include="API\CVector3.h" />
-    <ClInclude Include="Mono\Mono.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
