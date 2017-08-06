@@ -12,13 +12,13 @@ extern "C" {
 		APIPrint("Shutting down the server programmatically is not implemented yet.");
 	}
 	EXPORT void ServerEvent(const char* e, EValue* args, int size) {
-		MValueList& values = GetMValueList(args, size);
+		MValueList values = GetMValueList(args, size);
 		API::instance->ServerEvent(e, values);
 	}
 
 	// Clients/Players
 	EXPORT void ClientEvent(long playerid, const char* e, EValue* args, int size) {
-		MValueList& values = GetMValueList(args, size);
+		MValueList values = GetMValueList(args, size);
 		API::instance->ClientEvent(e, values, playerid);
 	}
 	EXPORT void KickPlayer(long playerid, const char* reason) {
@@ -392,7 +392,7 @@ EValue MToEValue(std::shared_ptr<MValue> value) {
 	switch (value->getType())
 	{
 	case M_STRING: {
-		std::string& val = value->getString();
+		const std::string& val = value->getString();
 		evalue.string_val = val.c_str();
 		break;
 	}
