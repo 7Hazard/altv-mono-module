@@ -119,12 +119,12 @@ copy /Y "$(ProjectDir)mono-2.0-sgen.dll" "$(SolutionDir)Server\modules\$(Project
     <ClInclude Include="API\API.h" />
     <ClInclude Include="API\APIExports.h" />
     <ClInclude Include="API\CVector3.h" />
-    <ClInclude Include="Mono.h" />
+    <ClInclude Include="Mono\Mono.h" />
     <ClInclude Include="mono-module.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API\APIExports.cpp" />
-    <ClCompile Include="Mono.cpp" />
+    <ClCompile Include="Mono\Mono.cpp" />
     <ClCompile Include="mono-module.cpp" />
   </ItemGroup>
   <ItemGroup>
