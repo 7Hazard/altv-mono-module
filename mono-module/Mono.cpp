@@ -78,7 +78,7 @@ namespace Mono {
 			switch (value->getType())
 			{
 			case M_STRING: {
-				std::string& str = value->getString();
+				const std::string& str = value->getString();
 				mono_array_setref(earray, i, mono_string_new(Domain, str.c_str()));
 				break;
 			}
