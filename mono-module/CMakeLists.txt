@@ -7,6 +7,10 @@ add_definitions(-std=c++11)
 file(GLOB SOURCE_FILES
     "${CMAKE_CURRENT_SOURCE_DIR}/*.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
+	"${CMAKE_CURRENT_SOURCE_DIR}/Mono/*.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Mono/*.cpp"
+	"${CMAKE_CURRENT_SOURCE_DIR}/API/*.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/API/*.cpp"
 )
 
 add_library(mono-module SHARED ${SOURCE_FILES})
