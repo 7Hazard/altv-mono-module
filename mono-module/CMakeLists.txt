@@ -15,7 +15,7 @@ file(GLOB SOURCE_FILES
 
 add_library(mono-module SHARED ${SOURCE_FILES})
 
-set_target_properties(mono-module PROPERTIES PREFIX "")
+set_target_properties(mono-module PROPERTIES PREFIX "lib")
 set_target_properties(mono-module PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 
 include_directories(/usr/include/mono-2.0/)

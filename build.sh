@@ -8,7 +8,7 @@ xbuild ../SharpOrange/SharpOrange.csproj /p:Configuration=Release
 cd ../
 mkdir build
 cd build
-cp ../bin/mono-module.so .
+cp ../bin/libmono-module.so .
 mkdir mono-module
 cd mono-module
 cp ../../bin/SharpOrange/SharpOrange.dll .
