@@ -30,8 +30,8 @@ namespace Mono {
 		Method::TriggerOnPlayerUpdate = mono_class_get_method_from_name(EventClass, "TriggerOnPlayerUpdate", 1);
 		Method::TriggerOnEvent = mono_class_get_method_from_name(EventClass, "TriggerOnEvent", 2);
 
-		MonoObject* exc = NULL;
-		mono_runtime_invoke(Method::ctor, ServerObject, NULL, &exc);
+		MonoObject* exc = nullptr;
+		mono_runtime_invoke(Method::ctor, ServerObject, nullptr, &exc);
 		CheckException(exc);
 	}
 	
@@ -43,23 +43,23 @@ namespace Mono {
 
 	// Events
 	void TriggerOnTick() {
-		Invoke(Method::TriggerOnTick, NULL, NULL, true);
+		Invoke(Method::TriggerOnTick, nullptr, nullptr, true);
 	}
 
 	void TriggerOnServerCommand(const char* command) {
 		void* args[1]{ mono_string_new(Domain, command) };
-		Invoke(Method::TriggerOnServerCommand, NULL, args, true);
+		Invoke(Method::TriggerOnServerCommand, nullptr, args, true);
 	}
 
 	void TriggerOnPlayerUpdate(long playerid) {
 		void* args[1]{ &playerid };
-		Invoke(Method::TriggerOnPlayerUpdate, NULL, args, true);
+		Invoke(Method::TriggerOnPlayerUpdate, nullptr, args, true);
 	}
 
 	void TriggerOnEvent(const char* e, MValueList& mvlist) {
-		if (!strcmp(e, "unload")) return;
+		if (!strcmp(e, "unload") || !strcmp(e, "ServerLoad")) return;
 		if (!strcmp(e, "ServerUnload")) {
-			Invoke(Method::TriggerOnServerUnload, NULL, NULL, true);
+			Invoke(Method::TriggerOnServerUnload, nullptr, nullptr, true);
 			return;
 		}
 		int size = mvlist.size();
@@ -67,7 +67,7 @@ namespace Mono {
 		HandleEventArgs(earray, mvlist, size);
 
 		void* args[2]{ mono_string_new(Domain, e), earray };
-		Invoke(Method::TriggerOnEvent, NULL, args, true);
+		Invoke(Method::TriggerOnEvent, nullptr, args, true);
 	}
 
 	void HandleEventArgs(MonoArray* earray, MValueList& args, int size)
@@ -106,7 +106,7 @@ namespace Mono {
 				//auto int_keys = value->getIntDict();
 				//auto string_keys = value->getStringDict();
 				APIPrint("Warning: Dictionaries in events are not supported yet by the Mono Module!");
-				values[i] = NULL;
+				values[i] = nullptr;
 				break;
 			}
 		}
@@ -117,13 +117,13 @@ namespace Mono {
 		if (threaded) {
 			mono_thread_attach(Domain);
 		}
-		MonoObject* exc = NULL;
+		MonoObject* exc = nullptr;
 		mono_runtime_invoke(method, obj, args, &exc);
 		CheckException(exc);
 	}
 	
 	void CheckException(MonoObject* exc) {
-		if (exc != NULL) {
+		if (exc != nullptr) {
 			MonoString* ex = mono_object_to_string(exc, &exc);
 			std::string out = "SharpOrange threw an exception: \n" + (std::string)mono_string_to_utf8(ex);
 			APIPrint(out);
