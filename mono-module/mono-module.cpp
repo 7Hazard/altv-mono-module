@@ -22,36 +22,19 @@ extern "C"
 
 	EXPORT bool OnResourceLoad(const char* resource)
 	{
-		//Mono::LoadResource(resource);
+		Mono::LoadResource(resource);
 		return true;
 	}
 
 	EXPORT bool OnTick()
 	{
-		//Mono::TriggerOnTick();
-		return true;
-	}
-
-	EXPORT bool OnPlayerConnect(unsigned int playerid)
-	{
-		return true;
-	}
-
-	EXPORT bool OnServerCommand(std::string& command)
-	{
-		//Mono::TriggerOnServerCommand(command.c_str());
-		return true;
-	}
-
-	EXPORT bool OnPlayerUpdate(unsigned int playerid)
-	{
-		//Mono::TriggerOnPlayerUpdate(playerid);
+		Mono::TriggerOnTick();
 		return true;
 	}
 
 	EXPORT void OnEvent(const char* e, MValueList& args)
 	{
-		//Mono::TriggerOnEvent(e, args);
+		Mono::TriggerOnEvent(e, args);
 		return;
 	}
 }
