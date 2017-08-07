@@ -166,7 +166,7 @@ namespace SharpOrange
                             OnPlayerExitVehicle(player, vehicle);
                             return;
                         }
-                    case "serverEvent":
+                    case "ServerEvent":
                         {
                             Player player;
                             Server.Players.TryGetValue((uint)args[1], out player);
