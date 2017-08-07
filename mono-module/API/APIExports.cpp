@@ -85,7 +85,7 @@ extern "C" {
 		return API::instance->GetPlayerHealth(playerid);
 	}
 	EXPORT bool SetPlayerArmour(long playerid, float armour) {
-		return API::instance->SetPlayerArmour(playerid, armour);
+		return API::instance->SetPlayerArmor(playerid, armour);
 	}
 	EXPORT unsigned int GetPlayerColor(long playerid) {
 		return API::instance->GetPlayerColor(playerid);
@@ -149,7 +149,7 @@ extern "C" {
 	}
 	EXPORT bool HasVehicleCustomColours(unsigned long guid) {
 		bool colors[2];
-		API::instance->HasVehicleCustomColours(guid, &colors[0], &colors[1]);
+		API::instance->HasVehicleCustomColors(guid, &colors[0], &colors[1]);
 		return colors;
 	}
 	EXPORT bool SetVehiclePrimaryColor(unsigned long guid, unsigned char r, unsigned char g, unsigned char b) {

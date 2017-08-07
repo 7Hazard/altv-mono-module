@@ -298,8 +298,9 @@ class APIBase {
 public:
 	virtual void LoadClientScript(std::string name, char* buffer, size_t size) = 0;
 	virtual void ClientEvent(const char * name, MValueList& args, long playerid) = 0;
-	virtual void ServerEvent(std::string e, MValueList& args) = 0;
+	virtual bool ServerEvent(std::string e, MValueList& args) = 0;
 	//Player
+	virtual bool PlayerExists(long playerid) = 0;
 	virtual void KickPlayer(long playerid) = 0;
 	virtual void KickPlayer(long playerid, const char * reason) = 0;
 	virtual bool SetPlayerPosition(long playerid, float x, float y, float z) = 0;
@@ -322,12 +323,12 @@ public:
 	virtual std::string GetPlayerName(long playerid) = 0;
 	virtual bool SetPlayerHealth(long playerid, float health) = 0;
 	virtual float GetPlayerHealth(long playerid) = 0;
-	virtual bool SetPlayerArmour(long playerid, float armour) = 0;
-	virtual float GetPlayerArmour(long playerid) = 0;
+	virtual bool SetPlayerArmor(long playerid, float armor) = 0;
+	virtual float GetPlayerArmor(long playerid) = 0;
 	virtual bool SetPlayerColor(long playerid, unsigned int color) = 0;
 	virtual unsigned int GetPlayerColor(long playerid) = 0;
-	virtual void BroadcastClientMessage(const char * message, unsigned int color) = 0;
-	virtual bool SendClientMessage(long playerid, const char * message, unsigned int color) = 0;
+	virtual bool SendMessageToAll(const char* message) = 0;
+	virtual bool SendMessageToPlayer(long playerid, const char* message) = 0;
 	virtual bool SetPlayerIntoVehicle(long playerid, unsigned long vehicle, char seat) = 0;
 	virtual void DisablePlayerHud(long playerid, bool toggle) = 0;
 	virtual unsigned long GetPlayerGUID(long playerid) = 0;
@@ -337,25 +338,24 @@ public:
 	virtual long Hash(const char * str) = 0;
 
 	//TODO
-	//virtual bool PlayerExists(long playerid) = 0;
-	//virtual bool VehicleExists(long playerid) = 0;
+	virtual bool VehicleExists(unsigned long guid) = 0;
 	virtual unsigned long CreateVehicle(long hash, float x, float y, float z, float heading) = 0;
 	virtual bool DeleteVehicle(unsigned long vehid) = 0;
 	virtual bool SetVehiclePosition(unsigned long vehid, float x, float y, float z) = 0;
 	virtual CVector3 GetVehiclePosition(unsigned long vehid) = 0;
 	virtual bool SetVehicleRotation(unsigned long vehid, float rx, float ry, float rz) = 0;
 	virtual CVector3 GetVehicleRotation(unsigned long vehid) = 0;
-	virtual bool SetVehicleColours(unsigned long vehid, unsigned char Color1, unsigned char Color2) = 0;
-	virtual bool GetVehicleColours(unsigned long vehid, unsigned char *Color1, unsigned char *Color2) = 0;
+	virtual bool SetVehicleColors(unsigned long vehid, unsigned char Color1, unsigned char Color2) = 0;
+	virtual bool GetVehicleColors(unsigned long vehid, unsigned char *Color1, unsigned char *Color2) = 0;
 	virtual bool SetVehiclePrimaryColor(unsigned long guid, unsigned char Color) = 0;
 	virtual bool GetVehiclePrimaryColor(unsigned long guid, unsigned char *Color) = 0;
 	virtual bool SetVehicleSecondaryColor(unsigned long guid, unsigned char Color) = 0;
 	virtual bool GetVehicleSecondaryColor(unsigned long guid, unsigned char *Color) = 0;
 	virtual bool SetVehicleTyresBulletproof(unsigned long vehid, bool bulletproof) = 0;
 	virtual bool GetVehicleTyresBulletproof(unsigned long vehid) = 0;
-	virtual bool HasVehicleCustomColours(unsigned long guid, bool *PrimaryColor, bool *SecondaryColor) = 0;
-	virtual bool SetVehicleCustomColours(unsigned long guid, unsigned char PrimaryColorR, unsigned char PrimaryColorG, unsigned char PrimaryColorB, unsigned char SecondaryColorR, unsigned char SecondaryColorG, unsigned char SecondaryColorB) = 0;
-	virtual bool GetVehicleCustomColours(unsigned long guid, unsigned char *PrimaryColorR, unsigned char *PrimaryColorG, unsigned char *PrimaryColorB, unsigned char *SecondaryColorR, unsigned char *SecondaryColorG, unsigned char *SecondaryColorB) = 0;
+	virtual bool HasVehicleCustomColors(unsigned long guid, bool *PrimaryColor, bool *SecondaryColor) = 0;
+	virtual bool SetVehicleCustomColors(unsigned long guid, unsigned char PrimaryColorR, unsigned char PrimaryColorG, unsigned char PrimaryColorB, unsigned char SecondaryColorR, unsigned char SecondaryColorG, unsigned char SecondaryColorB) = 0;
+	virtual bool GetVehicleCustomColors(unsigned long guid, unsigned char *PrimaryColorR, unsigned char *PrimaryColorG, unsigned char *PrimaryColorB, unsigned char *SecondaryColorR, unsigned char *SecondaryColorG, unsigned char *SecondaryColorB) = 0;
 	virtual bool SetVehicleCustomPrimaryColor(unsigned long vehid, unsigned char rColor, unsigned char gColor, unsigned char bColor) = 0;
 	virtual bool GetVehicleCustomPrimaryColor(unsigned long vehid, unsigned char *rColor, unsigned char *gColor, unsigned char *bColor) = 0;
 	virtual bool SetVehicleCustomSecondaryColor(unsigned long vehid, unsigned char rColor, unsigned char gColor, unsigned char bColor) = 0;
@@ -419,6 +419,7 @@ public:
 
 	virtual bool SetPlayerSyncedData(unsigned int playerid, const char* key, const std::shared_ptr<MValue> &val) = 0;
 	virtual std::shared_ptr<MValue> GetPlayerSyncedData(unsigned int playerid, const char* key) = 0;
+	virtual unsigned short GetPlayerPing(uint32_t playerid) = 0;
 };
 
 #ifndef GTA_ORANGE_SERVER
