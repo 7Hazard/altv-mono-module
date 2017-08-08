@@ -32,10 +32,10 @@ extern "C"
 		return true;
 	}
 
-	EXPORT void OnEvent(const char* e, MValueList& args)
+	EXPORT bool OnEvent(const char* e, MValueList& args)
 	{
 		Mono::TriggerOnEvent(e, args);
-		return;
+		return true;
 	}
 }
 
