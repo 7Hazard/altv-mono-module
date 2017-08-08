@@ -11,8 +11,6 @@ namespace Method {
 	static MonoMethod* LoadResource;
 	static MonoMethod* TriggerOnServerUnload;
 	static MonoMethod* TriggerOnTick;
-	static MonoMethod* TriggerOnServerCommand;
-	static MonoMethod* TriggerOnPlayerUpdate;
 	static MonoMethod* TriggerOnEvent;
 }
 
@@ -32,8 +30,6 @@ namespace Mono {
 
 	void LoadResource(const char* resource);
 	void TriggerOnTick();
-	void TriggerOnServerCommand(const char* command);
-	void TriggerOnPlayerUpdate(long playerid);
 	void TriggerOnEvent(const char* e, MValueList& mvlist);
 
 	void HandleEventArgs(MonoArray* earray, MValueList& args, int size);

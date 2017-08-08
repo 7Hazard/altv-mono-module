@@ -153,11 +153,11 @@ namespace SharpOrange.Objects
         {
             get
             {
-                return Server.GetPlayerArmour(ID);
+                return Server.GetPlayerArmor(ID);
             }
             set
             {
-                if(!Server.SetPlayerArmour(ID, value))
+                if(!Server.SetPlayerArmor(ID, value))
                     SharpOrange.Print($"Failed to Set Armor of player '{Name}' ({ID})!");
             }
         }
@@ -276,16 +276,15 @@ namespace SharpOrange.Objects
                 }
             }
         }
-        /*/// <summary>
+        /// <summary>
         /// Send a client message to the player
         /// </summary>
         /// <param name="message"></param>
-        /// <param name="color"></param>
-        public void SendMessage(string message, uint color)
+        public void SendMessage(string message)
         {
-            if(!Server.SendClientMessage(ID, message, color))
+            if(!Server.SendMessageToPlayer(ID, message))
                 SharpOrange.Print($"Failed to Send Message '{message}' to {Name} ({ID})!");
-        }*/
+        }
         /// <summary>
         /// Remove all weapons of the player
         /// </summary>

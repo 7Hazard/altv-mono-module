@@ -351,8 +351,8 @@ public:
 	virtual bool GetVehiclePrimaryColor(unsigned long guid, unsigned char *Color) = 0;
 	virtual bool SetVehicleSecondaryColor(unsigned long guid, unsigned char Color) = 0;
 	virtual bool GetVehicleSecondaryColor(unsigned long guid, unsigned char *Color) = 0;
-	virtual bool SetVehicleTyresBulletproof(unsigned long vehid, bool bulletproof) = 0;
-	virtual bool GetVehicleTyresBulletproof(unsigned long vehid) = 0;
+	virtual bool SetVehicleTiresBulletproof(unsigned long vehid, bool bulletproof) = 0;
+	virtual bool GetVehicleTiresBulletproof(unsigned long vehid) = 0;
 	virtual bool HasVehicleCustomColors(unsigned long guid, bool *PrimaryColor, bool *SecondaryColor) = 0;
 	virtual bool SetVehicleCustomColors(unsigned long guid, unsigned char PrimaryColorR, unsigned char PrimaryColorG, unsigned char PrimaryColorB, unsigned char SecondaryColorR, unsigned char SecondaryColorG, unsigned char SecondaryColorB) = 0;
 	virtual bool GetVehicleCustomColors(unsigned long guid, unsigned char *PrimaryColorR, unsigned char *PrimaryColorG, unsigned char *PrimaryColorB, unsigned char *SecondaryColorR, unsigned char *SecondaryColorG, unsigned char *SecondaryColorB) = 0;

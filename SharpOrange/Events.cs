@@ -32,10 +32,6 @@ namespace SharpOrange
         /// Triggered when command has been input on server console
         /// </summary>
         public static event OnServerCommandHandler OnServerCommand = delegate { };
-        static void TriggerOnServerCommand(string command)
-        {
-            Task.Run(() => OnServerCommand(command));
-        }
 
         public delegate void OnPlayerConnectHandler(Player player);
         /// <summary>
@@ -105,6 +101,24 @@ namespace SharpOrange
             {
                 switch (e)
                 {
+                    case "ServerCommand":
+                        {
+                            OnServerCommand((string)args[0]);
+                            return;
+                        }
+                    case "ServerEvent":
+                        {
+                            Player player;
+                            Server.Players.TryGetValue((uint)args[1], out player);
+                            int arglen = args.Length;
+                            object[] cliargs = new object[arglen - 2];
+                            for (int i = 2; i < arglen; i++)
+                            {
+                                cliargs[i - 2] = args[i];
+                            }
+                            OnClientEvent(player, (string)args[0], cliargs);
+                            return;
+                        }
                     case "PlayerConnect":
                         {
                             Player player = new Player((uint)args[0], (string)args[1]);
@@ -140,6 +154,7 @@ namespace SharpOrange
                         }
                     case "PlayerSpawn":
                         {
+                            SharpOrange.Print("RESPAWN");
                             Player player;
                             Server.Players.TryGetValue((uint)args[0], out player);
                             player.IsAlive = true;
@@ -164,19 +179,6 @@ namespace SharpOrange
                             Server.Vehicles.TryGetValue((uint)args[1], out vehicle);
                             player.Vehicle = null;
                             OnPlayerExitVehicle(player, vehicle);
-                            return;
-                        }
-                    case "ServerEvent":
-                        {
-                            Player player;
-                            Server.Players.TryGetValue((uint)args[1], out player);
-                            int arglen = args.Length;
-                            object[] cliargs = new object[arglen - 2];
-                            for (int i = 2; i < arglen; i++)
-                            {
-                                cliargs[i - 2] = args[i];
-                            }
-                            OnClientEvent(player, (string)args[0], cliargs);
                             return;
                         }
                 }

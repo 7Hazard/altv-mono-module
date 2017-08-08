@@ -26,8 +26,6 @@ namespace Mono {
 		Method::LoadResource = mono_class_get_method_from_name(MainClass, "LoadResource", 1);
 		Method::TriggerOnServerUnload = mono_class_get_method_from_name(EventClass, "TriggerOnServerUnload", 0);
 		Method::TriggerOnTick = mono_class_get_method_from_name(EventClass, "TriggerOnTick", 0);
-		Method::TriggerOnServerCommand = mono_class_get_method_from_name(EventClass, "TriggerOnServerCommand", 1);
-		Method::TriggerOnPlayerUpdate = mono_class_get_method_from_name(EventClass, "TriggerOnPlayerUpdate", 1);
 		Method::TriggerOnEvent = mono_class_get_method_from_name(EventClass, "TriggerOnEvent", 2);
 
 		MonoObject* exc = nullptr;
@@ -44,16 +42,6 @@ namespace Mono {
 	// Events
 	void TriggerOnTick() {
 		Invoke(Method::TriggerOnTick, nullptr, nullptr, true);
-	}
-
-	void TriggerOnServerCommand(const char* command) {
-		void* args[1]{ mono_string_new(Domain, command) };
-		Invoke(Method::TriggerOnServerCommand, nullptr, args, true);
-	}
-
-	void TriggerOnPlayerUpdate(long playerid) {
-		void* args[1]{ &playerid };
-		Invoke(Method::TriggerOnPlayerUpdate, nullptr, args, true);
 	}
 
 	void TriggerOnEvent(const char* e, MValueList& mvlist) {

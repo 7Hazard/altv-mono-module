@@ -84,18 +84,18 @@ extern "C" {
 	EXPORT float GetPlayerHealth(long playerid) {
 		return API::instance->GetPlayerHealth(playerid);
 	}
-	EXPORT bool SetPlayerArmour(long playerid, float armour) {
-		return API::instance->SetPlayerArmor(playerid, armour);
+	EXPORT bool SetPlayerArmor(long playerid, float armor) {
+		return API::instance->SetPlayerArmor(playerid, armor);
 	}
 	EXPORT unsigned int GetPlayerColor(long playerid) {
 		return API::instance->GetPlayerColor(playerid);
 	}
-	/*EXPORT void BroadcastClientMessage(const char* message, unsigned int color) {
-		API::instance->BroadcastClientMessage(message, color);
+	EXPORT void SendMessageToAll(const char* message) {
+		API::instance->SendMessageToAll(message);
 	}
-	EXPORT bool SendClientMessage(long playerid, const char * message, unsigned int color) {
-		return API::instance->SendClientMessage(playerid, message, color);
-	}*/
+	EXPORT bool SendMessageToPlayer(long playerid, const char * message) {
+		return API::instance->SendMessageToPlayer(playerid, message);
+	}
 	EXPORT bool SetPlayerIntoVehicle(long playerid, unsigned long vehicle, char seat) {
 		return API::instance->SetPlayerIntoVehicle(playerid, vehicle, seat);
 	}
@@ -141,13 +141,13 @@ extern "C" {
 		Vector3 rot{ vector.fX, vector.fY, vector.fZ };
 		return rot;
 	}
-	EXPORT bool SetVehicleTyresBulletproof(unsigned long guid, bool bulletproof) {
-		return API::instance->SetVehicleTyresBulletproof(guid, bulletproof);
+	EXPORT bool SetVehicleTiresBulletproof(unsigned long guid, bool bulletproof) {
+		return API::instance->SetVehicleTiresBulletproof(guid, bulletproof);
 	}
-	EXPORT bool GetVehicleTyresBulletproof(unsigned long guid) {
-		return API::instance->GetVehicleTyresBulletproof(guid);
+	EXPORT bool GetVehicleTiresBulletproof(unsigned long guid) {
+		return API::instance->GetVehicleTiresBulletproof(guid);
 	}
-	EXPORT bool HasVehicleCustomColours(unsigned long guid) {
+	EXPORT bool HasVehicleCustomColors(unsigned long guid) {
 		bool colors[2];
 		API::instance->HasVehicleCustomColors(guid, &colors[0], &colors[1]);
 		return colors;
