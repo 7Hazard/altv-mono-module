@@ -115,6 +115,10 @@ namespace SharpOrange.Objects
             }
         }
         /// <summary>
+        /// Gets the last death position
+        /// </summary>
+        public Vector3 DeathPosition { get; internal set; }
+        /// <summary>
         /// Add money to what the player currently already has
         /// </summary>
         /// <param name="money"></param>

@@ -52,7 +52,7 @@ namespace SharpOrange
         /// </summary>
         public static event OnPlayerDeathHandler OnPlayerDeath = delegate { };
 
-        public delegate void OnPlayerRespawnHandler(Player player, Vector3 deathPosition);
+        public delegate void OnPlayerRespawnHandler(Player player);
         public static event OnPlayerRespawnHandler OnPlayerRespawn= delegate { };
 
         public delegate void OnPlayerEnterVehicleHandler(Player player, Vehicle vehicle);
@@ -140,6 +140,7 @@ namespace SharpOrange
                             Player player;
                             Server.Players.TryGetValue(playerid, out player);
                             player.IsAlive = false;
+                            player.DeathPosition = new Vector3(player.Position);
                             if (playerid == killerid)
                             {
                                 OnPlayerDeath(player, player, (long)args[2]);
@@ -154,11 +155,11 @@ namespace SharpOrange
                         }
                     case "PlayerSpawn":
                         {
-                            SharpOrange.Print("RESPAWN");
                             Player player;
                             Server.Players.TryGetValue((uint)args[0], out player);
                             player.IsAlive = true;
-                            OnPlayerRespawn(player, new Vector3((double)args[1], (double)args[2], (double)args[3]));
+                            OnPlayerRespawn(player);
+                            //OnPlayerRespawn(player, new Vector3((double)args[1], (double)args[2], (double)args[3]));
                             return;
                         }
                     case "EnterVehicle":
