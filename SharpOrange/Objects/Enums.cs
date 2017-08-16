@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SharpOrange.Objects
+﻿namespace SharpOrange.Objects
 {
     public enum DisconnectReason
     {

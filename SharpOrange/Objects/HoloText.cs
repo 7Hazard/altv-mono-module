@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SharpOrange.Math;
+using System;
 
 namespace SharpOrange.Objects
 {
@@ -18,7 +15,7 @@ namespace SharpOrange.Objects
         public HoloText(string text, Vector3 position, RGB color, float fontSize)
         {
             ID = Server.Create3DText(text, position.x, position.y, position.z, color.r, color.r, fontSize);
-            Server.HoloTexts.Add(ID, this);
+            Server.holotexts.Add(ID, this);
         }
         /// <summary>
         /// Create Holo Text for specified player
@@ -31,13 +28,13 @@ namespace SharpOrange.Objects
         public HoloText(string text, Player player, Vector3 position, RGB color, RGB outline)
         {
             ID = Server.Create3DTextForPlayer(player.ID, text, position.x, position.y, position.z, color.r, outline.r);
-            Server.HoloTexts.Add(ID, this);
+            Server.holotexts.Add(ID, this);
         }
         ~HoloText()
         {
             if (!Server.Delete3DText(ID))
                 SharpOrange.Print($"Failed to Dispose Holo Text '{ID}'!");
-            Server.HoloTexts.Remove(ID);
+            Server.holotexts.Remove(ID);
         }
         /// <summary>
         /// Dispose Holo Text
@@ -47,7 +44,7 @@ namespace SharpOrange.Objects
             GC.SuppressFinalize(this);
             if (!Server.Delete3DText(ID))
                 SharpOrange.Print($"Failed to Dispose Holo Text '{ID}'!");
-            Server.HoloTexts.Remove(ID);
+            Server.holotexts.Remove(ID);
         }
         /// <summary>
         /// 3D Holo Text Unique ID

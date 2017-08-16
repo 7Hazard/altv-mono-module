@@ -46,20 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Math\Vector2.cs" />
     <Compile Include="Orange.cs" />
-    <Compile Include="Events.cs" />
+    <Compile Include="Event.cs" />
     <Compile Include="Objects\Blip.cs" />
     <Compile Include="Objects\HoloText.cs" />
     <Compile Include="Objects\Marker.cs" />
     <Compile Include="Objects\GTAObject.cs" />
     <Compile Include="Objects\Pickup.cs" />
-    <Compile Include="Objects\RGB.cs" />
+    <Compile Include="Math\RGB.cs" />
     <Compile Include="Objects\Vehicle.cs" />
     <Compile Include="Objects\VehicleHealth.cs" />
+    <Compile Include="Resource.cs" />
     <Compile Include="SharpOrange.cs" />
     <Compile Include="Objects\Enums.cs" />
     <Compile Include="Objects\Player.cs" />
-    <Compile Include="Objects\Vector3.cs" />
+    <Compile Include="Math\Vector3.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
+﻿using SharpOrange.Math;
+using System;
 using System.Threading.Tasks;
 
 namespace SharpOrange.Objects
@@ -13,12 +11,12 @@ namespace SharpOrange.Objects
             ID = playerid;
             IP = ip;
             ClientID = Server.GetPlayerGUID(playerid);
-            Server.Players.Add(playerid, this);
+            Server.players.Add(playerid, this);
         }
 
         ~Player()
         {
-            Server.Players.Remove(ID);
+            Server.players.Remove(ID);
         }
         /// <summary>
         /// USE KICK METHOD AND NOT THIS!
@@ -26,7 +24,7 @@ namespace SharpOrange.Objects
         public void Dispose()
         {
             GC.SuppressFinalize(this);
-            Server.Players.Remove(ID);
+            Server.players.Remove(ID);
         }
         /// <summary>
         /// The unique ID of the player for it's current session

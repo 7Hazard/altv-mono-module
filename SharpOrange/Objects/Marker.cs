@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharpOrange.Math;
+using System;
 
 namespace SharpOrange.Objects
 {
@@ -16,7 +17,7 @@ namespace SharpOrange.Objects
         public Marker(Vector3 position, float height, float radius)
         {
             ID = Server.CreateMarkerForAll(position.x, position.y, position.z, height, radius);
-            Server.Markers.Add(ID, this);
+            Server.markers.Add(ID, this);
         }
         /// <summary>
         /// Create map marker visible for the specified
@@ -28,12 +29,12 @@ namespace SharpOrange.Objects
         public Marker(Player player, Vector3 position, float height, float radius)
         {
             ID = Server.CreateMarkerForPlayer(player.ID, position.x, position.y, position.z, height, radius);
-            Server.Markers.Add(ID, this);
+            Server.markers.Add(ID, this);
         }
         ~Marker()
         {
             Server.DeleteMarker(ID);
-            Server.Markers.Remove(ID);
+            Server.markers.Remove(ID);
         }
         /// <summary>
         /// Proper method for disposing the Marker
@@ -42,7 +43,7 @@ namespace SharpOrange.Objects
         {
             GC.SuppressFinalize(this);
             Server.DeleteMarker(ID);
-            Server.Markers.Remove(ID);
+            Server.markers.Remove(ID);
         }
         /// <summary>
         /// The unique ID of the marker

@@ -1,14 +1,11 @@
-﻿using SharpOrange.Objects;
+﻿using SharpOrange.Math;
+using SharpOrange.Objects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SharpOrange
 {
-    public static class Event
+    public class Event
     {
         /// <summary>
         /// Triggered before the server unloads/stops
@@ -74,15 +71,6 @@ namespace SharpOrange
         /// Triggered when a player has been updated
         /// </summary>
         public static event PlayerUpdateHandler OnPlayerUpdate = delegate { };
-        static void TriggerOnPlayerUpdate(uint playerid)
-        {
-            Task.Run(() =>
-            {
-                Player player;
-                Server.Players.TryGetValue(playerid, out player);
-                OnPlayerUpdate(player);
-            });
-        }
 
         public delegate void OnClientEventHandler(Player player, string eventname, object[] args);
         /// <summary>
@@ -109,7 +97,7 @@ namespace SharpOrange
                     case "ServerEvent":
                         {
                             Player player;
-                            Server.Players.TryGetValue((uint)args[1], out player);
+                            Server.players.TryGetValue((uint)args[1], out player);
                             int arglen = args.Length;
                             object[] cliargs = new object[arglen - 2];
                             for (int i = 2; i < arglen; i++)
@@ -131,6 +119,13 @@ namespace SharpOrange
                             Server.Players.TryGetValue((uint)args[0], out player);
                             OnPlayerDisconnect(player, (DisconnectReason)(Int64)args[1]);
                             player.Dispose();
+                            return;
+                        }
+                    case "PlayerUpdate":
+                        {
+                            Player player;
+                            Server.Players.TryGetValue((uint)args[0], out player);
+                            OnPlayerUpdate(player);
                             return;
                         }
                     case "PlayerDead":
@@ -159,7 +154,6 @@ namespace SharpOrange
                             Server.Players.TryGetValue((uint)args[0], out player);
                             player.IsAlive = true;
                             OnPlayerRespawn(player);
-                            //OnPlayerRespawn(player, new Vector3((double)args[1], (double)args[2], (double)args[3]));
                             return;
                         }
                     case "EnterVehicle":

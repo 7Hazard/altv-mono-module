@@ -1,8 +1,6 @@
-﻿using System;
+﻿using SharpOrange.Math;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SharpOrange.Objects
 {
@@ -22,13 +20,13 @@ namespace SharpOrange.Objects
                 return;
             }
             Model = vehicle;
-            Server.Vehicles.Add(ID, this);
+            Server.vehicles.Add(ID, this);
         }
         ~Vehicle()
         {
             if (!Server.DeleteVehicle(ID))
                 SharpOrange.Print($"Failed to delete vehicle! ID: '{ID}', Model: '{Model}'");
-            Server.Vehicles.Remove(ID);
+            Server.vehicles.Remove(ID);
         }
         /// <summary>
         /// Proper vehicle disposition, prevents garbage collector to wrongfully dispose it
@@ -38,7 +36,7 @@ namespace SharpOrange.Objects
             GC.SuppressFinalize(this);
             if (!Server.DeleteVehicle(ID))
                 SharpOrange.Print($"Failed to delete vehicle! ID: '{ID}', Model: '{Model}'");
-            Server.Vehicles.Remove(ID);
+            Server.vehicles.Remove(ID);
         }
         /// <summary>
         /// Vehicle ID used for unmanaged usage

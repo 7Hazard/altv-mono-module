@@ -20,7 +20,7 @@ extern "C"
 		return ".NET";
 	}
 
-	EXPORT bool OnResourceLoad(const char* resource)
+	EXPORT bool OnResourceLoad(char* resource)
 	{
 		Mono::LoadResource(resource);
 		return true;

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SharpOrange.Math;
+using System;
 
 namespace SharpOrange.Objects
 {
@@ -19,7 +16,7 @@ namespace SharpOrange.Objects
         public Blip(string name, Vector3 position, RGB color, float scale, int sprite)
         {
             ID = Server.CreateBlipForAll(name, position.x, position.y, position.z, scale, color.r, sprite);
-            Server.Blips.Add(ID, this);
+            Server.blips.Add(ID, this);
         }
         /// <summary>
         /// Create Blip for specified player
@@ -33,12 +30,12 @@ namespace SharpOrange.Objects
         public Blip(string name, Player player, Vector3 position, RGB color, float scale, int sprite)
         {
             ID = Server.CreateBlipForPlayer(player.ID, name, position.x, position.y, position.z, scale, color.r, sprite);
-            Server.Blips.Add(ID, this);
+            Server.blips.Add(ID, this);
         }
         ~Blip()
         {
             Server.DeleteBlip(ID);
-            Server.Blips.Remove(ID);
+            Server.blips.Remove(ID);
         }
         /// <summary>
         /// Dispose the Blip
@@ -47,7 +44,7 @@ namespace SharpOrange.Objects
         {
             GC.SuppressFinalize(this);
             Server.DeleteBlip(ID);
-            Server.Blips.Remove(ID);
+            Server.blips.Remove(ID);
         }
         /// UID of Blip
         /// </summary>

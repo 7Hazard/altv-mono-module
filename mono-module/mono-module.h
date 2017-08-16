@@ -3,6 +3,7 @@
 #define WIN32_LEAN_AND_MEAN
 
 #include <string.h>
+#include <functional>
 
 #include "API/API.h"
 #include "Mono/Mono.h"

@@ -1,9 +1,6 @@
-﻿using SharpOrange.Objects;
-using System;
+﻿using SharpOrange.Math;
+using SharpOrange.Objects;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,36 +10,13 @@ namespace SharpOrange
     public class Server
     {
         // Server/Console
-        /// <summary>
-        /// List of loaded addons
-        /// </summary>
-        public static List<string> Plugins { get; internal set; }
-        /// <summary>
-        /// List of loaded resources
-        /// </summary>
-        public static List<string> Resources { get; internal set; }
+
         /// <summary>
         /// Print a server message
         /// </summary>
         /// <param name="text"></param>
         [DllImport("mono-module", EntryPoint = "Print", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Print(string text);
-        /// <summary>
-        /// Load a plugin by name
-        /// </summary>
-        /// <param name="pluginName"></param>
-        public static void LoadPlugin(string pluginName)
-        {
-            SharpOrange.LoadPlugin(pluginName);
-        }
-        /// <summary>
-        /// Load a resource by name
-        /// </summary>
-        /// <param name="resourceName"></param>
-        public static void LoadResource(string resourceName)
-        {
-            SharpOrange.LoadResource(resourceName);
-        }
         /// <summary>
         /// Shut down the server
         /// </summary>
@@ -88,10 +62,12 @@ namespace SharpOrange
         }
 
         // Players
+
+        internal readonly static Dictionary<long, Player> players = new Dictionary<long, Player>();
         /// <summary>
         /// Dictionary/Map of the currently connected Players
         /// </summary>
-        public static Dictionary<long, Player> Players { get; internal set; }
+        public static IReadOnlyDictionary<long, Player> Players => players;
 
         /// <summary>
         /// Trigger Client event
@@ -282,10 +258,12 @@ namespace SharpOrange
         }
 
         // Vehicles
+
+        internal readonly static Dictionary<ulong, Vehicle> vehicles = new Dictionary<ulong, Vehicle>();
         /// <summary>
         /// Dictionary/Map of Vehicles
         /// </summary>
-        public static Dictionary<ulong, Vehicle> Vehicles;
+        public static IReadOnlyDictionary<ulong, Vehicle> Vehicles => vehicles;
 
         [DllImport("mono-module", EntryPoint = "CreateVehicle", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong CreateVehicle(long vehicle, float x, float y, float z, float heading);
@@ -393,10 +371,12 @@ namespace SharpOrange
         public static extern uint[] GetVehiclePassengers(ulong vehicleid);
 
         // Objects
+
+        internal readonly static Dictionary<ulong, GTAObject> gtaobjects = new Dictionary<ulong, GTAObject>();
         /// <summary>
         /// Dictionary of holo texts
         /// </summary>
-        public static Dictionary<ulong, GTAObject> GTAObjects { get; internal set; }
+        public static IReadOnlyDictionary<ulong, GTAObject> GTAObjects => gtaobjects;
 
         [DllImport("mono-module", EntryPoint = "CreateObject", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong CreateObject(long model, float x, float y, float z, float rx, float ry, float rz);
@@ -405,10 +385,12 @@ namespace SharpOrange
         public static extern bool DeleteObject(ulong guid);
 
         // 3D Texts
+
+        internal readonly static Dictionary<ulong, HoloText> holotexts = new Dictionary<ulong, HoloText>();
         /// <summary>
         /// Dictionary of holo texts
         /// </summary>
-        public static Dictionary<ulong, HoloText> HoloTexts { get; internal set; }
+        public static IReadOnlyDictionary<ulong, HoloText> HoloTexts => holotexts;
 
         [DllImport("mono-module", EntryPoint = "Create3DText", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong Create3DText(string text, float x, float y, float z, int color, int outColor, float fontSize);
@@ -426,10 +408,12 @@ namespace SharpOrange
         public static extern bool Attach3DTextToVehicle(ulong guid, ulong vehicle, float pitch, float yaw, float roll);
 
         // Blips
+
+        internal readonly static Dictionary<ulong, Blip> blips = new Dictionary<ulong, Blip>();
         /// <summary>
         /// Dictionary of Blips
         /// </summary>
-        public static Dictionary<ulong, Blip> Blips { get; internal set; }
+        public static IReadOnlyDictionary<ulong, Blip> Blips => blips;
 
         [DllImport("mono-module", EntryPoint = "CreateBlipForAll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong CreateBlipForAll(string name, float x, float y, float z, float scale, int color, int sprite);
@@ -465,10 +449,12 @@ namespace SharpOrange
         public static extern void AttachBlipToVehicle(ulong guid, ulong vehicle);
 
         // Markers
+
+        internal readonly static Dictionary<ulong, Marker> markers = new Dictionary<ulong, Marker>();
         /// <summary>
         /// Dictionary/Map of markers for the GTA V map
         /// </summary>
-        public static Dictionary<ulong, Marker> Markers { get; internal set; }
+        public static IReadOnlyDictionary<ulong, Marker> Markers => markers;
 
         [DllImport("mono-module", EntryPoint = "CreateMarkerForAll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong CreateMarkerForAll(float x, float y, float z, float height, float radius);

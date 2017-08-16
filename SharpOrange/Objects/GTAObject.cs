@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SharpOrange.Math;
+using System;
 
 namespace SharpOrange.Objects
 {
@@ -18,13 +15,13 @@ namespace SharpOrange.Objects
         {
             ID = Server.CreateObject(Server.Hash(model), position.x, position.y, position.z,
                 rotation.x, rotation.y, rotation.z);
-            Server.GTAObjects.Add(ID, this);
+            Server.gtaobjects.Add(ID, this);
         }
         ~GTAObject()
         {
             if (!Server.DeleteObject(ID))
                 SharpOrange.Print($"Failed to Dispose object '{ID}'!");
-            Server.GTAObjects.Remove(ID);
+            Server.gtaobjects.Remove(ID);
         }
         /// <summary>
         /// Dispose the GTA Object
@@ -34,7 +31,7 @@ namespace SharpOrange.Objects
             GC.SuppressFinalize(this);
             if (!Server.DeleteObject(ID))
                 SharpOrange.Print($"Failed to Dispose object '{ID}'!");
-            Server.GTAObjects.Remove(ID);
+            Server.gtaobjects.Remove(ID);
         }
         /// <summary>
         /// GUID of object
