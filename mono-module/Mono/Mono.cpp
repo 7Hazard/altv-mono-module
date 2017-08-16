@@ -75,8 +75,8 @@ namespace Mono {
 		if (!strcmp(e, "ServerUnload")) {
 			LoopDomains([](MonoDomain* d) {
 				Invoke(d, Method::TriggerOnServerUnload, NULL, NULL, true);
-				return;
 			});
+			return;
 		}
 		
 		LoopDomains([&](MonoDomain* d) {
