@@ -1,6 +1,6 @@
-﻿namespace SharpOrange.Objects
+﻿namespace SharpOrange.Structs
 {
-    public class VehicleHealth
+    public struct VehicleHealth
     {
         public float body, engine, tank;
         /// <summary>

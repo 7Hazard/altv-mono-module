@@ -1,4 +1,6 @@
-﻿using SharpOrange.Objects;
+﻿#if !SM
+using SharpOrange.Objects;
+#endif
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;

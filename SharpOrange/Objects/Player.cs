@@ -1,4 +1,5 @@
-﻿using SharpOrange.Math;
+﻿#if !SM
+using SharpOrange.Math;
 using System;
 using System.Threading.Tasks;
 
@@ -335,3 +336,4 @@ namespace SharpOrange.Objects
         }
     }
 }
+#endif

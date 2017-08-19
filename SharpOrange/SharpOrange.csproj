@@ -16,13 +16,14 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\bin\SharpOrange\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE;/define SM</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DocumentationFile>..\bin\SharpOrange.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -46,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Math\Vector2.cs" />
+    <Compile Include="Structs\Vector2.cs" />
     <Compile Include="Orange.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="Objects\Blip.cs" />
@@ -54,14 +55,14 @@
     <Compile Include="Objects\Marker.cs" />
     <Compile Include="Objects\GTAObject.cs" />
     <Compile Include="Objects\Pickup.cs" />
-    <Compile Include="Math\RGB.cs" />
+    <Compile Include="Structs\RGB.cs" />
     <Compile Include="Objects\Vehicle.cs" />
-    <Compile Include="Objects\VehicleHealth.cs" />
+    <Compile Include="Structs\VehicleHealth.cs" />
     <Compile Include="Resource.cs" />
     <Compile Include="SharpOrange.cs" />
     <Compile Include="Objects\Enums.cs" />
     <Compile Include="Objects\Player.cs" />
-    <Compile Include="Math\Vector3.cs" />
+    <Compile Include="Structs\Vector3.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

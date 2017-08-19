@@ -1,5 +1,7 @@
-﻿using SharpOrange.Math;
+﻿#if !SM
 using SharpOrange.Objects;
+#endif
+using SharpOrange.Structs;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -62,13 +64,13 @@ namespace SharpOrange
         }
 
         // Players
-
+#if !SM
         internal readonly static Dictionary<long, Player> players = new Dictionary<long, Player>();
         /// <summary>
         /// Dictionary/Map of the currently connected Players
         /// </summary>
         public static IReadOnlyDictionary<long, Player> Players => players;
-
+#endif
         /// <summary>
         /// Trigger Client event
         /// </summary>
@@ -112,7 +114,7 @@ namespace SharpOrange
         {
             return TriggerEvent(-1, name, args);
         }
-
+#if !SM
         public static void KickPlayer(Player player)
         {
             KickPlayer(player.ID);
@@ -122,7 +124,7 @@ namespace SharpOrange
         {
             KickPlayer(player.ID, reason);
         }
-
+#endif
         [DllImport("mono-module", EntryPoint = "KickPlayer", CallingConvention = CallingConvention.Cdecl)]
         public static extern void KickPlayer(long playerid);
 
@@ -258,13 +260,13 @@ namespace SharpOrange
         }
 
         // Vehicles
-
+#if !SM
         internal readonly static Dictionary<ulong, Vehicle> vehicles = new Dictionary<ulong, Vehicle>();
         /// <summary>
         /// Dictionary/Map of Vehicles
         /// </summary>
         public static IReadOnlyDictionary<ulong, Vehicle> Vehicles => vehicles;
-
+#endif
         [DllImport("mono-module", EntryPoint = "CreateVehicle", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong CreateVehicle(long vehicle, float x, float y, float z, float heading);
 
@@ -371,13 +373,13 @@ namespace SharpOrange
         public static extern uint[] GetVehiclePassengers(ulong vehicleid);
 
         // Objects
-
+#if !SM
         internal readonly static Dictionary<ulong, GTAObject> gtaobjects = new Dictionary<ulong, GTAObject>();
         /// <summary>
         /// Dictionary of holo texts
         /// </summary>
         public static IReadOnlyDictionary<ulong, GTAObject> GTAObjects => gtaobjects;
-
+#endif
         [DllImport("mono-module", EntryPoint = "CreateObject", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong CreateObject(long model, float x, float y, float z, float rx, float ry, float rz);
 
@@ -385,13 +387,13 @@ namespace SharpOrange
         public static extern bool DeleteObject(ulong guid);
 
         // 3D Texts
-
+#if !SM
         internal readonly static Dictionary<ulong, HoloText> holotexts = new Dictionary<ulong, HoloText>();
         /// <summary>
         /// Dictionary of holo texts
         /// </summary>
         public static IReadOnlyDictionary<ulong, HoloText> HoloTexts => holotexts;
-
+#endif
         [DllImport("mono-module", EntryPoint = "Create3DText", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong Create3DText(string text, float x, float y, float z, int color, int outColor, float fontSize);
 
@@ -408,13 +410,13 @@ namespace SharpOrange
         public static extern bool Attach3DTextToVehicle(ulong guid, ulong vehicle, float pitch, float yaw, float roll);
 
         // Blips
-
+#if !SM
         internal readonly static Dictionary<ulong, Blip> blips = new Dictionary<ulong, Blip>();
         /// <summary>
         /// Dictionary of Blips
         /// </summary>
         public static IReadOnlyDictionary<ulong, Blip> Blips => blips;
-
+#endif
         [DllImport("mono-module", EntryPoint = "CreateBlipForAll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong CreateBlipForAll(string name, float x, float y, float z, float scale, int color, int sprite);
 
@@ -449,13 +451,13 @@ namespace SharpOrange
         public static extern void AttachBlipToVehicle(ulong guid, ulong vehicle);
 
         // Markers
-
+#if !SM
         internal readonly static Dictionary<ulong, Marker> markers = new Dictionary<ulong, Marker>();
         /// <summary>
         /// Dictionary/Map of markers for the GTA V map
         /// </summary>
         public static IReadOnlyDictionary<ulong, Marker> Markers => markers;
-
+#endif
         [DllImport("mono-module", EntryPoint = "CreateMarkerForAll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong CreateMarkerForAll(float x, float y, float z, float height, float radius);
 

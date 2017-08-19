@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using SharpOrange.Objects;
-using System.Runtime.InteropServices;
-using System.Threading;
-
-namespace SharpOrange
+﻿namespace SharpOrange
 {
     public class SharpOrange
     {

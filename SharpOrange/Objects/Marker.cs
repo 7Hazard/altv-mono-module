@@ -1,4 +1,5 @@
-﻿using SharpOrange.Math;
+﻿#if !SM
+using SharpOrange.Math;
 using System;
 
 namespace SharpOrange.Objects
@@ -51,3 +52,4 @@ namespace SharpOrange.Objects
         public ulong ID { get; internal set; }
     }
 }
+#endif

@@ -1,4 +1,4 @@
-﻿namespace SharpOrange.Math
+﻿namespace SharpOrange.Structs
 {
     public struct Vector3
     {

@@ -1,4 +1,5 @@
-﻿using SharpOrange.Math;
+﻿#if !SM
+using SharpOrange.Math;
 using System;
 
 namespace SharpOrange.Objects
@@ -121,3 +122,4 @@ namespace SharpOrange.Objects
         }
     }
 }
+#endif
