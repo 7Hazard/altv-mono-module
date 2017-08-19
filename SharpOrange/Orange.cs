@@ -1,8 +1,4 @@
-﻿#if !SM
-using SharpOrange.Objects;
-#endif
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
 

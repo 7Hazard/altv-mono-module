@@ -1,5 +1,5 @@
 ﻿#if !SM
-using SharpOrange.Math;
+using SharpOrange.Structs;
 using System;
 
 namespace SharpOrange.Objects

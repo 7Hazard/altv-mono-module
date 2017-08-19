@@ -19,16 +19,16 @@ namespace Mono {
 			return;
 		}
 
-		APIPrint("Module sucessfully loaded!");
-
 		Image = mono_assembly_get_image(Assembly);
 		EventClass = mono_class_from_name(Image, "SharpOrange", "Event");
 		Method::TriggerOnServerUnload = mono_class_get_method_from_name(EventClass, "TriggerOnServerUnload", 0);
 		Method::TriggerOnTick = mono_class_get_method_from_name(EventClass, "TriggerOnTick", 0);
 		Method::TriggerOnEvent = mono_class_get_method_from_name(EventClass, "TriggerOnEvent", 2);
+
+		APIPrint("Module sucessfully loaded!");
 	}
 	
-	// SharpOrange
+	// Domains
 	void LoadResource(char* name) {
 		std::string str_name = name;
 
@@ -61,6 +61,14 @@ namespace Mono {
 		}
 		Domains.erase(name);
 		return true;
+	}
+
+	void LoopDomains(std::function<void(MonoDomain*)> function) {
+		for each (auto pair in Domains)
+		{
+			mono_thread_attach(pair.second);
+			function(pair.second);
+		}
 	}
 
 	// Events
@@ -149,13 +157,5 @@ namespace Mono {
 			return true;
 		}
 		return false;
-	}
-
-	void LoopDomains(std::function<void(MonoDomain*)> function) {
-		for each (auto pair in Domains)
-		{
-			mono_thread_attach(pair.second);
-			function(pair.second);
-		}
 	}
 }

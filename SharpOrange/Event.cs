@@ -1,5 +1,6 @@
 ﻿#if !SM
 using SharpOrange.Objects;
+using SharpOrange.Structs;
 #endif
 using System;
 using System.Threading.Tasks;
