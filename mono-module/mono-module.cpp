@@ -39,7 +39,12 @@ extern "C"
 	}
 }
 
-void APIPrint(std::string msg) {
+void Print(std::string msg) {
 	std::string out = "[Mono] " + msg;
+	API::instance->Print(out.c_str());
+}
+
+void Error(std::string msg) {
+	std::string out = "[Mono] ERROR - " + msg;
 	API::instance->Print(out.c_str());
 }

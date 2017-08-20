@@ -11,38 +11,54 @@ namespace Mono {
 #else
 		mono_domain_set_config(Domain, "/etc/mono/4.5", "machine.config");
 #endif*/
-		mono_config_parse(NULL);
+		//mono_config_parse(NULL);
 
 		Assembly = mono_domain_assembly_open(Domain, SharpOrangePath);
 		if (!Assembly) {
-			APIPrint("SharpOrange assembly failed to load!");
+			Error("Assembly \"SharpOrange.dll\" failed to load!");
 			return;
 		}
-
 		Image = mono_assembly_get_image(Assembly);
 		EventClass = mono_class_from_name(Image, "SharpOrange", "Event");
 		Method::TriggerOnServerUnload = mono_class_get_method_from_name(EventClass, "TriggerOnServerUnload", 0);
 		Method::TriggerOnTick = mono_class_get_method_from_name(EventClass, "TriggerOnTick", 0);
 		Method::TriggerOnEvent = mono_class_get_method_from_name(EventClass, "TriggerOnEvent", 2);
 
-		APIPrint("Module sucessfully loaded!");
+		AssemblySM = mono_domain_assembly_open(Domain, SharpOrangeSMPath);
+		if (!AssemblySM) {
+			Error("Skipping load of Self-Managed API (\"SharpOrangeSM.dll\" failed to load)");
+			return;
+		}
+		ImageSM = mono_assembly_get_image(AssemblySM);
+		EventClassSM = mono_class_from_name(Image, "SharpOrange", "Event");
+		Method::TriggerOnServerUnloadSM = mono_class_get_method_from_name(EventClass, "TriggerOnServerUnload", 0);
+		Method::TriggerOnTickSM = mono_class_get_method_from_name(EventClass, "TriggerOnTick", 0);
+		Method::TriggerOnEventSM = mono_class_get_method_from_name(EventClass, "TriggerOnEvent", 2);
+
+		Print("Module sucessfully loaded!");
 	}
 	
 	// Domains
-	void LoadResource(char* name) {
-		std::string str_name = name;
+	void LoadResource(const char* name) {
+		std::string str_name(name);
 
-		if (Domains.count(name) != 0) {
-			APIPrint("Reloading resource \""+ str_name +"\"");
-			if (!UnloadResource(name)) APIPrint("Failed to reload resource \"" + str_name + "\"");
-		} else APIPrint("Loading resource \"" + str_name + "\"");
+		if (Domains.count(str_name.c_str()) == 1) {
+			Print("Reloading resource \""+ str_name +"\"");
+			if (!UnloadResource((char*)name)) Error("Failed to reload resource \"" + str_name + "\"");
+		} 
+		else if (DomainIsSM(name)) Print("Loading Self-Managed resource \"" + str_name + "\"");
+		else Print("Loading resource \"" + str_name + "\"");
 
-		MonoDomain* domain = mono_domain_create_appdomain(name, NULL);
+		MonoDomain* domain = mono_domain_create_appdomain((char*)name, NULL);
 		std::string path = "resources/"+ str_name + "/" + str_name +".dll";
 
 		MonoAssembly* assembly = mono_domain_assembly_open(domain, path.c_str());
 		MonoImage* image = mono_assembly_get_image(assembly);
 		MonoClass* mainclass = mono_class_from_name(image, name, name);
+		if (mainclass == nullptr) {
+			Error("Failed to get resource constructor \""+str_name+"."+str_name + "\"!");
+			return;
+		}
 		MonoObject* mainobject = mono_object_new(domain, mainclass);
 		MonoMethod* ctor = mono_class_get_method_from_name(mainclass, ".ctor", 0);
 		Invoke(domain, ctor, mainobject, NULL, true);
@@ -56,24 +72,32 @@ namespace Mono {
 		mono_domain_try_unload(domain, &exc);
 		std::string str_name = name;
 		if (HasException(exc)) {
-			APIPrint("ERROR - Failed to unload resource \"" + str_name + "\"");
+			Error("Failed to unload resource \"" + str_name + "\"");
 			return false;
 		}
 		Domains.erase(name);
 		return true;
 	}
 
-	void LoopDomains(std::function<void(MonoDomain*)> function) {
+	bool DomainIsSM(const char* name) {
+		const char* string = strrchr(string, 'S');
+
+		return(!strcmp(string, "SM"));
+
+		return(false);
+	}
+
+	void LoopDomains(std::function<void(const char* name, MonoDomain*)> function) {
 		for each (auto pair in Domains)
 		{
 			mono_thread_attach(pair.second);
-			function(pair.second);
+			function(pair.first, pair.second);
 		}
 	}
 
 	// Events
 	void TriggerOnTick() {
-		LoopDomains([](MonoDomain* d) {
+		LoopDomains([](const char* n, MonoDomain* d) {
 			Invoke(d, Method::TriggerOnTick, NULL, NULL, true);
 		});
 	}
@@ -81,13 +105,13 @@ namespace Mono {
 	void TriggerOnEvent(const char* e, MValueList& mvlist) {
 		if (!strcmp(e, "unload") || !strcmp(e, "ServerLoad")) return;
 		if (!strcmp(e, "ServerUnload")) {
-			LoopDomains([](MonoDomain* d) {
+			LoopDomains([](const char* n, MonoDomain* d) {
 				Invoke(d, Method::TriggerOnServerUnload, NULL, NULL, true);
 			});
 			return;
 		}
 		
-		LoopDomains([&](MonoDomain* d) {
+		LoopDomains([&](const char* n, MonoDomain* d) {
 			int size = mvlist.size();
 			MonoArray* earray = mono_array_new(d, EventClass, size);
 			HandleEventArgs(d, earray, mvlist, size);
@@ -131,7 +155,7 @@ namespace Mono {
 			case M_DICT:
 				//auto int_keys = value->getIntDict();
 				//auto string_keys = value->getStringDict();
-				APIPrint("Warning: Dictionaries in events are not supported yet by the Mono Module!");
+				Error("Dictionaries in events are not supported yet by the Mono Module!");
 				values[i] = NULL;
 				break;
 			}
@@ -152,7 +176,7 @@ namespace Mono {
 		if (exc != NULL) {
 			MonoString* ex = mono_object_to_string(exc, &exc);
 			std::string out = "SharpOrange threw an exception: \n" + (std::string)mono_string_to_utf8(ex);
-			APIPrint(out);
+			Error(out);
 			mono_free(exc);
 			return true;
 		}

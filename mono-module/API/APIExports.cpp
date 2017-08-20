@@ -17,7 +17,7 @@ extern "C" {
 		return API::instance->Hash(msg);
 	}
 	EXPORT void Shutdown() {
-		APIPrint("Shutting down the server programmatically is not implemented yet.");
+		Error("Shutting down the server programmatically is not implemented yet.");
 	}
 	EXPORT void ServerEvent(const char* e, EValue* args, int size) {
 		MValueList values = GetMValueList(args, size);

@@ -30,11 +30,11 @@
             this.z = (float)z;
         }
 
-        public Vector3(Vector3 pos)
+        public Vector3(Vector3 vector)
         {
-            x = pos.x;
-            y = pos.y;
-            z = pos.z;
+            x = vector.x;
+            y = vector.y;
+            z = vector.z;
         }
 
         /*public static implicit operator Vector3(double value)

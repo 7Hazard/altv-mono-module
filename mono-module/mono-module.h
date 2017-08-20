@@ -15,4 +15,6 @@
 char *_strdup(const char *str);
 #endif
 
-void APIPrint(std::string msg);
+void Print(std::string msg);
+
+void Error(std::string msg);
