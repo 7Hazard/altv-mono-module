@@ -50,83 +50,95 @@ namespace SharpOrange
         }
 
         static string pluginsPath = @"modules/mono-module/";
-        internal static void LoadPlugin(string pluginName)
+        internal static void LoadPlugin(string name)
         {
-            if (pluginName == "SharpOrange")
+            if (name == "SharpOrange")
                 return;
-            else if (pluginName == "SharpOrangeSM")
+            else if (name == "SharpOrangeSM")
             {
                 SM.Init();
                 return;
             }
 
+            if (Server.plugins.Contains(name))
+            {
+                Print($"Plugin \"{name}\" is already loaded!");
+                return;
+            }
+
             try
             {
-                Activator.CreateInstanceFrom($"{pluginsPath}{pluginName}.dll",
-                    pluginName + "." + pluginName);
+                Activator.CreateInstanceFrom($"{pluginsPath}{name}.dll",
+                    name + "." + name);
             }
             catch (BadImageFormatException)
             {
-                Error($"Resource assembly '{pluginName}' is not targeting .NET Framework!");
+                Error($"Resource assembly '{name}' is not targeting .NET Framework!");
                 return;
             }
             catch (MissingMethodException)
             {
-                Error($"Constructor in '{pluginName}.{pluginName}' is not public!");
+                Error($"Constructor in '{name}.{name}' is not public!");
                 return;
             }
             catch (TypeLoadException)
             {
                 Error($"Namespace, class and a public constructor must be named the same!\n" +
-                    $"Namespace and Class: {pluginName}, Constructor: 'public {pluginName}'");
+                    $"Namespace and Class: {name}, Constructor: 'public {name}'");
                 return;
             }
             catch (Exception e)
             {
-                Error($"Exception caught attempting to load assembly '{pluginName}':\n{e}");
+                Error($"Exception caught attempting to load assembly '{name}':\n{e}");
                 return;
             }
 
-            Server.plugins.Add(pluginName);
+            Server.plugins.Add(name);
         }
 
         static string resourcesPath = @"resources";
-        internal static void LoadResource(string resourceName)
+        internal static void LoadResource(string name)
         {
+            if (Server.resources.Contains(name))
+            {
+                Print($"Resource \"{name}\" is already loaded!");
+                return;
+            }
+
             try
             {
-                Activator.CreateInstanceFrom($"{resourcesPath}/{resourceName}/{resourceName}.dll",
-                    resourceName + "." + resourceName);
+                Activator.CreateInstanceFrom($"{resourcesPath}/{name}/{name}.dll",
+                    name + "." + name);
             }
             catch (FileLoadException)
             {
-                Error($"Resource assembly '{resourceName}' failed to load!");
+                Error($"Resource assembly '{name}' failed to load!");
                 return;
             }
             catch (BadImageFormatException)
             {
-                Error($"Resource assembly '{resourceName}' is not targeting .NET Framework!");
+                Error($"Resource assembly '{name}' is not targeting .NET Framework!");
                 return;
             }
             catch (MissingMethodException)
             {
-                Error($"Constructor in '{resourceName}.{resourceName}' is not public!");
+                Error($"Constructor in '{name}.{name}' is not public!");
                 return;
             }
             catch (TypeLoadException)
             {
                 Error($"Namespace, class and a public constructor must be named the same!\n" +
-                    $"Namespace and Class: {resourceName}, Constructor: 'public {resourceName}'");
+                    $"Namespace and Class: {name}, Constructor: 'public {name}'");
                 return;
             }
             catch (Exception e)
             {
-                Error($"Exception caught attempting to load assembly '{resourceName}':\n{e}");
+                Error($"Exception caught attempting to load assembly '{name}':\n{e}");
                 return;
             }
 
-            Server.resources.Add(resourceName);
-            Print($"Loaded resource '{resourceName}'");
+            Server.resources.Add(name);
+            Print($"Loaded resource '{name}'");
         }
 
         private void HandleException(object sender, UnhandledExceptionEventArgs e)
