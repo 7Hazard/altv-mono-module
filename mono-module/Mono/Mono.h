@@ -9,6 +9,7 @@
 
 namespace Method {
 	// Managed API
+	static MonoMethod* LoadResource;
 	static MonoMethod* TriggerOnServerUnload;
 	static MonoMethod* TriggerOnTick;
 	static MonoMethod* TriggerOnEvent;
@@ -26,36 +27,42 @@ namespace Mono {
 	static char* ConfigPath = "/etc/mono/4.5/machine.config";
 #endif
 
-	// Domains
-	static std::map<const char*, MonoDomain*> Domains;
-	static MonoDomain* Domain;
-	void LoopDomains(std::function<void(const char* name, MonoDomain*)> function);
-	bool DomainIsSM(const char* name);
+	/*// Domains
+	struct DomainAssembly {
+		std::string Name;
+		std::string AssemblyPath;
+		MonoDomain* Domain;
+		MonoAssembly* Assembly;
+		MonoAssembly* APIAssembly;
+		MonoImage* Image;
+		MonoClass* MainClass;
+		MonoClass* EventClass;
+		MonoMethod* TriggerOnServerUnload;
+		MonoMethod* TriggerOnTick;
+		MonoMethod* TriggerOnEvent;
+
+		DomainAssembly(std::string name, std::string path);
+	};*/
+
+	static MonoDomain* MainDomain;
+	/*static std::map<const std::string, DomainAssembly> Domains;
+	void LoopDomains(std::function<void(const std::string, DomainAssembly)> function);*/
 
 	// Managed API
 	static const char* SharpOrangePath = "modules/mono-module/SharpOrange.dll";
-	static MonoAssembly* Assembly;
-	static MonoImage* Image;
-	static MonoClass* MainClass;
-	static MonoObject* MainObject;
-	static MonoClass* EventClass;
 
 	// Self-Managed API
 	static const char* SharpOrangeSMPath = "modules/mono-module/SharpOrangeSM.dll";
-	static MonoAssembly* AssemblySM;
-	static MonoImage* ImageSM;
-	static MonoClass* MainClassSM;
-	static MonoObject* MainObjectSM;
-	static MonoClass* EventClassSM;
+	//bool DomainIsSM(const char* name);
 
 	// Mono
 	void InitMono();
-	void Invoke(MonoDomain* domain, MonoMethod* method, MonoObject* obj, void** args, bool threaded);
+	bool Invoke(MonoDomain* domain, MonoMethod* method, MonoObject* obj, void** args, bool threaded);
 	bool HasException(MonoObject* exception);
 
 	// API Methods
-	void LoadResource(const char* name);
-	bool UnloadResource(char* name);
+	void LoadResource(char* name);
+	//bool UnloadResource(char* name);
 	void TriggerOnTick();
 	void TriggerOnEvent(const char* e, MValueList& mvlist);
 	void HandleEventArgs(MonoDomain* domain, MonoArray* earray, MValueList& args, int size);

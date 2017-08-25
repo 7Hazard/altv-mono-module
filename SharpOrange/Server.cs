@@ -13,6 +13,18 @@ namespace SharpOrange
     {
         // Server/Console
 
+        internal readonly static List<string> plugins = new List<string>();
+        /// <summary>
+        /// List of the currently loaded Plugins
+        /// </summary>
+        public static IReadOnlyList<string> Plugins => plugins;
+
+        internal readonly static List<string> resources = new List<string>();
+        /// <summary>
+        /// List of the currently loaded Resources
+        /// </summary>
+        public static IReadOnlyList<string> Resources => resources;
+
         /// <summary>
         /// Print a server message
         /// </summary>

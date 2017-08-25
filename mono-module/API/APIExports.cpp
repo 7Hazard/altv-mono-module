@@ -2,12 +2,12 @@
 
 extern "C" {
 	// Mono
-	EXPORT void LoadResource(char* resource) {
+	/*EXPORT void LoadResource(char* resource) {
 		Mono::LoadResource(resource);
 	}
 	EXPORT void UnloadResource(char* resource) {
 		Mono::UnloadResource(resource);
-	}
+	}*/
 
 	// Server/Console
 	EXPORT void Print(const char* msg) {

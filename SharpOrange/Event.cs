@@ -13,16 +13,22 @@ namespace SharpOrange
         /// Triggered before the server unloads/stops
         /// </summary>
         public static event Action OnServerUnload = delegate { };
-        static void TriggerOnServerUnload()
+        public static void TriggerOnServerUnload()
         {
+#if !SM
+            Task.Run(() => SharpOrange.SM.TriggerOnServerUnload());
+#endif
             Task.Run(() => OnServerUnload());
         }
         /// <summary>
         /// Triggered every server tick
         /// </summary>
         public static event Action OnTick = delegate { };
-        static void TriggerOnTick()
+        public static void TriggerOnTick()
         {
+#if !SM
+            Task.Run(() => SharpOrange.SM.TriggerOnTick());
+#endif
             Task.Run(() => OnTick());
         }
 
@@ -85,8 +91,11 @@ namespace SharpOrange
         /// Triggered whenever any other client and server event is passed
         /// </summary>
         public static event OnEventHandler OnEvent = delegate { };
-        static void TriggerOnEvent(string e, object[] args)
+        public static void TriggerOnEvent(string e, object[] args)
         {
+#if !SM
+            Task.Run(() => SharpOrange.SM.TriggerOnEvent(e, args));
+#endif
             Task.Run(() =>
             {
                 switch (e)
