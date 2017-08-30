@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace SharpOrange
 {
@@ -47,6 +48,11 @@ namespace SharpOrange
                 LoadPlugin(plugin);
 
             Print("Module successfully initialized");
+        }
+
+        public static void HandleTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            Error(e.ToString());
         }
 
         static string pluginsPath = @"modules/mono-module/";
@@ -141,10 +147,15 @@ namespace SharpOrange
             Print($"Loaded resource '{name}'");
         }
 
-        private void HandleException(object sender, UnhandledExceptionEventArgs e)
+        public static void Exec(Action func)
         {
-            Print(e.ToString());
-            throw new Exception(e.ToString());
+            try
+            {
+                func();
+            } catch (Exception e)
+            {
+                Error(e.ToString());
+            }
         }
 
         internal static void Print(string msg)

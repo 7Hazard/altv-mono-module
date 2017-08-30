@@ -1,0 +1,29 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+mono-module:windows:
+    before_script:
+    - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\Common7\Tools\VsDevCmd.bat"
+    script:
+    - ./build.bat
+    artifacts:
+        name: "mono-module-${CI_COMMIT_REF_NAME:~0,8%}-win64"
+        paths:
+        - windows
+    tags:
+        - windows
+    only:
+    - tags
+
+mono-module:linux:
+    image: gtaorange/mono-linux-ci:latest
+    before_script:
+    - chmod +x ./build.sh
+    script:
+    - ./build.sh
+    artifacts:
+        name: "mono-module-${CI_COMMIT_REF_NAME:0:8}-linux64"
+        paths:
+        - linux
+    only:
+    - tags

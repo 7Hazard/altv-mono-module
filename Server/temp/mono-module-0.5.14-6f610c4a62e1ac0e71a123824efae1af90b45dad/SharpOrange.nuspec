@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SharpOrange</id>
+    <title>SharpOrange</title>
+    <version>0.5.2</version>
+    <authors>7Hazard</authors>
+    <owners>7Hazard</owners>
+    <projectUrl>https://github.com/7Hazard/MonoOrange/tree/master/SharpOrange</projectUrl>
+    <iconUrl>https://camo.githubusercontent.com/158385c8127873305b468319f6d1371d017c509e/687474703a2f2f692e696d6775722e636f6d2f71463444514b672e706e67</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>SharpOrange library for MonoOrange module</description>
+    <copyright>Copyright 2017</copyright>
+    <tags>GTA Orange</tags>
+  </metadata>
+  <files>
+    <file src="Server/modules/mono-module/SharpOrange.dll" target="lib/SharpOrange.dll"/>
+  </files>
+</package>

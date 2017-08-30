@@ -7,9 +7,9 @@ namespace Mono {
 #endif
 		MainDomain = mono_jit_init("SharpOrange");
 /*#ifdef _WINDOWS
-		mono_domain_set_config(Domain, "C:\\Program Files\\Mono\\etc\\mono\\4.5", "machine.config");
+		mono_domain_set_config(MainDomain, "C:\\Program Files\\Mono\\etc\\mono\\4.5", "machine.config");
 #else
-		mono_domain_set_config(Domain, "/etc/mono/4.5", "machine.config");
+		mono_domain_set_config(MainDomain, "/etc/mono/4.5", "machine.config");
 #endif*/
 		//mono_config_parse(NULL);
 

@@ -13,23 +13,23 @@ namespace SharpOrange
         /// Triggered before the server unloads/stops
         /// </summary>
         public static event Action OnServerUnload = delegate { };
-        public static void TriggerOnServerUnload()
+        static void TriggerOnServerUnload()
         {
 #if !SM
-            Task.Run(() => SharpOrange.SM.TriggerOnServerUnload());
+            Task.Run(() => SharpOrange.Exec(()=> SharpOrange.SM.TriggerOnServerUnload()));
 #endif
-            Task.Run(() => OnServerUnload());
+            Task.Run(() => SharpOrange.Exec(()=> OnServerUnload()));
         }
         /// <summary>
         /// Triggered every server tick
         /// </summary>
         public static event Action OnTick = delegate { };
-        public static void TriggerOnTick()
+        static void TriggerOnTick()
         {
 #if !SM
-            Task.Run(() => SharpOrange.SM.TriggerOnTick());
+            Task.Run(() => SharpOrange.Exec(()=> SharpOrange.SM.TriggerOnTick()));
 #endif
-            Task.Run(() => OnTick());
+            Task.Run(() => SharpOrange.Exec(()=> OnTick()));
         }
 
         public delegate void OnServerCommandHandler(string command);
@@ -91,10 +91,10 @@ namespace SharpOrange
         /// Triggered whenever any other client and server event is passed
         /// </summary>
         public static event OnEventHandler OnEvent = delegate { };
-        public static void TriggerOnEvent(string e, object[] args)
+        static void TriggerOnEvent(string e, object[] args)
         {
 #if !SM
-            Task.Run(() => SharpOrange.SM.TriggerOnEvent(e, args));
+            Task.Run(() => SharpOrange.Exec(() => SharpOrange.SM.TriggerOnEvent(e, args)));
 #endif
             Task.Run(() =>
             {
@@ -102,95 +102,119 @@ namespace SharpOrange
                 {
                     case "ServerCommand":
                         {
-                            OnServerCommand((string)args[0]);
+                            SharpOrange.Exec(() => OnServerCommand((string)args[0]));
                             return;
                         }
 #if !SM
                     case "ServerEvent":
                         {
-                            Player player;
-                            Server.players.TryGetValue((uint)args[1], out player);
-                            int arglen = args.Length;
-                            object[] cliargs = new object[arglen - 2];
-                            for (int i = 2; i < arglen; i++)
+                            SharpOrange.Exec(() =>
                             {
-                                cliargs[i - 2] = args[i];
-                            }
-                            OnClientEvent(player, (string)args[0], cliargs);
+                                Player player;
+                                Server.players.TryGetValue((uint)args[1], out player);
+                                int arglen = args.Length;
+                                object[] cliargs = new object[arglen - 2];
+                                for (int i = 2; i < arglen; i++)
+                                {
+                                    cliargs[i - 2] = args[i];
+                                }
+                                OnClientEvent(player, (string)args[0], cliargs);
+                            });
                             return;
                         }
                     case "PlayerConnect":
                         {
-                            Player player = new Player((uint)args[0], (string)args[1]);
-                            OnPlayerConnect(player);
+                            SharpOrange.Exec(() =>
+                            {
+                                Player player = new Player((uint)args[0], (string)args[1]);
+                                OnPlayerConnect(player);
+                            });
                             return;
                         }
                     case "PlayerDisconnect":
                         {
-                            Player player;
-                            Server.Players.TryGetValue((uint)args[0], out player);
-                            OnPlayerDisconnect(player, (DisconnectReason)(Int64)args[1]);
-                            player.Dispose();
+                            SharpOrange.Exec(() =>
+                            {
+                                Player player;
+                                Server.Players.TryGetValue((uint)args[0], out player);
+                                OnPlayerDisconnect(player, (DisconnectReason)(Int64)args[1]);
+                                player.Dispose();
+                            });
                             return;
                         }
                     case "PlayerUpdate":
                         {
-                            Player player;
-                            Server.Players.TryGetValue((uint)args[0], out player);
-                            OnPlayerUpdate(player);
+                            SharpOrange.Exec(() =>
+                            {
+                                Player player;
+                                Server.Players.TryGetValue((uint)args[0], out player);
+                                OnPlayerUpdate(player);
+                            });
                             return;
                         }
                     case "PlayerDead":
                         {
-                            uint playerid = (uint)args[0];
-                            uint killerid = (uint)args[1];
-                            Player player;
-                            Server.Players.TryGetValue(playerid, out player);
-                            player.IsAlive = false;
-                            player.DeathPosition = new Vector3(player.Position);
-                            if (playerid == killerid)
+                            SharpOrange.Exec(() => 
                             {
-                                OnPlayerDeath(player, player, (long)args[2]);
-                            }
-                            else
-                            {
-                                Player killer;
-                                Server.Players.TryGetValue(killerid, out killer);
-                                OnPlayerDeath(player, killer, (long)args[2]);
-                            }
+                                uint playerid = (uint)args[0];
+                                uint killerid = (uint)args[1];
+                                Player player;
+                                Server.Players.TryGetValue(playerid, out player);
+                                player.IsAlive = false;
+                                player.DeathPosition = new Vector3(player.Position);
+                                if (playerid == killerid)
+                                {
+                                    OnPlayerDeath(player, player, (long)args[2]);
+                                }
+                                else
+                                {
+                                    Player killer;
+                                    Server.Players.TryGetValue(killerid, out killer);
+                                    OnPlayerDeath(player, killer, (long)args[2]);
+                                }
+                            });
                             return;
                         }
                     case "PlayerSpawn":
                         {
-                            Player player;
-                            Server.Players.TryGetValue((uint)args[0], out player);
-                            player.IsAlive = true;
-                            OnPlayerRespawn(player);
+                            SharpOrange.Exec(() =>
+                            {
+                                Player player;
+                                Server.Players.TryGetValue((uint)args[0], out player);
+                                player.IsAlive = true;
+                                OnPlayerRespawn(player);
+                            });
                             return;
                         }
                     case "EnterVehicle":
                         {
-                            Player player;
-                            Server.Players.TryGetValue((uint)args[0], out player);
-                            Vehicle vehicle;
-                            Server.Vehicles.TryGetValue((uint)args[1], out vehicle);
-                            player.Vehicle = vehicle;
-                            OnPlayerEnterVehicle(player, vehicle);
+                            SharpOrange.Exec(() =>
+                            {
+                                Player player;
+                                Server.Players.TryGetValue((uint)args[0], out player);
+                                Vehicle vehicle;
+                                Server.Vehicles.TryGetValue((uint)args[1], out vehicle);
+                                player.Vehicle = vehicle;
+                                OnPlayerEnterVehicle(player, vehicle);
+                            });
                             return;
                         }
                     case "LeftVehicle":
                         {
-                            Player player;
-                            Server.Players.TryGetValue((uint)args[0], out player);
-                            Vehicle vehicle;
-                            Server.Vehicles.TryGetValue((uint)args[1], out vehicle);
-                            player.Vehicle = null;
-                            OnPlayerExitVehicle(player, vehicle);
+                            SharpOrange.Exec(() =>
+                            {
+                                Player player;
+                                Server.Players.TryGetValue((uint)args[0], out player);
+                                Vehicle vehicle;
+                                Server.Vehicles.TryGetValue((uint)args[1], out vehicle);
+                                player.Vehicle = null;
+                                OnPlayerExitVehicle(player, vehicle);
+                            });
                             return;
                         }
 #endif
                 }
-                OnEvent(e, args);
+                SharpOrange.Exec(()=> OnEvent(e, args));
             });
         }
     }
