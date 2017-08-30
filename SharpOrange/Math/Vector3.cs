@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharpOrange.Structs
+namespace SharpOrange.Math
 {
     public struct Vector3
     {
@@ -161,7 +161,7 @@ namespace SharpOrange.Structs
             float x = this.x - vector.x;
             float y = this.y - vector.y;
             float z = this.z - vector.z;
-            return (float)Math.Sqrt((x * x) + (y * y) + (z * z));
+            return (float)System.Math.Sqrt((x * x) + (y * y) + (z * z));
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace SharpOrange.Structs
             float x = first.x - second.x;
             float y = first.y - second.y;
             float z = first.z - second.z;
-            return (float)Math.Sqrt((x * x) + (y * y) + (z * z));
+            return (float)System.Math.Sqrt((x * x) + (y * y) + (z * z));
         }
 
         /// <summary>

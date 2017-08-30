@@ -1,4 +1,4 @@
-﻿namespace SharpOrange.Structs
+﻿namespace SharpOrange.Math
 {
     public struct VehicleHealth
     {

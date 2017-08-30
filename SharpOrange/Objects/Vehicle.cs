@@ -1,5 +1,5 @@
 ﻿#if !SM
-using SharpOrange.Structs;
+using SharpOrange.Math;
 using System;
 using System.Collections.Generic;
 

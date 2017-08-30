@@ -10,14 +10,14 @@
             </summary>
             <param name="name"></param>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.#ctor(System.Single,System.Single)">
+        <member name="M:SharpOrange.Math.Vector2.#ctor(System.Single,System.Single)">
             <summary>
             Create a 2 value Vector
             </summary>
             <param name="x"></param>
             <param name="y"></param>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.op_Addition(SharpOrange.Structs.Vector2,SharpOrange.Structs.Vector2)">
+        <member name="M:SharpOrange.Math.Vector2.op_Addition(SharpOrange.Math.Vector2,SharpOrange.Math.Vector2)">
             <summary>
             Adds two vectors.
             </summary>
@@ -25,7 +25,7 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.op_Addition(SharpOrange.Structs.Vector2,System.Single)">
+        <member name="M:SharpOrange.Math.Vector2.op_Addition(SharpOrange.Math.Vector2,System.Single)">
             <summary>
             Perform a component-wise addition
             </summary>
@@ -33,7 +33,7 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.op_Subtraction(SharpOrange.Structs.Vector2,SharpOrange.Structs.Vector2)">
+        <member name="M:SharpOrange.Math.Vector2.op_Subtraction(SharpOrange.Math.Vector2,SharpOrange.Math.Vector2)">
             <summary>
             Perform a component-wise addition
             </summary>
@@ -41,7 +41,7 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.op_Subtraction(SharpOrange.Structs.Vector2,System.Single)">
+        <member name="M:SharpOrange.Math.Vector2.op_Subtraction(SharpOrange.Math.Vector2,System.Single)">
             <summary>
             Perform a component-wise subtraction
             </summary>
@@ -49,7 +49,7 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.op_Subtraction(System.Single,SharpOrange.Structs.Vector2)">
+        <member name="M:SharpOrange.Math.Vector2.op_Subtraction(System.Single,SharpOrange.Math.Vector2)">
             <summary>
             Perform a component-wise subtraction
             </summary>
@@ -57,7 +57,7 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.op_Multiply(SharpOrange.Structs.Vector2,System.Single)">
+        <member name="M:SharpOrange.Math.Vector2.op_Multiply(SharpOrange.Math.Vector2,System.Single)">
             <summary>
             Scales a vector by the given value.
             </summary>
@@ -65,7 +65,7 @@
             <param name="scale"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.op_Multiply(SharpOrange.Structs.Vector2,SharpOrange.Structs.Vector2)">
+        <member name="M:SharpOrange.Math.Vector2.op_Multiply(SharpOrange.Math.Vector2,SharpOrange.Math.Vector2)">
             <summary>
             Multiplies a vector with another by performing component-wise multiplication.
             </summary>
@@ -73,7 +73,7 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.op_Division(SharpOrange.Structs.Vector2,System.Single)">
+        <member name="M:SharpOrange.Math.Vector2.op_Division(SharpOrange.Math.Vector2,System.Single)">
             <summary>
             Scales a vector by the given value.
             </summary>
@@ -81,27 +81,27 @@
             <param name="scale"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.negative">
+        <member name="M:SharpOrange.Math.Vector2.negative">
             <summary>
             Gets the reversed direction of the vector.
             </summary>
             <returns>The vector facing in the opposite direction.</returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.Negate(SharpOrange.Structs.Vector2)">
+        <member name="M:SharpOrange.Math.Vector2.Negate(SharpOrange.Math.Vector2)">
             <summary>
             Reverses the direction of a given vector.
             </summary>
             <param name="value">The vector to negate.</param>
             <returns>A vector facing in the opposite direction.</returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.distance(SharpOrange.Structs.Vector2)">
+        <member name="M:SharpOrange.Math.Vector2.distance(SharpOrange.Math.Vector2)">
             <summary>
             Calculates the distance between another vector.
             </summary>
             <param name="vector"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.Distance(SharpOrange.Structs.Vector2,SharpOrange.Structs.Vector2)">
+        <member name="M:SharpOrange.Math.Vector2.Distance(SharpOrange.Math.Vector2,SharpOrange.Math.Vector2)">
             <summary>
             Calculates the distance between two vectors.
             </summary>
@@ -109,42 +109,42 @@
             <param name="second"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.Zero">
+        <member name="M:SharpOrange.Math.Vector2.Zero">
             <summary>
             Shorthand for writing Vector2(0, 0).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.One">
+        <member name="M:SharpOrange.Math.Vector2.One">
             <summary>
             Shorthand for writing Vector2(1, 1).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.Down">
+        <member name="M:SharpOrange.Math.Vector2.Down">
             <summary>
             Shorthand for writing Vector2(0, -1).
             </summary>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.Up">
+        <member name="M:SharpOrange.Math.Vector2.Up">
             <summary>
             Shorthand for writing Vector2(0, 1).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.Left">
+        <member name="M:SharpOrange.Math.Vector2.Left">
             <summary>
             Shorthand for writing Vector2(-1, 0).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector2.Right">
+        <member name="M:SharpOrange.Math.Vector2.Right">
             <summary>
             Shorthand for writing Vector2(1, 0).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.RGB.#ctor(System.Byte,System.Byte,System.Byte)">
+        <member name="M:SharpOrange.Math.RGB.#ctor(System.Byte,System.Byte,System.Byte)">
             <summary>
             Create an RGB color object
             </summary>
@@ -152,7 +152,7 @@
             <param name="g"></param>
             <param name="b"></param>
         </member>
-        <member name="M:SharpOrange.Structs.VehicleHealth.#ctor(System.Single,System.Single,System.Single)">
+        <member name="M:SharpOrange.Math.VehicleHealth.#ctor(System.Single,System.Single,System.Single)">
             <summary>
             Create a VehicleHealth info object
             </summary>
@@ -160,7 +160,7 @@
             <param name="engine"></param>
             <param name="tank"></param>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.#ctor(System.Single,System.Single,System.Single)">
+        <member name="M:SharpOrange.Math.Vector3.#ctor(System.Single,System.Single,System.Single)">
             <summary>
             Create a 3 value Vector, primarily used for positions and rotations
             </summary>
@@ -168,7 +168,7 @@
             <param name="y"></param>
             <param name="z"></param>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.op_Addition(SharpOrange.Structs.Vector3,SharpOrange.Structs.Vector3)">
+        <member name="M:SharpOrange.Math.Vector3.op_Addition(SharpOrange.Math.Vector3,SharpOrange.Math.Vector3)">
             <summary>
             Adds two vectors.
             </summary>
@@ -176,7 +176,7 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.op_Addition(SharpOrange.Structs.Vector3,System.Single)">
+        <member name="M:SharpOrange.Math.Vector3.op_Addition(SharpOrange.Math.Vector3,System.Single)">
             <summary>
             Perform a component-wise addition
             </summary>
@@ -184,7 +184,7 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.op_Subtraction(SharpOrange.Structs.Vector3,SharpOrange.Structs.Vector3)">
+        <member name="M:SharpOrange.Math.Vector3.op_Subtraction(SharpOrange.Math.Vector3,SharpOrange.Math.Vector3)">
             <summary>
             Subtract vector by vector
             </summary>
@@ -192,7 +192,7 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.op_Subtraction(SharpOrange.Structs.Vector3,System.Single)">
+        <member name="M:SharpOrange.Math.Vector3.op_Subtraction(SharpOrange.Math.Vector3,System.Single)">
             <summary>
             Perform a component-wise subtraction
             </summary>
@@ -200,7 +200,7 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.op_Subtraction(System.Single,SharpOrange.Structs.Vector3)">
+        <member name="M:SharpOrange.Math.Vector3.op_Subtraction(System.Single,SharpOrange.Math.Vector3)">
             <summary>
             Perform a component-wise subtraction
             </summary>
@@ -208,7 +208,7 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.op_Multiply(SharpOrange.Structs.Vector3,System.Single)">
+        <member name="M:SharpOrange.Math.Vector3.op_Multiply(SharpOrange.Math.Vector3,System.Single)">
             <summary>
             Scales a vector by the given value.
             </summary>
@@ -216,7 +216,7 @@
             <param name="scale"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.op_Multiply(SharpOrange.Structs.Vector3,SharpOrange.Structs.Vector3)">
+        <member name="M:SharpOrange.Math.Vector3.op_Multiply(SharpOrange.Math.Vector3,SharpOrange.Math.Vector3)">
             <summary>
             Multiplies a vector with another by performing component-wise multiplication.
             </summary>
@@ -224,7 +224,7 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.op_Division(SharpOrange.Structs.Vector3,System.Single)">
+        <member name="M:SharpOrange.Math.Vector3.op_Division(SharpOrange.Math.Vector3,System.Single)">
             <summary>
             Scales a vector by the given value.
             </summary>
@@ -232,27 +232,27 @@
             <param name="scale"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.negative">
+        <member name="M:SharpOrange.Math.Vector3.negative">
             <summary>
             Gets the reversed direction of the vector.
             </summary>
             <returns>The vector facing in the opposite direction.</returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.Negate(SharpOrange.Structs.Vector3)">
+        <member name="M:SharpOrange.Math.Vector3.Negate(SharpOrange.Math.Vector3)">
             <summary>
             Reverses the direction of a given vector.
             </summary>
             <param name="value">The vector to negate.</param>
             <returns>A vector facing in the opposite direction.</returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.distance(SharpOrange.Structs.Vector3)">
+        <member name="M:SharpOrange.Math.Vector3.distance(SharpOrange.Math.Vector3)">
             <summary>
             Calculates the distance between another vector.
             </summary>
             <param name="vector"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.Distance(SharpOrange.Structs.Vector3,SharpOrange.Structs.Vector3)">
+        <member name="M:SharpOrange.Math.Vector3.Distance(SharpOrange.Math.Vector3,SharpOrange.Math.Vector3)">
             <summary>
             Calculates the distance between two vectors.
             </summary>
@@ -260,48 +260,48 @@
             <param name="second"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.Zero">
+        <member name="M:SharpOrange.Math.Vector3.Zero">
             <summary>
             Shorthand for writing Vector3(0, 0, 0).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.One">
+        <member name="M:SharpOrange.Math.Vector3.One">
             <summary>
             Shorthand for writing Vector3(1, 1, 1).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.Forward">
+        <member name="M:SharpOrange.Math.Vector3.Forward">
             <summary>
             Shorthand for writing Vector3(0, 0, 1).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.Back">
+        <member name="M:SharpOrange.Math.Vector3.Back">
             <summary>
             Shorthand for writing Vector3(0, 0, -1).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.Down">
+        <member name="M:SharpOrange.Math.Vector3.Down">
             <summary>
             Shorthand for writing Vector3(0, -1, 0).
             </summary>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.Up">
+        <member name="M:SharpOrange.Math.Vector3.Up">
             <summary>
             Shorthand for writing Vector3(0, 1, 0).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.Left">
+        <member name="M:SharpOrange.Math.Vector3.Left">
             <summary>
             Shorthand for writing Vector3(-1, 0, 0).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Structs.Vector3.Right">
+        <member name="M:SharpOrange.Math.Vector3.Right">
             <summary>
             Shorthand for writing Vector3(1, 0, 0).
             </summary>
@@ -365,7 +365,7 @@
             Triggered whenever any other client and server event is passed
             </summary>
         </member>
-        <member name="M:SharpOrange.Objects.Blip.#ctor(System.String,SharpOrange.Structs.Vector3,SharpOrange.Structs.RGB,System.Single,System.Int32)">
+        <member name="M:SharpOrange.Objects.Blip.#ctor(System.String,SharpOrange.Math.Vector3,SharpOrange.Math.RGB,System.Single,System.Int32)">
             <summary>
             Create blip for all player
             </summary>
@@ -375,7 +375,7 @@
             <param name="color"></param>
             <param name="sprite"></param>
         </member>
-        <member name="M:SharpOrange.Objects.Blip.#ctor(System.String,SharpOrange.Objects.Player,SharpOrange.Structs.Vector3,SharpOrange.Structs.RGB,System.Single,System.Int32)">
+        <member name="M:SharpOrange.Objects.Blip.#ctor(System.String,SharpOrange.Objects.Player,SharpOrange.Math.Vector3,SharpOrange.Math.RGB,System.Single,System.Int32)">
             <summary>
             Create Blip for specified player
             </summary>
@@ -427,7 +427,7 @@
             Attach Blip to Vehicle
             </summary>
         </member>
-        <member name="M:SharpOrange.Objects.HoloText.#ctor(System.String,SharpOrange.Structs.Vector3,SharpOrange.Structs.RGB,System.Single)">
+        <member name="M:SharpOrange.Objects.HoloText.#ctor(System.String,SharpOrange.Math.Vector3,SharpOrange.Math.RGB,System.Single)">
             <summary>
             Create Holo Text for all players
             </summary>
@@ -436,7 +436,7 @@
             <param name="color"></param>
             <param name="fontSize"></param>
         </member>
-        <member name="M:SharpOrange.Objects.HoloText.#ctor(System.String,SharpOrange.Objects.Player,SharpOrange.Structs.Vector3,SharpOrange.Structs.RGB,SharpOrange.Structs.RGB)">
+        <member name="M:SharpOrange.Objects.HoloText.#ctor(System.String,SharpOrange.Objects.Player,SharpOrange.Math.Vector3,SharpOrange.Math.RGB,SharpOrange.Math.RGB)">
             <summary>
             Create Holo Text for specified player
             </summary>
@@ -456,12 +456,12 @@
             3D Holo Text Unique ID
             </summary>
         </member>
-        <member name="M:SharpOrange.Objects.HoloText.AttachToPlayer(SharpOrange.Objects.Player,SharpOrange.Structs.Vector3)">
+        <member name="M:SharpOrange.Objects.HoloText.AttachToPlayer(SharpOrange.Objects.Player,SharpOrange.Math.Vector3)">
             <summary>
             Attach Holo Text to Player
             </summary>
         </member>
-        <member name="M:SharpOrange.Objects.HoloText.AttachToVehicle(SharpOrange.Objects.Vehicle,SharpOrange.Structs.Vector3)">
+        <member name="M:SharpOrange.Objects.HoloText.AttachToVehicle(SharpOrange.Objects.Vehicle,SharpOrange.Math.Vector3)">
             <summary>
             Attach Holo Text to Vehicle
             </summary>
@@ -471,7 +471,7 @@
             Marker for the normal GTA V Map
             </summary>
         </member>
-        <member name="M:SharpOrange.Objects.Marker.#ctor(SharpOrange.Structs.Vector3,System.Single,System.Single)">
+        <member name="M:SharpOrange.Objects.Marker.#ctor(SharpOrange.Math.Vector3,System.Single,System.Single)">
             <summary>
             Create map marker visible for all players
             </summary>
@@ -479,7 +479,7 @@
             <param name="height"></param>
             <param name="radius"></param>
         </member>
-        <member name="M:SharpOrange.Objects.Marker.#ctor(SharpOrange.Objects.Player,SharpOrange.Structs.Vector3,System.Single,System.Single)">
+        <member name="M:SharpOrange.Objects.Marker.#ctor(SharpOrange.Objects.Player,SharpOrange.Math.Vector3,System.Single,System.Single)">
             <summary>
             Create map marker visible for the specified
             </summary>
@@ -498,7 +498,7 @@
             The unique ID of the marker
             </summary>
         </member>
-        <member name="M:SharpOrange.Objects.GTAObject.#ctor(System.String,SharpOrange.Structs.Vector3,SharpOrange.Structs.Vector3)">
+        <member name="M:SharpOrange.Objects.GTAObject.#ctor(System.String,SharpOrange.Math.Vector3,SharpOrange.Math.Vector3)">
             <summary>
             Create GTA Object with object name
             </summary>
@@ -516,7 +516,7 @@
             GUID of object
             </summary>
         </member>
-        <member name="M:SharpOrange.Objects.Pickup.Create(SharpOrange.Objects.PickupHash,SharpOrange.Structs.Vector3,System.Single)">
+        <member name="M:SharpOrange.Objects.Pickup.Create(SharpOrange.Objects.PickupHash,SharpOrange.Math.Vector3,System.Single)">
             <summary>
             Create a pickup
             </summary>
@@ -524,7 +524,7 @@
             <param name="position"></param>
             <param name="scale"></param>
         </member>
-        <member name="M:SharpOrange.Objects.Vehicle.#ctor(SharpOrange.Objects.VehicleHash,SharpOrange.Structs.Vector3)">
+        <member name="M:SharpOrange.Objects.Vehicle.#ctor(SharpOrange.Objects.VehicleHash,SharpOrange.Math.Vector3)">
             <summary>
             Creates a new Vehicle
             </summary>

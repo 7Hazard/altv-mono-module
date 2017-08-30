@@ -1,7 +1,7 @@
 ﻿#if !SM
 using SharpOrange.Objects;
 #endif
-using SharpOrange.Structs;
+using SharpOrange.Math;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
