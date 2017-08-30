@@ -2,43 +2,11 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace SharpOrange
 {
     internal class SharpOrange
     {
-        internal class SM {
-            static object Instance;
-            static MethodInfo MTriggerOnServerUnload;
-            static MethodInfo MTriggerOnTick;
-            static MethodInfo MTriggerOnEvent;
-
-            internal static void Init()
-            {
-                Type t = Assembly.LoadFrom(pluginsPath + "SharpOrangeSM.dll").GetType("SharpOrange.Event");
-                MTriggerOnServerUnload = t.GetMethod("TriggerOnServerUnload", new Type[] { });
-                MTriggerOnTick = t.GetMethod("TriggerOnTick", new Type[] { });
-                MTriggerOnEvent = t.GetMethod("TriggerOnEvent", new Type[] { typeof(string), typeof(object[]) });
-                Instance = Activator.CreateInstance(t);
-            }
-
-            internal static void TriggerOnServerUnload()
-            {
-                MTriggerOnServerUnload.Invoke(Instance, null);
-            }
-
-            internal static void TriggerOnTick()
-            {
-                MTriggerOnTick.Invoke(Instance, null);
-            }
-
-            internal static void TriggerOnEvent(params object[] args)
-            {
-                MTriggerOnEvent.Invoke(Instance, args);
-            }
-        }
-
         SharpOrange()
         {
             var plugins = Directory
@@ -48,11 +16,6 @@ namespace SharpOrange
                 LoadPlugin(plugin);
 
             Print("Module successfully initialized");
-        }
-
-        public static void HandleTaskException(object sender, UnobservedTaskExceptionEventArgs e)
-        {
-            Error(e.ToString());
         }
 
         static string pluginsPath = @"modules/mono-module/";
@@ -147,16 +110,18 @@ namespace SharpOrange
             Print($"Loaded resource '{name}'");
         }
 
-        public static void Exec(Action func)
+        internal static void Exec(Action func)
         {
             try
             {
                 func();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Error(e.ToString());
             }
         }
+
 
         internal static void Print(string msg)
         {
@@ -165,6 +130,38 @@ namespace SharpOrange
         internal static void Error(string msg)
         {
             Server.Print("[SharpOrange] ERROR - " + msg);
+        }
+
+        internal class SM
+        {
+            static object Instance;
+            static MethodInfo MTriggerOnServerUnload;
+            static MethodInfo MTriggerOnTick;
+            static MethodInfo MTriggerOnEvent;
+
+            internal static void Init()
+            {
+                Type t = Assembly.LoadFrom(pluginsPath + "SharpOrangeSM.dll").GetType("SharpOrange.Event");
+                MTriggerOnServerUnload = t.GetMethod("TriggerOnServerUnload", new Type[] { });
+                MTriggerOnTick = t.GetMethod("TriggerOnTick", new Type[] { });
+                MTriggerOnEvent = t.GetMethod("TriggerOnEvent", new Type[] { typeof(string), typeof(object[]) });
+                Instance = Activator.CreateInstance(t);
+            }
+
+            internal static void TriggerOnServerUnload()
+            {
+                MTriggerOnServerUnload.Invoke(Instance, null);
+            }
+
+            internal static void TriggerOnTick()
+            {
+                MTriggerOnTick.Invoke(Instance, null);
+            }
+
+            internal static void TriggerOnEvent(params object[] args)
+            {
+                MTriggerOnEvent.Invoke(Instance, args);
+            }
         }
     }
 }

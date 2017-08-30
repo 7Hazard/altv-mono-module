@@ -34,41 +34,94 @@ namespace SharpOrange.Math
             y = pos.y;
         }
 
+        /*public static implicit operator Vector2(double value)
+        {
+            return new Vector2(value);
+        }*/
+
+        /// <summary>
+        /// Adds two vectors.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static Vector2 operator +(Vector2 left, Vector2 right)
         {
             return new Vector2(left.x + right.x, left.y + right.y);
         }
-        
+
+        /// <summary>
+        /// Perform a component-wise addition
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static Vector2 operator +(Vector2 left, float right)
         {
             return new Vector2(left.x + right, left.y + right);
         }
-        
+
+        /// <summary>
+        /// Perform a component-wise addition
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static Vector2 operator -(Vector2 left, Vector2 right)
         {
             return new Vector2(left.x + right.x, left.y + right.y);
         }
-        
+
+        /// <summary>
+        /// Perform a component-wise subtraction
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static Vector2 operator -(Vector2 left, float right)
         {
             return new Vector2(left.x - right, left.y - right);
         }
-        
+
+        /// <summary>
+        /// Perform a component-wise subtraction
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static Vector2 operator -(float left, Vector2 right)
         {
             return new Vector2(left - right.x, left - right.y);
         }
-        
+
+        /// <summary>
+        /// Scales a vector by the given value.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="scale"></param>
+        /// <returns></returns>
         public static Vector2 operator *(Vector2 value, float scale)
         {
             return new Vector2(value.x * scale, value.y * scale);
         }
-        
+
+        /// <summary>
+        /// Multiplies a vector with another by performing component-wise multiplication.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static Vector2 operator *(Vector2 left, Vector2 right)
         {
             return new Vector2(left.x * right.x, left.y * right.y);
         }
-        
+
+        /// <summary>
+        /// Scales a vector by the given value.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="scale"></param>
+        /// <returns></returns>
         public static Vector2 operator /(Vector2 left, float scale)
         {
             return new Vector2(left.x / scale, left.y / scale);

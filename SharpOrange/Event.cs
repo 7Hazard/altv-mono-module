@@ -16,9 +16,9 @@ namespace SharpOrange
         static void TriggerOnServerUnload()
         {
 #if !SM
-            Task.Run(() => SharpOrange.Exec(()=> SharpOrange.SM.TriggerOnServerUnload()));
+            Task.Run(() => SharpOrange.Exec(() => SharpOrange.SM.TriggerOnServerUnload()));
 #endif
-            Task.Run(() => SharpOrange.Exec(()=> OnServerUnload()));
+            Task.Run(() => SharpOrange.Exec(() => OnServerUnload()));
         }
         /// <summary>
         /// Triggered every server tick
@@ -27,9 +27,9 @@ namespace SharpOrange
         static void TriggerOnTick()
         {
 #if !SM
-            Task.Run(() => SharpOrange.Exec(()=> SharpOrange.SM.TriggerOnTick()));
+            Task.Run(() => SharpOrange.Exec(() => SharpOrange.SM.TriggerOnTick()));
 #endif
-            Task.Run(() => SharpOrange.Exec(()=> OnTick()));
+            Task.Run(() => SharpOrange.Exec(() => OnTick()));
         }
 
         public delegate void OnServerCommandHandler(string command);
@@ -94,7 +94,7 @@ namespace SharpOrange
         static void TriggerOnEvent(string e, object[] args)
         {
 #if !SM
-            Task.Run(() => SharpOrange.Exec(() => SharpOrange.SM.TriggerOnEvent(e, args)));
+            Task.Run(() => SharpOrange.SM.TriggerOnEvent(e, args));
 #endif
             Task.Run(() =>
             {
@@ -154,7 +154,7 @@ namespace SharpOrange
                         }
                     case "PlayerDead":
                         {
-                            SharpOrange.Exec(() => 
+                            SharpOrange.Exec(() =>
                             {
                                 uint playerid = (uint)args[0];
                                 uint killerid = (uint)args[1];
@@ -214,8 +214,9 @@ namespace SharpOrange
                         }
 #endif
                 }
-                SharpOrange.Exec(()=> OnEvent(e, args));
+                SharpOrange.Exec(() => OnEvent(e, args));
             });
+
         }
     }
 }

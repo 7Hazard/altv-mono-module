@@ -6,11 +6,11 @@ namespace Mono {
 		mono_set_dirs("C:\\Program Files\\Mono\\lib", "C:\\Program Files\\Mono\\etc");
 #endif
 		MainDomain = mono_jit_init("SharpOrange");
-/*#ifdef _WINDOWS
+#ifdef _WINDOWS
 		mono_domain_set_config(MainDomain, "C:\\Program Files\\Mono\\etc\\mono\\4.5", "machine.config");
 #else
 		mono_domain_set_config(MainDomain, "/etc/mono/4.5", "machine.config");
-#endif*/
+#endif
 		//mono_config_parse(NULL);
 
 		MonoAssembly* assembly = mono_domain_assembly_open(MainDomain, SharpOrangePath);
