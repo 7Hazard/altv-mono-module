@@ -38,95 +38,42 @@ namespace SharpOrange.Math
             y = vector.y;
             z = vector.z;
         }
-
-        /*public static implicit operator Vector3(double value)
-        {
-            return new Vector3(value);
-        }*/
-
-        /// <summary>
-        /// Adds two vectors.
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        
         public static Vector3 operator +(Vector3 left, Vector3 right)
         {
             return new Vector3(left.x + right.x, left.y + right.y, left.z + left.z);
         }
-
-        /// <summary>
-        /// Perform a component-wise addition
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        
         public static Vector3 operator +(Vector3 left, float right)
         {
             return new Vector3(left.x + right, left.y + right, left.z + right);
         }
-
-        /// <summary>
-        /// Subtract vector by vector
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        
         public static Vector3 operator -(Vector3 left, Vector3 right)
         {
             return new Vector3(left.x + right.x, left.y + right.y, left.z + right.z);
         }
-
-        /// <summary>
-        /// Perform a component-wise subtraction
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        
         public static Vector3 operator -(Vector3 left, float right)
         {
             return new Vector3(left.x - right, left.y - right, left.z - right);
         }
-
-        /// <summary>
-        /// Perform a component-wise subtraction
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        
         public static Vector3 operator -(float left, Vector3 right)
         {
             return new Vector3(left - right.x, left - right.y, left - right.z);
         }
-
-        /// <summary>
-        /// Scales a vector by the given value.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="scale"></param>
-        /// <returns></returns>
+        
         public static Vector3 operator *(Vector3 value, float scale)
         {
             return new Vector3(value.x * scale, value.y * scale, value.z * scale);
         }
-
-        /// <summary>
-        /// Multiplies a vector with another by performing component-wise multiplication.
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        
         public static Vector3 operator *(Vector3 left, Vector3 right)
         {
             return new Vector3(left.x * right.x, left.y * right.y, left.z * right.z);
         }
-
-        /// <summary>
-        /// Scales a vector by the given value.
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="scale"></param>
-        /// <returns></returns>
+        
         public static Vector3 operator /(Vector3 left, float scale)
         {
             return new Vector3(left.x / scale, left.y / scale, left.z / scale);
