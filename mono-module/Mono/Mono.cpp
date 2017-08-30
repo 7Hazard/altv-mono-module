@@ -176,7 +176,6 @@ namespace Mono {
 
 	void HandleEventArgs(MonoDomain* domain, MonoArray* earray, MValueList& args, int size)
 	{
-		std::vector<void*> values(size);
 		for (int i = 0; i < size; i++) {
 			std::shared_ptr<MValue> value = args.at(i);
 			switch (value->getType())
@@ -210,7 +209,7 @@ namespace Mono {
 				//auto int_keys = value->getIntDict();
 				//auto string_keys = value->getStringDict();
 				Error("Dictionaries in events are not supported yet by the Mono Module!");
-				values[i] = NULL;
+				//mono_array_setref(earray, i, nullptr);
 				break;
 			}
 		}

@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Plugin.cs" />
-    <Compile Include="Structs\Vector2.cs" />
+    <Compile Include="Math\Vector2.cs" />
     <Compile Include="Orange.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="Objects\Blip.cs" />
@@ -56,14 +56,14 @@
     <Compile Include="Objects\Marker.cs" />
     <Compile Include="Objects\GTAObject.cs" />
     <Compile Include="Objects\Pickup.cs" />
-    <Compile Include="Structs\RGB.cs" />
+    <Compile Include="Math\RGB.cs" />
     <Compile Include="Objects\Vehicle.cs" />
-    <Compile Include="Structs\VehicleHealth.cs" />
+    <Compile Include="Math\VehicleHealth.cs" />
     <Compile Include="Resource.cs" />
     <Compile Include="SharpOrange.cs" />
     <Compile Include="Objects\Enums.cs" />
     <Compile Include="Objects\Player.cs" />
-    <Compile Include="Structs\Vector3.cs" />
+    <Compile Include="Math\Vector3.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

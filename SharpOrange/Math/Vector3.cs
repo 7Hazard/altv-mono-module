@@ -1,4 +1,6 @@
-﻿namespace SharpOrange.Structs
+﻿using System;
+
+namespace SharpOrange.Structs
 {
     public struct Vector3
     {
@@ -131,6 +133,15 @@
         }
 
         /// <summary>
+        /// Gets the reversed direction of the vector.
+        /// </summary>
+        /// <returns>The vector facing in the opposite direction.</returns>
+        public Vector3 negative()
+        {
+            return new Vector3(-x, -y, -z);
+        }
+
+        /// <summary>
         /// Reverses the direction of a given vector.
         /// </summary>
         /// <param name="value">The vector to negate.</param>
@@ -141,12 +152,101 @@
         }
 
         /// <summary>
-        /// Gets the negated vector
+        /// Calculates the distance between another vector.
         /// </summary>
-        /// <returns>The vector facing in the opposite direction.</returns>
-        public Vector3 Negative()
+        /// <param name="vector"></param>
+        /// <returns></returns>
+        public float distance(Vector3 vector)
         {
-            return new Vector3(-x, -y, -z);
+            float x = this.x - vector.x;
+            float y = this.y - vector.y;
+            float z = this.z - vector.z;
+            return (float)Math.Sqrt((x * x) + (y * y) + (z * z));
+        }
+
+        /// <summary>
+        /// Calculates the distance between two vectors.
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        public static float Distance(Vector3 first, Vector3 second)
+        {
+            float x = first.x - second.x;
+            float y = first.y - second.y;
+            float z = first.z - second.z;
+            return (float)Math.Sqrt((x * x) + (y * y) + (z * z));
+        }
+
+        /// <summary>
+        /// Shorthand for writing Vector3(0, 0, 0).
+        /// </summary>
+        /// <returns></returns>
+        public static Vector3 Zero()
+        {
+            return new Vector3(0, 0, 0);
+        }
+
+        /// <summary>
+        /// Shorthand for writing Vector3(1, 1, 1).
+        /// </summary>
+        /// <returns></returns>
+        public static Vector3 One()
+        {
+            return new Vector3(1, 1, 1);
+        }
+
+        /// <summary>
+        /// Shorthand for writing Vector3(0, 0, 1).
+        /// </summary>
+        /// <returns></returns>
+        public static Vector3 Forward()
+        {
+            return new Vector3(0, 0, 1);
+        }
+
+        /// <summary>
+        /// Shorthand for writing Vector3(0, 0, -1).
+        /// </summary>
+        /// <returns></returns>
+        public static Vector3 Back()
+        {
+            return new Vector3(0, 0, -1);
+        }
+
+        /// <summary>
+        /// Shorthand for writing Vector3(0, -1, 0).
+        /// </summary>
+        public static Vector3 Down()
+        {
+            return new Vector3(0, -1, 0);
+        }
+
+        /// <summary>
+        /// Shorthand for writing Vector3(0, 1, 0).
+        /// </summary>
+        /// <returns></returns>
+        public static Vector3 Up()
+        {
+            return new Vector3(0, 1, 0);
+        }
+
+        /// <summary>
+        /// Shorthand for writing Vector3(-1, 0, 0).
+        /// </summary>
+        /// <returns></returns>
+        public static Vector3 Left()
+        {
+            return new Vector3(-1, 0, 0);
+        }
+
+        /// <summary>
+        /// Shorthand for writing Vector3(1, 0, 0).
+        /// </summary>
+        /// <returns></returns>
+        public static Vector3 Right()
+        {
+            return new Vector3(1, 0, 0);
         }
     }
 }
