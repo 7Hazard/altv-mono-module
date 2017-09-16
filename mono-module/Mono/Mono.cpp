@@ -206,13 +206,93 @@ namespace Mono {
 				break;
 			}
 			case M_DICT:
-				//auto int_keys = value->getIntDict();
-				//auto string_keys = value->getStringDict();
-				Error("Dictionaries in events are not supported yet by the Mono Module!");
-				//mono_array_setref(earray, i, nullptr);
+				//mono_array_setref(earray, i, HandleDictionary(domain, earray, value));
+				Error("Passing dictionaries in events are not yet supported by Mono module.");
 				break;
 			}
 		}
+	}
+
+	MonoArray* HandleDictionary(MonoDomain* domain, std::shared_ptr<MValue> value) {
+		MonoArray* earray;
+		
+		auto int_keys = value->getIntDict();
+		auto string_keys = value->getStringDict();
+
+		int i = 0;
+		for (auto pair : int_keys) {
+			auto element = pair.second;
+			switch (element->getType())
+			{
+			case M_STRING: {
+				const std::string& str = element->getString();
+				mono_array_setref(earray, i, mono_string_new(domain, str.c_str()));
+				break;
+			}
+			case M_INT: {
+				int val = element->getInt();
+				mono_array_setref(earray, i, mono_value_box(domain, mono_get_int64_class(), &val));
+				break;
+			}
+			case M_BOOL: {
+				bool val = element->getBool();
+				mono_array_setref(earray, i, mono_value_box(domain, mono_get_boolean_class(), &val));
+				break;
+			}
+			case M_UINT: {
+				unsigned int val = element->getUInt();
+				mono_array_setref(earray, i, mono_value_box(domain, mono_get_uint32_class(), &val));
+				break;
+			}
+			case M_DOUBLE: {
+				double val = element->getDouble();
+				mono_array_setref(earray, i, mono_value_box(domain, mono_get_double_class(), &val));
+				break;
+			}
+			case M_DICT:
+				mono_array_setref(earray, i, HandleDictionary(domain, element));
+				break;
+			}
+			i++;
+		}
+
+		/*i = 0;
+		for (auto pair : string_keys) {
+			auto element = pair.second;
+			switch (element->getType())
+			{
+			case M_STRING: {
+				const std::string& str = element->getString();
+				mono_array_setref(earray, i, mono_string_new(domain, str.c_str()));
+				break;
+			}
+			case M_INT: {
+				int val = element->getInt();
+				mono_array_setref(earray, i, mono_value_box(domain, mono_get_int64_class(), &val));
+				break;
+			}
+			case M_BOOL: {
+				bool val = element->getBool();
+				mono_array_setref(earray, i, mono_value_box(domain, mono_get_boolean_class(), &val));
+				break;
+			}
+			case M_UINT: {
+				unsigned int val = element->getUInt();
+				mono_array_setref(earray, i, mono_value_box(domain, mono_get_uint32_class(), &val));
+				break;
+			}
+			case M_DOUBLE: {
+				double val = element->getDouble();
+				mono_array_setref(earray, i, mono_value_box(domain, mono_get_double_class(), &val));
+				break;
+			}
+			case M_DICT:
+				mono_array_setref(earray, i, HandleDictionary(domain, earray, element));
+				break;
+			}
+			i++;
+		}*/
+		return earray;
 	}
 
 	// Mono

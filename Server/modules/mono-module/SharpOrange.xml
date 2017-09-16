@@ -835,7 +835,7 @@
             Text (string) to hash (long)
             </summary>
             <param name="text"></param>
-            <returns></returns>
+            <returns>The hash in type "long"</returns>
         </member>
         <member name="M:SharpOrange.Server.TriggerEvent(System.String,System.Object[])">
             <summary>
@@ -843,6 +843,13 @@
             </summary>
             <param name="name"></param>
             <param name="args"></param>
+        </member>
+        <member name="M:SharpOrange.Server.AddLuaClientScript(System.String)">
+            <summary>
+            Load a Lua client script
+            REQUIRES the resource "client-script-loader"
+            </summary>
+            <param name="path">The path to the client script relative from the "resources" folder.</param>
         </member>
         <member name="P:SharpOrange.Server.Players">
             <summary>

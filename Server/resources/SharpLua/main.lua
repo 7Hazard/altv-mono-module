@@ -8,4 +8,4 @@ Server:On("connect", function(p)
     p:TriggerClient("CONNECTED")
 end)
 
-AddClientScript("client.lua");
+--AddClientScript("client.lua");

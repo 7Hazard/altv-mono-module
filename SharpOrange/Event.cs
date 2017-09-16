@@ -58,7 +58,7 @@ namespace SharpOrange
         public static event OnPlayerDeathHandler OnPlayerDeath = delegate { };
 
         public delegate void OnPlayerRespawnHandler(Player player);
-        public static event OnPlayerRespawnHandler OnPlayerRespawn= delegate { };
+        public static event OnPlayerRespawnHandler OnPlayerRespawn = delegate { };
 
         public delegate void OnPlayerEnterVehicleHandler(Player player, Vehicle vehicle);
         /// <summary>

@@ -40,7 +40,7 @@ namespace SharpOrange
         /// Text (string) to hash (long)
         /// </summary>
         /// <param name="text"></param>
-        /// <returns></returns>
+        /// <returns>The hash in type "long"</returns>
         [DllImport("mono-module", EntryPoint = "Hash", CallingConvention = CallingConvention.Cdecl)]
         public static extern long Hash(string text);
         /// <summary>
@@ -73,6 +73,16 @@ namespace SharpOrange
                     Orange.TriggerEvent(name, null, len);
                 }
             });
+        }
+
+        /// <summary>
+        /// Load a Lua client script
+        /// <para>REQUIRES the resource "client-script-loader"</para>
+        /// </summary>
+        /// <param name="path">The path to the client script relative from the "resources" folder.</param>
+        public static void AddLuaClientScript(string path)
+        {
+            TriggerEvent("register-client-script", path);
         }
 
         // Players
