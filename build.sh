@@ -4,6 +4,7 @@ mkdir bin
 cd bin
 cmake -G "Unix Makefiles" ../mono-module/
 make VERBOSE=1
+msbuild ../SharpOrange/SharpOrange.csproj /p:Configuration=Debug
 msbuild ../SharpOrange/SharpOrange.csproj /p:Configuration=Release
 cd ../
 mkdir build
@@ -12,3 +13,4 @@ cp ../bin/libmono-module.so .
 mkdir mono-module
 cd mono-module
 cp ../../bin/SharpOrange.dll .
+cp ../../bin/SM/SharpOrangeSM.dll .
