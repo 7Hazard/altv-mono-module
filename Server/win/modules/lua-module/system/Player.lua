@@ -59,12 +59,12 @@ local newindexhandlers = {
 local mt = {
 	__index = function(t, k)
 		local h = indexhandlers[k]
-		if h then return h(k)
+		if h then return h(t)
 		elseif t.__meta[k] then return t.__meta[k] end
 	end,
 	__newindex = function(t, k, v)
 		local h = newindexhandlers[k]
-		if h then h(k, v)
+		if h then h(t, v)
 		else t.__meta[k] = v end
 	end
 }
@@ -297,7 +297,7 @@ function Player:Exists(id)
 	return true
 end
 
-function Player:Extend(f)
+function Player.Extend(f)
 	for k, v in pairs(f) do
 		extf[k] = v
 	end

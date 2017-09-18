@@ -1,5 +1,4 @@
-﻿#if !SM
-using SharpOrange.Math;
+﻿using SharpOrange.Math;
 using System;
 using System.Collections.Generic;
 
@@ -253,4 +252,3 @@ namespace SharpOrange.Objects
         }
     }
 }
-#endif

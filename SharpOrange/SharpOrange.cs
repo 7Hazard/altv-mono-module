@@ -23,11 +23,6 @@ namespace SharpOrange
         {
             if (name == "SharpOrange")
                 return;
-            else if (name == "SharpOrangeSM")
-            {
-                SM.Init();
-                return;
-            }
 
             if (Server.plugins.Contains(name))
             {
@@ -130,38 +125,6 @@ namespace SharpOrange
         internal static void Error(string msg)
         {
             Server.Print("[SharpOrange] ERROR - " + msg);
-        }
-
-        internal class SM
-        {
-            static object Instance;
-            static MethodInfo MTriggerOnServerUnload;
-            static MethodInfo MTriggerOnTick;
-            static MethodInfo MTriggerOnEvent;
-
-            internal static void Init()
-            {
-                Type t = Assembly.LoadFrom(pluginsPath + "SharpOrangeSM.dll").GetType("SharpOrange.Event");
-                MTriggerOnServerUnload = t.GetMethod("TriggerOnServerUnload", new Type[] { });
-                MTriggerOnTick = t.GetMethod("TriggerOnTick", new Type[] { });
-                MTriggerOnEvent = t.GetMethod("TriggerOnEvent", new Type[] { typeof(string), typeof(object[]) });
-                Instance = Activator.CreateInstance(t);
-            }
-
-            internal static void TriggerOnServerUnload()
-            {
-                MTriggerOnServerUnload.Invoke(Instance, null);
-            }
-
-            internal static void TriggerOnTick()
-            {
-                MTriggerOnTick.Invoke(Instance, null);
-            }
-
-            internal static void TriggerOnEvent(params object[] args)
-            {
-                MTriggerOnEvent.Invoke(Instance, args);
-            }
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿#if !SM
-using SharpOrange.Objects;
+﻿using SharpOrange.Objects;
 using SharpOrange.Math;
-#endif
 using System;
 using System.Threading.Tasks;
 
@@ -31,7 +29,7 @@ namespace SharpOrange
         /// Triggered when command has been input on server console
         /// </summary>
         public static event OnServerCommandHandler OnServerCommand = delegate { };
-#if !SM
+
         public delegate void OnPlayerConnectHandler(Player player);
         /// <summary>
         /// Triggered when player connects
@@ -79,7 +77,7 @@ namespace SharpOrange
         /// Triggered when a client event is passed
         /// </summary>
         public static event OnClientEventHandler OnClientEvent = delegate { };
-#endif
+
         public delegate void OnEventHandler(string eventname, object[] args);
         /// <summary>
         /// Triggered whenever any other client and server event is passed
@@ -87,9 +85,6 @@ namespace SharpOrange
         public static event OnEventHandler OnEvent = delegate { };
         static void TriggerOnEvent(string e, object[] args)
         {
-#if !SM
-            Task.Run(() => SharpOrange.SM.TriggerOnEvent(e, args));
-#endif
             Task.Run(() =>
             {
                 switch (e)
@@ -99,7 +94,6 @@ namespace SharpOrange
                             SharpOrange.Exec(() => OnServerCommand((string)args[0]));
                             return;
                         }
-#if !SM
                     case "ServerEvent":
                         {
                             SharpOrange.Exec(() =>
@@ -206,11 +200,9 @@ namespace SharpOrange
                             });
                             return;
                         }
-#endif
                 }
                 SharpOrange.Exec(() => OnEvent(e, args));
             });
-
         }
     }
 }

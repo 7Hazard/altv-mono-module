@@ -1,5 +1,4 @@
-﻿#if !SM
-namespace SharpOrange.Objects
+﻿namespace SharpOrange.Objects
 {
     public enum DisconnectReason
     {
@@ -681,4 +680,3 @@ namespace SharpOrange.Objects
         WeaponStickyBomb = 2081529176
     }
 }
-#endif
