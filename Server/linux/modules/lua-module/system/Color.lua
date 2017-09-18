@@ -1,0 +1,3 @@
+Color = {
+	YELLOW = 0,
+}

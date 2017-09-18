@@ -1,0 +1,168 @@
+/* JQScrollbar */
+.scroll-wrapper{overflow:hidden!important;padding:0!important;position:relative}.scroll-wrapper > .scroll-content{border:none!important;box-sizing:content-box!important;height:auto;left:0;margin:0;max-height:none;max-width:none!important;overflow:scroll!important;padding:0;position:relative!important;top:0;width:auto!important}.scroll-wrapper > .scroll-content::-webkit-scrollbar{height:0;width:0}.scroll-wrapper.scroll--rtl{direction:rtl}.scroll-element{box-sizing:content-box;display:none}.scroll-element div{box-sizing:content-box}.scroll-element .scroll-bar,.scroll-element .scroll-arrow{cursor:default}.scroll-element.scroll-x.scroll-scrollx_visible,.scroll-element.scroll-y.scroll-scrolly_visible{display:block}.scroll-textarea{border:1px solid #ccc;border-top-color:#999}.scroll-textarea > .scroll-content{overflow:hidden!important}.scroll-textarea > .scroll-content > textarea{border:none!important;box-sizing:border-box;height:100%!important;margin:0;max-height:none!important;max-width:none!important;overflow:scroll!important;outline:none;padding:2px;position:relative!important;top:0;width:100%!important}.scroll-textarea > .scroll-content > textarea::-webkit-scrollbar{height:0;width:0}.scrollbar-macosx > .scroll-element,.scrollbar-macosx > .scroll-element div{background:none;border:none;margin:0;padding:0;position:absolute;z-index:10}.scrollbar-macosx > .scroll-element div{display:block;height:100%;left:0;top:0;width:100%}.scrollbar-macosx > .scroll-element .scroll-element_track{display:none}.scrollbar-macosx > .scroll-element .scroll-bar{background-color:#000;display:block;opacity:0;border-radius:100px;transition:opacity .2s linear}.scrollbar-macosx:hover > .scroll-element .scroll-bar,.scrollbar-macosx > .scroll-element.scroll-draggable .scroll-bar{opacity:.4}.scrollbar-macosx > .scroll-element.scroll-x{bottom:0;height:0;left:0;min-width:100%;overflow:visible;width:100%}.scrollbar-macosx > .scroll-element.scroll-y{height:100%;min-height:100%;right:0;top:0;width:0}.scrollbar-macosx > .scroll-element.scroll-x .scroll-bar{height:7px;min-width:10px;top:-9px}.scrollbar-macosx > .scroll-element.scroll-y .scroll-bar{left:-6px;min-height:10px;width:6px}.scrollbar-macosx > .scroll-element.scroll-x .scroll-element_outer{left:2px}.scrollbar-macosx > .scroll-element.scroll-x .scroll-element_size{left:-4px}.scrollbar-macosx > .scroll-element.scroll-y .scroll-element_outer{top:2px}.scrollbar-macosx > .scroll-element.scroll-y .scroll-element_size{top:-4px}.scrollbar-macosx > .scroll-element.scroll-x.scroll-scrolly_visible .scroll-element_size{left:-11px}.scrollbar-macosx > .scroll-element.scroll-y.scroll-scrollx_visible .scroll-element_size{top:-11px}
+
+* {
+  margin: 0;
+  padding: 0;
+  cursor: default;
+  -webkit-font-smoothing: antialiased;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+*:focus {
+  outline: 0;
+}
+
+body {
+  font-family: 'Segoe UI', 'Segoe UI Symbol', Arial, sans-serif;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  overflow: hidden;
+}
+
+.shblock {
+  width: 70vw;
+  height: 70vh;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, .7) 0%, rgba(255, 255, 255, 0) 70%);
+  position: absolute;
+  top: -35vh;
+  left: -35vw;
+  transition: all .2s;
+  opacity: .5;
+  z-index: -1;
+}
+
+.shblock.active {
+	opacity: .9;
+}
+
+.chatbox {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 450px;
+  height: 250px;
+  padding: 15px;
+  opacity: .7;
+  transition: all .5s;
+}
+.chatbox.active {
+	opacity: 1;
+}
+
+.chatbox p {
+  color: #fff;
+  line-height: 25px;
+  padding: 2px 5px;
+  padding-right: 15px;
+  margin: 0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, .5);
+  font-size: 1em;
+  color: rgba(255, 255, 255, .9);
+}
+
+.chatbox p b {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.msglist {
+  overflow-y: hidden;
+  height: 100%;
+}
+
+.msginput {
+	display: none;
+	width: 100%;
+}
+
+.msginput input {
+  background: rgba(0, 0, 0, .5);
+  border: 0;
+  padding: 10px;
+  width: 430px;
+  margin-left: 5px;
+  margin-top: 10px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1em;
+
+}
+
+.msginput input::selection {
+    background-color: #fff;
+    color: #000;
+}
+
+.msgsubmit {
+	font-size: 23px;
+    width: 65px;
+	height: 41px;
+    position: relative;
+    top: 5px;
+    right: 4px;
+    border: 0;
+    background: rgba(0,0,0,.5);
+    color: #fff;
+	transition: all .3s;
+}
+
+.msgsubmit::before {
+	content: "";
+	display: block;
+	position: absolute;
+	width: 1px;
+	height: 70%;
+	margin-top: -1px;
+	margin-left: -0.5px;
+	background: rgba(255,255,255,.6);
+	transition: all .3s;
+}
+
+.msgsubmit:hover {
+	background: rgba(0,0,0,.55);
+}
+
+
+@media screen and (max-width: 2560px) {
+	body {
+		font-size: 20px;
+	}
+	.chatbox {
+		width: 600px;
+		height: 400px;
+	}
+	.msginput input {
+		width: 580px;
+		margin-top: 20px;
+	}
+}
+@media screen and (max-width: 1440px) {
+  body {
+    font-size: 16px;
+  }
+  .chatbox {
+    width: 400px;
+    height: 300px;
+  }
+  .msginput input {
+    width: 380px;
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+	body {
+		font-size: 14px;
+	}
+	.chatbox {
+		width: 400px;
+		height: 300px;
+	}
+	.msginput input {
+		width: 380px;
+		margin-top: 10px;
+	}
+}
