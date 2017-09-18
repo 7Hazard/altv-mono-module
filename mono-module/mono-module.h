@@ -16,5 +16,4 @@ char *_strdup(const char *str);
 #endif
 
 void Print(std::string msg);
-
 void Error(std::string msg);
