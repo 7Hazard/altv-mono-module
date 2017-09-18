@@ -1,3 +1,0 @@
-Color = {
-	YELLOW = 0,
-}

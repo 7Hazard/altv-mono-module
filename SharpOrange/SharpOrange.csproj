@@ -14,9 +14,10 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
+    <AssemblyName>SharpOrangeSM</AssemblyName>
     <OutputPath>..\bin\SM\</OutputPath>
     <DefineConstants>TRACE;/define SM</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
