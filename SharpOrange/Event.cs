@@ -82,7 +82,7 @@ namespace SharpOrange
         /// <summary>
         /// Triggered whenever any other client and server event is passed
         /// </summary>
-        public static event OnEventHandler OnEvent = delegate { };
+        public static event OnEventHandler OnServerEvent = delegate { };
         static void TriggerOnEvent(string e, object[] args)
         {
             Task.Run(() =>
@@ -201,7 +201,7 @@ namespace SharpOrange
                             return;
                         }
                 }
-                SharpOrange.Exec(() => OnEvent(e, args));
+                SharpOrange.Exec(() => OnServerEvent(e, args));
             });
         }
     }

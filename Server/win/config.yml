@@ -5,6 +5,5 @@ masterserver: true
 resources:
   - client-script-loader
   - SharpFreeroam
-  - SharpFreeroamSM
   - chat
   - SharpLua

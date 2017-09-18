@@ -360,7 +360,7 @@
             Triggered when a client event is passed
             </summary>
         </member>
-        <member name="E:SharpOrange.Event.OnEvent">
+        <member name="E:SharpOrange.Event.OnServerEvent">
             <summary>
             Triggered whenever any other client and server event is passed
             </summary>

@@ -84,6 +84,7 @@ extern "C" {
 	}
 	EXPORT void GetPlayerName(long playerid, char* sb) {
 		std::string name = API::instance->GetPlayerName(playerid);
+		Print(name);
 		strcpy(sb, name.c_str());
 	}
 	EXPORT bool SetPlayerHealth(long playerid, float health) {
