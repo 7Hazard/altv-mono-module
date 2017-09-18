@@ -847,7 +847,7 @@
         <member name="M:SharpOrange.Server.AddLuaClientScript(System.String)">
             <summary>
             Load a Lua client script
-            REQUIRES the resource "client-script-loader"
+            <para>REQUIRES the resource "client-script-loader"</para>
             </summary>
             <param name="path">The path to the client script relative from the "resources" folder.</param>
         </member>

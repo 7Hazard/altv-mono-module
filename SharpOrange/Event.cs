@@ -15,9 +15,6 @@ namespace SharpOrange
         public static event Action OnServerUnload = delegate { };
         static void TriggerOnServerUnload()
         {
-#if !SM
-            Task.Run(() => SharpOrange.Exec(() => SharpOrange.SM.TriggerOnServerUnload()));
-#endif
             Task.Run(() => SharpOrange.Exec(() => OnServerUnload()));
         }
         /// <summary>
@@ -26,9 +23,6 @@ namespace SharpOrange
         public static event Action OnTick = delegate { };
         static void TriggerOnTick()
         {
-#if !SM
-            Task.Run(() => SharpOrange.Exec(() => SharpOrange.SM.TriggerOnTick()));
-#endif
             Task.Run(() => SharpOrange.Exec(() => OnTick()));
         }
 
