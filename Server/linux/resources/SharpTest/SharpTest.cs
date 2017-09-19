@@ -16,8 +16,9 @@ namespace SharpTest
 		void Event_OnPlayerConnect (SharpOrange.Objects.Player player)
 		{
 			Server.Print ("PLAYER CONNECTED");
-			Vector3 pos = player.Position;
-			player.Position = new Vector3(pos.x, pos.y, pos.z+1000);
+			Server.Print(player.Name);
+            throw new Exception("JIZZ MAN");
+            Server.Print(player.Name);
 		}
 	}
 }
