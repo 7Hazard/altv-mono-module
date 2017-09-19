@@ -139,7 +139,7 @@ namespace SharpOrange.Objects
         /// <summary>
         /// Get/Set primary color of vehicle
         /// </summary>
-        public RGB PrimaryColor
+        public byte PrimaryColor
         {
             get
             {
@@ -147,7 +147,7 @@ namespace SharpOrange.Objects
             }
             set
             {
-                if (!Server.SetVehiclePrimaryColor(ID, value.r, value.g, value.b))
+                if (!Server.SetVehiclePrimaryColor(ID, value))
                     SharpOrange.Error($"Failed to set PrimaryColor of vehicle '{ID}'!");
             }
         }
@@ -155,7 +155,7 @@ namespace SharpOrange.Objects
         /// <summary>
         /// Get/Set secondary color of vehicle
         /// </summary>
-        public RGB SecondaryColor
+        public byte SecondaryColor
         {
             get
             {
@@ -163,8 +163,40 @@ namespace SharpOrange.Objects
             }
             set
             {
-                if (!Server.SetVehicleSecondaryColor(ID, value.r, value.g, value.b))
+                if (!Server.SetVehicleSecondaryColor(ID, value))
                     SharpOrange.Error($"Failed to set PrimaryColor of vehicle '{ID}'!");
+            }
+        }
+
+        /// <summary>
+        /// Get/Set custom primary color of vehicle
+        /// </summary>
+        public RGB CustomPrimaryColor
+        {
+            get
+            {
+                return Server.GetVehicleCustomPrimaryColor(ID);
+            }
+            set
+            {
+                if (!Server.SetVehicleCustomPrimaryColor(ID, value.r, value.g, value.b))
+                    SharpOrange.Error($"Failed to set CustomPrimaryColor of vehicle '{ID}'!");
+            }
+        }
+
+        /// <summary>
+        /// Get/Set custom secondary color of vehicle
+        /// </summary>
+        public RGB CustomSecondaryColor
+        {
+            get
+            {
+                return Server.GetVehicleCustomSecondaryColor(ID);
+            }
+            set
+            {
+                if (!Server.SetVehicleCustomSecondaryColor(ID, value.r, value.g, value.b))
+                    SharpOrange.Error($"Failed to set CustomPrimaryColor of vehicle '{ID}'!");
             }
         }
 

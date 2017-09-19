@@ -302,31 +302,43 @@ namespace SharpOrange
         [DllImport("mono-module", EntryPoint = "SetVehicleRotation", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool SetVehicleRotation(ulong vehicleid, float rx, float ry, float rz);
 
-        [DllImport("mono-module", EntryPoint = "GetVehicleRotation", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("mono-module", CallingConvention = CallingConvention.Cdecl)]
         public static extern Vector3 GetVehicleRotation(ulong vehicleid);
 
-        [DllImport("mono-module", EntryPoint = "SetVehicleTyresBulletproof", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("mono-module", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool SetVehicleTyresBulletproof(ulong vehicleid, bool bulletproof);
 
-        [DllImport("mono-module", EntryPoint = "GetVehicleTyresBulletproof", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("mono-module", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool GetVehicleTyresBulletproof(ulong vehicleid);
 
-        [DllImport("mono-module", EntryPoint = "HasVehicleCustomColors", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("mono-module", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool SetVehiclePrimaryColor(ulong vehicleid, byte color);
+
+        [DllImport("mono-module", CallingConvention = CallingConvention.Cdecl)]
+        public static extern byte GetVehiclePrimaryColor(ulong vehicleid);
+
+        [DllImport("mono-module", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool SetVehicleSecondaryColor(ulong vehicleid, byte color);
+
+        [DllImport("mono-module", CallingConvention = CallingConvention.Cdecl)]
+        public static extern byte GetVehicleSecondaryColor(ulong vehicleid);
+
+        [DllImport("mono-module", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool[] HasVehicleCustomColors(ulong vehicleid);
 
-        [DllImport("mono-module", EntryPoint = "SetVehiclePrimaryColor", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SetVehiclePrimaryColor(ulong vehicleid, byte r, byte g, byte b);
+        [DllImport("mono-module", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool SetVehicleCustomPrimaryColor(ulong vehicleid, byte r, byte g, byte b);
         
-        [DllImport("mono-module", EntryPoint = "GetVehiclePrimaryColor", CallingConvention = CallingConvention.Cdecl)]
-        public static extern RGB GetVehiclePrimaryColor(ulong vehicleid);
+        [DllImport("mono-module", CallingConvention = CallingConvention.Cdecl)]
+        public static extern RGB GetVehicleCustomPrimaryColor(ulong vehicleid);
         
-        [DllImport("mono-module", EntryPoint = "SetVehicleSecondaryColor", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool SetVehicleSecondaryColor(ulong vehicleid, byte r, byte g, byte b);
+        [DllImport("mono-module", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool SetVehicleCustomSecondaryColor(ulong vehicleid, byte r, byte g, byte b);
         
-        [DllImport("mono-module", EntryPoint = "GetVehicleSecondaryColor", CallingConvention = CallingConvention.Cdecl)]
-        public static extern RGB GetVehicleSecondaryColor(ulong vehicleid);
+        [DllImport("mono-module", CallingConvention = CallingConvention.Cdecl)]
+        public static extern RGB GetVehicleCustomSecondaryColor(ulong vehicleid);
 
-        [DllImport("mono-module", EntryPoint = "SetVehicleEngineStatus", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("mono-module", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool SetVehicleEngineStatus(ulong vehicleid, bool status, bool locked);
 
         [DllImport("mono-module", EntryPoint = "GetVehicleEngineStatus", CallingConvention = CallingConvention.Cdecl)]

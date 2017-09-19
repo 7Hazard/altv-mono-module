@@ -368,8 +368,8 @@ public:
 	virtual bool SetVehicleEngineHealth(unsigned long vehid, float health) = 0;
 	virtual bool SetVehicleTankHealth(unsigned long vehid, float health) = 0;
 	virtual bool GetVehicleHealth(unsigned long vehid, float *body, float *engine, float *tank) = 0;
-	virtual bool SetVehicleNumberPlate(unsigned long vehid, const char *text) = 0; //Not implemented
-	virtual std::string GetVehicleNumberPlate(unsigned long vehid) = 0; //Not implemented
+	virtual bool SetVehicleNumberPlate(unsigned long vehid, const char *text) = 0;
+	virtual std::string GetVehicleNumberPlate(unsigned long vehid) = 0;
 	virtual bool SetVehicleNumberPlateStyle(unsigned long vehid, unsigned char style) = 0;
 	virtual bool GetVehicleNumberPlateStyle(unsigned long vehid, unsigned char *NumberPlateStyle) = 0;
 	virtual bool SetVehicleSirenState(unsigned long vehid, bool state) = 0;

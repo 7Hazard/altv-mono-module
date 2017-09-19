@@ -156,23 +156,39 @@ extern "C" {
 	EXPORT bool GetVehicleTiresBulletproof(unsigned long guid) {
 		return API::instance->GetVehicleTiresBulletproof(guid);
 	}
+	EXPORT bool SetVehiclePrimaryColor(unsigned long guid, unsigned char color) {
+		return API::instance->SetVehiclePrimaryColor(guid, color);
+	}
+	EXPORT unsigned char GetVehiclePrimaryColor(unsigned long guid) {
+		unsigned char color;
+		API::instance->GetVehiclePrimaryColor(guid, &color);
+		return color;
+	}
+	EXPORT bool SetVehicleSecondaryColor(unsigned long guid, unsigned char color) {
+		return API::instance->SetVehiclePrimaryColor(guid, color);
+	}
+	EXPORT unsigned char GetVehicleSecondaryColor(unsigned long guid) {
+		unsigned char color;
+		API::instance->GetVehicleSecondaryColor(guid, &color);
+		return color;
+	}
 	EXPORT bool HasVehicleCustomColors(unsigned long guid) {
 		bool colors[2];
 		API::instance->HasVehicleCustomColors(guid, &colors[0], &colors[1]);
 		return colors;
 	}
-	EXPORT bool SetVehiclePrimaryColor(unsigned long guid, unsigned char r, unsigned char g, unsigned char b) {
+	EXPORT bool SetVehicleCustomPrimaryColor(unsigned long guid, unsigned char r, unsigned char g, unsigned char b) {
 		return API::instance->SetVehicleCustomPrimaryColor(guid, r, g, b);
 	}
-	EXPORT RGB GetVehiclePrimaryColor(unsigned long guid) {
+	EXPORT RGB GetVehicleCustomPrimaryColor(unsigned long guid) {
 		RGB rgb;
 		API::instance->GetVehicleCustomPrimaryColor(guid, &rgb.r, &rgb.g, &rgb.b);
 		return rgb;
 	}
-	EXPORT bool SetVehicleSecondaryColor(unsigned long guid, unsigned char r, unsigned char g, unsigned char b) {
+	EXPORT bool SetVehicleCustomSecondaryColor(unsigned long guid, unsigned char r, unsigned char g, unsigned char b) {
 		return API::instance->SetVehicleCustomSecondaryColor(guid, r, g, b);
 	}
-	EXPORT RGB GetVehicleSecondaryColor(unsigned long guid, unsigned char *rColor, unsigned char *gColor, unsigned char *bColor) {
+	EXPORT RGB GetVehicleCustomPrimaryColor(unsigned long guid, unsigned char *rColor, unsigned char *gColor, unsigned char *bColor) {
 		RGB rgb;
 		API::instance->GetVehicleCustomPrimaryColor(guid, &rgb.r, &rgb.g, &rgb.b);
 		return rgb;
