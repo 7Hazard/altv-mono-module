@@ -188,7 +188,7 @@ extern "C" {
 	EXPORT bool SetVehicleCustomSecondaryColor(unsigned long guid, unsigned char r, unsigned char g, unsigned char b) {
 		return API::instance->SetVehicleCustomSecondaryColor(guid, r, g, b);
 	}
-	EXPORT RGB GetVehicleCustomPrimaryColor(unsigned long guid, unsigned char *rColor, unsigned char *gColor, unsigned char *bColor) {
+	EXPORT RGB GetVehicleCustomSecondaryColor(unsigned long guid, unsigned char *rColor, unsigned char *gColor, unsigned char *bColor) {
 		RGB rgb;
 		API::instance->GetVehicleCustomPrimaryColor(guid, &rgb.r, &rgb.g, &rgb.b);
 		return rgb;

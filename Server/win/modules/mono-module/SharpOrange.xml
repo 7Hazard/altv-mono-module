@@ -601,6 +601,16 @@
             Get/Set secondary color of vehicle
             </summary>
         </member>
+        <member name="P:SharpOrange.Objects.Vehicle.CustomPrimaryColor">
+            <summary>
+            Get/Set custom primary color of vehicle
+            </summary>
+        </member>
+        <member name="P:SharpOrange.Objects.Vehicle.CustomSecondaryColor">
+            <summary>
+            Get/Set custom secondary color of vehicle
+            </summary>
+        </member>
         <member name="P:SharpOrange.Objects.Vehicle.BulletproofTires">
             <summary>
             Get/Set bulletproof tires to vehicle
