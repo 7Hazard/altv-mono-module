@@ -1,17 +1,17 @@
-[09/19/17 18:40:14] Starting the GTA:Orange Server 0.0.1 (e1e5cc3b) - Sep  1 2017 16:09:24
-[09/19/17 18:40:14] Hostname: {ff8f00}Mono Module{ffffff} Development Server
-[09/19/17 18:40:14] Port: 7788
-[09/19/17 18:40:14] Maximum players: 30
-[09/19/17 18:40:14] [Master-Server] Connecting...
-[09/19/17 18:40:14] Lua module loaded
-[09/19/17 18:40:14] [SharpOrange] Module successfully initialized
-[09/19/17 18:40:14] [LUA] Starting resource client-script-loader
-[09/19/17 18:40:14] SHARP FREEROAM STARTED
-[09/19/17 18:40:14] Initializing database connection
-[09/19/17 18:40:14] Event 'register-client-script' was triggered with args:
-[09/19/17 18:40:15] [SharpOrange] Loaded resource 'SharpFreeroam'
-[09/19/17 18:40:15] [LUA] Starting resource chat
-[09/19/17 18:40:15] [LUA] Starting resource SharpLua
-[09/19/17 18:40:15] Event 'TestEvent' was triggered with args:
-[09/19/17 18:40:15] Server started
-[09/19/17 18:40:15] [Master-Server] Connected!
+[09/19/17 20:30:59] Starting the GTA:Orange Server 0.0.1 (e1e5cc3b) - Sep  1 2017 16:09:24
+[09/19/17 20:30:59] Hostname: {ff8f00}Mono Module{ffffff} Development Server
+[09/19/17 20:30:59] Port: 7788
+[09/19/17 20:30:59] Maximum players: 30
+[09/19/17 20:30:59] [Master-Server] Connecting...
+[09/19/17 20:30:59] Lua module loaded
+[09/19/17 20:30:59] [SharpOrange] Module successfully initialized
+[09/19/17 20:30:59] [LUA] Starting resource client-script-loader
+[09/19/17 20:30:59] SHARP FREEROAM STARTED
+[09/19/17 20:30:59] Initializing database connection
+[09/19/17 20:31:00] Event 'register-client-script' was triggered with args:
+[09/19/17 20:31:00] [SharpOrange] Loaded resource 'SharpFreeroam'
+[09/19/17 20:31:00] [LUA] Starting resource chat
+[09/19/17 20:31:00] [LUA] Starting resource SharpLua
+[09/19/17 20:31:00] Event 'TestEvent' was triggered with args:
+[09/19/17 20:31:00] Server started
+[09/19/17 20:31:00] [Master-Server] Connected!

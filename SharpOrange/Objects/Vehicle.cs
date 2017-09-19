@@ -148,7 +148,7 @@ namespace SharpOrange.Objects
             set
             {
                 if (!Server.SetVehiclePrimaryColor(ID, value))
-                    SharpOrange.Error($"Failed to set PrimaryColor of vehicle '{ID}'!");
+                    SharpOrange.Error($"Failed to set PrimaryColor '{value}' of vehicle '{ID}'!");
             }
         }
 
@@ -164,7 +164,7 @@ namespace SharpOrange.Objects
             set
             {
                 if (!Server.SetVehicleSecondaryColor(ID, value))
-                    SharpOrange.Error($"Failed to set PrimaryColor of vehicle '{ID}'!");
+                    SharpOrange.Error($"Failed to set SecondaryColor '{value}' of vehicle '{ID}'!");
             }
         }
 
@@ -180,7 +180,7 @@ namespace SharpOrange.Objects
             set
             {
                 if (!Server.SetVehicleCustomPrimaryColor(ID, value.r, value.g, value.b))
-                    SharpOrange.Error($"Failed to set CustomPrimaryColor of vehicle '{ID}'!");
+                    SharpOrange.Error($"Failed to set CustomPrimaryColor '{value.r}, {value.g}, {value.b}' of vehicle '{ID}'!");
             }
         }
 
@@ -196,7 +196,7 @@ namespace SharpOrange.Objects
             set
             {
                 if (!Server.SetVehicleCustomSecondaryColor(ID, value.r, value.g, value.b))
-                    SharpOrange.Error($"Failed to set CustomPrimaryColor of vehicle '{ID}'!");
+                    SharpOrange.Error($"Failed to set CustomSecondaryColor '{value.r}, {value.g}, {value.b}' of vehicle '{ID}'!");
             }
         }
 
