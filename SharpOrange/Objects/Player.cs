@@ -187,7 +187,7 @@ namespace SharpOrange.Objects
         public void PutInVehicle(Vehicle vehicle, char seat)
         {
             if (!Server.SetPlayerIntoVehicle(ID, vehicle.ID, seat))
-                SharpOrange.Print($"Failed to Put player '{Name}' ({ID}) into Vehicle '{vehicle.Model}' ({vehicle.ID})!");
+                SharpOrange.Print($"Failed to Put player '{Name}' ({ID}) into Vehicle '{vehicle.Hash}' ({vehicle.ID})!");
         }
         /// <summary>
         /// If player's HUD is enabled

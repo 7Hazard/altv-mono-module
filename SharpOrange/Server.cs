@@ -352,9 +352,13 @@ namespace SharpOrange
 
         [DllImport("mono-module", EntryPoint = "SetVehicleNumberPlate", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool SetVehicleNumberPlate(ulong vehicleid, string text);
-
-        [DllImport("mono-module", EntryPoint = "GetVehicleNumberPlate", CallingConvention = CallingConvention.Cdecl)]
-        public static extern string GetVehicleNumberPlate(ulong vehicleid);
+        
+        public static string GetVehicleNumberPlate(ulong vehicleid)
+        {
+            StringBuilder sb = new StringBuilder();
+            Orange.GetVehicleNumberPlate(vehicleid, sb);
+            return sb.ToString();
+        }
 
         [DllImport("mono-module", EntryPoint = "SetVehicleNumberPlateStyle", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool SetVehicleNumberPlateStyle(ulong vehicleid, byte style);
@@ -408,11 +412,11 @@ namespace SharpOrange
 
         // 3D Texts
 
-        internal readonly static Dictionary<ulong, HoloText> holotexts = new Dictionary<ulong, HoloText>();
+        internal readonly static Dictionary<ulong, Text3D> text3ds = new Dictionary<ulong, Text3D>();
         /// <summary>
         /// Dictionary of holo texts
         /// </summary>
-        public static IReadOnlyDictionary<ulong, HoloText> HoloTexts => holotexts;
+        public static IReadOnlyDictionary<ulong, Text3D> Text3Ds => text3ds;
 
         [DllImport("mono-module", EntryPoint = "Create3DText", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong Create3DText(string text, float x, float y, float z, int color, int outColor, float fontSize);

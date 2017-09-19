@@ -206,9 +206,9 @@ extern "C" {
 	EXPORT bool SetVehicleNumberPlate(unsigned long guid, const char *text) {
 		return API::instance->SetVehicleNumberPlate(guid, text);
 	}
-	EXPORT const char* GetVehicleNumberPlate(unsigned long guid) {
+	EXPORT void GetVehicleNumberPlate(unsigned long guid, char* sb) {
 		std::string plate = API::instance->GetVehicleNumberPlate(guid);
-		return plate.c_str();
+		strcpy(sb, plate.c_str());
 	}
 	EXPORT bool SetVehicleNumberPlateStyle(unsigned long guid, unsigned char style) {
 		return API::instance->SetVehicleNumberPlateStyle(guid, style);

@@ -17,6 +17,9 @@ namespace SharpOrange
         [DllImport("mono-module", EntryPoint = "GetPlayerName", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void GetPlayerName(long playerid, StringBuilder sb);
 
+        [DllImport("mono-module", EntryPoint = "GetVehicleNumberPlate", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void GetVehicleNumberPlate(ulong vehicle, StringBuilder sb);
+
         [DllImport("mono-module", EntryPoint = "SetPlayerSyncedData", CallingConvention = CallingConvention.Cdecl)]
         internal static extern bool SetPlayerSyncedData(long playerid, string key, EValue value);
 

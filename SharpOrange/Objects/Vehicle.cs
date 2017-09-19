@@ -16,18 +16,37 @@ namespace SharpOrange.Objects
             ID = Server.CreateVehicle((long)vehicle, position.x, position.y, position.z, 0);
             if (ID == 0)
             {
-                SharpOrange.Print($"Failed to create vehicle with model {vehicle}!");
+                SharpOrange.Print($"Failed to create vehicle with model {vehicle} | hash {(long)vehicle}!");
                 return;
             }
-            Model = vehicle;
+            Hash = (long)vehicle;
             Server.vehicles.Add(ID, this);
         }
+
+        /// <summary>
+        /// Creates a new Vehicle using vehicle hash
+        /// </summary>
+        /// <param name="hash"></param>
+        /// <param name="position"></param>
+        public Vehicle(long hash, Vector3 position)
+        {
+            ID = Server.CreateVehicle(hash, position.x, position.y, position.z, 0);
+            if (ID == 0)
+            {
+                SharpOrange.Print($"Failed to create vehicle with hash {hash}!");
+                return;
+            }
+            Hash = hash;
+            Server.vehicles.Add(ID, this);
+        }
+
         ~Vehicle()
         {
             if (!Server.DeleteVehicle(ID))
-                SharpOrange.Print($"Failed to delete vehicle! ID: '{ID}', Model: '{Model}'");
+                SharpOrange.Print($"Failed to delete vehicle! ID: '{ID}', Hash: '{Hash}'");
             Server.vehicles.Remove(ID);
         }
+
         /// <summary>
         /// Proper vehicle disposition, prevents garbage collector to wrongfully dispose it
         /// </summary>
@@ -35,17 +54,20 @@ namespace SharpOrange.Objects
         {
             GC.SuppressFinalize(this);
             if (!Server.DeleteVehicle(ID))
-                SharpOrange.Print($"Failed to delete vehicle! ID: '{ID}', Model: '{Model}'");
+                SharpOrange.Print($"Failed to delete vehicle! ID: '{ID}', Hash: '{Hash}'");
             Server.vehicles.Remove(ID);
         }
+
         /// <summary>
         /// Vehicle ID used for unmanaged usage
         /// </summary>
         public ulong ID { get; }
+
         /// <summary>
-        /// Model of the vehicle
+        /// Hash of the vehicle
         /// </summary>
-        public VehicleHash Model { get; }
+        public long Hash { get; }
+
         /// <summary>
         /// Get/Set Vehicle position
         /// </summary>
@@ -61,6 +83,7 @@ namespace SharpOrange.Objects
                     SharpOrange.Error($"Failed to set Position of vehicle '{ID}'!");
             }
         }
+
         /// <summary>
         /// Set Pitch, Yaw and Roll
         /// </summary>
@@ -76,6 +99,7 @@ namespace SharpOrange.Objects
                     SharpOrange.Error($"Failed to set Rotation of vehicle '{ID}'!");
             }
         }
+
         /// <summary>
         /// Get/Set lock state of vehicle
         /// </summary>
@@ -91,6 +115,7 @@ namespace SharpOrange.Objects
                     SharpOrange.Error($"Failed to Lock vehicle ID '{ID}'!");
             }
         }
+
         /// <summary>
         /// Get/Set health of vehicle
         /// </summary>
@@ -110,6 +135,7 @@ namespace SharpOrange.Objects
                     SharpOrange.Error($"Failed to set VehicleTankHealth of vehicle ID '{ID}'!");
             }
         }
+
         /// <summary>
         /// Get/Set primary color of vehicle
         /// </summary>
@@ -125,6 +151,7 @@ namespace SharpOrange.Objects
                     SharpOrange.Error($"Failed to set PrimaryColor of vehicle '{ID}'!");
             }
         }
+
         /// <summary>
         /// Get/Set secondary color of vehicle
         /// </summary>
@@ -140,6 +167,7 @@ namespace SharpOrange.Objects
                     SharpOrange.Error($"Failed to set PrimaryColor of vehicle '{ID}'!");
             }
         }
+
         /// <summary>
         /// Get/Set bulletproof tires to vehicle
         /// </summary>
@@ -155,6 +183,7 @@ namespace SharpOrange.Objects
                     SharpOrange.Print($"Failed to set Bulletproof Tires to Vehicle '{ID}'!");
             }
         }
+
         /// <summary>
         /// Get/Set license/number plate style of vehicle
         /// </summary>
@@ -170,6 +199,7 @@ namespace SharpOrange.Objects
                     SharpOrange.Print($"Failed to set Plate Style of Vehicle '{ID}'!");
             }
         }
+
         /// <summary>
         /// Get/Set license/number plate content of vehicle
         /// </summary>
@@ -185,6 +215,7 @@ namespace SharpOrange.Objects
                     SharpOrange.Print($"Failed to set Plate content of Vehicle '{ID}'!");
             }
         }
+
         /// <summary>
         /// Get/Set siren state On/Off (True/False)
         /// </summary>
@@ -200,6 +231,7 @@ namespace SharpOrange.Objects
                     SharpOrange.Print($"Failed to set Sirens State of Vehicle '{ID}'!");
             }
         }
+
         /// <summary>
         /// Get/Set vehicle lights state
         /// </summary>
@@ -215,6 +247,7 @@ namespace SharpOrange.Objects
                     SharpOrange.Print($"Failed to set Lights of Vehicle '{ID}'!");
             }
         }
+
         /// <summary>
         /// Get/Set the vehicle driver
         /// </summary>
@@ -232,6 +265,7 @@ namespace SharpOrange.Objects
                     SharpOrange.Print($"Failed to set Driver of Vehicle '{ID}'!");
             }
         }
+
         /// <summary>
         /// Returns passengers in a List of Players
         /// </summary>
