@@ -408,43 +408,6 @@ namespace SharpOrange
         [DllImport("mono-module", EntryPoint = "GetVehicleDriver", CallingConvention = CallingConvention.Cdecl)]
         public static extern uint[] GetVehiclePassengers(ulong vehicleid);
 
-        // Objects
-
-        internal readonly static Dictionary<ulong, GTAObject> gtaobjects = new Dictionary<ulong, GTAObject>();
-        /// <summary>
-        /// Dictionary of holo texts
-        /// </summary>
-        public static IReadOnlyDictionary<ulong, GTAObject> GTAObjects => gtaobjects;
-
-        [DllImport("mono-module", EntryPoint = "CreateObject", CallingConvention = CallingConvention.Cdecl)]
-        public static extern ulong CreateObject(long model, float x, float y, float z, float rx, float ry, float rz);
-
-        [DllImport("mono-module", EntryPoint = "DeleteObject", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool DeleteObject(ulong guid);
-
-        // 3D Texts
-
-        internal readonly static Dictionary<ulong, Text3D> text3ds = new Dictionary<ulong, Text3D>();
-        /// <summary>
-        /// Dictionary of holo texts
-        /// </summary>
-        public static IReadOnlyDictionary<ulong, Text3D> Text3Ds => text3ds;
-
-        [DllImport("mono-module", EntryPoint = "Create3DText", CallingConvention = CallingConvention.Cdecl)]
-        public static extern ulong Create3DText(string text, float x, float y, float z, int color, int outColor, float fontSize);
-
-        [DllImport("mono-module", EntryPoint = "Create3DTextForPlayer", CallingConvention = CallingConvention.Cdecl)]
-        public static extern ulong Create3DTextForPlayer(long guid, string text, float x, float y, float z, int color, int outColor);
-
-        [DllImport("mono-module", EntryPoint = "Delete3DText", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool Delete3DText(ulong guid);
-
-        [DllImport("mono-module", EntryPoint = "Attach3DTextToPlayer", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool Attach3DTextToPlayer(ulong guid, long player, float pitch, float yaw, float roll);
-
-        [DllImport("mono-module", EntryPoint = "Attach3DTextToVehicle", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool Attach3DTextToVehicle(ulong guid, ulong vehicle, float pitch, float yaw, float roll);
-
         // Blips
 
         internal readonly static Dictionary<ulong, Blip> blips = new Dictionary<ulong, Blip>();
@@ -502,6 +465,43 @@ namespace SharpOrange
 
         [DllImport("mono-module", EntryPoint = "DeleteMarker", CallingConvention = CallingConvention.Cdecl)]
         public static extern void DeleteMarker(ulong guid);
+
+        // 3D Texts
+
+        internal readonly static Dictionary<ulong, Text3D> text3ds = new Dictionary<ulong, Text3D>();
+        /// <summary>
+        /// Dictionary of holo texts
+        /// </summary>
+        public static IReadOnlyDictionary<ulong, Text3D> Text3Ds => text3ds;
+
+        [DllImport("mono-module", EntryPoint = "Create3DText", CallingConvention = CallingConvention.Cdecl)]
+        public static extern ulong Create3DText(string text, float x, float y, float z, uint color, uint outColor, float fontSize);
+
+        [DllImport("mono-module", EntryPoint = "Create3DTextForPlayer", CallingConvention = CallingConvention.Cdecl)]
+        public static extern ulong Create3DTextForPlayer(long guid, string text, float x, float y, float z, uint color, uint outColor);
+
+        [DllImport("mono-module", EntryPoint = "Delete3DText", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool Delete3DText(ulong guid);
+
+        [DllImport("mono-module", EntryPoint = "Attach3DTextToPlayer", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool Attach3DTextToPlayer(ulong guid, long player, float pitch, float yaw, float roll);
+
+        [DllImport("mono-module", EntryPoint = "Attach3DTextToVehicle", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool Attach3DTextToVehicle(ulong guid, ulong vehicle, float pitch, float yaw, float roll);
+
+        // Objects
+
+        internal readonly static Dictionary<ulong, GTAObject> gtaobjects = new Dictionary<ulong, GTAObject>();
+        /// <summary>
+        /// Dictionary of holo texts
+        /// </summary>
+        public static IReadOnlyDictionary<ulong, GTAObject> GTAObjects => gtaobjects;
+
+        [DllImport("mono-module", EntryPoint = "CreateObject", CallingConvention = CallingConvention.Cdecl)]
+        public static extern ulong CreateObject(long model, float x, float y, float z, float rx, float ry, float rz);
+
+        [DllImport("mono-module", EntryPoint = "DeleteObject", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool DeleteObject(ulong guid);
 
         // Misc
         [DllImport("mono-module", EntryPoint = "CreatePickup", CallingConvention = CallingConvention.Cdecl)]

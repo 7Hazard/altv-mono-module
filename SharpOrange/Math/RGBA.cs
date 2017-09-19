@@ -1,8 +1,10 @@
-﻿namespace SharpOrange.Math
+﻿using System;
+
+namespace SharpOrange.Math
 {
     public class RGBA
     {
-        public byte r, g, b, a;
+        public readonly byte r, g, b, a;
         /// <summary>
         /// Create an RGBA color object
         /// </summary>
@@ -15,13 +17,27 @@
             this.g = g;
             this.b = b;
             this.a = a;
-
-            hex = int.Parse(r.ToString("X2") + g.ToString("X2") + b.ToString("X2"));
+            
+            Hex = r.ToString("X2") + g.ToString("X2") + b.ToString("X2") + a.ToString("X2");
+            try
+            {
+                UInt = uint.Parse(Hex, System.Globalization.NumberStyles.HexNumber);
+            }
+            catch (Exception)
+            {
+                SharpOrange.Error($"Failed to convert RGBA '{Hex}' to uint!");
+                UInt = 0xFFFFFF;
+            }
         }
 
         /// <summary>
-        /// Hex value in RRGGBBAA format
+        /// Int value (from hex)
         /// </summary>
-        public int hex;
+        public readonly uint UInt;
+
+        /// <summary>
+        /// Hex value in format RRGGBB
+        /// </summary>
+        public readonly string Hex;
     }
 }

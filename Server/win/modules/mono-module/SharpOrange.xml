@@ -12,9 +12,14 @@
             <param name="g"></param>
             <param name="b"></param>
         </member>
-        <member name="F:SharpOrange.Math.RGBA.hex">
+        <member name="F:SharpOrange.Math.RGBA.UInt">
             <summary>
-            Hex value in RRGGBBAA format
+            Int value (from hex)
+            </summary>
+        </member>
+        <member name="F:SharpOrange.Math.RGBA.Hex">
+            <summary>
+            Hex value in format RRGGBB
             </summary>
         </member>
         <member name="M:SharpOrange.Math.Vector2.#ctor(System.Single,System.Single)">
@@ -159,9 +164,14 @@
             <param name="g"></param>
             <param name="b"></param>
         </member>
-        <member name="F:SharpOrange.Math.RGB.hex">
+        <member name="F:SharpOrange.Math.RGB.Int">
             <summary>
-            Hex value in RRGGBB format
+            Int value (from hex)
+            </summary>
+        </member>
+        <member name="F:SharpOrange.Math.RGB.Hex">
+            <summary>
+            Hex value in format RRGGBB
             </summary>
         </member>
         <member name="M:SharpOrange.Math.VehicleHealth.#ctor(System.Single,System.Single,System.Single)">
@@ -272,48 +282,48 @@
             <param name="second"></param>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Math.Vector3.Zero">
+        <member name="P:SharpOrange.Math.Vector3.Zero">
             <summary>
             Shorthand for writing Vector3(0, 0, 0).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Math.Vector3.One">
+        <member name="P:SharpOrange.Math.Vector3.One">
             <summary>
             Shorthand for writing Vector3(1, 1, 1).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Math.Vector3.Forward">
+        <member name="P:SharpOrange.Math.Vector3.Forward">
             <summary>
             Shorthand for writing Vector3(0, 0, 1).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Math.Vector3.Back">
+        <member name="P:SharpOrange.Math.Vector3.Back">
             <summary>
             Shorthand for writing Vector3(0, 0, -1).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Math.Vector3.Down">
+        <member name="P:SharpOrange.Math.Vector3.Down">
             <summary>
             Shorthand for writing Vector3(0, -1, 0).
             </summary>
         </member>
-        <member name="M:SharpOrange.Math.Vector3.Up">
+        <member name="P:SharpOrange.Math.Vector3.Up">
             <summary>
             Shorthand for writing Vector3(0, 1, 0).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Math.Vector3.Left">
+        <member name="P:SharpOrange.Math.Vector3.Left">
             <summary>
             Shorthand for writing Vector3(-1, 0, 0).
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SharpOrange.Math.Vector3.Right">
+        <member name="P:SharpOrange.Math.Vector3.Right">
             <summary>
             Shorthand for writing Vector3(1, 0, 0).
             </summary>
@@ -447,16 +457,26 @@
         </member>
         <member name="M:SharpOrange.Objects.Text3D.#ctor(System.String,SharpOrange.Math.Vector3,SharpOrange.Math.RGBA,System.Single)">
             <summary>
-            Create Holo Text for all players
+            Create 3D Text for all players
             </summary>
             <param name="text"></param>
             <param name="position"></param>
             <param name="color"></param>
             <param name="fontSize"></param>
         </member>
+        <member name="M:SharpOrange.Objects.Text3D.#ctor(System.String,SharpOrange.Math.Vector3,SharpOrange.Math.RGBA,SharpOrange.Math.RGBA,System.Single)">
+            <summary>
+            Creates a 3D Text for all players
+            </summary>
+            <param name="text"></param>
+            <param name="position"></param>
+            <param name="color"></param>
+            <param name="outline"></param>
+            <param name="fontSize"></param>
+        </member>
         <member name="M:SharpOrange.Objects.Text3D.#ctor(System.String,SharpOrange.Objects.Player,SharpOrange.Math.Vector3,SharpOrange.Math.RGBA,SharpOrange.Math.RGBA)">
             <summary>
-            Create Holo Text for specified player
+            Create 3D Text for specified player
             </summary>
             <param name="text"></param>
             <param name="player"></param>
@@ -466,22 +486,22 @@
         </member>
         <member name="M:SharpOrange.Objects.Text3D.Dispose">
             <summary>
-            Dispose Holo Text
+            Dispose 3D Text
             </summary>
         </member>
         <member name="P:SharpOrange.Objects.Text3D.ID">
             <summary>
-            3D Holo Text Unique ID
+            3D Text Unique ID
             </summary>
         </member>
         <member name="M:SharpOrange.Objects.Text3D.AttachTo(SharpOrange.Objects.Player,SharpOrange.Math.Vector3)">
             <summary>
-            Attach Holo Text to Player
+            Attach 3D Text to Player
             </summary>
         </member>
         <member name="M:SharpOrange.Objects.Text3D.AttachTo(SharpOrange.Objects.Vehicle,SharpOrange.Math.Vector3)">
             <summary>
-            Attach Holo Text to Vehicle
+            Attach 3D Text to Vehicle
             </summary>
         </member>
         <member name="T:SharpOrange.Objects.Marker">
@@ -918,16 +938,6 @@
             Dictionary/Map of Vehicles
             </summary>
         </member>
-        <member name="P:SharpOrange.Server.GTAObjects">
-            <summary>
-            Dictionary of holo texts
-            </summary>
-        </member>
-        <member name="P:SharpOrange.Server.Text3Ds">
-            <summary>
-            Dictionary of holo texts
-            </summary>
-        </member>
         <member name="P:SharpOrange.Server.Blips">
             <summary>
             Dictionary of Blips
@@ -936,6 +946,16 @@
         <member name="P:SharpOrange.Server.Markers">
             <summary>
             Dictionary/Map of markers for the GTA V map
+            </summary>
+        </member>
+        <member name="P:SharpOrange.Server.Text3Ds">
+            <summary>
+            Dictionary of holo texts
+            </summary>
+        </member>
+        <member name="P:SharpOrange.Server.GTAObjects">
+            <summary>
+            Dictionary of holo texts
             </summary>
         </member>
     </members>

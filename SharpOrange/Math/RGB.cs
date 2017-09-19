@@ -1,8 +1,10 @@
-﻿namespace SharpOrange.Math
+﻿using System;
+
+namespace SharpOrange.Math
 {
     public struct RGB
     {
-        public byte r, g, b;
+        public readonly byte r, g, b;
         /// <summary>
         /// Create an RGB color object
         /// </summary>
@@ -15,12 +17,25 @@
             this.g = g;
             this.b = b;
 
-            hex = int.Parse(r.ToString("X2") + g.ToString("X2") + b.ToString("X2"));
+            Hex = r.ToString("X2") + g.ToString("X2") + b.ToString("X2");
+            try
+            {
+                Int = int.Parse(Hex, System.Globalization.NumberStyles.HexNumber);
+            } catch (Exception)
+            {
+                SharpOrange.Error($"Failed to convert RGB '{Hex}' to int!");
+                Int = 0xFFFFFF;
+            }
         }
 
         /// <summary>
-        /// Hex value in RRGGBB format
+        /// Int value (from hex)
         /// </summary>
-        public int hex;
+        public readonly int Int;
+
+        /// <summary>
+        /// Hex value in format RRGGBB
+        /// </summary>
+        public readonly string Hex;
     }
 }

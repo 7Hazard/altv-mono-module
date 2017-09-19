@@ -182,71 +182,97 @@ namespace SharpOrange.Math
         /// Shorthand for writing Vector3(0, 0, 0).
         /// </summary>
         /// <returns></returns>
-        public static Vector3 Zero()
+        public static Vector3 Zero
         {
-            return new Vector3(0, 0, 0);
+            get
+            {
+                return new Vector3(0, 0, 0);
+            }
         }
 
         /// <summary>
         /// Shorthand for writing Vector3(1, 1, 1).
         /// </summary>
         /// <returns></returns>
-        public static Vector3 One()
+        public static Vector3 One
         {
-            return new Vector3(1, 1, 1);
+            get
+            {
+                return new Vector3(1, 1, 1);
+            }
+            
         }
 
         /// <summary>
         /// Shorthand for writing Vector3(0, 0, 1).
         /// </summary>
         /// <returns></returns>
-        public static Vector3 Forward()
+        public static Vector3 Forward
         {
-            return new Vector3(0, 0, 1);
+            get
+            {
+                return new Vector3(0, 0, 1);
+            }
         }
 
         /// <summary>
         /// Shorthand for writing Vector3(0, 0, -1).
         /// </summary>
         /// <returns></returns>
-        public static Vector3 Back()
+        public static Vector3 Back
         {
-            return new Vector3(0, 0, -1);
+            get
+            {
+                return new Vector3(0, 0, -1);
+            }
         }
 
         /// <summary>
         /// Shorthand for writing Vector3(0, -1, 0).
         /// </summary>
-        public static Vector3 Down()
+        public static Vector3 Down
         {
-            return new Vector3(0, -1, 0);
+            get
+            {
+                return new Vector3(0, -1, 0);
+            }
         }
 
         /// <summary>
         /// Shorthand for writing Vector3(0, 1, 0).
         /// </summary>
         /// <returns></returns>
-        public static Vector3 Up()
+        public static Vector3 Up
         {
-            return new Vector3(0, 1, 0);
+            get
+            {
+                return new Vector3(0, 1, 0);
+            }
         }
 
         /// <summary>
         /// Shorthand for writing Vector3(-1, 0, 0).
         /// </summary>
         /// <returns></returns>
-        public static Vector3 Left()
+        public static Vector3 Left
         {
-            return new Vector3(-1, 0, 0);
+            get
+            {
+                return new Vector3(-1, 0, 0);
+            }
         }
 
         /// <summary>
         /// Shorthand for writing Vector3(1, 0, 0).
         /// </summary>
         /// <returns></returns>
-        public static Vector3 Right()
+        public static Vector3 Right
         {
-            return new Vector3(1, 0, 0);
+            get
+            {
+                return new Vector3(1, 0, 0);
+            }
+            
         }
     }
 }

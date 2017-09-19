@@ -84,7 +84,6 @@ extern "C" {
 	}
 	EXPORT void GetPlayerName(long playerid, char* sb) {
 		std::string name = API::instance->GetPlayerName(playerid);
-		Print(name);
 		strcpy(sb, name.c_str());
 	}
 	EXPORT bool SetPlayerHealth(long playerid, float health) {
@@ -272,32 +271,6 @@ extern "C" {
 		return pass.data();
 	}
 
-	// Objects
-	EXPORT unsigned long CreateObject(long model, float x, float y, float z, float rx, float ry, float rz) {
-		return API::instance->CreateObject(model, x, y, z, rx, ry, rz);
-	}
-	EXPORT bool DeleteObject(unsigned long guid) {
-		return API::instance->DeleteObject(guid);
-	}
-	EXPORT unsigned long Create3DText(const char* text, float x, float y, float z, int color, int outColor, float fontSize) {
-		return API::instance->Create3DText(text, x, y, z, color, outColor, fontSize);
-	}
-	EXPORT unsigned long Create3DTextForPlayer(long guid, const char* text, float x, float y, float z, int color, int outColor, float fontSize) {
-		return API::instance->Create3DTextForPlayer(guid, text, x, y, z, color, outColor);
-	}
-	EXPORT bool Attach3DTextToPlayer(unsigned long guid, long player, float x, float y, float z) {
-		return API::instance->Attach3DTextToPlayer(guid, player, x, y, z);
-	}
-	EXPORT bool Attach3DTextToVehicle(unsigned long guid, unsigned long vehicle, float x, float y, float z) {
-		return API::instance->Attach3DTextToVehicle(guid, vehicle, x, y, z);
-	}
-	EXPORT bool Delete3DText(unsigned long guid) {
-		return API::instance->Delete3DText(guid);
-	}
-	EXPORT bool CreatePickup(int type, float x, float y, float z, float scale) {
-		return API::instance->CreatePickup(type, x, y, z, scale);
-	}
-
 	// Blips
 	EXPORT unsigned long CreateBlipForAll(const char* name, float x, float y, float z, float scale, int color, int sprite) {
 		return API::instance->CreateBlipForAll(name, x, y, z, scale, color, sprite);
@@ -342,6 +315,34 @@ extern "C" {
 	}
 	EXPORT void DeleteMarker(unsigned long guid) {
 		API::instance->DeleteMarker(guid);
+	}
+
+	// 3D Texts
+	EXPORT unsigned long Create3DText(const char* text, float x, float y, float z, int color, int outColor, float fontSize) {
+		return API::instance->Create3DText(text, x, y, z, color, outColor, fontSize);
+	}
+	EXPORT unsigned long Create3DTextForPlayer(long guid, const char* text, float x, float y, float z, int color, int outColor, float fontSize) {
+		return API::instance->Create3DTextForPlayer(guid, text, x, y, z, color, outColor);
+	}
+	EXPORT bool Attach3DTextToPlayer(unsigned long guid, long player, float x, float y, float z) {
+		return API::instance->Attach3DTextToPlayer(guid, player, x, y, z);
+	}
+	EXPORT bool Attach3DTextToVehicle(unsigned long guid, unsigned long vehicle, float x, float y, float z) {
+		return API::instance->Attach3DTextToVehicle(guid, vehicle, x, y, z);
+	}
+	EXPORT bool Delete3DText(unsigned long guid) {
+		return API::instance->Delete3DText(guid);
+	}
+	EXPORT bool CreatePickup(int type, float x, float y, float z, float scale) {
+		return API::instance->CreatePickup(type, x, y, z, scale);
+	}
+
+	// Objects
+	EXPORT unsigned long CreateObject(long model, float x, float y, float z, float rx, float ry, float rz) {
+		return API::instance->CreateObject(model, x, y, z, rx, ry, rz);
+	}
+	EXPORT bool DeleteObject(unsigned long guid) {
+		return API::instance->DeleteObject(guid);
 	}
 
 	// Notifications
