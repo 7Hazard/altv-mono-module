@@ -8,6 +8,6 @@ Description: Hacky lua resource for adding client scripts from other languages. 
 ]]--
 
 Server:On("register-client-script", function(name)
-    AddClientScript("..\\"..name)
+    AddClientScript("../"..name)
 end )
 

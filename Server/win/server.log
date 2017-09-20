@@ -1,33 +1,17 @@
-[09/20/17 01:09:29] Starting the GTA:Orange Server 0.0.1 (e1e5cc3b) - Sep  1 2017 16:09:24
-[09/20/17 01:09:29] Hostname: {ff8f00}Mono Module{ffffff} Development Server
-[09/20/17 01:09:29] Port: 7788
-[09/20/17 01:09:29] Maximum players: 30
-[09/20/17 01:09:29] [Master-Server] Connecting...
-[09/20/17 01:09:29] Lua module loaded
-[09/20/17 01:09:29] [SharpOrange] Module successfully initialized
-[09/20/17 01:09:29] [LUA] Starting resource client-script-loader
-[09/20/17 01:09:29] SHARP FREEROAM STARTED
-[09/20/17 01:09:29] Initializing database connection
-[09/20/17 01:09:29] Event 'register-client-script' was triggered with args:
-[09/20/17 01:09:29] [SharpOrange] Loaded resource 'SharpFreeroam'
-[09/20/17 01:09:29] [LUA] Starting resource chat
-[09/20/17 01:09:29] [LUA] Starting resource SharpLua
-[09/20/17 01:09:29] Event 'TestEvent' was triggered with args:
-[09/20/17 01:09:29] Server started
-[09/20/17 01:09:29] [Master-Server] Connected!
-[09/20/17 01:09:32] Incoming connection from 127.0.0.1|50782
-[09/20/17 01:09:38] PLAYER Hazard CONNECTED
-[09/20/17 01:09:38] NEW POSITION SET TO 1000, 20, 81
-[09/20/17 01:09:38] PLAYER POS: 1000, 20, 81
-[09/20/17 01:09:38] PLAYER POS: 1000, 20, 81
-[09/20/17 01:09:38] PLAYER POS: 1000, 20, 81
-[09/20/17 01:09:38] PLAYER POS: 1000, 20, 81
-[09/20/17 01:09:38] PLAYER POS: 1000, 20, 81
-[09/20/17 01:09:38] PLAYER POS: 1000, 20, 81
-[09/20/17 01:09:38] PLAYER POS: 1000, 20, 81
-[09/20/17 01:09:38] PLAYER POS: 1000, 20, 81
-[09/20/17 01:09:38] PLAYER POS: 1000, 20, 81
-[09/20/17 01:09:38] PLAYER POS: 1000, 20, 81
-[09/20/17 01:09:38] VEHICLE SUPPOSED TO BE CREATED AT 1000, 20, 81
-[09/20/17 01:09:38] VEHICLE POSITION: 1000, 25, 81
-[09/20/17 01:09:38] Event 'CustomEvent' was triggered with args:
+[09/20/17 14:57:03] Starting the GTA:Orange Server 0.0.1 (e1e5cc3b) - Sep  1 2017 16:09:24
+[09/20/17 14:57:03] Hostname: {ff8f00}Mono Module{ffffff} Development Server
+[09/20/17 14:57:03] Port: 7788
+[09/20/17 14:57:03] Maximum players: 30
+[09/20/17 14:57:03] [Master-Server] Connecting...
+[09/20/17 14:57:03] Lua module loaded
+[09/20/17 14:57:04] [SharpOrange] Module successfully initialized
+[09/20/17 14:57:04] [LUA] Starting resource client-script-loader
+[09/20/17 14:57:04] SHARP FREEROAM STARTED
+[09/20/17 14:57:04] Initializing database connection
+[09/20/17 14:57:04] Event 'register-client-script' was triggered with args:
+[09/20/17 14:57:04] [SharpOrange] Loaded resource 'SharpFreeroam'
+[09/20/17 14:57:04] [LUA] Starting resource chat
+[09/20/17 14:57:04] [LUA] Starting resource SharpLua
+[09/20/17 14:57:04] Event 'TestEvent' was triggered with args:
+[09/20/17 14:57:04] Server started
+[09/20/17 14:57:04] [Master-Server] Connected!
