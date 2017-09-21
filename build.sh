@@ -14,7 +14,7 @@ cd mono-module-"$1"-linux
 
 # Handle dependent resources
 mkdir resources
-cp -r ../../client-script-loader resources/
+cp -r ../../SharpOrange/client-script-loader resources/
 
 # Handle module files
 mkdir modules

@@ -11,15 +11,16 @@ namespace SharpOrange.Objects
         /// </summary>
         /// <param name="vehicle"></param>
         /// <param name="position"></param>
-        public Vehicle(VehicleHash vehicle, Vector3 position)
+        public Vehicle(VehicleHash model, Vector3 position)
         {
-            ID = Server.CreateVehicle((long)vehicle, position.x, position.y, position.z, 0);
+            ID = Server.CreateVehicle((long)model, position.x, position.y, position.z, 0);
             if (ID == 0)
             {
-                SharpOrange.Print($"Failed to create vehicle with model {vehicle} | hash {(long)vehicle}!");
+                SharpOrange.Print($"Failed to create vehicle with model {model} | hash {(long)model}!");
                 return;
             }
-            Hash = (long)vehicle;
+            Hash = (long)model;
+            Model = model;
             Server.vehicles.Add(ID, this);
         }
 
@@ -67,6 +68,11 @@ namespace SharpOrange.Objects
         /// Hash of the vehicle
         /// </summary>
         public long Hash { get; }
+
+        /// <summary>
+        /// Get/Set the model of the car
+        /// </summary>
+        public VehicleHash Model { get; }
 
         /// <summary>
         /// Get/Set Vehicle position
