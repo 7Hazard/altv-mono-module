@@ -6,7 +6,6 @@
 bin
 build
 
-
 # User-specific files
 *.suo
 *.user
@@ -292,5 +291,3 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
-
-Server\*
