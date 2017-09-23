@@ -1,6 +1,0 @@
-type: lua
-files:
-  - html/index.html
-  - html/icons.ttf
-  - html/style.css
-  - html/app.js

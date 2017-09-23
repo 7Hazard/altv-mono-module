@@ -1,10 +1,6 @@
 @echo off
 
-echo %CD%
-set moduledir = %CD%
-echo %moduledir%
-set bdir = mono-module-%~1%-win
-echo %bdir%
+echo BUILDING mono-module-%~1-win
 
 if exist "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\Common7\Tools\VsDevCmd.bat" (
   call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\Common7\Tools\VsDevCmd.bat"
@@ -21,24 +17,30 @@ if exist "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\Common7
 	)
 )
 
-echo %cd%
+cd Repos\mono-module
 
 echo. & echo BUILDING mono-module
-msbuild mono-module\mono-module.vcxproj /p:Configuration=Release;Platform=x64 /p:OutputPath=..\bin\
+msbuild mono-module\mono-module.vcxproj /p:Configuration=Release;Platform=x64 /p:OutDir="../bin/"
 echo. & echo BUILDING SharpOrange
-msbuild SharpOrange\SharpOrange.csproj /p:Configuration=Release;Platform="Any CPU"; /p:PreBuildEvent= /p:PostBuildEvent= /p:OutputPath=..\bin\
+msbuild SharpOrange\SharpOrange.csproj /p:Configuration=Release /p:OutputPath="..\bin\mono-module"
+
+echo. & echo SETTING UP BUILD STRUCTURE
 mkdir build
 cd build
-mkdir %bdir%
-cd %bdir%
+mkdir mono-module-%~1-win
+cd mono-module-%~1-win
+mkdir modules
+mkdir resources
+cd modules
 mkdir mono-module
 cd mono-module
-cd ..\..\..\
+mkdir bin
+cd ..\..\..\..\
 
 echo. & echo COPYING MODULE DLLS
-copy bin\mono-module.dll modules\mono-module.dll
-copy bin\SharpOrange.dll modules\mono-module\SharpOrange.dll
-copy mono-module\mono-2.0-sgen.dll %bdir%\modules\mono-module\bin\mono-2.0-sgen.dll
+copy bin\mono-module.dll build\mono-module-%~1-win\modules\mono-module.dll
+copy bin\mono-module\SharpOrange.dll build\mono-module-%~1-win\modules\mono-module\SharpOrange.dll
+copy mono-module\mono-2.0-sgen.dll build\mono-module-%~1-win\modules\mono-module\bin\mono-2.0-sgen.dll
 
-copy SharpOrange\client-script-loader %bdir%\resources\client-script-loader
+xcopy SharpOrange\client-script-loader build\mono-module-%~1-win\resources\client-script-loader\ /Y
 :END

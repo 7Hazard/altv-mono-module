@@ -1,9 +1,0 @@
-name: "{ff8f00}Mono Module{ffffff} Development Server"
-port: 7788
-players: 30
-masterserver: true
-resources:
-  - client-script-loader
-  - SharpFreeroam
-  - chat
-  - SharpLua
