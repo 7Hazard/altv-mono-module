@@ -24,7 +24,7 @@ namespace SharpOrange.Math
             } catch (Exception)
             {
                 SharpOrange.Error($"Failed to convert RGB '{Hex}' to int!");
-                Int = 0xFFFFFF;
+                Int = 0;
             }
         }
 

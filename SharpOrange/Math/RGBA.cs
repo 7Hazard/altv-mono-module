@@ -26,7 +26,7 @@ namespace SharpOrange.Math
             catch (Exception)
             {
                 SharpOrange.Error($"Failed to convert RGBA '{Hex}' to uint!");
-                UInt = 0xFFFFFF;
+                UInt = 0;
             }
         }
 
